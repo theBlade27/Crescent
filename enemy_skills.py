@@ -11,7 +11,7 @@ class ScimitarSlash(EnemySkill):
         self.range = [0, 3]
         self.name = 'SCIMITAR SLASH'
 
-        self.effects_on_hit = ['BLEEDING']
+        self.effects_on_hit = ['BLEEDING3']
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
@@ -40,6 +40,8 @@ class RushedShot(EnemySkill):
 
         self.range = [3, 6]
         self.name = 'RUSHED SHOT'
+
+        self.effects_on_hit = ['BLEEDING3']
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 

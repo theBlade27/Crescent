@@ -16,8 +16,8 @@ class Hero(Character):
 
         if self.type == 'BLADE':
             self.name = 'BLADE'
-            self.max_health = 20
-            self.speed = 30
+            self.max_health = 1
+            self.speed = 3
             self.damage = [6, 9]
             self.healing = [1, 2]
             self.sanity_recovery_skills = [4, 7]
@@ -29,7 +29,7 @@ class Hero(Character):
             self.bleed = 60
             self.venom = 60
             self.fire = 60
-            self.death = 50
+            self.death = 1
             self.stun = 70
             self.debuff = 60
             self.equipment = [None, None, None]
@@ -49,12 +49,12 @@ class Hero(Character):
 
         if self.type == 'ARCANE':
             self.name = 'ARCANE'
-            self.max_health = 10
+            self.max_health = 1
             self.speed = 6
             self.damage = [5, 7]
             self.healing = [5, 7]
             self.sanity_recovery_skills = [0, 0]
-            self.mobility = 5
+            self.mobility = 6
             self.protection = 0
             self.agility = 20
             self.precision = 95
@@ -62,7 +62,7 @@ class Hero(Character):
             self.bleed = 30
             self.venom = 30
             self.fire = 30
-            self.death = 50
+            self.death = 1
             self.stun = 50
             self.debuff = 40
             self.equipment = [None, None, None]
@@ -211,16 +211,14 @@ class Hero(Character):
             sound = p.mixer.Sound(DEATH_SOUND)
             sound.play()
 
-            if self.game.battle_mode == True:
-
-                menu = self.game.menus['BATTLE']
-                for tile in menu.tiles:
-                    if tile.grid_pos == self.grid_pos:
-                        tile.obstructed = False
+            menu = self.game.menus['BATTLE']
+            for tile in menu.tiles:
+                if tile.grid_pos == self.grid_pos:
+                    tile.obstructed = False
 
             self.game.hero_party.remove(self)
 
-            if self.game.battle_mode == True:
+            if self in self.game.menus['BATTLE'].characters:
                 self.game.menus['BATTLE'].heroes.remove(self)
                 self.game.menus['BATTLE'].characters.remove(self)
                 self.game.battle.all_characters.remove(self)

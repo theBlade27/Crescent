@@ -43,7 +43,7 @@ class CalculateSkillTimer(Timer):
             if self.character in self.game.battle.all_characters:
                 self.character.calculate_skill()
             else:
-                self.game.selected_character = self.game.battle.all_characters[(self.game.battle.turn_order_counter + 1) % len(self.game.battle.all_characters)]
+                self.game.selected_character = self.game.battle.all_characters[(self.game.battle.turn_order_counter - 1) % len(self.game.battle.all_characters)]
                 self.game.battle.start_next_character_turn()
             self.kill()
 
@@ -63,8 +63,6 @@ class PlayerTurnTimer(Timer):
 
         if self.character not in self.game.battle.all_characters:
             self.game.textbox_text += '\n{} MET THEIR END.'.format(self.character.name)
-            self.game.selected_character = self.game.battle.all_characters[(self.game.battle.turn_order_counter + 1) % len(self.game.battle.all_characters)]
-            self.game.battle.start_next_character_turn()
 
         self.game.menus['TOP'].update_images()
         self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
@@ -73,6 +71,9 @@ class PlayerTurnTimer(Timer):
         now = p.time.get_ticks()
 
         if now >= self.target_time:
+            if self.character not in self.game.battle.all_characters:
+                self.game.selected_character = self.game.battle.all_characters[(self.game.battle.turn_order_counter - 1) % len(self.game.battle.all_characters)]
+                self.game.battle.start_next_character_turn()
             self.kill()
 
 class EnemyIsMovingTimer(Timer):

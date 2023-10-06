@@ -40,6 +40,8 @@ class Battle(p.sprite.Sprite):
         menu = self.game.menus['BATTLE']
         if len(menu.enemies) == 0:
             self.end_battle()
+        elif len(menu.heroes) == 0:
+            self.game.quit()
         else:
             self.turn_order_counter = self.all_characters.index(self.game.selected_character)
             self.turn_order_counter += 1
