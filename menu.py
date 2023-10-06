@@ -169,6 +169,38 @@ class CombatAnimation(Menu):
 
         pass
 
+class SkillInfo(Menu):
+
+    def __init__(self, game, hero):
+        super().__init__(game)
+
+        self.scale = 1
+
+        self.hero = hero
+        self.selected_skill = self.hero.selected_skill
+
+        self.pos = [352, 196]
+        self.background = MENU_SPRITESHEETS['BACKGROUND'].copy()
+        self.image = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
+        self.background = self.image
+
+        self.hitbox = p.rect.Rect(self.pos[0], self.pos[1], self.image.get_width(), self.image.get_height())
+
+        self.images = {
+            'TITLE_ICON': SkillMenuIcon(self.game),
+            'TITLE': MenuTitle(self.game, 'SELECT SKILLS'),
+            'EXIT': ExitButton(self.game, self),
+            'SELECTED_SKILL': SelectedSkillImage(self.game, self),
+            'DAMAGE_MULTIPLIER': SkillDamageIcon(self.game, self),
+            'DAMAGE_MULTIPLIER_TEXT': SkillDamageMultiplier(self.game, self)
+        }
+
+        for i in range (4):
+            self.images['SKILLSLOT' + str(i + 1)] = SkillInfoSlot(self.game, self, i)
+            self.images['SKILL' + str(i + 1)] = SkillInfoImage(self.game, self, i)
+
+        self.update_images()
+
 class Loot(Menu):
 
     def __init__(self, game, loot_list):

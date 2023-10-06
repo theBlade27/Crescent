@@ -28,6 +28,15 @@ class TextboxBackground(Image):
         self.background = self.image
         self.pos = [0, 0]
 
+class SkillMenuIcon(Image):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 4).get_sprite(0, 320, 20, 20)
+        self.background = self.image
+        self.pos = [8, 8]
+
 class SlotTextbox(Image):
 
     def __init__(self, game):
@@ -341,6 +350,14 @@ class HeroInventorySkillSlot(Image):
                     sound = p.mixer.Sound(BUTTON_SOUND)
                     sound.play()
                     self.game.menus['BOTTOM'].update_images()
+
+                if self.game.mouse.pressed['M2']:
+                    self.hero.selected_skill = self.hero.skills[self.index]
+                    sound = p.mixer.Sound(BUTTON_SOUND)
+                    sound.play()
+                    self.game.menus['BOTTOM'].update_images()
+                    self.game.close_menu('INVENTORY')
+                    self.game.open_menu('SELECT_SKILLS', self.hero)
 
             if self.hero.selected_skill == self.hero.skills[self.index]:
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
@@ -802,6 +819,119 @@ class LootImage(Image):
         if self.loot_list[self.index] != None:
 
             self.image = self.loot_list[self.index].image.copy()
+
+
+class SkillDamageIcon(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0, 18, 9, 9)
+        self.background = self.image.copy()
+        self.background = self.image
+        self.pos = [8, 384]
+        self.menu = menu
+
+    def update(self):
+
+        if self.menu.hero.selected_skill.heals == False:
+
+            self.image = self.background.copy()
+
+        else:
+
+            self.image.fill(BLUE)
+
+class SkillInfoImage(Image):
+
+    def __init__(self, game, menu, index):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        self.index = index
+        if type(self.hero) == Hero:
+            self.image = p.transform.scale(self.hero.skills[self.index].image.copy(), [80, 80])
+        else:
+            self.image = p.Surface((80, 80))
+            self.image.fill(BLUE)
+        self.pos = [24 + self.index * 120, 140]
+
+    def update(self):
+
+        self.hero = self.menu.hero
+
+        if type(self.hero) == Hero:
+            self.image.fill(DARKBLUE)
+            self.image = p.transform.scale(self.hero.skills[self.index].image.copy(), [80, 80])
+
+class SelectedSkillImage(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+
+        self.background = MENU_SPRITESHEETS['SLOT_THICK'].copy()
+        self.scale = 4
+        self.background = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
+
+        self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
+
+        self.pos = [8, 268]
+
+    def update(self):
+
+        self.hero = self.menu.hero 
+        self.skill = self.hero.selected_skill
+        self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
+
+        self.image = self.background.copy()
+        self.image.blit(self.icon, [16, 16])
+
+class SkillInfoSlot(Image):
+
+    def __init__(self, game, menu, index):
+        super().__init__(game)
+
+        self.image = MENU_SPRITESHEETS['SLOT_THICK'].copy()
+        self.scale = 4
+        self.image = p.transform.scale(self.image, (self.image.get_width() * self.scale, self.image.get_height() * self.scale))
+        self.background = self.image
+        self.index = index
+        self.pos = [8 + self.index * 120, 124]
+        self.menu = menu
+
+        self.hero = self.menu.hero
+
+        self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
+
+    def update(self):
+
+        self.hero = self.menu.hero
+
+        self.image = self.background.copy()
+
+        if type(self.hero) == Hero:
+        
+            self.image.blit(self.background, [0, 0])
+            self.image = colour_swap(self.image, RED, FAKEBLACK)
+            if self.hitbox.collidepoint(self.game.mouse.pos):
+
+                self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+                if self.game.mouse.pressed['M1']:
+                    self.hero.selected_skill = self.hero.skills[self.index]
+                    sound = p.mixer.Sound(BUTTON_SOUND)
+                    sound.play()
+                    self.game.menus['BOTTOM'].update_images()
+
+            if self.hero.selected_skill == self.hero.skills[self.index]:
+                self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+
+
 
 
 

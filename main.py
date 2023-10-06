@@ -181,6 +181,10 @@ class Game:
 
             self.menus[menu] = Loot(self, loot_list)
 
+        if menu == 'SELECT_SKILLS':
+
+            self.menus[menu] = SkillInfo(self, character)
+
     def close_menu(self, menu):
 
         if menu == 'INVENTORY':
@@ -190,6 +194,11 @@ class Game:
         if menu == 'LOOT':
 
             self.menus[menu].kill()
+
+        if menu == 'SELECT_SKILLS':
+
+            self.menus[menu].kill()
+
 
     def play_combat_animations(self, attacker, targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers):
 

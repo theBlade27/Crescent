@@ -516,6 +516,37 @@ class InventoryDamage(Text):
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
 
+class SkillDamageMultiplier(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+        self.scale = 2
+        self.text = 'X' + str(self.skill.multiplier)
+        self.pos = [48, 384]
+        self.width = 9 * FONT_WIDTH
+        self.height = 1 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+
+        self.text = 'X' + str(self.skill.multiplier)
+
+        if self.skill.heals == False:
+            self.draw_text()
+            self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+        else:
+            self.image.fill(BLUE)
+
 class InventoryAgility(Text):
 
     def __init__(self, game, menu):
