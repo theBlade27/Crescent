@@ -128,7 +128,8 @@ MENU_SPRITESHEETS = {
     'SLOT': p.image.load(path.join(slots_folder, 'slot.png')),
     'SLOT_LARGE': p.image.load(path.join(slots_folder, 'slot_large.png')),
     'ITEMS': p.image.load(path.join(items_folder, 'items.png')),
-    'COMBAT_BACKGROUND': p.image.load(path.join(backgrounds_folder, 'combat_background.png'))
+    'COMBAT_BACKGROUND': p.image.load(path.join(backgrounds_folder, 'combat_background.png')),
+    'REPOSITION_SMALL': p.image.load(path.join(slots_folder, 'slot_reposition_small.png'))
 }
 
 FONT = p.image.load(path.join(UI_folder, 'font.png'))

@@ -24,13 +24,17 @@ class Skill(p.sprite.Sprite):
         self.heals = False
         self.sanity_recovering = False
         self.sanity_reducing = False
+        self.debuffing = False
 
         self.effects_on_hit = []
         self.effects_on_user = []
 
         self.bonus_stun = 0
-        self.bonus_burn = 0
-        self.bonus_bleed = 0
+        self.bonus_debuff = 0
+
+        self.bonus_crit = 0
+
+        self.bonus_precision = 0
 
         self.combat_animation = p.Surface((1, 1))
         self.combat_animation.fill(BLACK)
@@ -124,6 +128,20 @@ class Skill(p.sprite.Sprite):
 
                     heal_numbers.append(healing)
 
+
+        for effect in self.effects_on_user:
+
+            if effect == 'STRENGTH':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Strength:
+                        effect.remove_effect()
+
+                self.character.effects.append(Strength(self.game, self.character))
+                self.character.effect_applied_images.append(Strength(self.game, None).image)
+
+
+
         for target in self.targets:
 
             target.effect_applied_images.clear()
@@ -139,7 +157,7 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_burn
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.fire:
                             self.successful = True
@@ -163,7 +181,7 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_burn
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.fire:
                             self.successful = True
@@ -188,7 +206,7 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_burn
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.fire:
                             self.successful = True
@@ -213,7 +231,7 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_bleed
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.bleed:
                             self.successful = True
@@ -238,7 +256,7 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_bleed
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.bleed:
                             self.successful = True
@@ -263,7 +281,7 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_burn
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.bleed:
                             self.successful = True
@@ -306,6 +324,161 @@ class Skill(p.sprite.Sprite):
                         else:
 
                             target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'MARKING':
+
+                        for effect in target.effects:
+                            if type(effect) == Mark:
+                                effect.remove_effect()
+
+                        target.effects.append(Mark(self.game, target))
+                        target.effect_applied_images.append(Mark(self.game, None).image)
+
+                    if effect == 'ANTIDODGE':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == AntiDodge:
+                                    effect.remove_effect()
+
+                            target.effects.append(AntiDodge(self.game, target))
+                            target.effect_applied_images.append(AntiDodge(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'ANTIDODGE2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == AntiDodge2:
+                                    effect.remove_effect()
+
+                            target.effects.append(AntiDodge2(self.game, target))
+                            target.effect_applied_images.append(AntiDodge2(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'ANTIDODGE3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == AntiDodge3:
+                                    effect.remove_effect()
+
+                            target.effects.append(AntiDodge3(self.game, target))
+                            target.effect_applied_images.append(AntiDodge3(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BLINDING':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Blindness:
+                                    effect.remove_effect()
+
+                            target.effects.append(Blindness(self.game, target))
+                            target.effect_applied_images.append(Blindness(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BLINDING2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Blindness2:
+                                    effect.remove_effect()
+
+                            target.effects.append(Blindness2(self.game, target))
+                            target.effect_applied_images.append(Blindness2(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BLINDING3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Blindness3:
+                                    effect.remove_effect()
+
+                            target.effects.append(Blindness3(self.game, target))
+                            target.effect_applied_images.append(Blindness3(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+
 
                 i += 1
 
@@ -426,6 +599,17 @@ class EnemySkill(Skill):
 
                     heal_numbers.append(healing)
 
+        for effect in self.effects_on_user:
+
+            if effect == 'STRENGTH':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Strength:
+                        effect.remove_effect()
+
+                self.character.effects.append(Strength(self.game, self.character))
+                self.character.effect_applied_images.append(Strength(self.game, None).image)
+
         for character in characters:
 
             character.effect_applied_images.clear()
@@ -439,7 +623,7 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_burn
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.fire:
                             self.successful = True
@@ -463,7 +647,7 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_burn
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.fire:
                             self.successful = True
@@ -488,7 +672,7 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_burn
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.fire:
                             self.successful = True
@@ -512,7 +696,7 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_bleed
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.bleed:
                             self.successful = True
@@ -536,7 +720,7 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_bleed
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.bleed:
                             self.successful = True
@@ -561,7 +745,7 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_bleed
+                        rand += self.bonus_debuff
 
                         if rand >= self.character.bleed:
                             self.successful = True
@@ -604,6 +788,160 @@ class EnemySkill(Skill):
                         else:
 
                             character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'MARKING':
+
+                        for effect in character.effects:
+                            if type(effect) == Mark:
+                                effect.remove_effect()
+
+                        character.effects.append(Mark(self.game, character))
+                        character.effect_applied_images.append(Mark(self.game, None).image)
+
+                    if effect == 'ANTIDODGE':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == AntiDodge:
+                                    effect.remove_effect()
+
+                            character.effects.append(AntiDodge(self.game, character))
+                            character.effect_applied_images.append(AntiDodge(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'ANTIDODGE2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == AntiDodge2:
+                                    effect.remove_effect()
+
+                            character.effects.append(AntiDodge2(self.game, character))
+                            character.effect_applied_images.append(AntiDodge2(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'ANTIDODGE3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == AntiDodge3:
+                                    effect.remove_effect()
+
+                            character.effects.append(AntiDodge3(self.game, character))
+                            character.effect_applied_images.append(AntiDodge3(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BLINDING':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Blindness:
+                                    effect.remove_effect()
+
+                            character.effects.append(Blindness(self.game, character))
+                            character.effect_applied_images.append(Blindness(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BLINDING2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Blindness2:
+                                    effect.remove_effect()
+
+                            character.effects.append(Blindness2(self.game, character))
+                            character.effect_applied_images.append(Blindness2(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BLINDING3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Blindness3:
+                                    effect.remove_effect()
+
+                            character.effects.append(Blindness3(self.game, character))
+                            character.effect_applied_images.append(Blindness3(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
 
                 i += 1
 

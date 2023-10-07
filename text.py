@@ -378,7 +378,7 @@ class MenuTitle(Text):
         self.text = text
         self.pos = [88, 12]
 
-        self.width = 10 * FONT_WIDTH
+        self.width = 16 * FONT_WIDTH
         self.height = 1 * FONT_HEIGHT
 
         self.image = p.Surface((self.width, self.height))
@@ -539,13 +539,191 @@ class SkillDamageMultiplier(Text):
         self.hero = self.menu.hero
         self.skill = self.hero.selected_skill
 
+        self.image.fill(BLUE)
+
         self.text = 'X' + str(self.skill.multiplier)
 
-        if self.skill.heals == False:
-            self.draw_text()
-            self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+
+
+class SkillCritMultiplier(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+        self.scale = 2
+        if self.skill.bonus_crit < 0:
+            self.text = '-' + str(self.skill.bonus_crit)
+        if self.skill.bonus_crit > 0:
+            self.text = '+' + str(self.skill.bonus_crit)
+        if self.skill.bonus_crit == 0:
+            self.text = '+0'
+        self.pos = [48, 424]
+        self.width = 9 * FONT_WIDTH
+        self.height = 1 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+
+        self.image.fill(BLUE)
+
+        if self.skill.bonus_crit < 0:
+            self.text = '-' + str(self.skill.bonus_crit)
+        if self.skill.bonus_crit > 0:
+            self.text = '+' + str(self.skill.bonus_crit)
+        if self.skill.bonus_crit == 0:
+            self.text = '+0'
+
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+class SkillPrecisionMultiplier(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+        self.scale = 2
+        if self.skill.bonus_precision < 0:
+            self.text = '-' + str(self.skill.bonus_precision)
+        if self.skill.bonus_precision > 0:
+            self.text = '+' + str(self.skill.bonus_precision)
+        if self.skill.bonus_precision == 0:
+            self.text = '+0'
+        self.pos = [48, 464]
+        self.width = 9 * FONT_WIDTH
+        self.height = 1 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+
+        self.image.fill(BLUE)
+
+        if self.skill.bonus_precision < 0:
+            self.text = '-' + str(self.skill.bonus_precision)
+        if self.skill.bonus_precision > 0:
+            self.text = '+' + str(self.skill.bonus_precision)
+        if self.skill.bonus_precision == 0:
+            self.text = '+0'
+
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    
+class SkillStunMultiplier(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+        self.scale = 2
+        if 'STUNNING' in self.skill.effects_on_hit:
+            if self.skill.bonus_stun < 0:
+                self.text = '-' + str(self.skill.bonus_stun)
+            if self.skill.bonus_stun > 0:
+                self.text = '+' + str(self.skill.bonus_stun)
+            if self.skill.bonus_stun == 0:
+                self.text = '+0'
+        self.pos = [48, 464]
+        self.width = 9 * FONT_WIDTH
+        self.height = 1 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+
+        self.image.fill(BLUE)
+
+        if 'STUNNING' in self.skill.effects_on_hit:
+
+            if self.skill.bonus_stun < 0:
+                self.text = '-' + str(self.skill.bonus_stun)
+            if self.skill.bonus_stun > 0:
+                self.text = '+' + str(self.skill.bonus_stun)
+            if self.skill.bonus_stun == 0:
+                self.text = '+0'
+
         else:
-            self.image.fill(BLUE)
+
+            self.text = ''
+
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+class SkillDebuffMultiplier(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+        self.scale = 2
+        if self.skill.debuffing:
+            if self.skill.bonus_debuff < 0:
+                self.text = '-' + str(self.skill.bonus_debuff)
+            if self.skill.bonus_debuff > 0:
+                self.text = '+' + str(self.skill.bonus_debuff)
+            if self.skill.bonus_debuff == 0:
+                self.text = '+0'
+        self.pos = [48, 504]
+        self.width = 9 * FONT_WIDTH
+        self.height = 1 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        self.skill = self.hero.selected_skill
+
+        self.image.fill(BLUE)
+
+        if self.skill.debuffing:
+
+            if self.skill.bonus_debuff < 0:
+                self.text = '-' + str(self.skill.bonus_debuff)
+            if self.skill.bonus_debuff > 0:
+                self.text = '+' + str(self.skill.bonus_debuff)
+            if self.skill.bonus_debuff == 0:
+                self.text = '+0'
+
+        else:
+
+            self.text = ''
+
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+
 
 class InventoryAgility(Text):
 

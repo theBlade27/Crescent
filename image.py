@@ -477,6 +477,375 @@ class HeroLargePortrait(Image):
         self.image.fill(DARKBLUE)
         self.image.blit(self.game.selected_character.large_portrait.copy(), [0, 0])
 
+class SkillMenuPortrait(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        self.image = self.hero.portrait.copy()
+        self.pos = [1048, 540]
+
+    def update(self):
+
+        self.image.fill(DARKBLUE)
+        self.image.blit(self.hero.portrait.copy(), [0, 0])
+
+class SkillPortraitSlot(Image):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = MENU_SPRITESHEETS['SLOT'].copy()
+        self.scale = 4
+        self.image = p.transform.scale(self.image, (self.image.get_width() * self.scale, self.image.get_height() * self.scale))
+        self.background = self.image
+        self.pos = [1036, 528]
+
+    def update(self):
+        
+        self.image = self.background.copy()
+
+class SkillRangeIndicator(Image):
+    
+    def __init__(self, game, menu, index):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        self.index = index
+
+        self.scale = 4
+
+        self.out_of_range_image = MENU_SPRITESHEETS['REPOSITION_SMALL'].copy()
+        self.out_of_range_image = p.transform.scale(self.out_of_range_image, (self.out_of_range_image.get_width() * self.scale, self.out_of_range_image.get_height() * self.scale))
+
+        self.damage_icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0, 18, 9, 9)
+        self.heal_icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(45, 0, 9, 9)
+
+        self.image = self.out_of_range_image.copy()
+
+        self.pos = [964 - index * 72, 564]
+
+    def update(self):
+
+        self.hero = self.menu.hero
+        skill = self.hero.selected_skill
+
+        self.image.blit(self.out_of_range_image, [0, 0])
+
+        if skill.heals == False:
+
+            if self.index >= skill.range[0] and self.index <= skill.range[1]:
+
+                self.image.blit(self.damage_icon, [16, 16])
+
+        if skill.heals:
+
+            if self.index >= skill.range[0] and self.index <= skill.range[1]:
+
+                self.image.blit(self.heal_icon, [16, 16])
+
+class OnHitEffectIcon(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        self.scale = 4
+
+        self.icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0, 18, 9, 9)
+
+        self.image = p.Surface((36, 36))
+        self.image.fill(BLUE)
+
+        self.pos = [192, 468]
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        skill = self.hero.selected_skill
+
+        self.image.fill(BLUE)
+
+        if len(skill.effects_on_hit) > 0:
+
+            self.image.blit(self.icon, [0, 0])
+
+class OnUseEffectIcon(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        self.scale = 4
+
+        self.icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(45, 0, 9, 9)
+
+        self.image = p.Surface((36, 36))
+        self.image.fill(BLUE)
+
+        self.pos = [612, 468]
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        skill = self.hero.selected_skill
+
+        self.image.fill(BLUE)
+
+        if len(skill.effects_on_user) > 0:
+
+            self.image.blit(self.icon, [0, 0])
+
+class OnUseEnemyEffectDisplay(Image):
+    
+    def __init__(self, game, menu, index):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        self.index = index
+
+        self.scale = 4
+
+        self.image = p.Surface((80, 80))
+        self.image.fill(BLUE)
+
+        self.pos = [660 + index * 96, 476]
+
+    def update(self):
+
+        self.hero = self.menu.hero
+        skill = self.hero.selected_skill
+
+        self.image.fill(BLUE)
+
+        if self.index < len(skill.effects_on_user):
+
+            if skill.effects_on_user[self.index] == 'BURNING':
+
+                self.image.blit(p.transform.scale(Burning(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'BURNING2':
+
+                self.image.blit(p.transform.scale(Burning2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'BURNING3':
+
+                self.image.blit(p.transform.scale(Burning3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'BLEEDING':
+
+                self.image.blit(p.transform.scale(Bleeding(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'BLEEDING2':
+
+                self.image.blit(p.transform.scale(Bleeding2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'BLEEDING3':
+
+                self.image.blit(p.transform.scale(Bleeding3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'STUNNING':
+
+                self.image.blit(p.transform.scale(Stun(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'MARKING':
+
+                self.image.blit(p.transform.scale(Mark(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'WEAKNESS':
+
+                self.image.blit(p.transform.scale(Weakness(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'WEAKNESS2':
+
+                self.image.blit(p.transform.scale(Weakness2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'WEAKNESS3':
+
+                self.image.blit(p.transform.scale(Weakness3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'STRENGTH':
+
+                self.image.blit(p.transform.scale(Strength(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'STRENGTH2':
+
+                self.image.blit(p.transform.scale(Strength2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'STRENGTH3':
+
+                self.image.blit(p.transform.scale(Strength3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'DODGE':
+
+                self.image.blit(p.transform.scale(Dodge(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'DODGE2':
+
+                self.image.blit(p.transform.scale(Dodge2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'DODGE3':
+
+                self.image.blit(p.transform.scale(Dodge3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'ANTIDODGE':
+
+                self.image.blit(p.transform.scale(AntiDodge(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'ANTIDODGE2':
+
+                self.image.blit(p.transform.scale(AntiDodge2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'ANTIDODGE3':
+
+                self.image.blit(p.transform.scale(AntiDodge3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'BLINDNESS':
+
+                self.image.blit(p.transform.scale(Blindness(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'BLINDNESS2':
+
+                self.image.blit(p.transform.scale(Blindness2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_user[self.index] == 'BLINDNESS3':
+
+                self.image.blit(p.transform.scale(Blindness3(self.game, None).image, [80, 80]), [0, 0])
+
+class OnHitEnemyEffectDisplay(Image):
+    
+    def __init__(self, game, menu, index):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        self.index = index
+
+        self.scale = 4
+
+        self.image = p.Surface((80, 80))
+        self.image.fill(BLUE)
+
+        self.pos = [240 + index * 96, 476]
+
+    def update(self):
+
+        self.hero = self.menu.hero
+        skill = self.hero.selected_skill
+
+        self.image.fill(BLUE)
+
+        if self.index < len(skill.effects_on_hit):
+
+            if skill.effects_on_hit[self.index] == 'BURNING':
+
+                self.image.blit(p.transform.scale(Burning(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'BURNING2':
+
+                self.image.blit(p.transform.scale(Burning2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'BURNING3':
+
+                self.image.blit(p.transform.scale(Burning3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'BLEEDING':
+
+                self.image.blit(p.transform.scale(Bleeding(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'BLEEDING2':
+
+                self.image.blit(p.transform.scale(Bleeding2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'BLEEDING3':
+
+                self.image.blit(p.transform.scale(Bleeding3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'STUNNING':
+
+                self.image.blit(p.transform.scale(Stun(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'MARKING':
+
+                self.image.blit(p.transform.scale(Mark(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'WEAKNESS':
+
+                self.image.blit(p.transform.scale(Weakness(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'WEAKNESS2':
+
+                self.image.blit(p.transform.scale(Weakness2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'WEAKNESS3':
+
+                self.image.blit(p.transform.scale(Weakness3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'STRENGTH':
+
+                self.image.blit(p.transform.scale(Strength(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'STRENGTH2':
+
+                self.image.blit(p.transform.scale(Strength2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'STRENGTH3':
+
+                self.image.blit(p.transform.scale(Strength3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'DODGE':
+
+                self.image.blit(p.transform.scale(Dodge(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'DODGE2':
+
+                self.image.blit(p.transform.scale(Dodge2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'DODGE3':
+
+                self.image.blit(p.transform.scale(Dodge3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'ANTIDODGE':
+
+                self.image.blit(p.transform.scale(AntiDodge(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'ANTIDODGE2':
+
+                self.image.blit(p.transform.scale(AntiDodge2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'ANTIDODGE3':
+
+                self.image.blit(p.transform.scale(AntiDodge3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'BLINDNESS':
+
+                self.image.blit(p.transform.scale(Blindness(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'BLINDNESS':
+
+                self.image.blit(p.transform.scale(Blindness2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'BLINDNESS':
+
+                self.image.blit(p.transform.scale(Blindness3(self.game, None).image, [80, 80]), [0, 0])
+
+
+
+
+
+
 class HeroPreviewBuff(Image):
 
     def __init__(self, game, menu, index):
@@ -826,21 +1195,105 @@ class SkillDamageIcon(Image):
     def __init__(self, game, menu):
         super().__init__(game)
 
-        self.image = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0, 18, 9, 9)
-        self.background = self.image.copy()
-        self.background = self.image
+        self.damage_icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0, 18, 9, 9)
+        self.heal_icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(45, 0, 9, 9)
+
+        self.image = self.damage_icon.copy()
+
         self.pos = [8, 384]
         self.menu = menu
 
     def update(self):
 
-        if self.menu.hero.selected_skill.heals == False:
+        self.image.fill(BLUE)
 
-            self.image = self.background.copy()
+        if self.menu.hero.selected_skill != None:
 
-        else:
+            if self.menu.hero.selected_skill.heals == False:
 
-            self.image.fill(BLUE)
+                self.image.blit(self.damage_icon, [0, 0])
+
+            else:
+
+                self.image.blit(self.heal_icon, [0, 0])
+
+class SkillCritIcon(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(36, 0, 9, 9)
+
+        self.image = self.icon.copy()
+
+        self.pos = [8, 424]
+        self.menu = menu
+
+    def update(self):
+
+        self.image.fill(BLUE)
+
+        self.image.blit(self.icon, [0, 0])
+
+    
+
+class SkillPrecisionIcon(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(27, 0, 9, 9)
+
+        self.image = self.icon.copy()
+
+        self.pos = [8, 464]
+        self.menu = menu
+
+    def update(self):
+
+        self.image.fill(BLUE)
+
+        self.image.blit(self.icon, [0, 0])
+
+class SkillStunIcon(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(9, 9, 9, 9)
+
+        self.image = self.icon.copy()
+
+        self.pos = [8, 464]
+        self.menu = menu
+
+    def update(self):
+
+        self.image.fill(BLUE)
+
+        if 'STUNNING' in self.menu.hero.selected_skill.effects_on_hit:
+
+            self.image.blit(self.icon, [0, 0])
+
+class SkillDebuffIcon(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(18, 9, 9, 9)
+
+        self.image = self.icon.copy()
+
+        self.pos = [8, 504]
+        self.menu = menu
+
+    def update(self):
+
+        self.image.fill(BLUE)
+
+        if self.menu.hero.selected_skill.debuffing:
+
+            self.image.blit(self.icon, [0, 0])
 
 class SkillInfoImage(Image):
 
@@ -887,7 +1340,8 @@ class SelectedSkillImage(Image):
 
         self.hero = self.menu.hero 
         self.skill = self.hero.selected_skill
-        self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
+        if self.skill != None:
+            self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
 
         self.image = self.background.copy()
         self.image.blit(self.icon, [16, 16])

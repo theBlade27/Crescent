@@ -191,13 +191,30 @@ class SkillInfo(Menu):
             'TITLE': MenuTitle(self.game, 'SELECT SKILLS'),
             'EXIT': ExitButton(self.game, self),
             'SELECTED_SKILL': SelectedSkillImage(self.game, self),
-            'DAMAGE_MULTIPLIER': SkillDamageIcon(self.game, self),
-            'DAMAGE_MULTIPLIER_TEXT': SkillDamageMultiplier(self.game, self)
+            'DAMAGE_MULTIPLIER_ICON': SkillDamageIcon(self.game, self),
+            'DAMAGE_MULTIPLIER_TEXT': SkillDamageMultiplier(self.game, self),
+            'CRIT_ICON': SkillCritIcon(self.game, self),
+            'CRIT_TEXT': SkillCritMultiplier(self.game, self),
+            'PRECISION_ICON': SkillPrecisionIcon(self.game, self),
+            'PRECISION_TEXT': SkillPrecisionMultiplier(self.game, self),
+            'STUN_ICON': SkillStunIcon(self.game, self),
+            'STUN_TEXT': SkillStunMultiplier(self.game, self),
+            'DEBUFF_ICON': SkillDebuffIcon(self.game, self),
+            'DEBUFF_TEXT': SkillDebuffMultiplier(self.game, self),
+            'SLOT': SkillPortraitSlot(self.game),
+            'PORTRAIT': SkillMenuPortrait(self.game, self),
+            'ONHITEFFECT': OnHitEffectIcon(self.game, self),
+            'ONUSEEFFECT': OnUseEffectIcon(self.game, self),
         }
 
         for i in range (4):
             self.images['SKILLSLOT' + str(i + 1)] = SkillInfoSlot(self.game, self, i)
             self.images['SKILL' + str(i + 1)] = SkillInfoImage(self.game, self, i)
+            self.images['EFFECTS_ON_HIT' + str(i + 1)] = OnHitEnemyEffectDisplay(self.game, self, i)
+            self.images['EFFECTS_ON_USE' + str(i + 1)] = OnUseEnemyEffectDisplay(self.game, self, i)
+
+        for i in range (14):
+            self.images['RANGE' + str(i + 1)] = SkillRangeIndicator(self.game, self, i)
 
         self.update_images()
 

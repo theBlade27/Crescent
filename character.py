@@ -48,6 +48,7 @@ class Character(p.sprite.Sprite):
         self.has_used_skill = False
         self.deaths_door = False
         self.stunned = False
+        self.marked = False
         
         self.sanity_recovery_skills = [0, 0]
         self.sanity_reduction_skills = [0, 0]
@@ -73,7 +74,7 @@ class Character(p.sprite.Sprite):
 
                 rand = random.randint(1, 100)
 
-                if rand <= chance_to_dodge:
+                if rand <= chance_to_dodge - damage_dealer.selected_skill.bonus_precision:
 
                     dodged = True
 
@@ -131,7 +132,7 @@ class Character(p.sprite.Sprite):
 
         rand = random.randint(0, 100)
 
-        if rand <= character.crit:
+        if rand <= character.crit + character.selected_skill.bonus_crit:
             return True
         else:
             return False

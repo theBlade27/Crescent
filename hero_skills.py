@@ -35,6 +35,9 @@ class GetHim(HeroSkill):
 
         self.multiplier = 0
 
+        self.effects_on_hit = ['MARKING', 'ANTIDODGE']
+        self.effects_on_user = ['STRENGTH']
+
         self.sound = p.mixer.Sound(MARK_SOUND)
 
         self.combat_animation = self.spritesheet.get_sprite(0, 240, 120, 40)
@@ -57,6 +60,7 @@ class Slash(HeroSkill):
         self.targets_all_in_range = True
 
         self.effects_on_hit = ['BLEEDING']
+        self.debuffing = True
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
@@ -104,6 +108,7 @@ class AzureEruption(HeroSkill):
         self.splash = 2
 
         self.effects_on_hit = ['BURNING']
+        self.debuffing = True
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
@@ -128,7 +133,8 @@ class Dazzle(HeroSkill):
 
         self.targets_all_in_range = True
 
-        self.effects_on_hit = ['BURNING2', 'STUNNING']
+        self.effects_on_hit = ['BURNING', 'STUNNING', 'BLINDING']
+        self.debuffing = True
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
@@ -148,6 +154,7 @@ class ArcaneAssault(HeroSkill):
         self.range = [4, 8]
 
         self.effects_on_hit = ['BURNING']
+        self.debuffing = True
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 
@@ -164,7 +171,7 @@ class Rejuvinate(HeroSkill):
         self.image = self.spritesheet.get_sprite(60, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 8]
+        self.range = [0, 10]
 
         self.targets_enemies = False
 
