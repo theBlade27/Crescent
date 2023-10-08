@@ -75,6 +75,14 @@ ENEMY_PARTIES = {
     'TUTORIAL': ['BANDIT1', 'BANDIT2', 'BANDIT3'] 
 }
 
+LOOT_TABLE = {
+    'TUTORIAL': [
+        ['BANDAGE'],
+        ['BANDAGE'],
+        ['TORCH']
+    ]
+}
+
 TILESET = p.image.load(path.join(tiles_folder, 'tileset.png'))
 
 PORTRAITS = p.image.load(path.join(UI_folder, 'npc_portraits.png'))

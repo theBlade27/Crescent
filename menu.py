@@ -62,10 +62,10 @@ class CombatAnimation(Menu):
 
         if crit == True:
             self.shaking = True
-            self.shake_intensity = 40
+            self.shake_intensity = 30
         else:
             self.shaking = True
-            self.shake_intensity = 20
+            self.shake_intensity = 15
 
         self.shake_offset_x = 0
         self.shake_offset_y = 0
@@ -286,7 +286,6 @@ class Loot(Menu):
             'INVENTORY_ICON': InventoryIcon(self.game),
             'TITLE': MenuTitle(self.game, 'LOOT!'),
             'EXIT': ExitButton(self.game, self),
-            'DELETE': DeleteButton(self.game, self)
         }
 
         for i in range (25):

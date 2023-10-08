@@ -1,6 +1,7 @@
 import pygame as p
 from settings import *
 from menu import *
+from item import *
 
 class Battle(p.sprite.Sprite):
 
@@ -8,6 +9,7 @@ class Battle(p.sprite.Sprite):
 
         self.game = game
         self.game.battle = self
+        self.battle = battle
 
         self.game.menus['BATTLE'] = BattleMenu(self.game, battle)
 
@@ -48,6 +50,35 @@ class Battle(p.sprite.Sprite):
             self.game.selected_character = self.all_characters[self.turn_order_counter % len(self.all_characters)]
             self.game.selected_character.start_turn()
 
+    def generate_loot(self):
+
+        self.loot_list = []
+        self.items = []
+
+        number_of_common = random.randint(2, 3)
+        number_of_rare = random.randint(1, 2)
+        number_of_very_rare = random.randint(0, 1)
+
+        for i in range(number_of_common):
+            self.loot_list.append(random.choice(LOOT_TABLE[self.battle][0]))
+
+        for i in range(number_of_rare):
+            self.loot_list.append(random.choice(LOOT_TABLE[self.battle][1]))
+
+        for i in range(number_of_very_rare):
+            self.loot_list.append(random.choice(LOOT_TABLE[self.battle][2]))
+
+        for item in self.loot_list:
+
+            if item == 'BANDAGE':
+
+                self.items.append(Bandage(self.game))
+
+            if item == 'TORCH':
+
+                self.items.append(Torch(self.game))
+
+
     def end_battle(self):
 
         self.game.menus['BATTLE'].kill()
@@ -81,6 +112,13 @@ class Battle(p.sprite.Sprite):
 
         for menu in self.game.menus.values():
             menu.update_images()
+
+        self.game.last_interacted.beaten = True
+
+        self.generate_loot()
+
+        self.game.open_menu('LOOT', loot_list = self.items)
+        self.loot_open = True
 
         
 

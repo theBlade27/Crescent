@@ -338,20 +338,6 @@ class Game:
 
                     self.clear_view = not self.clear_view
 
-                if event.key == p.K_b:
-
-                    loot_list = [
-                        Bandage(self),
-                        Torch(self),
-                        Bandage(self)
-                    ]
-
-                    if self.loot_open == False:
-                        self.open_menu('LOOT', loot_list = loot_list)
-                        self.loot_open = True
-                    else:
-                        self.close_menu('LOOT')
-                        self.loot_open = False
 
     def quit(self):
 

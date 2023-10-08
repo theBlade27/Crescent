@@ -2,7 +2,7 @@ import pygame as p
 from settings import *
 from sprite import *
 from camera import *
-from map import *
+from item import *
 vec = p.math.Vector2
 
 class TileObject(p.sprite.Sprite):
@@ -67,36 +67,84 @@ class BattleInteraction(Interaction):
     def __init__(self, game, x, y, description, type):
         super().__init__(game, x, y, description)
 
-        self.description += '\nSTART BATTLE? (Y)'
+        self.description += '\nSTART BATTLE?'
         self.type = type
+        self.beaten = False
 
     def update(self):
+
+        if self.beaten == False:
     
-        accessible = True
+            accessible = True
 
-        character_location = self.game.camera_focus.pos
-        distance_to_target = character_location - vec((self.pos[0] + 30), (self.pos[1] + 30))
+            character_location = self.game.camera_focus.pos
+            distance_to_target = character_location - vec((self.pos[0] + 30), (self.pos[1] + 30))
 
-        if distance_to_target.length() > INTERACT_RADIUS:
-            accessible = False
-             
-        if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
-            self.game.mouse.image = self.game.mouse.images[2]
-            if accessible == True:
+            if distance_to_target.length() > INTERACT_RADIUS:
+                accessible = False
+                
+            if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
+                self.game.mouse.image = self.game.mouse.images[2]
+                if accessible == True:
 
-                self.game.textbox_text = self.description
-                self.game.menus['TOP'].images['TEXT'].update()
-                self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
-                self.game.menus['TOP'].images['PORTRAIT'].update()
+                    self.game.textbox_text = self.description
+                    self.game.menus['TOP'].images['TEXT'].update()
+                    self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+                    self.game.menus['TOP'].images['PORTRAIT'].update()
 
-                pressed_keys = p.key.get_pressed()
+                    if self.game.mouse.pressed['M1']:
+                        self.game.start_battle(self.type)
+                        self.game.last_interacted = self
+                        sound = p.mixer.Sound(BLIP_SOUND)
+                        sound.play()
 
-                if pressed_keys[p.K_y]:
-                    self.game.start_battle(self.type)
-                    sound = p.mixer.Sound(BLIP_SOUND)
-                    sound.play()
+class Loot(Interaction):
 
+    def __init__(self, game, x, y, description, type):
+        super().__init__(game, x, y, description)
 
+        self.description += '\nLOOT?'
+        self.type = type
+        self.looted = False
+        self.inventory = []
+
+        self.generate_loot()
+
+    def generate_loot(self):
+
+        if self.type == 'tutorial':
+
+            self.inventory = [
+                Bandage(self.game),
+                Torch(self.game)
+            ]
+
+    def update(self):
+
+        if self.looted == False:
+    
+            accessible = True
+
+            character_location = self.game.camera_focus.pos
+            distance_to_target = character_location - vec((self.pos[0] + 30), (self.pos[1] + 30))
+
+            if distance_to_target.length() > INTERACT_RADIUS:
+                accessible = False
+                
+            if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
+                self.game.mouse.image = self.game.mouse.images[2]
+                if accessible == True:
+
+                    self.game.textbox_text = self.description
+                    self.game.menus['TOP'].images['TEXT'].update()
+                    self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+                    self.game.menus['TOP'].images['PORTRAIT'].update()
+
+                    if self.game.mouse.pressed['M1']:
+                        self.game.open_menu('LOOT', loot_list = self.inventory)
+                        self.looted = True
+                        sound = p.mixer.Sound(BLIP_SOUND)
+                        sound.play()
         
 class CollisionHitbox(p.sprite.Sprite):
 

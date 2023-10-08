@@ -63,6 +63,9 @@ class Map:
             if event.name == 'battle':
                 BattleInteraction(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.encounter)
 
+            if event.name == 'loot':
+                Loot(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.loot)
+
     def generate_map(self, surface):
 
         self.generate_layer(surface, 'ground')

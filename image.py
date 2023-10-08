@@ -1019,11 +1019,26 @@ class StorageSlot(Image):
         
         self.image.blit(self.background, [0, 0])
         self.image = colour_swap(self.image, RED, FAKEBLACK)
+
+        pressed_keys = p.key.get_pressed()
+
+        self.game.deleting = False
+
+        if pressed_keys[p.K_LSHIFT]:
+            self.game.deleting = True
+
         if self.hitbox.collidepoint(self.game.mouse.pos):
 
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+
             if self.game.mouse.pressed['M1']:
-                if self.game.selecting_equipment == False:
+
+                if self.game.deleting:
+                    self.game.inventory[self.index] = None
+                    sound = p.mixer.Sound(BUTTON_SOUND)
+                    sound.play()
+
+                elif self.game.selecting_equipment == False:
                     if self.game.selected_item == None:
                         self.game.selected_item = self.game.inventory[self.index]
                         sound = p.mixer.Sound(BUTTON_SOUND)
@@ -1035,14 +1050,14 @@ class StorageSlot(Image):
                 
                     else:
 
-                        if self.game.inventory_open:
-                            temp = self.game.selected_item
-                            pos_of_item = self.game.inventory.index(self.game.selected_item)
-                            self.game.inventory[pos_of_item] = self.game.inventory[self.index]
-                            self.game.inventory[self.index] = temp
-                            self.game.selected_item = None
-                            sound = p.mixer.Sound(BUTTON_SOUND)
-                            sound.play()
+                        temp = self.game.selected_item
+                        pos_of_item = self.game.inventory.index(self.game.selected_item)
+                        self.game.inventory[pos_of_item] = self.game.inventory[self.index]
+                        self.game.inventory[self.index] = temp
+                        self.game.selected_item = None
+                        sound = p.mixer.Sound(BUTTON_SOUND)
+                        sound.play()
+
                 else:
                     for i in range(3):
                         if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
@@ -1055,7 +1070,10 @@ class StorageSlot(Image):
                             sound.play()
 
 
-        if self.game.selected_item == self.game.inventory[self.index]:
+        if self.game.deleting:
+            if self.game.inventory[self.index] != None:
+                self.image = colour_swap(self.image, FAKEBLACK, RED)
+        elif self.game.selected_item == self.game.inventory[self.index]:
             if self.game.inventory[self.index] != None:
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
 

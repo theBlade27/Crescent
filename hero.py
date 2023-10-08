@@ -25,7 +25,7 @@ class Hero(Character):
             self.protection = 15
             self.agility = 5
             self.precision = 90
-            self.crit = 500
+            self.crit = 5
             self.bleed = 60
             self.venom = 60
             self.fire = 60

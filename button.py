@@ -131,29 +131,6 @@ class ExitButton(Button):
                 self.menu.kill()
                 self.game.inventory_open = False
 
-class DeleteButton(Button):
-
-    def __init__(self, game, menu):
-        super().__init__(game, menu)
-
-        self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(300, 0, 20, 20)
-
-        self.unpressed_image.blit(self.icon, (4, 8))
-        self.pressed_image.blit(self.icon, (4, 12))
-
-        self.pos = [960, 12]
-        self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
-
-    def update(self):
-        super().update()
-    
-        if self.hitbox.collidepoint(self.game.mouse.pos):
-            if self.game.mouse.pressed['M1']:
-                if self.game.deleting == False:
-                    self.game.deleting = True
-                else:
-                    self.game.deleting = False
-
 class SkillButton(Button):
 
     def __init__(self, game, menu, index):
