@@ -390,6 +390,56 @@ class MenuTitle(Text):
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
 
+class SkillName(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.scale = 2
+        self.text = self.hero.selected_skill.name
+        self.pos = [164, 268]
+        self.width = 40 * FONT_WIDTH
+        self.height = 1 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        self.text = self.hero.selected_skill.name
+        
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+class SkillDesc(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.scale = 1
+        self.text = self.hero.selected_skill.desc
+        self.pos = [164, 308]
+        self.width = 85 * FONT_WIDTH
+        self.height = 8 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+        
+        self.hero = self.menu.hero
+        self.text = self.hero.selected_skill.desc
+        
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
 class InventoryName(Text):
 
     def __init__(self, game, menu):
@@ -541,7 +591,9 @@ class SkillDamageMultiplier(Text):
 
         self.image.fill(BLUE)
 
-        self.text = 'X' + str(self.skill.multiplier)
+        if self.skill != None:
+
+            self.text = 'X' + str(self.skill.multiplier)
 
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
@@ -578,12 +630,14 @@ class SkillCritMultiplier(Text):
 
         self.image.fill(BLUE)
 
-        if self.skill.bonus_crit < 0:
-            self.text = '-' + str(self.skill.bonus_crit)
-        if self.skill.bonus_crit > 0:
-            self.text = '+' + str(self.skill.bonus_crit)
-        if self.skill.bonus_crit == 0:
-            self.text = '+0'
+        if self.skill != None:
+
+            if self.skill.bonus_crit < 0:
+                self.text = '-' + str(self.skill.bonus_crit)
+            if self.skill.bonus_crit > 0:
+                self.text = '+' + str(self.skill.bonus_crit)
+            if self.skill.bonus_crit == 0:
+                self.text = '+0'
 
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
@@ -618,12 +672,14 @@ class SkillPrecisionMultiplier(Text):
 
         self.image.fill(BLUE)
 
-        if self.skill.bonus_precision < 0:
-            self.text = '-' + str(self.skill.bonus_precision)
-        if self.skill.bonus_precision > 0:
-            self.text = '+' + str(self.skill.bonus_precision)
-        if self.skill.bonus_precision == 0:
-            self.text = '+0'
+        if self.skill != None:
+
+            if self.skill.bonus_precision < 0:
+                self.text = '-' + str(self.skill.bonus_precision)
+            if self.skill.bonus_precision > 0:
+                self.text = '+' + str(self.skill.bonus_precision)
+            if self.skill.bonus_precision == 0:
+                self.text = '+0'
 
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
@@ -660,18 +716,20 @@ class SkillStunMultiplier(Text):
 
         self.image.fill(BLUE)
 
-        if 'STUNNING' in self.skill.effects_on_hit:
+        if self.skill != None:
 
-            if self.skill.bonus_stun < 0:
-                self.text = '-' + str(self.skill.bonus_stun)
-            if self.skill.bonus_stun > 0:
-                self.text = '+' + str(self.skill.bonus_stun)
-            if self.skill.bonus_stun == 0:
-                self.text = '+0'
+            if 'STUNNING' in self.skill.effects_on_hit:
 
-        else:
+                if self.skill.bonus_stun < 0:
+                    self.text = '-' + str(self.skill.bonus_stun)
+                if self.skill.bonus_stun > 0:
+                    self.text = '+' + str(self.skill.bonus_stun)
+                if self.skill.bonus_stun == 0:
+                    self.text = '+0'
 
-            self.text = ''
+            else:
+
+                self.text = ''
 
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
@@ -707,18 +765,20 @@ class SkillDebuffMultiplier(Text):
 
         self.image.fill(BLUE)
 
-        if self.skill.debuffing:
+        if self.skill != None:
 
-            if self.skill.bonus_debuff < 0:
-                self.text = '-' + str(self.skill.bonus_debuff)
-            if self.skill.bonus_debuff > 0:
-                self.text = '+' + str(self.skill.bonus_debuff)
-            if self.skill.bonus_debuff == 0:
-                self.text = '+0'
+            if self.skill.debuffing:
 
-        else:
+                if self.skill.bonus_debuff < 0:
+                    self.text = '-' + str(self.skill.bonus_debuff)
+                if self.skill.bonus_debuff > 0:
+                    self.text = '+' + str(self.skill.bonus_debuff)
+                if self.skill.bonus_debuff == 0:
+                    self.text = '+0'
 
-            self.text = ''
+            else:
+
+                self.text = ''
 
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))

@@ -48,6 +48,32 @@ class CombatAnimation(Menu):
         self.sanity_damage_numbers = sanity_damage_numbers
         self.sanity_heal_numbers = sanity_heal_numbers
 
+        crit = False
+
+        for number in damage_numbers:
+
+            if 'CRIT' in str(number):
+                crit = True
+
+        for number in heal_numbers:
+
+            if 'CRIT' in str(number):
+                crit = True
+
+        if crit == True:
+            self.shaking = True
+            self.shake_intensity = 40
+        else:
+            self.shaking = True
+            self.shake_intensity = 20
+
+        self.shake_offset_x = 0
+        self.shake_offset_y = 0
+
+
+
+
+
         self.background = MENU_SPRITESHEETS['COMBAT_BACKGROUND'].copy()
         self.image = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
         self.background = self.image
@@ -92,6 +118,7 @@ class CombatAnimation(Menu):
 
         self.image.blit(self.attacker_image, [0, self.height - self.attacker_image.get_height()])
 
+
         if len(heal_numbers) > len(self.target_images) or len(damage_numbers) > len(self.target_images) or len(sanity_heal_numbers) > len(self.target_images) or len(sanity_damage_numbers) > len(self.target_images) or len(self.attacker.effect_applied_images) > 0:
 
             y = self.height - (self.attacker.combat_images[0].get_height() * 2)
@@ -113,6 +140,12 @@ class CombatAnimation(Menu):
                 y -= number_image.get_height()
 
                 self.image.blit(number_image, [0 + (self.attacker.combat_images[0].get_width()) - (number_image.get_width() / 2), y])
+
+            for effect_image in attacker.effect_applied_images:
+
+                y -= effect_image.get_height()
+
+                self.image.blit(effect_image, [0 + (self.attacker.combat_images[0].get_width()) - (effect_image.get_width() / 2), y])
 
         for image in self.target_images:
 
@@ -163,7 +196,20 @@ class CombatAnimation(Menu):
 
     def update(self):
 
-        pass
+        self.pos[0] = 386
+        self.pos[1] = 218
+
+        if self.shaking:
+            self.shake_offset_x = random.randint(-self.shake_intensity, self.shake_intensity)
+            self.shake_offset_y = random.randint(-self.shake_intensity, self.shake_intensity)
+            if self.shake_intensity > 0:
+                self.shake_intensity -= 1
+            self.game.menus['BATTLE'].image.fill(BLACK)
+
+        self.pos[0] += self.shake_offset_x
+        self.pos[1] += self.shake_offset_y
+
+
 
     def update_images(self):
 
@@ -205,6 +251,8 @@ class SkillInfo(Menu):
             'PORTRAIT': SkillMenuPortrait(self.game, self),
             'ONHITEFFECT': OnHitEffectIcon(self.game, self),
             'ONUSEEFFECT': OnUseEffectIcon(self.game, self),
+            'SKILLNAME': SkillName(self.game, self),
+            'SKILLDESC': SkillDesc(self.game, self)
         }
 
         for i in range (4):

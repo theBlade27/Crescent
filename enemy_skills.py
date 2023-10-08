@@ -33,13 +33,13 @@ class CrushingBlow(EnemySkill):
         self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
 
-class RushedShot(EnemySkill):
+class FlintShot(EnemySkill):
 
     def __init__(self, game, character):
         super().__init__(game, character)
 
         self.range = [3, 6]
-        self.name = 'RUSHED SHOT'
+        self.name = 'FLINT SHOT'
 
         self.effects_on_hit = ['BLINDING']
 

@@ -189,15 +189,21 @@ class Game:
 
         if menu == 'INVENTORY':
 
-            self.menus[menu].kill()
+            if menu in self.menus:
+
+                self.menus[menu].kill()
 
         if menu == 'LOOT':
 
-            self.menus[menu].kill()
+            if menu in self.menus:
+
+                self.menus[menu].kill()
 
         if menu == 'SELECT_SKILLS':
 
-            self.menus[menu].kill()
+            if menu in self.menus:
+
+                self.menus[menu].kill()
 
 
     def play_combat_animations(self, attacker, targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers):

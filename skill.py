@@ -14,6 +14,8 @@ class Skill(p.sprite.Sprite):
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game
+        self.name = ''
+        self.desc = ''
         self.character = character
         self.targets = []
 
@@ -140,6 +142,51 @@ class Skill(p.sprite.Sprite):
                 self.character.effects.append(Strength(self.game, self.character))
                 self.character.effect_applied_images.append(Strength(self.game, None).image)
 
+            if effect == 'STRENGTH2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Strength2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Strength2(self.game, self.character))
+                self.character.effect_applied_images.append(Strength2(self.game, None).image)
+
+            if effect == 'STRENGTH3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Strength3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Strength3(self.game, self.character))
+                self.character.effect_applied_images.append(Strength3(self.game, None).image)
+
+            if effect == 'CRIT':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Crit:
+                        effect.remove_effect()
+
+                self.character.effects.append(Crit(self.game, self.character))
+                self.character.effect_applied_images.append(Crit(self.game, None).image)
+
+            if effect == 'CRIT2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Crit2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Crit2(self.game, self.character))
+                self.character.effect_applied_images.append(Crit2(self.game, None).image)
+
+            if effect == 'CRIT3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Crit3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Crit3(self.game, self.character))
+                self.character.effect_applied_images.append(Crit3(self.game, None).image)
+
 
 
         for target in self.targets:
@@ -200,7 +247,6 @@ class Skill(p.sprite.Sprite):
                         else:
 
                             target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
-
 
                     if effect == 'BURNING3':
 
@@ -478,6 +524,60 @@ class Skill(p.sprite.Sprite):
 
                             target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
 
+                    if effect == 'STRENGTH':
+        
+                        for effect in target.effects:
+                            if type(effect) == Strength:
+                                effect.remove_effect()
+
+                        target.effects.append(Strength(self.game, target))
+                        target.effect_applied_images.append(Strength(self.game, None).image)
+
+                    if effect == 'STRENGTH2':
+        
+                        for effect in target.effects:
+                            if type(effect) == Strength2:
+                                effect.remove_effect()
+
+                        target.effects.append(Strength2(self.game, target))
+                        target.effect_applied_images.append(Strength2(self.game, None).image)
+
+                    if effect == 'STRENGTH3':
+        
+                        for effect in target.effects:
+                            if type(effect) == Strength3:
+                                effect.remove_effect()
+
+                        target.effects.append(Strength3(self.game, target))
+                        target.effect_applied_images.append(Strength3(self.game, None).image)
+
+                    if effect == 'CRIT':
+        
+                        for effect in target.effects:
+                            if type(effect) == Crit:
+                                effect.remove_effect()
+
+                        target.effects.append(Crit(self.game, target))
+                        target.effect_applied_images.append(Crit(self.game, None).image)
+
+                    if effect == 'CRIT2':
+        
+                        for effect in target.effects:
+                            if type(effect) == Crit2:
+                                effect.remove_effect()
+
+                        target.effects.append(Crit2(self.game, target))
+                        target.effect_applied_images.append(Crit2(self.game, None).image)
+
+                    if effect == 'CRIT3':
+        
+                        for effect in target.effects:
+                            if type(effect) == Crit3:
+                                effect.remove_effect()
+
+                        target.effects.append(Crit3(self.game, target))
+                        target.effect_applied_images.append(Crit3(self.game, None).image)
+
 
 
                 i += 1
@@ -609,6 +709,51 @@ class EnemySkill(Skill):
 
                 self.character.effects.append(Strength(self.game, self.character))
                 self.character.effect_applied_images.append(Strength(self.game, None).image)
+
+            if effect == 'STRENGTH2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Strength2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Strength2(self.game, self.character))
+                self.character.effect_applied_images.append(Strength2(self.game, None).image)
+
+            if effect == 'STRENGTH3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Strength3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Strength3(self.game, self.character))
+                self.character.effect_applied_images.append(Strength3(self.game, None).image)
+
+            if effect == 'CRIT':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Crit:
+                        effect.remove_effect()
+
+                self.character.effects.append(Crit(self.game, self.character))
+                self.character.effect_applied_images.append(Crit(self.game, None).image)
+
+            if effect == 'CRIT2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Crit2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Crit2(self.game, self.character))
+                self.character.effect_applied_images.append(Crit2(self.game, None).image)
+
+            if effect == 'CRIT3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Crit3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Crit3(self.game, self.character))
+                self.character.effect_applied_images.append(Crit3(self.game, None).image)
 
         for character in characters:
 
@@ -941,6 +1086,60 @@ class EnemySkill(Skill):
                         else:
 
                             character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'STRENGTH':
+        
+                        for effect in character.effects:
+                            if type(effect) == Strength:
+                                effect.remove_effect()
+
+                        character.effects.append(Strength(self.game, character))
+                        character.effect_applied_images.append(Strength(self.game, None).image)
+
+                    if effect == 'STRENGTH2':
+        
+                        for effect in character.effects:
+                            if type(effect) == Strength2:
+                                effect.remove_effect()
+
+                        character.effects.append(Strength2(self.game, character))
+                        character.effect_applied_images.append(Strength2(self.game, None).image)
+
+                    if effect == 'STRENGTH3':
+        
+                        for effect in character.effects:
+                            if type(effect) == Strength3:
+                                effect.remove_effect()
+
+                        character.effects.append(Strength3(self.game, character))
+                        character.effect_applied_images.append(Strength3(self.game, None).image)
+
+                    if effect == 'CRIT':
+        
+                        for effect in character.effects:
+                            if type(effect) == Crit:
+                                effect.remove_effect()
+
+                        character.effects.append(Crit(self.game, character))
+                        character.effect_applied_images.append(Crit(self.game, None).image)
+
+                    if effect == 'CRIT2':
+        
+                        for effect in character.effects:
+                            if type(effect) == Crit2:
+                                effect.remove_effect()
+
+                        character.effects.append(Crit2(self.game, character))
+                        character.effect_applied_images.append(Crit2(self.game, None).image)
+
+                    if effect == 'CRIT3':
+        
+                        for effect in character.effects:
+                            if type(effect) == Crit3:
+                                effect.remove_effect()
+
+                        character.effects.append(Crit3(self.game, character))
+                        character.effect_applied_images.append(Crit3(self.game, None).image)
 
 
                 i += 1

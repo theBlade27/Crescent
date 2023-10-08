@@ -223,6 +223,26 @@ class SkillButton(Button):
                         if (not(self.index == 4 and self.game.selected_character.has_moved)) and (not(self.index == 5 and self.game.selected_character.has_used_skill)) and not self.game.selected_character.stunned:
                             self.sound.play()
 
+                if self.game.mouse.pressed['M2']:
+
+                    if self.game.battle_mode:
+                        self.image = self.pressed_image.copy()
+                        self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+                        if self.game.selected_character.stunned == False:
+                            self.hero.selected_skill = self.skill
+                        for tile in self.game.menus['BATTLE'].tiles:
+                            tile.being_targeted = False
+                        if (self.index >= 0 and self.index <= 3) and not self.game.selected_character.stunned:
+                            self.hero.selected_skill = self.skill
+                            sound = p.mixer.Sound(BUTTON_SOUND)
+                            sound.play()
+                            self.game.close_menu('INVENTORY')
+                            if 'SELECT_SKILLS' in self.game.menus:
+                                self.game.menus['SELECT_SKILLS'].selected_skill = self.skill
+                                self.game.menus['SELECT_SKILLS'].update_images()
+                            else:
+                                self.game.open_menu('SELECT_SKILLS', self.hero)
+
             if self.hero.selected_skill == self.skill:
                 self.image = self.pressed_image.copy()
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)

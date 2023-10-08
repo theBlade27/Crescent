@@ -22,7 +22,7 @@ class Enemy(Character):
             self.frontliner = True
             self.mobility = 5
             self.protection = 10
-            self.agility = 0
+            self.agility = 10
             self.precision = 90
             self.crit = 15
             self.bleed = 30
@@ -41,14 +41,14 @@ class Enemy(Character):
 
         if self.type == 'BANDIT2':
 
-            self.name = 'GUNNER'
+            self.name = 'FLINTLOCK'
             self.max_health = 8
             self.speed = 7
             self.frontliner = False
             self.mobility = 4
             self.protection = 0
-            self.agility = 0
-            self.precision = 90
+            self.agility = 20
+            self.precision = 95
             self.crit = 10
             self.bleed = 30
             self.venom = 30
@@ -58,7 +58,7 @@ class Enemy(Character):
             self.debuff = 30
 
             self.skills = [
-                RushedShot(self.game, self)
+                FlintShot(self.game, self)
             ]
 
             self.damage = [2, 5]
@@ -66,7 +66,7 @@ class Enemy(Character):
 
         if self.type == 'BANDIT3':
 
-            self.name = 'BRUTE'
+            self.name = 'TABARZIN'
             self.max_health = 20
             self.speed = 2
             self.frontliner = True

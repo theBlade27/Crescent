@@ -70,6 +70,12 @@ class Strength(Effect):
         self.character.damage[0] = self.character.damage[0] / self.damage_multiplier
         self.character.damage[1] = self.character.damage[1] / self.damage_multiplier
 
+        if self in self.character.effects:
+
+            self.character.effects.remove(self)
+            for menu in self.game.menus.values():
+                menu.update_images()
+
 class Strength2(Strength):
 
     def __init__(self, game, character, duration = 3):
@@ -83,6 +89,45 @@ class Strength3(Strength):
         super().__init__(game, character, duration, 2)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 160, 20, 20)
+
+
+class Crit(Effect):
+
+    def __init__(self, game, character, duration = 3, crit_modifier = 20):
+        self.crit_modifier = crit_modifier
+        super().__init__(game, character, duration)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 240, 20, 20)
+
+    def apply_effect(self):
+
+        self.character.crit += self.crit_modifier
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+    def remove_effect(self):
+
+        self.character.crit -= self.crit_modifier
+
+        if self in self.character.effects:
+
+            self.character.effects.remove(self)
+            for menu in self.game.menus.values():
+                menu.update_images()
+
+class Crit2(Crit):
+
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, 50)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 260, 20, 20)
+
+class Crit3(Crit):
+
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, 100)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 280, 20, 20)
 
 
 class Weakness(Effect):
@@ -106,6 +151,12 @@ class Weakness(Effect):
 
         self.character.damage[0] = self.character.damage[0] * self.damage_multiplier
         self.character.damage[1] = self.character.damage[1] * self.damage_multiplier
+
+        if self in self.character.effects:
+
+            self.character.effects.remove(self)
+            for menu in self.game.menus.values():
+                menu.update_images()
 
 class Weakness2(Weakness):
 
@@ -268,7 +319,7 @@ class Mark(Effect):
 
 class StunResist(Effect):
 
-    def __init__(self, game, character, duration = 1):
+    def __init__(self, game, character, duration = 2):
         super().__init__(game, character, duration)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(80, 380, 20, 20)
@@ -308,6 +359,12 @@ class Dodge(Effect):
     def remove_effect(self):
 
         self.character.agility -= self.dodge_modifier
+
+        if self in self.character.effects:
+
+            self.character.effects.remove(self)
+            for menu in self.game.menus.values():
+                menu.update_images()
 
 class Dodge2(Dodge):
 
@@ -364,6 +421,12 @@ class Blindness(Effect):
     def remove_effect(self):
 
         self.character.precision += self.precision_modifier
+
+        if self in self.character.effects:
+
+            self.character.effects.remove(self)
+            for menu in self.game.menus.values():
+                menu.update_images()
 
 class Blindness2(Blindness):
 

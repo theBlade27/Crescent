@@ -539,13 +539,13 @@ class SkillRangeIndicator(Image):
 
         if skill.heals == False:
 
-            if self.index >= skill.range[0] and self.index <= skill.range[1]:
+            if self.index >= skill.range[0] and self.index < skill.range[1]:
 
                 self.image.blit(self.damage_icon, [16, 16])
 
         if skill.heals:
 
-            if self.index >= skill.range[0] and self.index <= skill.range[1]:
+            if self.index >= skill.range[0] and self.index < skill.range[1]:
 
                 self.image.blit(self.heal_icon, [16, 16])
 
@@ -829,17 +829,29 @@ class OnHitEnemyEffectDisplay(Image):
 
                 self.image.blit(p.transform.scale(AntiDodge3(self.game, None).image, [80, 80]), [0, 0])
 
-            elif skill.effects_on_hit[self.index] == 'BLINDNESS':
+            elif skill.effects_on_hit[self.index] == 'BLINDING':
 
                 self.image.blit(p.transform.scale(Blindness(self.game, None).image, [80, 80]), [0, 0])
 
-            elif skill.effects_on_hit[self.index] == 'BLINDNESS':
+            elif skill.effects_on_hit[self.index] == 'BLINDING2':
 
                 self.image.blit(p.transform.scale(Blindness2(self.game, None).image, [80, 80]), [0, 0])
 
-            elif skill.effects_on_hit[self.index] == 'BLINDNESS':
+            elif skill.effects_on_hit[self.index] == 'BLINDING3':
 
                 self.image.blit(p.transform.scale(Blindness3(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'CRIT':
+
+                self.image.blit(p.transform.scale(Crit(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'CRIT2':
+
+                self.image.blit(p.transform.scale(Crit2(self.game, None).image, [80, 80]), [0, 0])
+
+            elif skill.effects_on_hit[self.index] == 'CRIT3':
+
+                self.image.blit(p.transform.scale(Crit3(self.game, None).image, [80, 80]), [0, 0])
 
 
 
@@ -1271,9 +1283,11 @@ class SkillStunIcon(Image):
 
         self.image.fill(BLUE)
 
-        if 'STUNNING' in self.menu.hero.selected_skill.effects_on_hit:
+        if self.menu.hero.selected_skill != None:
 
-            self.image.blit(self.icon, [0, 0])
+            if 'STUNNING' in self.menu.hero.selected_skill.effects_on_hit:
+
+                self.image.blit(self.icon, [0, 0])
 
 class SkillDebuffIcon(Image):
 
@@ -1291,9 +1305,11 @@ class SkillDebuffIcon(Image):
 
         self.image.fill(BLUE)
 
-        if self.menu.hero.selected_skill.debuffing:
+        if self.menu.hero.selected_skill != None:
 
-            self.image.blit(self.icon, [0, 0])
+            if self.menu.hero.selected_skill.debuffing:
+
+                self.image.blit(self.icon, [0, 0])
 
 class SkillInfoImage(Image):
 

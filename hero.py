@@ -23,22 +23,22 @@ class Hero(Character):
             self.sanity_recovery_skills = [4, 7]
             self.mobility = 4
             self.protection = 15
-            self.agility = 0
+            self.agility = 5
             self.precision = 90
-            self.crit = 5
+            self.crit = 500
             self.bleed = 60
             self.venom = 60
             self.fire = 60
-            self.death = 1
+            self.death = 66
             self.stun = 70
             self.debuff = 60
             self.equipment = [None, None, None]
 
             self.skills = [
                 Vanquish(self.game, self),
-                GetHim(self.game, self),
-                Slash(self.game, self),
-                StrengthenResolve(self.game, self),
+                Command(self.game, self),
+                SteelTempest(self.game, self),
+                FalseHopes(self.game, self),
                 HeroMove(self.game, self),
                 HeroSkip(self.game, self),
                 HeroRetreat(self.game, self)
@@ -62,16 +62,16 @@ class Hero(Character):
             self.bleed = 30
             self.venom = 30
             self.fire = 30
-            self.death = 1
+            self.death = 66
             self.stun = 50
             self.debuff = 40
             self.equipment = [None, None, None]
 
             self.skills = [
                 AzureEruption(self.game, self),
-                Dazzle(self.game, self),
+                Illuminate(self.game, self),
                 ArcaneAssault(self.game, self),
-                Rejuvinate(self.game, self),
+                Rekindle(self.game, self),
                 HeroMove(self.game, self),
                 HeroSkip(self.game, self),
                 HeroRetreat(self.game, self) 
