@@ -6,7 +6,7 @@ from effect import *
 class Timer(p.sprite.Sprite):
 
     def __init__(self, game, time):
-        self.groups = game.all
+        self.groups = game.timers, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         now = p.time.get_ticks()

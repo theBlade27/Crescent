@@ -15,7 +15,7 @@ class Vanquish(HeroSkill):
         self.image = self.spritesheet.get_sprite(0, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 4]
+        self.range = [0, 3]
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 
@@ -35,7 +35,7 @@ class Command(HeroSkill):
 
         self.range = [0, 8]
 
-        self.multiplier = 0
+        self.multiplier = 100
 
         self.bonus_debuff = 100
         self.bonus_precision = 100
@@ -60,7 +60,7 @@ class SteelTempest(HeroSkill):
         self.image = self.spritesheet.get_sprite(40, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 3]
+        self.range = [0, 2]
 
         self.multiplier = 0.7
 

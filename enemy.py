@@ -6,6 +6,7 @@ from explorationCharacter import *
 from effect import *
 from skill import *
 from enemy_skills import *
+from hero_skills import *
 import random
 from wait import *
 
@@ -13,6 +14,29 @@ class Enemy(Character):
 
     def __init__(self, game, type, grid_pos):
         super().__init__(game, type)
+
+        if self.type == 'GHOSTBLADE':
+
+            self.name = 'APPARITION'
+            self.max_health = 10
+            self.speed = 2
+            self.frontliner = True
+            self.damage = [3, 5]
+            self.mobility = 4
+            self.protection = 15
+            self.agility = 3
+            self.precision = 90
+            self.crit = 5
+            self.bleed = 60
+            self.venom = 60
+            self.fire = 60
+            self.death = 0
+            self.stun = 70
+            self.debuff = 60
+
+            self.skills = [
+                GhostVanquish(self.game, self)
+            ]
 
         if self.type == 'BANDIT1':
 
@@ -37,7 +61,6 @@ class Enemy(Character):
             ]
 
             self.damage = [4, 6]
-            self.healing = [0, 0]
 
         if self.type == 'BANDIT2':
 
@@ -62,7 +85,6 @@ class Enemy(Character):
             ]
 
             self.damage = [2, 5]
-            self.healing = [0, 0]
 
         if self.type == 'BANDIT3':
 
@@ -87,7 +109,6 @@ class Enemy(Character):
             ]
 
             self.damage = [5, 8]
-            self.healing = [0, 0]
 
         self.grid_pos = grid_pos
         self.current_health = self.max_health

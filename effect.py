@@ -6,7 +6,7 @@ class Effect(p.sprite.Sprite):
 
     def __init__(self, game, character, duration = 3):
 
-        self.groups = game.effects_group
+        self.groups = game.effects_group, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game

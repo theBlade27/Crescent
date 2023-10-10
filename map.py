@@ -6,11 +6,15 @@ from tileObject import *
 from tiles import *
 from enemy import *
 
-class Map:
+class Map(p.sprite.Sprite):
 
     def __init__(self, game, filename, menu = None):
 
         self.game = game
+
+        self.groups = game.all
+        p.sprite.Sprite.__init__(self, self.groups)
+        
         self.file = pytmx.load_pygame(filename)
         self.width = self.file.width * TILE_SIZE * MAP_SCALE
         self.height = self.file.height * TILE_SIZE * MAP_SCALE
@@ -45,7 +49,7 @@ class Map:
                     TileObject(self.game, tile, x * TILE_SIZE, y * TILE_SIZE)
 
                 elif layer == 'alerts':
-                    TileObject(self.game, tile, x * TILE_SIZE, y * TILE_SIZE)
+                    AlertTile(self.game, tile, x * TILE_SIZE, y * TILE_SIZE)
 
                 else:
                     self.draw_tile(surface, tile, x, y)
@@ -66,7 +70,12 @@ class Map:
             if event.name == 'loot':
                 Loot(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.loot)
 
+            if event.name == 'level':
+                Level(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.level, event.stageclear)
+
     def generate_map(self, surface):
+
+        self.generate_object_layer()
 
         self.generate_layer(surface, 'ground')
         self.generate_layer(surface, 'floordecor')
@@ -74,8 +83,6 @@ class Map:
         self.generate_layer(surface, 'interactables')
         self.generate_layer(surface, 'decor')
         self.generate_layer(surface, 'alerts')
-
-        self.generate_object_layer()
 
     def draw_tile(self, surface, tile, x , y):
 

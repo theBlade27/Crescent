@@ -6,7 +6,7 @@ vec = p.math.Vector2
 class Tile(p.sprite.Sprite):
 
     def __init__(self, game, x, y, image, offset):
-        self.groups = game.tiles
+        self.groups = game.tiles, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game
@@ -189,7 +189,7 @@ class Tile(p.sprite.Sprite):
 class Obstacle(Tile):
 
     def __init__(self, game, x, y, image, menu):
-        self.groups = game.obstacles
+        self.groups = game.obstacles, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game

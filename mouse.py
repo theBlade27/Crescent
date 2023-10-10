@@ -6,7 +6,7 @@ class Mouse(p.sprite.Sprite):
 
     def __init__(self, game):
 
-        self.groups = game.all, game.mouse_group
+        self.groups = game.mouse_group, game.all
         p.sprite.Sprite.__init__(self, self.groups)
         
         self.game = game

@@ -52,6 +52,7 @@ class Character(p.sprite.Sprite):
         
         self.sanity_recovery_skills = [0, 0]
         self.sanity_reduction_skills = [0, 0]
+        self.healing = [0, 0]
 
         self.sanity_damage_factor = 0
         self.sanity_recovery_factor = 0

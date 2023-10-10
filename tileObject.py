@@ -9,7 +9,7 @@ class TileObject(p.sprite.Sprite):
 
     def __init__(self, game, image, x, y, interactable = False, collidable = False):
 
-        self.groups = game.tile_objects
+        self.groups = game.tile_objects, game.all
         p.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = image
@@ -25,15 +25,12 @@ class TileObject(p.sprite.Sprite):
 
         if self.collidable:
             self.collision_hitbox = CollisionHitbox(self.game, self.pos[0], self.pos[1])
-
-        if self.interactable:
-            self.game.interactable_objects.add(self)
             
 class Interaction(p.sprite.Sprite):
 
     def __init__(self, game, x, y, description):
 
-        self.groups = game.interactable_objects
+        self.groups = game.interactable_objects, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game
@@ -42,6 +39,7 @@ class Interaction(p.sprite.Sprite):
         self.hitbox = p.Rect(x, y, 20 * MAP_SCALE, 20 * MAP_SCALE)
 
         self.description = description
+        self.alert_visible = True
 
     def update(self):
 
@@ -70,10 +68,13 @@ class BattleInteraction(Interaction):
         self.description += '\nSTART BATTLE?'
         self.type = type
         self.beaten = False
+        self.alert_visible = True
 
     def update(self):
 
         if self.beaten == False:
+
+            self.alert_visible = True
     
             accessible = True
 
@@ -98,6 +99,79 @@ class BattleInteraction(Interaction):
                         sound = p.mixer.Sound(BLIP_SOUND)
                         sound.play()
 
+        elif self.beaten == True:
+
+            self.alert_visible = False
+
+class Level(Interaction):
+
+    def __init__(self, game, x, y, description, type, stageclear):
+        super().__init__(game, x, y, description)
+
+        self.description += '\nNEXT STAGE?'
+        self.type = type
+        self.alert_visible = False
+        self.stageclear = stageclear
+
+    def update(self):
+
+        if self.stageclear == True:
+
+            if self.game.stageclear:
+
+                self.alert_visible = True
+            
+                accessible = True
+
+                character_location = self.game.camera_focus.pos
+                distance_to_target = character_location - vec((self.pos[0] + 30), (self.pos[1] + 30))
+
+                if distance_to_target.length() > INTERACT_RADIUS:
+                    accessible = False
+                        
+                if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
+                    self.game.mouse.image = self.game.mouse.images[2]
+                    if accessible == True:
+
+                        self.game.textbox_text = self.description
+                        self.game.menus['TOP'].images['TEXT'].update()
+                        self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+                        self.game.menus['TOP'].images['PORTRAIT'].update()
+
+                        if self.game.mouse.pressed['M1']:
+
+                            self.game.next_level(MAPS[self.type])
+
+        else:
+
+            self.alert_visible = True
+            
+            accessible = True
+
+            character_location = self.game.camera_focus.pos
+            distance_to_target = character_location - vec((self.pos[0] + 30), (self.pos[1] + 30))
+
+            if distance_to_target.length() > INTERACT_RADIUS:
+                accessible = False
+                        
+            if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
+                self.game.mouse.image = self.game.mouse.images[2]
+                if accessible == True:
+
+                    self.game.textbox_text = self.description
+                    self.game.menus['TOP'].images['TEXT'].update()
+                    self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+                    self.game.menus['TOP'].images['PORTRAIT'].update()
+
+                    if self.game.mouse.pressed['M1']:
+
+                        self.game.next_level(MAPS[self.type])
+
+        
+
+
+        
+
 class Loot(Interaction):
 
     def __init__(self, game, x, y, description, type):
@@ -107,6 +181,7 @@ class Loot(Interaction):
         self.type = type
         self.looted = False
         self.inventory = []
+        self.alert_visible = True
 
         self.generate_loot()
 
@@ -122,6 +197,8 @@ class Loot(Interaction):
     def update(self):
 
         if self.looted == False:
+
+            self.alert_visible = True
     
             accessible = True
 
@@ -145,12 +222,16 @@ class Loot(Interaction):
                         self.looted = True
                         sound = p.mixer.Sound(BLIP_SOUND)
                         sound.play()
+
+        else:
+
+            self.alert_visible = False
         
 class CollisionHitbox(p.sprite.Sprite):
 
     def __init__(self, game, x, y):
 
-        self.groups = game.collision_hitboxes
+        self.groups = game.collision_hitboxes, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.pos = [x, y]
@@ -158,6 +239,35 @@ class CollisionHitbox(p.sprite.Sprite):
         self.collidable = True
 
         self.hitbox = p.Rect(x, y, 20 * MAP_SCALE, 20 * MAP_SCALE)
+
+class AlertTile(TileObject):
+
+    def __init__(self, game, image, x, y):
+        super().__init__(game, image, x, y)
+
+        self.regular_image = image.copy()
+        self.invisible = Sprite(TILESET, scale = MAP_SCALE).get_sprite(0, 160, 20, 20)
+        self.image = self.regular_image.copy()
+
+        for object in self.game.interactable_objects:
+
+            if [object.pos[0], object.pos[1]] == [self.pos[0], self.pos[1] + 60]:
+
+                self.object = object
+
+    def update(self):
+
+        if self.object.alert_visible == True:
+
+            self.image = self.regular_image
+
+        elif self.object.alert_visible == False:
+
+            self.image = self.invisible
+
+        
+
+
 
 class DoorTile(TileObject):
 

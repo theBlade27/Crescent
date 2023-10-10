@@ -7,6 +7,9 @@ class Battle(p.sprite.Sprite):
 
     def __init__(self, game, battle):
 
+        self.groups = game.all
+        p.sprite.Sprite.__init__(self, self.groups)
+
         self.game = game
         self.game.battle = self
         self.battle = battle
@@ -116,6 +119,7 @@ class Battle(p.sprite.Sprite):
         self.game.last_interacted.beaten = True
 
         self.generate_loot()
+        self.game.check_stage_clear()
 
         self.game.open_menu('LOOT', loot_list = self.items)
         self.loot_open = True

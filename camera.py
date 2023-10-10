@@ -4,7 +4,7 @@ from settings import *
 class Camera(p.sprite.Sprite):
 
     def __init__(self, game, width, height):
-        self.groups = game.all
+        self.groups = game.camera_group, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game   

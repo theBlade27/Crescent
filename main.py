@@ -26,7 +26,7 @@ class Game:
     def new(self):
 
         self.set_up_groups()
-        self.set_up_variables()
+        self.reset_game()
 
     def set_up_window(self):
 
@@ -35,9 +35,47 @@ class Game:
         self.screen = p.display.set_mode(screen_size, p.FULLSCREEN)
         self.clock = p.time.Clock()
 
+    def reset_game(self):
+
+        self.end_game(True)
+
+        self.set_up_variables(True)
+
+    def end_game(self, reset):
+
+        if reset == True:
+
+            for sprite in self.all:
+
+                sprite.kill()
+
+            for sprite in self.characters:
+                
+                sprite.kill()
+
+            for sprite in self.exploration_characters:
+
+                sprite.kill()
+
+        else:
+
+            for sprite in self.all:
+
+                sprite.kill()
+            
+        self.map_background = p.Surface((1, 1))
+
+    def next_level(self, map):
+
+        self.end_game(False)
+
+        self.set_up_variables(False, map)
+
+
     def set_up_groups(self):
 
         self.all = p.sprite.LayeredUpdates()
+
         self.mouse_group = p.sprite.LayeredUpdates()
         self.characters = p.sprite.LayeredUpdates()
         self.exploration_characters = p.sprite.LayeredUpdates()
@@ -53,62 +91,83 @@ class Game:
         self.items_group = p.sprite.LayeredUpdates()
         self.battles = p.sprite.LayeredUpdates()
         self.numbers = p.sprite.LayeredUpdates()
+        self.camera_group = p.sprite.LayeredUpdates()
+        self.timers = p.sprite.LayeredUpdates()
 
-    def set_up_variables(self):
+    def check_stage_clear(self):
+
+        self.stageclear = True
+
+        for object in self.interactable_objects:
+
+            if type(object) == BattleInteraction:
+
+                if object.beaten == False:
+
+                    self.stageclear = False
+
+    def set_up_variables(self, reset, map = MAPS['RESET']):
+
+        reset = reset
 
         self.mouse = Mouse(self)
         self.debug = False
         self.clear_view = False
         self.battle_mode = False
+        self.stageclear = False
 
         self.selected_tile = None
 
         self.inventory_open = False
         self.loot_open = False
         self.deleting = False
-        self.inventory = [
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-        ]
 
-        self.inventory[0] = Bandage(self)
-        self.inventory[1] = Torch(self)
-        self.inventory[3] = Torch(self)
+        if reset == True:
+
+            self.inventory = [
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+            ]
+
+            self.money = 0
 
         self.selected_item = None
         self.selecting_equipment = False
-
-        self.money = 0
 
         self.textbox_text = ''
         self.textbox_portrait = p.Surface((160, 160))
         self.textbox_portrait.fill(DARKBLUE)
 
-        self.set_up_map()
-        self.set_up_party()
+        self.set_up_map(map)
+
+        if reset == True:
+            self.set_up_party(True)
+        else:
+            self.set_up_party(False)
+
         self.set_up_camera()
         self.load_font()
         self.set_up_menus()
@@ -122,22 +181,42 @@ class Game:
         for i in range(0, len(self.letters)):
             self.font[self.letters[i]] = self.font_spritesheet.get_sprite(i * FONT_WIDTH, 0, FONT_WIDTH, FONT_HEIGHT)
 
-    def set_up_map(self):
+    def set_up_map(self, map):
 
-        self.map = Map(self, TUTORIAL_MAP)
+        self.map = Map(self, map)
         self.map_background = self.map.draw_map()
 
-    def set_up_party(self):
+    def set_up_party(self, reset):
 
-        self.hero_party = [
-            Hero(self, 'BLADE', self.spawn_location),
-            Hero(self, 'ARCANE', (self.spawn_location[0] + 96, self.spawn_location[1])),
-            #Hero(self, 'BREACH', (self.spawn_location[0], self.spawn_location[1] + 96)),
-            #Hero(self, 'FORTRESS', (self.spawn_location[0] + 96, self.spawn_location[1] + 96)),
-            #None,
-            None,
-            None,
-        ]
+        if reset:
+
+            self.hero_party = [
+                Hero(self, 'BLADE', self.spawn_location),
+                #Hero(self, 'ARCANE', (self.spawn_location[0] + 96, self.spawn_location[1])),
+                #Hero(self, 'BREACH', (self.spawn_location[0], self.spawn_location[1] + 96)),
+                #Hero(self, 'FORTRESS', (self.spawn_location[0] + 96, self.spawn_location[1] + 96)),
+                None,
+                None,
+                None,
+            ]
+
+        else:
+
+            if self.hero_party[0] != None:
+
+                self.hero_party[0].exploration_character.pos = self.spawn_location
+
+            if self.hero_party[1] != None:
+
+                self.hero_party[1].exploration_character.pos = (self.spawn_location[0] + 96, self.spawn_location[1])
+
+            if self.hero_party[2] != None:
+
+                self.hero_party[2].exploration_character.pos = (self.spawn_location[0], self.spawn_location[1] + 96)
+
+            if self.hero_party[3] != None:
+
+                self.hero_party[3].exploration_character.pos = (self.spawn_location[0] + 96, self.spawn_location[1] + 96)
 
     def set_up_camera(self):
 
@@ -244,13 +323,16 @@ class Game:
         self.menus['TOP'].images['TEXT'].update()
         self.menus['TOP'].images['PORTRAIT'].update()
 
-        self.all.update()
+        self.mouse_group.update()
         self.characters.update()
         self.effects_group.update()
+        self.timers.update()
 
         if self.battle_mode == False:
+            self.tile_objects.update()
             self.interactable_objects.update()
             self.exploration_characters.update()
+            self.camera_group.update()
         else:
             self.selected_tile = None
             self.menus['BATTLE'].cross = False
@@ -261,7 +343,7 @@ class Game:
 
     def draw(self):
 
-        self.screen.fill(BLACK)
+        self.screen.fill(FAKEBLACK)
 
         if self.battle_mode == False:
 
@@ -337,6 +419,10 @@ class Game:
                 if event.key == p.K_c:
 
                     self.clear_view = not self.clear_view
+
+                if event.key == p.K_b:
+
+                    self.reset_game()
 
 
     def quit(self):

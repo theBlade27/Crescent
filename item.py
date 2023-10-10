@@ -6,7 +6,7 @@ class Item(p.sprite.Sprite):
 
     def __init__(self, game):
 
-        self.groups = game.items_group
+        self.groups = game.items_group, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game

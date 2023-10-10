@@ -3,6 +3,20 @@ from sprite import *
 from settings import *
 from skill import*
 
+class GhostVanquish(EnemySkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.name = 'REMINDER'
+
+        self.range = [0, 3]
+
+        self.sound = p.mixer.Sound(HEAVY_SOUND)
+
+        self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
 class ScimitarSlash(EnemySkill):
 
     def __init__(self, game, character):

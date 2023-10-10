@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tileset" tilewidth="20" tileheight="20" tilecount="528" columns="16">
- <image source="../img/tiles/tileset.png" width="320" height="660"/>
+<tileset version="1.10" tiledversion="1.10.2" name="tileset" tilewidth="20" tileheight="20" tilecount="693" columns="21">
+ <image source="../img/tiles/tileset.png" width="420" height="660"/>
  <tile id="0">
   <properties>
    <property name="collidable" type="bool" value="true"/>
@@ -99,7 +99,7 @@
  </tile>
  <tile id="16">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -111,29 +111,29 @@
  </tile>
  <tile id="18">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="19" probability="0.005">
-  <properties>
-   <property name="collidable" type="bool" value="true"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="20" probability="0.005">
-  <properties>
-   <property name="collidable" type="bool" value="true"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="21" probability="0.005">
+ <tile id="19">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="22" probability="0.005">
+ <tile id="20">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="21">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="22">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -141,29 +141,29 @@
  </tile>
  <tile id="23">
   <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="24" probability="0.005">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="25" probability="0.005">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="26" probability="0.005">
+  <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="24">
-  <properties>
-   <property name="collidable" type="bool" value="true"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="25">
-  <properties>
-   <property name="collidable" type="bool" value="true"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="26">
-  <properties>
-   <property name="collidable" type="bool" value="true"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="27">
+ <tile id="27" probability="0.005">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -177,13 +177,13 @@
  </tile>
  <tile id="29">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="30">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -195,19 +195,19 @@
  </tile>
  <tile id="32">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="33">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="34">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -219,17 +219,17 @@
  </tile>
  <tile id="36">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="37" probability="0.001">
+ <tile id="37">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="38" probability="0.001">
+ <tile id="38">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -243,7 +243,7 @@
  </tile>
  <tile id="40">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -261,13 +261,13 @@
  </tile>
  <tile id="43">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="44">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -283,49 +283,49 @@
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="47">
+ <tile id="47" probability="0.001">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="48" probability="0.001">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="49">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="50">
   <properties>
    <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="48" probability="0.005">
+ <tile id="51">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="49" probability="0.005">
+ <tile id="52">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="53">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="50" probability="0.005">
-  <properties>
-   <property name="collidable" type="bool" value="false"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="51" probability="0.005">
-  <properties>
-   <property name="collidable" type="bool" value="false"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="52" probability="0.005">
-  <properties>
-   <property name="collidable" type="bool" value="false"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="53" probability="0.005">
-  <properties>
-   <property name="collidable" type="bool" value="false"/>
-   <property name="type" value=""/>
-  </properties>
- </tile>
- <tile id="54" probability="0.005">
+ <tile id="54">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -339,7 +339,7 @@
  </tile>
  <tile id="56">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -351,7 +351,7 @@
  </tile>
  <tile id="58">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -375,17 +375,17 @@
  </tile>
  <tile id="62">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="63">
+ <tile id="63" probability="0.005">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="64">
+ <tile id="64" probability="0.005">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -403,7 +403,7 @@
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="67">
+ <tile id="67" probability="0.005">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -421,7 +421,7 @@
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="70" probability="0.001">
+ <tile id="70">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -429,7 +429,7 @@
  </tile>
  <tile id="71">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -447,7 +447,7 @@
  </tile>
  <tile id="74">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -459,25 +459,25 @@
  </tile>
  <tile id="76">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="77">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="78">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="79">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -511,13 +511,13 @@
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="85">
+ <tile id="85" probability="0.005">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="86">
+ <tile id="86" probability="0.005">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -529,19 +529,19 @@
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="88">
+ <tile id="88" probability="0.005">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="89">
+ <tile id="89" probability="0.005">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="90">
+ <tile id="90" probability="0.001">
   <properties>
    <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
@@ -561,25 +561,25 @@
  </tile>
  <tile id="93">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="94">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="95">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="96">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -597,7 +597,7 @@
  </tile>
  <tile id="99">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -639,37 +639,37 @@
  </tile>
  <tile id="106">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="107">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="108">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="109">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="110">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="111">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -705,7 +705,7 @@
  </tile>
  <tile id="117">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -723,7 +723,7 @@
  </tile>
  <tile id="120">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -735,37 +735,37 @@
  </tile>
  <tile id="122">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="123">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="124">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="125">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="126">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="127">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -819,25 +819,25 @@
  </tile>
  <tile id="136">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="137">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="138">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="139">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -849,7 +849,7 @@
  </tile>
  <tile id="141">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -861,7 +861,7 @@
  </tile>
  <tile id="143">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -939,19 +939,19 @@
  </tile>
  <tile id="156">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="157">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="158">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -963,19 +963,19 @@
  </tile>
  <tile id="160">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="161">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="162">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1053,19 +1053,19 @@
  </tile>
  <tile id="175">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="176">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="177">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1083,7 +1083,7 @@
  </tile>
  <tile id="180">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1101,14 +1101,14 @@
  </tile>
  <tile id="183">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="184">
   <properties>
    <property name="collidable" type="bool" value="false"/>
-   <property name="type" value="door"/>
+   <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="185">
@@ -1119,55 +1119,55 @@
  </tile>
  <tile id="186">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="187">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="188">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="189">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="190">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="191">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="192" probability="0.003">
+ <tile id="192">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="193" probability="0.001">
+ <tile id="193">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="194">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1197,7 +1197,7 @@
  </tile>
  <tile id="199">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1209,19 +1209,19 @@
  </tile>
  <tile id="201">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="202">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="203">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1233,19 +1233,19 @@
  </tile>
  <tile id="205">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="206">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="207">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1276,7 +1276,7 @@
  <tile id="212">
   <properties>
    <property name="collidable" type="bool" value="false"/>
-   <property name="type" value=""/>
+   <property name="type" value="alert"/>
   </properties>
  </tile>
  <tile id="213">
@@ -1293,43 +1293,43 @@
  </tile>
  <tile id="215">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="216">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="217">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="218">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="219">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="220">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="221">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1341,13 +1341,13 @@
  </tile>
  <tile id="223">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="224">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1359,13 +1359,13 @@
  </tile>
  <tile id="226">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="227">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1377,7 +1377,7 @@
  </tile>
  <tile id="229">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1395,50 +1395,50 @@
  </tile>
  <tile id="232">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="233">
   <properties>
    <property name="collidable" type="bool" value="false"/>
-   <property name="type" value=""/>
+   <property name="type" value="alert"/>
   </properties>
  </tile>
  <tile id="234">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="235">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="236">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="237">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="238">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="239">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
-   <property name="type" value=""/>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value="door"/>
   </properties>
  </tile>
  <tile id="240">
@@ -1449,37 +1449,37 @@
  </tile>
  <tile id="241">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="242">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="243">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="244">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="245">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="246">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1491,35 +1491,35 @@
  </tile>
  <tile id="248">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="249">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="250">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="251">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="252">
+ <tile id="252" probability="0.003">
   <properties>
    <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
- <tile id="253">
+ <tile id="253" probability="0.001">
   <properties>
    <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
@@ -1527,13 +1527,13 @@
  </tile>
  <tile id="254">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="255">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1557,7 +1557,7 @@
  </tile>
  <tile id="259">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1575,7 +1575,7 @@
  </tile>
  <tile id="262">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1587,13 +1587,13 @@
  </tile>
  <tile id="264">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="265">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1617,19 +1617,19 @@
  </tile>
  <tile id="269">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="270">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="271">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1683,13 +1683,13 @@
  </tile>
  <tile id="280">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="281">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1719,25 +1719,25 @@
  </tile>
  <tile id="286">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="287">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="288">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="289">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1755,7 +1755,7 @@
  </tile>
  <tile id="292">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1767,7 +1767,7 @@
  </tile>
  <tile id="294">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1791,7 +1791,7 @@
  </tile>
  <tile id="298">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1803,7 +1803,7 @@
  </tile>
  <tile id="300">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1821,7 +1821,7 @@
  </tile>
  <tile id="303">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1863,7 +1863,7 @@
  </tile>
  <tile id="310">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1887,25 +1887,25 @@
  </tile>
  <tile id="314">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="315">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="316">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="317">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1917,19 +1917,19 @@
  </tile>
  <tile id="319">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="320">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="321">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1965,13 +1965,13 @@
  </tile>
  <tile id="327">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="328">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -1989,19 +1989,19 @@
  </tile>
  <tile id="331">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="332">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="333">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2013,7 +2013,7 @@
  </tile>
  <tile id="335">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2043,19 +2043,19 @@
  </tile>
  <tile id="340">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="341">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="342">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2067,13 +2067,13 @@
  </tile>
  <tile id="344">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="345">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2103,7 +2103,7 @@
  </tile>
  <tile id="350">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2115,19 +2115,19 @@
  </tile>
  <tile id="352">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="353">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="354">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2139,43 +2139,43 @@
  </tile>
  <tile id="356">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="357">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="358">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="359">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="360">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="361">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="362">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2235,7 +2235,7 @@
  </tile>
  <tile id="372">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2247,7 +2247,7 @@
  </tile>
  <tile id="374">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2277,7 +2277,7 @@
  </tile>
  <tile id="379">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2295,13 +2295,13 @@
  </tile>
  <tile id="382">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="383">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2313,19 +2313,19 @@
  </tile>
  <tile id="385">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="386">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="387">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2349,7 +2349,7 @@
  </tile>
  <tile id="391">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2367,19 +2367,19 @@
  </tile>
  <tile id="394">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="395">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="396">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2403,7 +2403,7 @@
  </tile>
  <tile id="400">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2439,7 +2439,7 @@
  </tile>
  <tile id="406">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2457,25 +2457,25 @@
  </tile>
  <tile id="409">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="410">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="411">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="412">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2487,13 +2487,13 @@
  </tile>
  <tile id="414">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="415">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2505,31 +2505,31 @@
  </tile>
  <tile id="417">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="418">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="419">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="420">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="421">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2541,25 +2541,25 @@
  </tile>
  <tile id="423">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="424">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="425">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="426">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2583,7 +2583,7 @@
  </tile>
  <tile id="430">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2595,13 +2595,13 @@
  </tile>
  <tile id="432">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="433">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2613,7 +2613,7 @@
  </tile>
  <tile id="435">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2673,13 +2673,13 @@
  </tile>
  <tile id="445">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="446">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2721,13 +2721,13 @@
  </tile>
  <tile id="453">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="454">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2739,7 +2739,7 @@
  </tile>
  <tile id="456">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2775,7 +2775,7 @@
  </tile>
  <tile id="462">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2793,7 +2793,7 @@
  </tile>
  <tile id="465">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2817,25 +2817,25 @@
  </tile>
  <tile id="469">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="470">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="471">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="472">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2865,7 +2865,7 @@
  </tile>
  <tile id="477">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2877,7 +2877,7 @@
  </tile>
  <tile id="479">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2901,19 +2901,19 @@
  </tile>
  <tile id="483">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="484">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="485">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2937,7 +2937,7 @@
  </tile>
  <tile id="489">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2973,19 +2973,19 @@
  </tile>
  <tile id="495">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="496">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="497">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -2997,13 +2997,13 @@
  </tile>
  <tile id="499">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="500">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -3051,31 +3051,31 @@
  </tile>
  <tile id="508">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="509">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="510">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="511">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
  <tile id="512">
   <properties>
-   <property name="collidable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="false"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -3117,7 +3117,7 @@
  </tile>
  <tile id="519">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -3159,7 +3159,7 @@
  </tile>
  <tile id="526">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
    <property name="type" value=""/>
   </properties>
  </tile>
@@ -3169,38 +3169,1028 @@
    <property name="type" value=""/>
   </properties>
  </tile>
+ <tile id="528">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="529">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="530">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="531">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="532">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="533">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="534">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="535">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="536">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="537">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="538">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="539">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="540">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="541">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="542">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="543">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="544">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="545">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="546">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="547">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="548">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="549">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="550">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="551">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="552">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="553">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="554">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="555">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="556">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="557">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="558">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="559">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="560">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="561">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="562">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="563">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="564">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="565">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="566">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="567">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="568">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="569">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="570">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="571">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="572">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="573">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="574">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="575">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="576">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="577">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="578">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="579">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="580">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="581">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="582">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="583">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="584">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="585">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="586">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="587">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="588">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="589">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="590">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="591">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="592">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="593">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="594">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="595">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="596">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="597">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="598">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="599">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="600">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="601">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="602">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="603">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="604">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="605">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="606">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="607">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="608">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="609">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="610">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="611">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="612">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="613">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="614">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="615">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="616">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="617">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="618">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="619">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="620">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="621">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="622">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="623">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="624">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="625">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="626">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="627">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="628">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="629">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="630">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="631">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="632">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="633">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="634">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="635">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="636">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="637">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="638">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="639">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="640">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="641">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="642">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="643">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="644">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="645">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="646">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="647">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="648">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="649">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="650">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="651">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="652">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="653">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="654">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="655">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="656">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="657">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="658">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="659">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="660">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="661">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="662">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="663">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="664">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="665">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="666">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="667">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="668">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="669">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="670">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="671">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="672">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="673">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="674">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="675">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="676">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="677">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="678">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="679">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="680">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="681">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="682">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="683">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="684">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="685">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="686">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="687">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="688">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="689">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="690">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="691">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
+ <tile id="692">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+   <property name="type" value=""/>
+  </properties>
+ </tile>
  <wangsets>
-  <wangset name="sand" type="corner" tile="17">
-   <wangcolor name="" color="#ff0000" tile="17" probability="1"/>
+  <wangset name="sand" type="corner" tile="22">
+   <wangcolor name="" color="#ff0000" tile="22" probability="1"/>
    <wangtile tileid="0" wangid="0,0,0,1,0,0,0,0"/>
    <wangtile tileid="1" wangid="0,0,0,1,0,1,0,0"/>
    <wangtile tileid="2" wangid="0,0,0,0,0,1,0,0"/>
    <wangtile tileid="3" wangid="0,1,0,0,0,1,0,1"/>
    <wangtile tileid="4" wangid="0,1,0,1,0,0,0,1"/>
-   <wangtile tileid="16" wangid="0,1,0,1,0,0,0,0"/>
-   <wangtile tileid="17" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="18" wangid="0,0,0,0,0,1,0,1"/>
-   <wangtile tileid="19" wangid="0,0,0,1,0,1,0,1"/>
-   <wangtile tileid="20" wangid="0,1,0,1,0,1,0,0"/>
-   <wangtile tileid="32" wangid="0,1,0,0,0,0,0,0"/>
-   <wangtile tileid="33" wangid="0,1,0,0,0,0,0,1"/>
-   <wangtile tileid="34" wangid="0,0,0,0,0,0,0,1"/>
+   <wangtile tileid="21" wangid="0,1,0,1,0,0,0,0"/>
+   <wangtile tileid="22" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="23" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="24" wangid="0,0,0,1,0,1,0,1"/>
+   <wangtile tileid="25" wangid="0,1,0,1,0,1,0,0"/>
+   <wangtile tileid="42" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="43" wangid="0,1,0,0,0,0,0,1"/>
+   <wangtile tileid="44" wangid="0,0,0,0,0,0,0,1"/>
   </wangset>
-  <wangset name="sandpath" type="corner" tile="97">
-   <wangcolor name="" color="#ff0000" tile="97" probability="1"/>
-   <wangtile tileid="80" wangid="0,0,0,1,0,0,0,0"/>
-   <wangtile tileid="81" wangid="0,0,0,1,0,1,0,0"/>
-   <wangtile tileid="82" wangid="0,0,0,0,0,1,0,0"/>
-   <wangtile tileid="83" wangid="0,1,0,0,0,1,0,1"/>
-   <wangtile tileid="84" wangid="0,1,0,1,0,0,0,1"/>
-   <wangtile tileid="96" wangid="0,1,0,1,0,0,0,0"/>
-   <wangtile tileid="97" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="98" wangid="0,0,0,0,0,1,0,1"/>
-   <wangtile tileid="99" wangid="0,0,0,1,0,1,0,1"/>
-   <wangtile tileid="100" wangid="0,1,0,1,0,1,0,0"/>
-   <wangtile tileid="112" wangid="0,1,0,0,0,0,0,0"/>
-   <wangtile tileid="113" wangid="0,1,0,0,0,0,0,1"/>
-   <wangtile tileid="114" wangid="0,0,0,0,0,0,0,1"/>
+  <wangset name="sandpath" type="corner" tile="127">
+   <wangcolor name="" color="#ff0000" tile="127" probability="1"/>
+   <wangtile tileid="105" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="106" wangid="0,0,0,1,0,1,0,0"/>
+   <wangtile tileid="107" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="108" wangid="0,1,0,0,0,1,0,1"/>
+   <wangtile tileid="109" wangid="0,1,0,1,0,0,0,1"/>
+   <wangtile tileid="126" wangid="0,1,0,1,0,0,0,0"/>
+   <wangtile tileid="127" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="128" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="129" wangid="0,0,0,1,0,1,0,1"/>
+   <wangtile tileid="130" wangid="0,1,0,1,0,1,0,0"/>
+   <wangtile tileid="147" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="148" wangid="0,1,0,0,0,0,0,1"/>
+   <wangtile tileid="149" wangid="0,0,0,0,0,0,0,1"/>
   </wangset>
  </wangsets>
 </tileset>

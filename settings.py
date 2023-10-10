@@ -47,7 +47,10 @@ PURPLE = (104, 56, 108)
 
 MOUSE_SPRITESHEET = p.image.load(path.join(UI_folder, 'mouse.png'))
 
-TUTORIAL_MAP = path.join(map_folder, 'tutorial.tmx')
+MAPS = {
+    'TUTORIAL': path.join(map_folder, 'tutorial.tmx'),
+    'RESET': path.join(map_folder, 'reset.tmx')
+}
 
 
 BUTTON_SOUND = path.join(snd_folder, 'button.wav')
@@ -68,19 +71,28 @@ MOVE_SOUND = path.join(snd_folder, 'move.wav')
 NEXT_SOUND = path.join(snd_folder, 'next.wav')
 
 BATTLE_MAPS = {
-    'TUTORIAL': path.join(map_folder, 'tutorial_battle.tmx')
+    'TUTORIAL': path.join(map_folder, 'tutorial_battle.tmx'),
+    'GHOSTBLADE': path.join(map_folder, 'ghostblade.tmx')
 }
 
 ENEMY_PARTIES = {
-    'TUTORIAL': ['BANDIT1', 'BANDIT2', 'BANDIT3'] 
+    'GHOSTBLADE': ['GHOSTBLADE'],
+    'TUTORIAL': ['BANDIT1', 'BANDIT2'] 
 }
 
 LOOT_TABLE = {
+
+    'GHOSTBLADE': [
+        ['BANDAGE'],
+        ['BANDAGE'],
+        ['BANDAGE']
+    ],
     'TUTORIAL': [
         ['BANDAGE'],
         ['BANDAGE'],
         ['TORCH']
     ]
+
 }
 
 TILESET = p.image.load(path.join(tiles_folder, 'tileset.png'))
@@ -114,7 +126,8 @@ CHARACTER_SPRITESHEETS = {
     'BREACH': p.image.load(path.join(heroes_folder, 'breach.png')),
     'BANDIT1': p.image.load(path.join(enemies_folder, 'bandit1.png')),
     'BANDIT2': p.image.load(path.join(enemies_folder, 'bandit2.png')),
-    'BANDIT3': p.image.load(path.join(enemies_folder, 'bandit3.png'))
+    'BANDIT3': p.image.load(path.join(enemies_folder, 'bandit3.png')),
+    'GHOSTBLADE': p.image.load(path.join(enemies_folder, 'ghostblade.png'))
 }
 
 MENU_SPRITESHEETS = {

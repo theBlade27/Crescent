@@ -17,7 +17,7 @@ class Hero(Character):
         if self.type == 'BLADE':
             self.name = 'BLADE'
             self.max_health = 20
-            self.speed = 30
+            self.speed = 3
             self.damage = [7, 10]
             self.healing = [1, 2]
             self.sanity_recovery_skills = [4, 7]
@@ -56,7 +56,7 @@ class Hero(Character):
             self.sanity_recovery_skills = [0, 0]
             self.mobility = 6
             self.protection = 0
-            self.agility = 20
+            self.agility = 4
             self.precision = 95
             self.crit = 10
             self.bleed = 30
