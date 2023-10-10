@@ -42,6 +42,8 @@ class Map(p.sprite.Sprite):
                 elif layer == 'interactables':
                     if properties['type'] == 'door':
                         DoorTile(self.game, tile, x * TILE_SIZE, y * TILE_SIZE)
+                    elif properties['type'] == 'hero':
+                        CharacterTile(self.game, tile, x * TILE_SIZE, y * TILE_SIZE)
                     else:
                         TileObject(self.game, tile, x * TILE_SIZE, y * TILE_SIZE, True, collidable = properties['collidable'])
 
@@ -61,17 +63,21 @@ class Map(p.sprite.Sprite):
             if event.name == 'spawn':
                 self.game.spawn_location = (event.x * MAP_SCALE, event.y * MAP_SCALE)
 
+            if event.name == 'character':
+                GetNewCharacter(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.character, event.description)
+
             if event.name == 'interaction':
                 Interaction(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description)
 
             if event.name == 'battle':
-                BattleInteraction(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.encounter)
+                BattleInteraction(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.encounter, event.proximity)
 
             if event.name == 'loot':
                 Loot(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.loot)
 
             if event.name == 'level':
                 Level(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.level, event.stageclear)
+
 
     def generate_map(self, surface):
 

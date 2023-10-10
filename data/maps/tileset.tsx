@@ -3567,8 +3567,8 @@
  </tile>
  <tile id="594">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
-   <property name="type" value=""/>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value="hero"/>
   </properties>
  </tile>
  <tile id="595">
@@ -3693,8 +3693,8 @@
  </tile>
  <tile id="615">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
-   <property name="type" value=""/>
+   <property name="collidable" type="bool" value="true"/>
+   <property name="type" value="hero"/>
   </properties>
  </tile>
  <tile id="616">

@@ -3,6 +3,7 @@ from settings import *
 from sprite import *
 from camera import *
 from item import *
+from hero import *
 vec = p.math.Vector2
 
 class TileObject(p.sprite.Sprite):
@@ -62,13 +63,14 @@ class Interaction(p.sprite.Sprite):
 
 class BattleInteraction(Interaction):
 
-    def __init__(self, game, x, y, description, type):
+    def __init__(self, game, x, y, description, type, proximity):
         super().__init__(game, x, y, description)
 
         self.description += '\nSTART BATTLE?'
         self.type = type
         self.beaten = False
         self.alert_visible = True
+        self.proximity = proximity
 
     def update(self):
 
@@ -83,6 +85,14 @@ class BattleInteraction(Interaction):
 
             if distance_to_target.length() > INTERACT_RADIUS:
                 accessible = False
+
+            if self.proximity:
+                if distance_to_target.length() < BATTLE_RADIUS:
+                    self.game.start_battle(self.type)
+                    self.game.last_interacted = self
+                    sound = p.mixer.Sound(BLIP_SOUND)
+                    sound.play()
+
                 
             if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
                 self.game.mouse.image = self.game.mouse.images[2]
@@ -102,6 +112,60 @@ class BattleInteraction(Interaction):
         elif self.beaten == True:
 
             self.alert_visible = False
+
+class GetNewCharacter(Interaction):
+
+    def __init__(self, game, x, y, character, description):
+        super().__init__(game, x, y, description)
+
+        self.description += '\nADD A NEW CHARACTER TO YOUR PARTY?'
+
+        self.character = character
+
+        self.interacted = False
+        self.alert_visible = True
+
+
+    def update(self):
+        
+        
+        if self.interacted == False:
+
+            self.alert_visible = True
+
+            accessible = True
+
+            character_location = self.game.camera_focus.pos
+            distance_to_target = character_location - vec((self.pos[0] + 30), (self.pos[1] + 30))
+
+            if distance_to_target.length() > INTERACT_RADIUS:
+                accessible = False
+                        
+            if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
+                self.game.mouse.image = self.game.mouse.images[2]
+                if accessible == True:
+
+                    self.game.textbox_text = self.description
+                    self.game.menus['TOP'].images['TEXT'].update()
+                    self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+                    self.game.menus['TOP'].images['PORTRAIT'].update()
+
+                    if self.game.mouse.pressed['M1']:
+
+                        for i in range(len(self.game.hero_party)):
+
+                            if self.game.hero_party[i] == None:
+
+                                self.game.hero_party[i] = Hero(self.game, self.character, self.pos)
+                                self.game.menus['HERO' + str(i + 1)].update()
+                                self.game.menus['HERO' + str(i + 1)].update_images()
+                                
+                                self.interacted = True
+                                self.alert_visible = False
+
+                                break
+
+    
 
 class Level(Interaction):
 
@@ -262,6 +326,31 @@ class AlertTile(TileObject):
             self.image = self.regular_image
 
         elif self.object.alert_visible == False:
+
+            self.image = self.invisible
+
+class CharacterTile(TileObject):
+
+    def __init__(self, game, image, x, y):
+        super().__init__(game, image, x, y)
+
+        self.regular_image = image.copy()
+        self.invisible = Sprite(TILESET, scale = MAP_SCALE).get_sprite(0, 160, 20, 20)
+        self.image = self.regular_image.copy()
+
+        for object in self.game.interactable_objects:
+
+            if [object.pos[0], object.pos[1]] == [self.pos[0], self.pos[1]]:
+
+                self.object = object
+
+    def update(self):
+
+        if self.object.interacted == False:
+
+            self.image = self.regular_image
+
+        elif self.object.interacted == True:
 
             self.image = self.invisible
 

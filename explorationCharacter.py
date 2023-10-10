@@ -139,7 +139,8 @@ class ExplorationCharacter(p.sprite.Sprite):
                                 distance_from_hero = self.pos - hero.exploration_character.pos
                                 if 0 < distance_from_hero.length() < REPULSION_RADIUS:
                                     self.acc += distance_from_hero.normalize()
-                                    self.acc.scale_to_length(ACCELERATION)
+                                    if self.acc != [0, 0]:
+                                        self.acc.scale_to_length(ACCELERATION)
 
         self.acc += self.vel * FRICTION
 

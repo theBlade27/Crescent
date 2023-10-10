@@ -205,18 +205,35 @@ class Game:
             if self.hero_party[0] != None:
 
                 self.hero_party[0].exploration_character.pos = self.spawn_location
+                self.hero_party[0].current_health = min(self.hero_party[0].current_health + self.hero_party[0].max_health / 3, self.hero_party[0].max_health)
 
             if self.hero_party[1] != None:
 
                 self.hero_party[1].exploration_character.pos = (self.spawn_location[0] + 96, self.spawn_location[1])
+                self.hero_party[1].current_health = min(self.hero_party[1].current_health + self.hero_party[1].max_health / 3, self.hero_party[1].max_health)
 
             if self.hero_party[2] != None:
 
                 self.hero_party[2].exploration_character.pos = (self.spawn_location[0], self.spawn_location[1] + 96)
+                self.hero_party[2].current_health = min(self.hero_party[2].current_health + self.hero_party[2].max_health / 3, self.hero_party[2].max_health)
 
             if self.hero_party[3] != None:
 
                 self.hero_party[3].exploration_character.pos = (self.spawn_location[0] + 96, self.spawn_location[1] + 96)
+                self.hero_party[3].current_health = min(self.hero_party[3].current_health + self.hero_party[3].max_health / 3, self.hero_party[3].max_health)
+
+
+            for hero in self.hero_party:
+
+                if hero.current_health > 0:
+
+                    hero.deaths_door = False
+
+                if hero.deaths_door == False:
+
+                    for effect in hero.effects:
+                        if type(effect) == DeathsDoor:
+                            effect.remove_effect()
 
     def set_up_camera(self):
 
@@ -422,7 +439,7 @@ class Game:
 
                 if event.key == p.K_b:
 
-                    self.reset_game()
+                    self.next_level(MAPS['DESERT2'])
 
 
     def quit(self):

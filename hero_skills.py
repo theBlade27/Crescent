@@ -35,14 +35,14 @@ class Command(HeroSkill):
 
         self.range = [0, 8]
 
-        self.multiplier = 100
+        self.multiplier = 0
 
         self.bonus_debuff = 100
         self.bonus_precision = 100
 
         self.effects_on_hit = ['MARKING', 'ANTIDODGE']
         self.debuffing = True
-        self.effects_on_user = ['CRIT2']
+        self.effects_on_user = ['CRIT3']
 
         self.sound = p.mixer.Sound(MARK_SOUND)
 

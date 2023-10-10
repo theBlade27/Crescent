@@ -52,7 +52,7 @@ class FlintShot(EnemySkill):
     def __init__(self, game, character):
         super().__init__(game, character)
 
-        self.range = [3, 6]
+        self.range = [3, 8]
         self.name = 'FLINT SHOT'
 
         self.effects_on_hit = ['BLINDING']
@@ -60,4 +60,21 @@ class FlintShot(EnemySkill):
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
+class AridStab(EnemySkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.range = [0, 3]
+        self.name = 'ARID STAB'
+
+        self.multiplier = 0.8
+
+        self.effects_on_hit = ['BLEEDING']
+
+        self.sound = p.mixer.Sound(LIGHT_SOUND)
+
+        self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))

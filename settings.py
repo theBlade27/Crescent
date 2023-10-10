@@ -49,7 +49,8 @@ MOUSE_SPRITESHEET = p.image.load(path.join(UI_folder, 'mouse.png'))
 
 MAPS = {
     'TUTORIAL': path.join(map_folder, 'tutorial.tmx'),
-    'RESET': path.join(map_folder, 'reset.tmx')
+    'RESET': path.join(map_folder, 'reset.tmx'),
+    'DESERT2': path.join(map_folder, 'level2.tmx')
 }
 
 
@@ -72,12 +73,16 @@ NEXT_SOUND = path.join(snd_folder, 'next.wav')
 
 BATTLE_MAPS = {
     'TUTORIAL': path.join(map_folder, 'tutorial_battle.tmx'),
-    'GHOSTBLADE': path.join(map_folder, 'ghostblade.tmx')
+    'GHOSTBLADE': path.join(map_folder, 'ghostblade.tmx'),
+    'L2B1': path.join(map_folder, 'level2_battle1.tmx'),
+    'L2B2': path.join(map_folder, 'level2_battle2.tmx')
 }
 
 ENEMY_PARTIES = {
     'GHOSTBLADE': ['GHOSTBLADE'],
-    'TUTORIAL': ['BANDIT1', 'BANDIT2'] 
+    'TUTORIAL': ['BANDIT1', 'BANDIT2'],
+    'L2B1': ['BANDIT1', 'BANDIT2'],
+    'L2B2': ['BANDIT2', 'BANDIT3']
 }
 
 LOOT_TABLE = {
@@ -87,13 +92,17 @@ LOOT_TABLE = {
         ['BANDAGE'],
         ['BANDAGE']
     ],
-    'TUTORIAL': [
+    'DESERT': [
         ['BANDAGE'],
         ['BANDAGE'],
         ['TORCH']
-    ]
+    ],
 
 }
+
+LOOT_TABLE['TUTORIAL'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['L2B1'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['L2B2'] = LOOT_TABLE['DESERT']
 
 TILESET = p.image.load(path.join(tiles_folder, 'tileset.png'))
 
@@ -163,3 +172,5 @@ FOLLOW_DISTANCE = 100
 REPULSION_RADIUS = 60
 
 INTERACT_RADIUS = 100
+
+BATTLE_RADIUS = 200

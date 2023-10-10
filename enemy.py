@@ -81,7 +81,8 @@ class Enemy(Character):
             self.debuff = 30
 
             self.skills = [
-                FlintShot(self.game, self)
+                FlintShot(self.game, self),
+                AridStab(self.game, self)
             ]
 
             self.damage = [2, 5]

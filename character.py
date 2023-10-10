@@ -69,13 +69,13 @@ class Character(p.sprite.Sprite):
 
             if debuff == False:
 
-                chance_to_dodge = self.agility
+                chance_to_dodge = 100 + self.agility - damage_dealer.precision - damage_dealer.selected_skill.bonus_precision
 
-                chance_to_miss = 100 - damage_dealer.precision
+                chance_to_miss = 100 - damage_dealer.precision - damage_dealer.selected_skill.bonus_precision
 
                 rand = random.randint(1, 100)
 
-                if rand <= chance_to_dodge - damage_dealer.selected_skill.bonus_precision:
+                if rand <= chance_to_dodge:
 
                     dodged = True
 

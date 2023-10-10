@@ -644,6 +644,8 @@ class HeroPreview(Menu):
     def __init__(self, game, index):
         super().__init__(game)
 
+        self.index = index
+
         self.pos = [4, 200 + 160 * index]
         self.hero = self.game.hero_party[index]
         self.background = MENU_SPRITESHEETS['HERO_PREVIEW'].copy()
@@ -671,6 +673,8 @@ class HeroPreview(Menu):
     def update(self):
         super().update()
 
+        self.hero = self.game.hero_party[self.index]
+
         if self.hero == None:
             self.visible = False
         else:
@@ -681,17 +685,19 @@ class HeroPreview(Menu):
             else:
                 self.visible = True
 
-        if self.hitbox.collidepoint(self.game.mouse.pos):
-            if self.game.mouse.pressed['M2']:
-                if self.game.inventory_open == False:
-                    self.game.open_menu('INVENTORY', self.hero)
-                    self.game.inventory_open = True
-                else:
-                    self.game.menus['INVENTORY'].hero = self.hero
-                    self.game.menus['INVENTORY'].update_images()
+        if self.visible:
 
-                sound = p.mixer.Sound(BUTTON_SOUND)
-                sound.play()
+            if self.hitbox.collidepoint(self.game.mouse.pos):
+                if self.game.mouse.pressed['M2']:
+                    if self.game.inventory_open == False:
+                        self.game.open_menu('INVENTORY', self.hero)
+                        self.game.inventory_open = True
+                    else:
+                        self.game.menus['INVENTORY'].hero = self.hero
+                        self.game.menus['INVENTORY'].update_images()
+
+                    sound = p.mixer.Sound(BUTTON_SOUND)
+                    sound.play()
 
 
 

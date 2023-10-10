@@ -128,6 +128,7 @@
    <properties>
     <property name="description" value="WOULD YOU LIKE YOU LIKE A REMINDER OF WHAT SUFFERING FEELS LIKE?"/>
     <property name="encounter" value="GHOSTBLADE"/>
+    <property name="proximity" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

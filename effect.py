@@ -319,29 +319,15 @@ class Mark(Effect):
 
 class StunResist(Effect):
 
-    def __init__(self, game, character, duration = 2):
+    def __init__(self, game, character, duration = 1):
         super().__init__(game, character, duration)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(80, 380, 20, 20)
 
-    def apply_effect(self):
-
-        self.character.stun += 50
-
-    def remove_effect(self):
-
-        self.character.stun -= 50
-
-        if self in self.character.effects:
-
-            self.character.effects.remove(self)
-            for menu in self.game.menus.values():
-                menu.update_images()
-
 
 class Dodge(Effect):
 
-    def __init__(self, game, character, duration = 3, dodge_modifier = 5):
+    def __init__(self, game, character, duration = 3, dodge_modifier = 10):
 
         self.dodge_modifier = dodge_modifier
 
@@ -369,35 +355,35 @@ class Dodge(Effect):
 class Dodge2(Dodge):
 
     def __init__(self, game, character, duration = 3):
-        super().__init__(game, character, duration, 15)
+        super().__init__(game, character, duration, 25)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 200, 20, 20)
 
 class Dodge3(Dodge):
 
     def __init__(self, game, character, duration = 3):
-        super().__init__(game, character, duration, 30)
+        super().__init__(game, character, duration, 50)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 220, 20, 20)
 
 class AntiDodge(Dodge):
 
     def __init__(self, game, character, duration = 3):
-        super().__init__(game, character, duration, -5)
+        super().__init__(game, character, duration, -10)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(40, 180, 20, 20)
 
 class AntiDodge2(Dodge):
 
     def __init__(self, game, character, duration = 3):
-        super().__init__(game, character, duration, -15)
+        super().__init__(game, character, duration, -25)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(40, 200, 20, 20)
 
 class AntiDodge3(Dodge):
 
     def __init__(self, game, character, duration = 3):
-        super().__init__(game, character, duration, -30)
+        super().__init__(game, character, duration, -50)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(40, 220, 20, 20)
 

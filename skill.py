@@ -79,7 +79,7 @@ class Skill(p.sprite.Sprite):
                 if crit:
                     self.character.calculate_sanity_increase(5)
 
-                if not missed and not dodged:
+                if (not missed) and (not dodged):
 
                     if crit:
 
@@ -93,7 +93,7 @@ class Skill(p.sprite.Sprite):
 
                     damage_numbers.append('MISSED')
 
-                else:
+                elif dodged:
 
                     damage_numbers.append('DODGED')
 
@@ -197,7 +197,7 @@ class Skill(p.sprite.Sprite):
 
             for effect in self.effects_on_hit:
                     
-                if not missed and not dodged:
+                if (not missed) and (not dodged):
                 
                     if effect == 'BURNING':
 
@@ -355,6 +355,9 @@ class Skill(p.sprite.Sprite):
 
                         if rand >= self.character.stun:
                             self.successful = True
+                            for effect in target.effects:
+                                if type(effect) == StunResist:
+                                    self.successful = False
                         else:
                             self.successful = False
 
@@ -646,7 +649,7 @@ class EnemySkill(Skill):
                     else:
                         self.text += '{} MET THEIR END.\n'.format(character.name)
 
-                if not missed and not dodged:
+                if (not missed) and (not dodged):
 
                     if crit:
 
@@ -762,7 +765,7 @@ class EnemySkill(Skill):
 
             for effect in self.effects_on_hit:
                     
-                if not missed and not dodged:
+                if (not missed) and (not dodged):
                 
                     if effect == 'BURNING':
 
@@ -918,6 +921,9 @@ class EnemySkill(Skill):
 
                         if rand >= self.character.stun:
                             self.successful = True
+                            for effect in character.effects:
+                                if type(effect) == StunResist:
+                                    self.successful = False
                         else:
                             self.successful = False
 
