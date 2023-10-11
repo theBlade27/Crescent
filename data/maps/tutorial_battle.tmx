@@ -36,6 +36,5 @@
    </properties>
   </object>
   <object id="7" name="enemy_spawn" x="60" y="80"/>
-  <object id="9" name="enemy_spawn" x="40" y="120"/>
  </objectgroup>
 </map>

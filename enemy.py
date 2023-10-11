@@ -22,10 +22,10 @@ class Enemy(Character):
             self.speed = 2
             self.frontliner = True
             self.damage = [3, 5]
-            self.mobility = 4
+            self.mobility = 3
             self.protection = 15
-            self.agility = 3
-            self.precision = 90
+            self.agility = 5
+            self.precision = 100
             self.crit = 5
             self.bleed = 60
             self.venom = 60
@@ -44,7 +44,7 @@ class Enemy(Character):
             self.max_health = 10
             self.speed = 5
             self.frontliner = True
-            self.mobility = 5
+            self.mobility = 3
             self.protection = 10
             self.agility = 10
             self.precision = 90

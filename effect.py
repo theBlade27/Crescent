@@ -216,7 +216,7 @@ class Burning(Effect):
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 360, 20, 20)
 
-        self.damage = 2
+        self.damage = 4
 
     def tick(self):
 
@@ -237,7 +237,7 @@ class Burning2(Burning):
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(40, 360, 20, 20)
 
-        self.damage = 5
+        self.damage = 8
 
 class Burning3(Burning):
 
@@ -246,7 +246,7 @@ class Burning3(Burning):
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(60, 360, 20, 20)
 
-        self.damage = 10
+        self.damage = 16
 
 class Bleeding(Burning):
 
@@ -255,7 +255,7 @@ class Bleeding(Burning):
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 300, 20, 20)
 
-        self.damage = 2
+        self.damage = 4
 
 class Bleeding2(Burning):
 
@@ -264,7 +264,7 @@ class Bleeding2(Burning):
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(40, 300, 20, 20)
 
-        self.damage = 5
+        self.damage = 8
 
 class Bleeding3(Burning):
 
@@ -273,7 +273,7 @@ class Bleeding3(Burning):
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(60, 300, 20, 20)
 
-        self.damage = 10
+        self.damage = 16
 
 class Stun(Effect):
 
@@ -428,3 +428,146 @@ class Blindness3(Blindness):
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 220, 20, 20)
 
+class Precision(Blindness):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -20)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(60, 180, 20, 20)
+
+class Precision2(Blindness):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -50)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(60, 200, 20, 20)
+
+class Precision3(Blindness):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -100)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(60, 220, 20, 20)
+
+
+class Protection(Effect):
+
+    def __init__(self, game, character, duration = 3, protection_modifier = 20):
+
+        self.protection = protection_modifier
+        super().__init__(game, character, duration)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 60, 20, 20)
+
+    def apply_effect(self):
+
+        self.character.protection += self.protection
+
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+    def remove_effect(self):
+
+        self.character.precision -= self.protection
+
+        if self in self.character.effects:
+
+            self.character.effects.remove(self)
+            for menu in self.game.menus.values():
+                menu.update_images()
+
+class Protection2(Protection):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, 60)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 80, 20, 20)
+
+class Protection3(Protection):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, 100)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 100, 20, 20)
+
+class BrokenArmour(Protection):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -20)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 60, 20, 20)
+
+class BrokenArmour2(Protection):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -60)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 80, 20, 20)
+
+class BrokenArmour3(Protection):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -100)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 100, 20, 20)
+
+class Speed(Effect):
+
+    def __init__(self, game, character, duration = 3, speed_modifier = 2):
+
+        self.speed = speed_modifier
+        super().__init__(game, character, duration)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 0, 20, 20)
+
+    def apply_effect(self):
+
+        self.character.speed += self.speed
+
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+    def remove_effect(self):
+
+        self.character.speed -= self.speed
+
+        if self in self.character.effects:
+
+            self.character.effects.remove(self)
+            for menu in self.game.menus.values():
+                menu.update_images()
+
+class Speed2(Speed):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, 4)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 20, 20, 20)
+
+class Speed3(Speed):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, 6)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 40, 20, 20)
+
+class Slowness(Speed):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -2)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 0, 20, 20)
+
+class Slowness2(Speed):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -4)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 20, 20, 20)
+
+class Slowness3(Speed):
+    
+    def __init__(self, game, character, duration = 3):
+        super().__init__(game, character, duration, -6)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 40, 20, 20)

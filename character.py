@@ -2,8 +2,10 @@ import pygame as p
 from sprite import *
 from settings import *
 from effect import *
+from wait import *
 import random
 import math
+
 
 
 class Character(p.sprite.Sprite):
@@ -110,6 +112,10 @@ class Character(p.sprite.Sprite):
                 self.current_health = max(0, self.current_health - damage)
 
                 if self.current_health == 0 and self.death == 0 and self in self.game.battle.all_characters:
+                    if self in self.game.menus['BATTLE'].enemies:
+                        if debuff == False:
+                            if damage_dealer.barking == False:
+                                BarkTimer(self.game, damage_dealer, random.choice(damage_dealer.killbarks))
                     self.die()
 
                 if self.current_health == 0:
@@ -117,6 +123,9 @@ class Character(p.sprite.Sprite):
 
                 if self.deaths_door:
                     self.effects.append(DeathsDoor(self.game, self))
+                    if self in self.game.menus['BATTLE'].heroes:
+                        if self.barking == False:
+                            BarkTimer(self.game, self, random.choice(self.deathsdoorbarks))
 
             if debuff == False:
 
@@ -149,6 +158,14 @@ class Character(p.sprite.Sprite):
         healing = int(healing)
 
         self.current_health = min(self.current_health + healing, self.max_health)
+
+        if self.deaths_door and healing > 0 and healer != self and self in self.game.menus['BATTLE'].heroes:
+            if self.barking == False:
+                BarkTimer(self.game, self, random.choice(self.healbarks))
+
+        if self.deaths_door and healing > 0 and healer != self and self in self.game.menus['BATTLE'].heroes:
+            if healer.barking == False:
+                BarkTimer(self.game, healer, random.choice(healer.healerbarks))
 
         if self.current_health > 0:
             self.deaths_door = False

@@ -554,9 +554,6 @@ class OnHitEffectIcon(Image):
     def __init__(self, game, menu):
         super().__init__(game)
 
-        self.menu = menu
-        self.hero = self.menu.hero
-
         self.scale = 4
 
         self.icon = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0, 18, 9, 9)
@@ -567,23 +564,13 @@ class OnHitEffectIcon(Image):
         self.pos = [192, 468]
 
     def update(self):
-        
-        self.hero = self.menu.hero
-        skill = self.hero.selected_skill
 
-        self.image.fill(BLUE)
-
-        if len(skill.effects_on_hit) > 0:
-
-            self.image.blit(self.icon, [0, 0])
+        self.image.blit(self.icon, [0, 0])
 
 class OnUseEffectIcon(Image):
 
     def __init__(self, game, menu):
         super().__init__(game)
-
-        self.menu = menu
-        self.hero = self.menu.hero
 
         self.scale = 4
 
@@ -595,15 +582,8 @@ class OnUseEffectIcon(Image):
         self.pos = [612, 468]
 
     def update(self):
-        
-        self.hero = self.menu.hero
-        skill = self.hero.selected_skill
 
-        self.image.fill(BLUE)
-
-        if len(skill.effects_on_user) > 0:
-
-            self.image.blit(self.icon, [0, 0])
+        self.image.blit(self.icon, [0, 0])
 
 class OnUseEnemyEffectDisplay(Image):
     
@@ -629,99 +609,165 @@ class OnUseEnemyEffectDisplay(Image):
 
         self.image.fill(BLUE)
 
-        if self.index < len(skill.effects_on_user):
+        if skill != None:
 
-            if skill.effects_on_user[self.index] == 'BURNING':
+            if self.index < len(skill.effects_on_user):
 
-                self.image.blit(p.transform.scale(Burning(self.game, None).image, [80, 80]), [0, 0])
+                if skill.effects_on_user[self.index] == 'BURNING':
 
-            elif skill.effects_on_user[self.index] == 'BURNING2':
+                    self.image.blit(p.transform.scale(Burning(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Burning2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'BURNING2':
 
-            elif skill.effects_on_user[self.index] == 'BURNING3':
+                    self.image.blit(p.transform.scale(Burning2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Burning3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'BURNING3':
 
-            elif skill.effects_on_user[self.index] == 'BLEEDING':
+                    self.image.blit(p.transform.scale(Burning3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Bleeding(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'BLEEDING':
 
-            elif skill.effects_on_user[self.index] == 'BLEEDING2':
+                    self.image.blit(p.transform.scale(Bleeding(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Bleeding2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'BLEEDING2':
 
-            elif skill.effects_on_user[self.index] == 'BLEEDING3':
+                    self.image.blit(p.transform.scale(Bleeding2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Bleeding3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'BLEEDING3':
 
-            elif skill.effects_on_user[self.index] == 'STUNNING':
+                    self.image.blit(p.transform.scale(Bleeding3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Stun(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'STUNNING':
 
-            elif skill.effects_on_user[self.index] == 'MARKING':
+                    self.image.blit(p.transform.scale(Stun(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Mark(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'MARKING':
 
-            elif skill.effects_on_user[self.index] == 'WEAKNESS':
+                    self.image.blit(p.transform.scale(Mark(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Weakness(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'WEAKNESS':
 
-            elif skill.effects_on_user[self.index] == 'WEAKNESS2':
+                    self.image.blit(p.transform.scale(Weakness(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Weakness2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'WEAKNESS2':
 
-            elif skill.effects_on_user[self.index] == 'WEAKNESS3':
+                    self.image.blit(p.transform.scale(Weakness2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Weakness3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'WEAKNESS3':
 
-            elif skill.effects_on_user[self.index] == 'STRENGTH':
+                    self.image.blit(p.transform.scale(Weakness3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Strength(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'STRENGTH':
 
-            elif skill.effects_on_user[self.index] == 'STRENGTH2':
+                    self.image.blit(p.transform.scale(Strength(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Strength2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'STRENGTH2':
 
-            elif skill.effects_on_user[self.index] == 'STRENGTH3':
+                    self.image.blit(p.transform.scale(Strength2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Strength3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'STRENGTH3':
 
-            elif skill.effects_on_user[self.index] == 'DODGE':
+                    self.image.blit(p.transform.scale(Strength3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Dodge(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'DODGE':
 
-            elif skill.effects_on_user[self.index] == 'DODGE2':
+                    self.image.blit(p.transform.scale(Dodge(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Dodge2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'DODGE2':
 
-            elif skill.effects_on_user[self.index] == 'DODGE3':
+                    self.image.blit(p.transform.scale(Dodge2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Dodge3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'DODGE3':
 
-            elif skill.effects_on_user[self.index] == 'ANTIDODGE':
+                    self.image.blit(p.transform.scale(Dodge3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(AntiDodge(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'ANTIDODGE':
 
-            elif skill.effects_on_user[self.index] == 'ANTIDODGE2':
+                    self.image.blit(p.transform.scale(AntiDodge(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(AntiDodge2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'ANTIDODGE2':
 
-            elif skill.effects_on_user[self.index] == 'ANTIDODGE3':
+                    self.image.blit(p.transform.scale(AntiDodge2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(AntiDodge3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'ANTIDODGE3':
 
-            elif skill.effects_on_user[self.index] == 'BLINDNESS':
+                    self.image.blit(p.transform.scale(AntiDodge3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Blindness(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'BLINDNESS':
 
-            elif skill.effects_on_user[self.index] == 'BLINDNESS2':
+                    self.image.blit(p.transform.scale(Blindness(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Blindness2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'BLINDNESS2':
 
-            elif skill.effects_on_user[self.index] == 'BLINDNESS3':
+                    self.image.blit(p.transform.scale(Blindness2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Blindness3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_user[self.index] == 'BLINDNESS3':
+
+                    self.image.blit(p.transform.scale(Blindness3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'PRECISION':
+
+                    self.image.blit(p.transform.scale(Precision(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'PRECISION2':
+
+                    self.image.blit(p.transform.scale(Precision2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'PRECISION3':
+
+                    self.image.blit(p.transform.scale(Precision3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'SPEED':
+
+                    self.image.blit(p.transform.scale(Speed(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'SPEED2':
+
+                    self.image.blit(p.transform.scale(Speed2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'SPEED3':
+
+                    self.image.blit(p.transform.scale(Speed3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'PROTECTION':
+
+                    self.image.blit(p.transform.scale(Protection(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'PROTECTION2':
+
+                    self.image.blit(p.transform.scale(Protection2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'PROTECTION3':
+
+                    self.image.blit(p.transform.scale(Protection3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'BROKEN':
+
+                    self.image.blit(p.transform.scale(BrokenArmour(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'BROKEN2':
+
+                    self.image.blit(p.transform.scale(BrokenArmour2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'BROKEN3':
+
+                    self.image.blit(p.transform.scale(BrokenArmour3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'SLOWNESS':
+
+                    self.image.blit(p.transform.scale(Slowness(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'SLOWNESS2':
+
+                    self.image.blit(p.transform.scale(Slowness2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'SLOWNESS3':
+
+                    self.image.blit(p.transform.scale(Slowness3(self.game, None).image, [80, 80]), [0, 0])
+
+                
+
+            
 
 class OnHitEnemyEffectDisplay(Image):
     
@@ -747,111 +793,173 @@ class OnHitEnemyEffectDisplay(Image):
 
         self.image.fill(BLUE)
 
-        if self.index < len(skill.effects_on_hit):
+        if skill != None:
 
-            if skill.effects_on_hit[self.index] == 'BURNING':
+            if self.index < len(skill.effects_on_hit):
 
-                self.image.blit(p.transform.scale(Burning(self.game, None).image, [80, 80]), [0, 0])
+                if skill.effects_on_hit[self.index] == 'BURNING':
 
-            elif skill.effects_on_hit[self.index] == 'BURNING2':
+                    self.image.blit(p.transform.scale(Burning(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Burning2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'BURNING2':
 
-            elif skill.effects_on_hit[self.index] == 'BURNING3':
+                    self.image.blit(p.transform.scale(Burning2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Burning3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'BURNING3':
 
-            elif skill.effects_on_hit[self.index] == 'BLEEDING':
+                    self.image.blit(p.transform.scale(Burning3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Bleeding(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'BLEEDING':
 
-            elif skill.effects_on_hit[self.index] == 'BLEEDING2':
+                    self.image.blit(p.transform.scale(Bleeding(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Bleeding2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'BLEEDING2':
 
-            elif skill.effects_on_hit[self.index] == 'BLEEDING3':
+                    self.image.blit(p.transform.scale(Bleeding2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Bleeding3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'BLEEDING3':
 
-            elif skill.effects_on_hit[self.index] == 'STUNNING':
+                    self.image.blit(p.transform.scale(Bleeding3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Stun(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'STUNNING':
 
-            elif skill.effects_on_hit[self.index] == 'MARKING':
+                    self.image.blit(p.transform.scale(Stun(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Mark(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'MARKING':
 
-            elif skill.effects_on_hit[self.index] == 'WEAKNESS':
+                    self.image.blit(p.transform.scale(Mark(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Weakness(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'WEAKNESS':
 
-            elif skill.effects_on_hit[self.index] == 'WEAKNESS2':
+                    self.image.blit(p.transform.scale(Weakness(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Weakness2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'WEAKNESS2':
 
-            elif skill.effects_on_hit[self.index] == 'WEAKNESS3':
+                    self.image.blit(p.transform.scale(Weakness2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Weakness3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'WEAKNESS3':
 
-            elif skill.effects_on_hit[self.index] == 'STRENGTH':
+                    self.image.blit(p.transform.scale(Weakness3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Strength(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'STRENGTH':
 
-            elif skill.effects_on_hit[self.index] == 'STRENGTH2':
+                    self.image.blit(p.transform.scale(Strength(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Strength2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'STRENGTH2':
 
-            elif skill.effects_on_hit[self.index] == 'STRENGTH3':
+                    self.image.blit(p.transform.scale(Strength2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Strength3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'STRENGTH3':
 
-            elif skill.effects_on_hit[self.index] == 'DODGE':
+                    self.image.blit(p.transform.scale(Strength3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Dodge(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'DODGE':
 
-            elif skill.effects_on_hit[self.index] == 'DODGE2':
+                    self.image.blit(p.transform.scale(Dodge(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Dodge2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'DODGE2':
 
-            elif skill.effects_on_hit[self.index] == 'DODGE3':
+                    self.image.blit(p.transform.scale(Dodge2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Dodge3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'DODGE3':
 
-            elif skill.effects_on_hit[self.index] == 'ANTIDODGE':
+                    self.image.blit(p.transform.scale(Dodge3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(AntiDodge(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'ANTIDODGE':
 
-            elif skill.effects_on_hit[self.index] == 'ANTIDODGE2':
+                    self.image.blit(p.transform.scale(AntiDodge(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(AntiDodge2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'ANTIDODGE2':
 
-            elif skill.effects_on_hit[self.index] == 'ANTIDODGE3':
+                    self.image.blit(p.transform.scale(AntiDodge2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(AntiDodge3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'ANTIDODGE3':
 
-            elif skill.effects_on_hit[self.index] == 'BLINDING':
+                    self.image.blit(p.transform.scale(AntiDodge3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Blindness(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'BLINDING':
 
-            elif skill.effects_on_hit[self.index] == 'BLINDING2':
+                    self.image.blit(p.transform.scale(Blindness(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Blindness2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'BLINDING2':
 
-            elif skill.effects_on_hit[self.index] == 'BLINDING3':
+                    self.image.blit(p.transform.scale(Blindness2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Blindness3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'BLINDING3':
 
-            elif skill.effects_on_hit[self.index] == 'CRIT':
+                    self.image.blit(p.transform.scale(Blindness3(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Crit(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'CRIT':
 
-            elif skill.effects_on_hit[self.index] == 'CRIT2':
+                    self.image.blit(p.transform.scale(Crit(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Crit2(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'CRIT2':
 
-            elif skill.effects_on_hit[self.index] == 'CRIT3':
+                    self.image.blit(p.transform.scale(Crit2(self.game, None).image, [80, 80]), [0, 0])
 
-                self.image.blit(p.transform.scale(Crit3(self.game, None).image, [80, 80]), [0, 0])
+                elif skill.effects_on_hit[self.index] == 'CRIT3':
+
+                    self.image.blit(p.transform.scale(Crit3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'PRECISION':
+
+                    self.image.blit(p.transform.scale(Precision(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'PRECISION2':
+
+                    self.image.blit(p.transform.scale(Precision2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'PRECISION3':
+
+                    self.image.blit(p.transform.scale(Precision3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'SPEED':
+
+                    self.image.blit(p.transform.scale(Speed(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'SPEED2':
+
+                    self.image.blit(p.transform.scale(Speed2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'SPEED3':
+
+                    self.image.blit(p.transform.scale(Speed3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'PROTECTION':
+
+                    self.image.blit(p.transform.scale(Protection(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'PROTECTION2':
+
+                    self.image.blit(p.transform.scale(Protection2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'PROTECTION3':
+
+                    self.image.blit(p.transform.scale(Protection3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'BROKEN':
+
+                    self.image.blit(p.transform.scale(BrokenArmour(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'BROKEN2':
+
+                    self.image.blit(p.transform.scale(BrokenArmour2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'BROKEN3':
+
+                    self.image.blit(p.transform.scale(BrokenArmour3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'SLOWNESS':
+
+                    self.image.blit(p.transform.scale(Slowness(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'SLOWNESS2':
+
+                    self.image.blit(p.transform.scale(Slowness2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_hit[self.index] == 'SLOWNESS3':
+
+                    self.image.blit(p.transform.scale(Slowness3(self.game, None).image, [80, 80]), [0, 0])
 
 
 
@@ -1068,6 +1176,14 @@ class StorageSlot(Image):
                             self.game.selecting_equipment = False
                             sound = p.mixer.Sound(BUTTON_SOUND)
                             sound.play()
+
+            if self.game.mouse.pressed['M2']:
+
+                self.game.selected_item = self.game.inventory[self.index]
+                if self.game.selected_item != None:
+                    self.game.selected_item.use(self.index)
+                sound = p.mixer.Sound(BUTTON_SOUND)
+                sound.play()
 
 
         if self.game.deleting:

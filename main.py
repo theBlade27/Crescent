@@ -93,6 +93,7 @@ class Game:
         self.numbers = p.sprite.LayeredUpdates()
         self.camera_group = p.sprite.LayeredUpdates()
         self.timers = p.sprite.LayeredUpdates()
+        self.barks = p.sprite.LayeredUpdates()
 
     def check_stage_clear(self):
 
@@ -191,10 +192,7 @@ class Game:
         if reset:
 
             self.hero_party = [
-                Hero(self, 'BLADE', self.spawn_location),
-                #Hero(self, 'ARCANE', (self.spawn_location[0] + 96, self.spawn_location[1])),
-                #Hero(self, 'BREACH', (self.spawn_location[0], self.spawn_location[1] + 96)),
-                #Hero(self, 'FORTRESS', (self.spawn_location[0] + 96, self.spawn_location[1] + 96)),
+                Hero(self, 'ARCANE', self.spawn_location),
                 None,
                 None,
                 None,
@@ -225,15 +223,17 @@ class Game:
 
             for hero in self.hero_party:
 
-                if hero.current_health > 0:
+                if hero != None:
 
-                    hero.deaths_door = False
+                    if hero.current_health > 0:
 
-                if hero.deaths_door == False:
+                        hero.deaths_door = False
 
-                    for effect in hero.effects:
-                        if type(effect) == DeathsDoor:
-                            effect.remove_effect()
+                    if hero.deaths_door == False:
+
+                        for effect in hero.effects:
+                            if type(effect) == DeathsDoor:
+                                effect.remove_effect()
 
     def set_up_camera(self):
 
@@ -261,7 +261,7 @@ class Game:
 
         self.battle = Battle(self, type)
 
-    def open_menu(self, menu, character = None, loot_list = None):
+    def open_menu(self, menu, character = None, loot_list = None, text = None):
 
         if menu == 'INVENTORY':
 
@@ -281,25 +281,16 @@ class Game:
 
             self.menus[menu] = SkillInfo(self, character)
 
+        if menu == 'BARK':
+
+            self.menus[menu] = Bark(self, character, text)
+
     def close_menu(self, menu):
 
-        if menu == 'INVENTORY':
+        if menu in self.menus:
 
-            if menu in self.menus:
+            self.menus[menu].kill()
 
-                self.menus[menu].kill()
-
-        if menu == 'LOOT':
-
-            if menu in self.menus:
-
-                self.menus[menu].kill()
-
-        if menu == 'SELECT_SKILLS':
-
-            if menu in self.menus:
-
-                self.menus[menu].kill()
 
 
     def play_combat_animations(self, attacker, targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers):
@@ -387,6 +378,10 @@ class Game:
                     for sprite in self.tiles:
                         p.draw.rect(self.screen, RED, sprite.hitbox, 1)
 
+        for sprite in self.barks:
+            self.screen.blit(sprite.image, sprite.pos)
+
+
         for sprite in self.mouse_group:
             self.screen.blit(sprite.image, sprite.pos)
 
@@ -417,18 +412,6 @@ class Game:
                     for menu in self.menus.values():
                         menu.update_images()
 
-                if event.key == p.K_RIGHT:
-                    for effect in self.hero_party[0].effects:
-                        effect.tick()
-
-                if event.key == p.K_LEFT:
-                    for hero in self.hero_party:
-                        if hero != None:
-                            self.hero_party[0].effects.append(Strength(self, self.hero_party[0]))
-                            self.hero_party[0].effects.append(Burning(self, self.hero_party[0]))
-                    for menu in self.menus.values():
-                        menu.update_images()
-
                 if event.key == p.K_u:
 
                     self.debug = not self.debug
@@ -437,9 +420,17 @@ class Game:
 
                     self.clear_view = not self.clear_view
 
+                if event.key == p.K_q:
+
+                    self.start_battle('L2B1')
+
                 if event.key == p.K_b:
 
                     self.next_level(MAPS['DESERT2'])
+
+                if event.key == p.K_e:
+
+                    BarkTimer(self, self.hero_party[0], 'TEST')
 
 
     def quit(self):

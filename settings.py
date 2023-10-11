@@ -80,9 +80,9 @@ BATTLE_MAPS = {
 
 ENEMY_PARTIES = {
     'GHOSTBLADE': ['GHOSTBLADE'],
-    'TUTORIAL': ['BANDIT1', 'BANDIT2'],
-    'L2B1': ['BANDIT1', 'BANDIT2'],
-    'L2B2': ['BANDIT2', 'BANDIT3']
+    'TUTORIAL': ['BANDIT1'],
+    'L2B1': ['BANDIT2', 'BANDIT1'],
+    'L2B2': ['BANDIT3']
 }
 
 LOOT_TABLE = {
@@ -103,6 +103,7 @@ LOOT_TABLE = {
 LOOT_TABLE['TUTORIAL'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L2B1'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L2B2'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['BARREL'] = LOOT_TABLE['DESERT']
 
 TILESET = p.image.load(path.join(tiles_folder, 'tileset.png'))
 
@@ -159,7 +160,8 @@ MENU_SPRITESHEETS = {
     'SLOT_LARGE': p.image.load(path.join(slots_folder, 'slot_large.png')),
     'ITEMS': p.image.load(path.join(items_folder, 'items.png')),
     'COMBAT_BACKGROUND': p.image.load(path.join(backgrounds_folder, 'combat_background.png')),
-    'REPOSITION_SMALL': p.image.load(path.join(slots_folder, 'slot_reposition_small.png'))
+    'REPOSITION_SMALL': p.image.load(path.join(slots_folder, 'slot_reposition_small.png')),
+    'BARK': p.image.load(path.join(backgrounds_folder, 'background_bark.png'))
 }
 
 FONT = p.image.load(path.join(UI_folder, 'font.png'))

@@ -31,7 +31,6 @@
  </layer>
  <objectgroup id="8" name="spawn">
   <object id="15" name="enemy_spawn" x="20" y="80"/>
-  <object id="16" name="enemy_spawn" x="40" y="140"/>
   <object id="17" name="player_spawn" x="320" y="40">
    <properties>
     <property name="direction" value="left"/>

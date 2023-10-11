@@ -37,6 +37,49 @@ class Text(Image):
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
 
+class BarkText(Text):
+
+    def __init__(self, game, text):
+        super().__init__(game)
+
+        self.text = str(text)
+        self.scale = 1
+
+        self.pos = [28, 12]
+
+        self.width = FONT_WIDTH * self.scale * 42
+        self.height = FONT_HEIGHT * self.scale * 7
+
+        self.image = p.Surface((self.width * self.scale, self.height * self.scale))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+        self.update()
+
+    def draw_text(self):
+
+        self.image.fill(BEIGE)
+
+        x = 0
+        y = 0
+
+        for letter in self.text:
+
+            if letter in self.game.letters:
+                letter_image = self.game.font[letter]
+                letter_image = p.transform.scale(letter_image, (FONT_WIDTH * self.scale, FONT_HEIGHT * self.scale))
+                self.image.blit(letter_image, (x, y))
+                x += FONT_WIDTH * self.scale
+
+            if letter == ' ':
+                x += FONT_WIDTH * self.scale
+            
+            if letter == '\n':
+                x = 0
+                y += FONT_HEIGHT * self.scale
+
+        self.image = colour_swap(self.image, WHITE, BLACK)
+
 class DamageNumber(Text):
 
     def __init__(self, game, text):
@@ -252,12 +295,12 @@ class TextboxText(Text):
     def __init__(self, game):
         super().__init__(game)
 
-        self.scale = 1
+        self.scale = 2
         self.text = ''
         self.pos = [176, 8]
 
-        self.width = 110 * FONT_WIDTH
-        self.height = 8 * FONT_HEIGHT
+        self.width = 55 * FONT_WIDTH
+        self.height = 4 * FONT_HEIGHT
 
         self.image = p.Surface((self.width, self.height))
         self.draw_text()
@@ -410,7 +453,8 @@ class SkillName(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        self.text = self.hero.selected_skill.name
+        if self.hero.selected_skill != None:
+            self.text = self.hero.selected_skill.name
         
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
@@ -435,7 +479,8 @@ class SkillDesc(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        self.text = self.hero.selected_skill.desc
+        if self.hero.selected_skill != None:
+            self.text = self.hero.selected_skill.desc
         
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))

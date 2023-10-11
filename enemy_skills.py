@@ -40,7 +40,7 @@ class CrushingBlow(EnemySkill):
         self.range = [0, 3]
         self.name = 'CRUSHING BLOW'
 
-        self.effects_on_hit = ['STUNNING']
+        self.effects_on_hit = ['STUNNING', 'BROKEN']
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 
@@ -55,7 +55,7 @@ class FlintShot(EnemySkill):
         self.range = [3, 8]
         self.name = 'FLINT SHOT'
 
-        self.effects_on_hit = ['BLINDING']
+        self.effects_on_hit = ['BLINDING', 'ANTIDODGE']
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 

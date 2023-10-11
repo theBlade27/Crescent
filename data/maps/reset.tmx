@@ -119,14 +119,16 @@
   <object id="3" name="spawn" x="140" y="80" width="20" height="20"/>
   <object id="4" name="level" x="140" y="160" width="20" height="20">
    <properties>
-    <property name="description" value="YOUR SOUL IS NOT YET FREE. IT IS TIME TO GO BACK, FRIEND."/>
+    <property name="description">YOUR SOUL IS NOT YET FREE.
+IT IS TIME TO GO BACK, FRIEND.</property>
     <property name="level" value="TUTORIAL"/>
     <property name="stageclear" type="bool" value="false"/>
    </properties>
   </object>
   <object id="6" name="battle" x="140" y="220" width="20" height="20">
    <properties>
-    <property name="description" value="WOULD YOU LIKE YOU LIKE A REMINDER OF WHAT SUFFERING FEELS LIKE?"/>
+    <property name="description">WOULD YOU LIKE YOU LIKE A REMINDER
+OF WHAT SUFFERING FEELS LIKE?</property>
     <property name="encounter" value="GHOSTBLADE"/>
     <property name="proximity" type="bool" value="false"/>
    </properties>

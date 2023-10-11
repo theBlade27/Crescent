@@ -33,16 +33,21 @@ class Command(HeroSkill):
         self.image = self.spritesheet.get_sprite(20, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 8]
+        self.range = [0, 14]
 
         self.multiplier = 0
 
         self.bonus_debuff = 100
         self.bonus_precision = 100
 
-        self.effects_on_hit = ['MARKING', 'ANTIDODGE']
+        self.effects_on_hit = ['MARKING', 'ANTIDODGE2']
         self.debuffing = True
-        self.effects_on_user = ['CRIT3']
+        self.effects_on_user = ['CRIT2', 'PRECISION']
+
+        self.barks = [
+            'GET THEM!',
+            'SHOW NO MERCY.'
+            ]
 
         self.sound = p.mixer.Sound(MARK_SOUND)
 
@@ -66,7 +71,7 @@ class SteelTempest(HeroSkill):
 
         self.targets_all_in_range = True
 
-        self.effects_on_hit = ['BLEEDING']
+        self.effects_on_hit = ['BLEEDING', 'BLINDING']
         self.debuffing = True
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
@@ -91,10 +96,16 @@ class FalseHopes(HeroSkill):
 
         self.targets_all_in_range = True
 
-        self.effects_on_hit = ['CRIT']
+        self.effects_on_hit = ['CRIT', 'PROTECTION']
 
         self.heals = True
         self.sanity_recovering = True
+
+        self.barks = [
+            'THIS IS NO PLACE TO DIE.\nON YOUR FEET, SOLDIER',
+            'THERE IS STILL HOPE!',
+            'HAVE FAITH, FRIENDS!'
+        ]
 
         self.sound = p.mixer.Sound(SANITY_SOUND)
 
@@ -166,7 +177,7 @@ class ArcaneAssault(HeroSkill):
 
         self.range = [4, 10]
 
-        self.effects_on_hit = ['BURNING']
+        self.effects_on_hit = ['BURNING', 'BROKEN']
         self.debuffing = True
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
@@ -186,6 +197,8 @@ class Rekindle(HeroSkill):
         self.image = p.transform.scale(self.image, (160, 160))
 
         self.range = [0, 10]
+
+        self.effects_on_hit = ['STRENGTH']
 
         self.targets_enemies = False
 

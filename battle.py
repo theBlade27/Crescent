@@ -62,14 +62,22 @@ class Battle(p.sprite.Sprite):
         number_of_rare = random.randint(1, 2)
         number_of_very_rare = random.randint(0, 1)
 
-        for i in range(number_of_common):
-            self.loot_list.append(random.choice(LOOT_TABLE[self.battle][0]))
+        if self.battle == 'GHOSTBLADE':
 
-        for i in range(number_of_rare):
-            self.loot_list.append(random.choice(LOOT_TABLE[self.battle][1]))
+            self.loot_list.append('BANDAGE')
+            self.loot_list.append('BANDAGE')
+            self.loot_list.append('BANDAGE')
 
-        for i in range(number_of_very_rare):
-            self.loot_list.append(random.choice(LOOT_TABLE[self.battle][2]))
+        else:
+
+            for i in range(number_of_common):
+                self.loot_list.append(random.choice(LOOT_TABLE[self.battle][0]))
+
+            for i in range(number_of_rare):
+                self.loot_list.append(random.choice(LOOT_TABLE[self.battle][1]))
+
+            for i in range(number_of_very_rare):
+                self.loot_list.append(random.choice(LOOT_TABLE[self.battle][2]))
 
         for item in self.loot_list:
 

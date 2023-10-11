@@ -183,3 +183,22 @@ class StunnedTimer(Timer):
                 self.game.battle.start_next_character_turn()
             self.kill()
 
+class BarkTimer(Timer):
+
+    def __init__(self, game, character, text):
+        super().__init__(game, 3000)
+
+        self.character = character
+        self.text = text
+        self.character.barking = True
+        self.game.open_menu('BARK', character, text = text)
+        self.menu = self.game.menus['BARK']
+
+    def update(self):
+
+        now = p.time.get_ticks()
+
+        if now >= self.target_time:
+            self.character.barking = False
+            self.menu.kill()
+            self.kill()

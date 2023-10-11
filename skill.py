@@ -41,6 +41,8 @@ class Skill(p.sprite.Sprite):
         self.combat_animation = p.Surface((1, 1))
         self.combat_animation.fill(BLACK)
 
+        self.barks = []
+
     def update(self):
 
         if self == self.game.selected_character.selected_skill:
@@ -84,6 +86,9 @@ class Skill(p.sprite.Sprite):
                     if crit:
 
                         damage_numbers.append('CRIT' + str(damage))
+                        if self.character.barking == False:
+
+                            BarkTimer(self.game, self.character, random.choice(self.character.critbarks))
 
                     else:
 
@@ -186,6 +191,87 @@ class Skill(p.sprite.Sprite):
 
                 self.character.effects.append(Crit3(self.game, self.character))
                 self.character.effect_applied_images.append(Crit3(self.game, None).image)
+
+            if effect == 'PRECISION':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Precision:
+                        effect.remove_effect()
+
+                self.character.effects.append(Precision(self.game, self.character))
+                self.character.effect_applied_images.append(Precision(self.game, None).image)
+
+            if effect == 'PRECISION2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Precision2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Precision2(self.game, self.character))
+                self.character.effect_applied_images.append(Precision2(self.game, None).image)
+
+            if effect == 'PRECISION3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Precision3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Precision3(self.game, self.character))
+                self.character.effect_applied_images.append(Precision3(self.game, None).image)
+
+            if effect == 'SPEED':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Speed:
+                        effect.remove_effect()
+
+                self.character.effects.append(Speed(self.game, self.character))
+                self.character.effect_applied_images.append(Speed(self.game, None).image)
+
+            if effect == 'SPEED2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Speed2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Speed2(self.game, self.character))
+                self.character.effect_applied_images.append(Speed2(self.game, None).image)
+
+            if effect == 'SPEED3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Speed3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Speed3(self.game, self.character))
+                self.character.effect_applied_images.append(Speed3(self.game, None).image)
+
+            if effect == 'PROTECTION':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Protection:
+                        effect.remove_effect()
+
+                self.character.effects.append(Protection(self.game, self.character))
+                self.character.effect_applied_images.append(Protection(self.game, None).image)
+
+            if effect == 'PROTECTION2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Protection2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Protection2(self.game, self.character))
+                self.character.effect_applied_images.append(Protection2(self.game, None).image)
+
+            if effect == 'PROTECTION3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Protection3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Protection3(self.game, self.character))
+                self.character.effect_applied_images.append(Protection3(self.game, None).image)
 
 
 
@@ -581,7 +667,302 @@ class Skill(p.sprite.Sprite):
                         target.effects.append(Crit3(self.game, target))
                         target.effect_applied_images.append(Crit3(self.game, None).image)
 
+                    if effect == 'PRECISION':
+        
+                        for effect in target.effects:
+                            if type(effect) == Precision:
+                                effect.remove_effect()
 
+                        target.effects.append(Precision(self.game, target))
+                        target.effect_applied_images.append(Precision(self.game, None).image)
+
+                    if effect == 'PRECISION2':
+        
+                        for effect in target.effects:
+                            if type(effect) == Precision2:
+                                effect.remove_effect()
+
+                        target.effects.append(Precision2(self.game, target))
+                        target.effect_applied_images.append(Precision2(self.game, None).image)
+
+                    if effect == 'PRECISION3':
+        
+                        for effect in target.effects:
+                            if type(effect) == Precision3:
+                                effect.remove_effect()
+
+                        target.effects.append(Precision3(self.game, target))
+                        target.effect_applied_images.append(Precision3(self.game, None).image)
+
+                    if effect == 'PROTECTION':
+        
+                        for effect in target.effects:
+                            if type(effect) == Protection:
+                                effect.remove_effect()
+
+                        target.effects.append(Protection(self.game, target))
+                        target.effect_applied_images.append(Protection(self.game, None).image)
+
+                    if effect == 'PROTECTION2':
+        
+                        for effect in target.effects:
+                            if type(effect) == Protection2:
+                                effect.remove_effect()
+
+                        target.effects.append(Protection2(self.game, target))
+                        target.effect_applied_images.append(Protection2(self.game, None).image)
+
+                    if effect == 'PROTECTION3':
+        
+                        for effect in target.effects:
+                            if type(effect) == Protection3:
+                                effect.remove_effect()
+
+                        target.effects.append(Protection3(self.game, target))
+                        target.effect_applied_images.append(Protection3(self.game, None).image)
+
+                    if effect == 'SPEED':
+        
+                        for effect in target.effects:
+                            if type(effect) == Speed:
+                                effect.remove_effect()
+
+                        target.effects.append(Speed(self.game, target))
+                        target.effect_applied_images.append(Speed(self.game, None).image)
+
+                    if effect == 'SPEED2':
+        
+                        for effect in target.effects:
+                            if type(effect) == Speed2:
+                                effect.remove_effect()
+
+                        target.effects.append(Speed2(self.game, target))
+                        target.effect_applied_images.append(Speed2(self.game, None).image)
+
+                    if effect == 'SPEED3':
+        
+                        for effect in target.effects:
+                            if type(effect) == Speed3:
+                                effect.remove_effect()
+
+                        target.effects.append(Speed3(self.game, target))
+                        target.effect_applied_images.append(Speed3(self.game, None).image)
+
+                    if effect == 'WEAKNESS':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Weakness:
+                                    effect.remove_effect()
+
+                            target.effects.append(Weakness(self.game, target))
+                            target.effect_applied_images.append(Weakness(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'WEAKNESS2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Weakness2:
+                                    effect.remove_effect()
+
+                            target.effects.append(Weakness2(self.game, target))
+                            target.effect_applied_images.append(Weakness2(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'WEAKNESS3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Weakness3:
+                                    effect.remove_effect()
+
+                            target.effects.append(Weakness3(self.game, target))
+                            target.effect_applied_images.append(Weakness3(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'SLOWNESS':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Slowness:
+                                    effect.remove_effect()
+
+                            target.effects.append(Slowness(self.game, target))
+                            target.effect_applied_images.append(Slowness(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'SLOWNESS2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Slowness2:
+                                    effect.remove_effect()
+
+                            target.effects.append(Slowness2(self.game, target))
+                            target.effect_applied_images.append(Slowness2(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'SLOWNESS3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == Slowness3:
+                                    effect.remove_effect()
+
+                            target.effects.append(Slowness3(self.game, target))
+                            target.effect_applied_images.append(Slowness3(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BROKEN':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == BrokenArmour:
+                                    effect.remove_effect()
+
+                            target.effects.append(BrokenArmour(self.game, target))
+                            target.effect_applied_images.append(BrokenArmour(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BROKEN2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == BrokenArmour2:
+                                    effect.remove_effect()
+
+                            target.effects.append(BrokenArmour2(self.game, target))
+                            target.effect_applied_images.append(BrokenArmour2(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BROKEN3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in target.effects:
+                                if type(effect) == BrokenArmour3:
+                                    effect.remove_effect()
+
+                            target.effects.append(BrokenArmour3(self.game, target))
+                            target.effect_applied_images.append(BrokenArmour3(self.game, None).image)
+
+                        else:
+
+                            target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
 
                 i += 1
 
@@ -605,6 +986,16 @@ class Skill(p.sprite.Sprite):
         self.game.play_combat_animations(self.character, self.targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers)
 
         ShowSkillEffectivenessTimer(self.game, self.character, self.text)
+        
+        rand = random.randint(1, 3)
+
+        if rand == 3:
+
+            if len(self.barks) > 0:
+
+                if self.character.barking == False:
+
+                    BarkTimer(self.game, self.character, random.choice(self.barks))
 
 
 class EnemySkill(Skill):
@@ -655,6 +1046,10 @@ class EnemySkill(Skill):
 
                         damage_numbers.append('CRIT' + str(damage))
 
+                        if character.barking == False:
+
+                            BarkTimer(self.game, character, random.choice(character.scaredbarks))
+
                     else:
 
                         damage_numbers.append(damage)
@@ -684,6 +1079,10 @@ class EnemySkill(Skill):
                 sanity = character.calculate_sanity_decrease(sanity_reduction)
 
                 sanity_damage_numbers.append(sanity)
+
+                if character.barking == False:
+
+                    BarkTimer(self.game, character, random.choice(character.scaredbarks))
 
         if self.heals == True:
 
@@ -758,6 +1157,88 @@ class EnemySkill(Skill):
                 self.character.effects.append(Crit3(self.game, self.character))
                 self.character.effect_applied_images.append(Crit3(self.game, None).image)
 
+            if effect == 'PRECISION':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Precision:
+                        effect.remove_effect()
+
+                self.character.effects.append(Precision(self.game, self.character))
+                self.character.effect_applied_images.append(Precision(self.game, None).image)
+
+            if effect == 'PRECISION2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Precision2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Precision2(self.game, self.character))
+                self.character.effect_applied_images.append(Precision2(self.game, None).image)
+
+            if effect == 'PRECISION3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Precision3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Precision3(self.game, self.character))
+                self.character.effect_applied_images.append(Precision3(self.game, None).image)
+
+            if effect == 'SPEED':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Speed:
+                        effect.remove_effect()
+
+                self.character.effects.append(Speed(self.game, self.character))
+                self.character.effect_applied_images.append(Speed(self.game, None).image)
+
+            if effect == 'SPEED2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Speed2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Speed2(self.game, self.character))
+                self.character.effect_applied_images.append(Speed2(self.game, None).image)
+
+            if effect == 'SPEED3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Speed3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Speed3(self.game, self.character))
+                self.character.effect_applied_images.append(Speed3(self.game, None).image)
+
+            if effect == 'PROTECTION':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Protection:
+                        effect.remove_effect()
+
+                self.character.effects.append(Protection(self.game, self.character))
+                self.character.effect_applied_images.append(Protection(self.game, None).image)
+
+            if effect == 'PROTECTION2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Protection2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Protection2(self.game, self.character))
+                self.character.effect_applied_images.append(Protection2(self.game, None).image)
+
+            if effect == 'PROTECTION3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Protection3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Protection3(self.game, self.character))
+                self.character.effect_applied_images.append(Protection3(self.game, None).image)
+
+
         for character in characters:
 
             character.effect_applied_images.clear()
@@ -766,79 +1247,6 @@ class EnemySkill(Skill):
             for effect in self.effects_on_hit:
                     
                 if (not missed) and (not dodged):
-                
-                    if effect == 'BURNING':
-
-                        rand = random.randint(0, 100)
-
-                        rand += self.bonus_debuff
-
-                        if rand >= self.character.fire:
-                            self.successful = True
-                        else:
-                            self.successful = False
-
-                        if self.successful:
-
-                            for effect in character.effects:
-                                if type(effect) == Burning:
-                                    effect.remove_effect()
-
-                            character.effects.append(Burning(self.game, character))
-                            character.effect_applied_images.append(Burning(self.game, None).image)
-
-                        else:
-
-                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
-
-                    if effect == 'BURNING2':
-
-                        rand = random.randint(0, 100)
-
-                        rand += self.bonus_debuff
-
-                        if rand >= self.character.fire:
-                            self.successful = True
-                        else:
-                            self.successful = False
-
-                        if self.successful:
-
-                            for effect in character.effects:
-                                if type(effect) == Burning2:
-                                    effect.remove_effect()
-
-                            character.effects.append(Burning2(self.game, character))
-                            character.effect_applied_images.append(Burning2(self.game, None).image)
-
-                        else:
-
-                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
-
-
-                    if effect == 'BURNING3':
-
-                        rand = random.randint(0, 100)
-
-                        rand += self.bonus_debuff
-
-                        if rand >= self.character.fire:
-                            self.successful = True
-                        else:
-                            self.successful = False
-
-                        if self.successful:
-
-                            for effect in character.effects:
-                                if type(effect) == Burning3:
-                                    effect.remove_effect()
-
-                            character.effects.append(Burning3(self.game, character))
-                            character.effect_applied_images.append(Burning3(self.game, None).image)
-
-                        else:
-
-                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
 
                     if effect == 'BLEEDING':
 
@@ -887,7 +1295,6 @@ class EnemySkill(Skill):
                         else:
 
                             character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
-
 
                     if effect == 'BLEEDING3':
 
@@ -1093,6 +1500,79 @@ class EnemySkill(Skill):
 
                             character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
 
+                    if effect == 'BURNING':
+
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.fire:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Burning:
+                                    effect.remove_effect()
+
+                            character.effects.append(Burning(self.game, character))
+                            character.effect_applied_images.append(Burning(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BURNING2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.fire:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Burning2:
+                                    effect.remove_effect()
+
+                            character.effects.append(Burning2(self.game, character))
+                            character.effect_applied_images.append(Burning2(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BURNING3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.fire:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Burning3:
+                                    effect.remove_effect()
+
+                            character.effects.append(Burning3(self.game, character))
+                            character.effect_applied_images.append(Burning3(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
                     if effect == 'STRENGTH':
         
                         for effect in character.effects:
@@ -1147,7 +1627,302 @@ class EnemySkill(Skill):
                         character.effects.append(Crit3(self.game, character))
                         character.effect_applied_images.append(Crit3(self.game, None).image)
 
+                    if effect == 'PRECISION':
+        
+                        for effect in character.effects:
+                            if type(effect) == Precision:
+                                effect.remove_effect()
 
+                        character.effects.append(Precision(self.game, character))
+                        character.effect_applied_images.append(Precision(self.game, None).image)
+
+                    if effect == 'PRECISION2':
+        
+                        for effect in character.effects:
+                            if type(effect) == Precision2:
+                                effect.remove_effect()
+
+                        character.effects.append(Precision2(self.game, character))
+                        character.effect_applied_images.append(Precision2(self.game, None).image)
+
+                    if effect == 'PRECISION3':
+        
+                        for effect in character.effects:
+                            if type(effect) == Precision3:
+                                effect.remove_effect()
+
+                        character.effects.append(Precision3(self.game, character))
+                        character.effect_applied_images.append(Precision3(self.game, None).image)
+
+                    if effect == 'PROTECTION':
+        
+                        for effect in character.effects:
+                            if type(effect) == Protection:
+                                effect.remove_effect()
+
+                        character.effects.append(Protection(self.game, character))
+                        character.effect_applied_images.append(Protection(self.game, None).image)
+
+                    if effect == 'PROTECTION2':
+        
+                        for effect in character.effects:
+                            if type(effect) == Protection2:
+                                effect.remove_effect()
+
+                        character.effects.append(Protection2(self.game, character))
+                        character.effect_applied_images.append(Protection2(self.game, None).image)
+
+                    if effect == 'PROTECTION3':
+        
+                        for effect in character.effects:
+                            if type(effect) == Protection3:
+                                effect.remove_effect()
+
+                        character.effects.append(Protection3(self.game, character))
+                        character.effect_applied_images.append(Protection3(self.game, None).image)
+
+                    if effect == 'SPEED':
+        
+                        for effect in character.effects:
+                            if type(effect) == Speed:
+                                effect.remove_effect()
+
+                        character.effects.append(Speed(self.game, character))
+                        character.effect_applied_images.append(Speed(self.game, None).image)
+
+                    if effect == 'SPEED2':
+        
+                        for effect in character.effects:
+                            if type(effect) == Speed2:
+                                effect.remove_effect()
+
+                        character.effects.append(Speed2(self.game, character))
+                        character.effect_applied_images.append(Speed2(self.game, None).image)
+
+                    if effect == 'SPEED3':
+        
+                        for effect in character.effects:
+                            if type(effect) == Speed3:
+                                effect.remove_effect()
+
+                        character.effects.append(Speed3(self.game, character))
+                        character.effect_applied_images.append(Speed3(self.game, None).image)
+
+                    if effect == 'WEAKNESS':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Weakness:
+                                    effect.remove_effect()
+
+                            character.effects.append(Weakness(self.game, character))
+                            character.effect_applied_images.append(Weakness(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'WEAKNESS2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Weakness2:
+                                    effect.remove_effect()
+
+                            character.effects.append(Weakness2(self.game, character))
+                            character.effect_applied_images.append(Weakness2(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'WEAKNESS3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Weakness3:
+                                    effect.remove_effect()
+
+                            character.effects.append(Weakness3(self.game, character))
+                            character.effect_applied_images.append(Weakness3(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'SLOWNESS':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Slowness:
+                                    effect.remove_effect()
+
+                            character.effects.append(Slowness(self.game, character))
+                            character.effect_applied_images.append(Slowness(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'SLOWNESS2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Slowness2:
+                                    effect.remove_effect()
+
+                            character.effects.append(Slowness2(self.game, character))
+                            character.effect_applied_images.append(Slowness2(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'SLOWNESS3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == Slowness3:
+                                    effect.remove_effect()
+
+                            character.effects.append(Slowness3(self.game, character))
+                            character.effect_applied_images.append(Slowness3(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BROKEN':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == BrokenArmour:
+                                    effect.remove_effect()
+
+                            character.effects.append(BrokenArmour(self.game, character))
+                            character.effect_applied_images.append(BrokenArmour(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BROKEN2':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == BrokenArmour2:
+                                    effect.remove_effect()
+
+                            character.effects.append(BrokenArmour2(self.game, character))
+                            character.effect_applied_images.append(BrokenArmour2(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
+
+                    if effect == 'BROKEN3':
+
+                        rand = random.randint(0, 100)
+
+                        rand += self.bonus_debuff
+
+                        if rand >= self.character.debuff:
+                            self.successful = True
+                        else:
+                            self.successful = False
+
+                        if self.successful:
+
+                            for effect in character.effects:
+                                if type(effect) == BrokenArmour3:
+                                    effect.remove_effect()
+
+                            character.effects.append(BrokenArmour3(self.game, character))
+                            character.effect_applied_images.append(BrokenArmour3(self.game, None).image)
+
+                        else:
+
+                            character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
                 i += 1
 
         for tile in self.game.menus['BATTLE'].tiles:

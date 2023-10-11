@@ -14,17 +14,47 @@ class Hero(Character):
 
         self.exploration_character = ExplorationCharacter(self.game, self.type, pos, self)
 
+        self.barking = False
+
         if self.type == 'BLADE':
+
+            self.deathsdoorbarks = [
+                'IS IT FINALLY OVER?',
+                'BUT I\'M NOT DONE YET...'
+            ]
+
+            self.killbarks = [
+                'YOUR KIND IS NO LONGER WELCOME HERE.',
+                'BE GONE, FIEND.'
+            ]
+
+            self.healbarks = [
+                'IT\'S NOT OVER YET.'
+            ]
+
+            self.healerbarks = [
+                'STAY WITH ME FRIEND\nOUR TASK IS NOT YET COMPLETE.'
+            ]
+
+            self.critbarks = [
+                'WE CAN DO THIS!',
+                'THE LIGHT HAS CLAIMED YOU!'
+            ]
+
+            self.scaredbarks = [
+                'IT... IT\'S HOPELESS...'
+            ]
+
             self.name = 'BLADE'
             self.max_health = 20
             self.speed = 3
             self.damage = [7, 10]
             self.healing = [4, 7]
             self.sanity_recovery_skills = [4, 7]
-            self.mobility = 4
+            self.mobility = 3
             self.protection = 15
             self.agility = 5
-            self.precision = 90
+            self.precision = 95
             self.crit = 5
             self.bleed = 60
             self.venom = 60
@@ -48,6 +78,34 @@ class Hero(Character):
             self.starting_grid_pos = [4, 1]
 
         if self.type == 'ARCANE':
+
+            self.deathsdoorbarks = [
+                'NO NOT YET!\nIV\'E SO MUCH TO LIVE FOR!'
+            ]
+
+            self.killbarks = [
+                'MORE ASHES SCATTER THE LAND.',
+                'SOME CANNOT BE REASONED WITH.'
+            ]
+
+            self.healbarks = [
+                'THANKS FRIEND :)'
+            ]
+
+            self.healerbarks = [
+                'SHHH SHHH....\nYOU\'RE OKAY :)',
+            ]
+
+            self.critbarks = [
+                'DO YOU FEEL IT?\nDO YOU FEEL THE POWER!',
+                'HAHAHAH BUUUURRNNNN!!!'
+            ]
+
+            self.scaredbarks = [
+                'NO... NOT AGAIN...'
+            ]
+
+            
             self.name = 'ARCANE'
             self.max_health = 12
             self.speed = 6
