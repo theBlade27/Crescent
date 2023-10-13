@@ -96,7 +96,7 @@ class Enemy(Character):
             self.mobility = 3
             self.protection = 10
             self.agility = 0
-            self.precision = 85
+            self.precision = 90
             self.crit = 20
             self.bleed = 50
             self.venom = 50

@@ -1139,6 +1139,9 @@ class StorageSlot(Image):
 
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
 
+            if self.game.inventory[self.index] != None:
+                self.game.textbox_text = self.game.inventory[self.index].desc
+
             if self.game.mouse.pressed['M1']:
 
                 if self.game.deleting:
@@ -1168,14 +1171,31 @@ class StorageSlot(Image):
 
                 else:
                     for i in range(3):
-                        if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
-                            temp = self.menu.hero.equipment[i]
-                            self.menu.hero.equipment[i] = self.game.inventory[self.index]
-                            self.game.inventory[self.index] = temp
-                            self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
-                            self.game.selecting_equipment = False
-                            sound = p.mixer.Sound(BUTTON_SOUND)
-                            sound.play()
+                        if self.game.inventory[self.index] != None:
+                            if self.game.inventory[self.index].equipable:
+                                if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
+                                    temp = self.menu.hero.equipment[i]
+                                    if self.menu.hero.equipment[i] != None:
+                                        self.menu.hero.equipment[i].remove_item(self.menu.hero)
+                                    self.menu.hero.equipment[i] = self.game.inventory[self.index]
+                                    self.menu.hero.equipment[i].equip_item(self.menu.hero)
+                                    self.game.inventory[self.index] = temp
+                                    self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
+                                    self.game.selecting_equipment = False
+                                    sound = p.mixer.Sound(BUTTON_SOUND)
+                                    sound.play()
+                        else:
+                            if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
+                                temp = self.menu.hero.equipment[i]
+                                if self.menu.hero.equipment[i] != None:
+                                    self.menu.hero.equipment[i].remove_item(self.menu.hero)
+                                self.menu.hero.equipment[i] = self.game.inventory[self.index]
+                                self.game.inventory[self.index] = temp
+                                self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
+                                self.game.selecting_equipment = False
+                                sound = p.mixer.Sound(BUTTON_SOUND)
+                                sound.play()
+                            
 
             if self.game.mouse.pressed['M2']:
 
@@ -1292,6 +1312,10 @@ class LootSlot(Image):
         self.image.blit(self.background, [0, 0])
         self.image = colour_swap(self.image, RED, FAKEBLACK)
         if self.hitbox.collidepoint(self.game.mouse.pos):
+
+            if self.loot_list[self.index] != None:
+
+                self.game.textbox_text = self.loot_list[self.index].desc
 
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
             if self.game.mouse.pressed['M1']:

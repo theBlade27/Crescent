@@ -468,7 +468,7 @@ class Protection(Effect):
 
     def remove_effect(self):
 
-        self.character.precision -= self.protection
+        self.character.protection -= self.protection
 
         if self in self.character.effects:
 

@@ -192,7 +192,7 @@ class Game:
         if reset:
 
             self.hero_party = [
-                Hero(self, 'ARCANE', self.spawn_location),
+                Hero(self, 'BLADE', self.spawn_location),
                 None,
                 None,
                 None,
@@ -349,6 +349,8 @@ class Game:
 
         self.menus_group.update()
 
+        self.menus['TOP'].images['TEXT'].update()
+
     def draw(self):
 
         self.screen.fill(FAKEBLACK)
@@ -377,6 +379,9 @@ class Game:
                 if self.battle_mode:
                     for sprite in self.tiles:
                         p.draw.rect(self.screen, RED, sprite.hitbox, 1)
+
+        for sprite in self.menus['TOP'].images.values():
+            self.screen.blit(sprite.image, sprite.pos)
 
         for sprite in self.barks:
             self.screen.blit(sprite.image, sprite.pos)
