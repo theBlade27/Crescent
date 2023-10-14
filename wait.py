@@ -32,7 +32,7 @@ class CalculateSkillTimer(Timer):
 
         self.game.textbox_text = 'IT IS {}\'S TURN'.format(self.character.name)
         if self.change_in_health != 0:
-            self.game.textbox_text += '\n{} TOOK {} DAMAGE'.format(self.character.name, self.change_in_health)
+            self.game.textbox_text += '\n{} TOOK {} DAMAGE'.format(self.character.name, int(self.change_in_health))
         self.game.menus['TOP'].update_images()
         self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
         self.game.menus['TOP'].images['PORTRAIT'].update()
@@ -59,7 +59,7 @@ class PlayerTurnTimer(Timer):
 
         self.game.textbox_text = 'IT IS {}\'S TURN'.format(self.character.name)
         if self.change_in_health != 0:
-            self.game.textbox_text += '\n{} TOOK {} DAMAGE'.format(self.character.name, self.change_in_health)
+            self.game.textbox_text += '\n{} TOOK {} DAMAGE'.format(self.character.name, int(self.change_in_health))
 
         if self.character not in self.game.battle.all_characters:
             self.game.textbox_text += '\n{} MET THEIR END.'.format(self.character.name)

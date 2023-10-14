@@ -223,7 +223,7 @@ class Burning(Effect):
         if self.timed:
 
             self.duration -= 1
-            if self.character in self.game.battle.all_characters:
+            if self.character in self.game.hero_party:
                 self.character.calculate_damage_dealt(self.damage, debuff = True)
             if self.duration == 0:
                 self.remove_effect()
@@ -274,6 +274,106 @@ class Bleeding3(Burning):
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(60, 300, 20, 20)
 
         self.damage = 16
+
+class Starving(Effect):
+
+    def __init__(self, game, character, duration = -1):
+        super().__init__(game, character, duration)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(60, 280, 20, 20)
+
+    def apply_effect(self):
+        
+        self.character.damage[0] /= 1.1
+        self.character.damage[1] /= 1.1
+        self.character.protection -= 10
+        self.character.speed -= 1
+        self.character.precision -= 5
+        self.character.agility -= 5
+        self.character.crit -= 5
+
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+    def tick(self):
+
+        if self.character in self.game.hero_party:
+            self.character.calculate_damage_dealt(1, debuff = True)
+
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+
+    def remove_effect(self):
+        
+        self.character.damage[0] *= 1.1
+        self.character.damage[1] *= 1.1
+        self.character.protection += 10
+        self.character.speed += 1
+        self.character.precision += 5
+        self.character.agility += 5
+        self.character.crit += 5
+
+        if self in self.character.effects:
+            self.character.effects.remove(self)
+
+            for menu in self.game.menus.values():
+                menu.update_images()
+
+class Satiated(Effect):
+
+    def __init__(self, game, character, duration = 24):
+        super().__init__(game, character, duration)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(80, 280, 20, 20)
+
+    def remove_effect(self):
+
+        if self in self.character.effects:
+            self.character.effects.remove(self)
+
+            for menu in self.game.menus.values():
+                menu.update_images()
+
+        self.character.effects.append(Starving(self.game, self.character))
+
+class Stuffed(Effect):
+
+    def __init__(self, game, character, duration = 4):
+        super().__init__(game, character, duration)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(40, 280, 20, 20)
+
+    def apply_effect(self):
+        
+        self.character.damage[0] *= 1.1
+        self.character.damage[1] *= 1.1
+        self.character.protection += 10
+        self.character.speed += 1
+        self.character.precision += 5
+        self.character.agility += 5
+        self.character.crit += 5
+
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+    def remove_effect(self):
+        
+        self.character.damage[0] /= 1.1
+        self.character.damage[1] /= 1.1
+        self.character.protection -= 10
+        self.character.speed -= 1
+        self.character.precision -= 5
+        self.character.agility -= 5
+        self.character.crit -= 5
+
+        if self in self.character.effects:
+            self.character.effects.remove(self)
+
+            for menu in self.game.menus.values():
+                menu.update_images()
+
+        self.character.effects.append(Satiated(self.game, self.character))
 
 class Stun(Effect):
 

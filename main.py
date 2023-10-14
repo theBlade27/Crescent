@@ -10,7 +10,7 @@ from sprite import *
 from effect import *
 from battle import *
 from item import *
-from random import *
+import random
 
 class Game:
 
@@ -36,6 +36,8 @@ class Game:
         self.clock = p.time.Clock()
 
     def reset_game(self):
+
+        self.ticks = 0
 
         self.end_game(True)
 
@@ -291,7 +293,86 @@ class Game:
 
             self.menus[menu].kill()
 
+    def generate_loot(self, type):
 
+        loot_list = []
+        inventory = []
+
+        number_of_common = random.randint(1, 2)
+        number_of_rare = random.randint(1, 1)
+        number_of_very_rare = random.randint(0, 1)
+
+        if len(LOOT_TABLE[type][0]) > 0:
+            for i in range(number_of_common):
+                loot_list.append(random.choice(LOOT_TABLE[type][0]))
+
+        if len(LOOT_TABLE[type][1]) > 0:
+            for i in range(number_of_rare):
+                loot_list.append(random.choice(LOOT_TABLE[type][1]))
+
+        if len(LOOT_TABLE[type][2]) > 0:
+            for i in range(number_of_very_rare):
+                loot_list.append(random.choice(LOOT_TABLE[type][2]))
+
+        for item in loot_list:
+
+            if item == 'BANDAGE':
+
+                inventory.append(Bandage(self))
+
+            if item == 'TORCH':
+
+                inventory.append(Torch(self))
+
+            if item == 'CHERISHED_LETTER':
+
+                inventory.append(CherishedLetter(self))
+
+            if item == 'HOLY_BOOK':
+
+                inventory.append(HolyBook(self))
+
+            if item == 'LUCKY_RING':
+
+                inventory.append(LuckyRing(self))
+
+            if item == 'GLISTENING_JAMBIYA':
+
+                inventory.append(GlisteningJambiya(self))
+
+            if item == 'CRESCENT_COIN':
+
+                inventory.append(CrescentCoin(self))
+
+            if item == 'CURSED_COIN':
+
+                inventory.append(CursedCoin(self))
+
+            if item == 'FORSAKEN_COIN':
+
+                inventory.append(ForsakenCoin(self))
+
+            if item == 'SAPPHIRE_EARRINGS':
+
+                inventory.append(SapphireEarrings(self))
+
+            if item == 'MAGIC_LAMP':
+
+                inventory.append(MagicLamp(self))
+
+            if item == 'FOOD':
+
+                inventory.append(Food1(self))
+
+            if item == 'FOOD2':
+
+                inventory.append(Food2(self))
+
+            if item == 'FOOD3':
+
+                inventory.append(Food3(self))
+
+        return inventory
 
     def play_combat_animations(self, attacker, targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers):
 
@@ -350,6 +431,15 @@ class Game:
         self.menus_group.update()
 
         self.menus['TOP'].images['TEXT'].update()
+
+    def tick_check(self):
+
+        if self.ticks >= 100:
+            for hero in self.hero_party:
+                if hero != None:
+                    for effect in hero.effects:
+                        effect.tick()
+            self.ticks = 0
 
     def draw(self):
 
@@ -436,6 +526,13 @@ class Game:
                 if event.key == p.K_e:
 
                     BarkTimer(self, self.hero_party[0], 'TEST')
+
+                if event.key == p.K_t:
+
+                    for hero in self.hero_party:
+                        if hero != None:
+                            for effect in hero.effects:
+                                effect.tick()
 
 
     def quit(self):

@@ -247,45 +247,7 @@ class Loot(Interaction):
         self.alert_visible = True
         self.inventory = []
 
-        self.generate_loot()
-
-    def generate_loot(self):
-
-        self.loot_list = []
-        self.inventory = []
-
-        number_of_common = random.randint(1, 2)
-        number_of_rare = random.randint(1, 1)
-        number_of_very_rare = random.randint(0, 1)
-
-        if self.type == 'TUTORIALCHEST':
-
-            self.inventory = [Bandage(self.game)]
-
-        elif self.type == 'L2CHEST':
-
-            self.inventory = [Bandage(self.game)]
-
-        else:
-
-            for i in range(number_of_common):
-                self.loot_list.append(random.choice(LOOT_TABLE[self.type][0]))
-
-            for i in range(number_of_rare):
-                self.loot_list.append(random.choice(LOOT_TABLE[self.type][1]))
-
-            for i in range(number_of_very_rare):
-                self.loot_list.append(random.choice(LOOT_TABLE[self.type][2]))
-
-            for item in self.loot_list:
-
-                if item == 'BANDAGE':
-
-                    self.inventory.append(Bandage(self.game))
-
-                if item == 'TORCH':
-
-                    self.inventory.append(Torch(self.game))
+        self.inventory = self.game.generate_loot(self.type)
 
     def update(self):
 

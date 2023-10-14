@@ -117,6 +117,10 @@ class ExplorationCharacter(p.sprite.Sprite):
             if pressed_keys[p.K_a]:
                 self.acc.x = -ACCELERATION
 
+            if self.acc.length() > 0:
+                self.game.ticks += 1
+                self.game.tick_check()
+
         else:
 
             if self.game.battle_mode == False:

@@ -149,6 +149,10 @@ class Hero(Character):
         self.has_used_skill = False
         self.has_moved = False
 
+        self.effects = [
+            Satiated(self.game, self)
+        ]
+
     def update(self):
 
         if self.has_used_skill == False:
@@ -262,24 +266,27 @@ class Hero(Character):
 
     def die(self):
 
-        if self in self.game.battle.all_characters:
+        if self in self.game.characters:
 
             self.game.hero_party.append(None)
 
             sound = p.mixer.Sound(DEATH_SOUND)
             sound.play()
 
-            menu = self.game.menus['BATTLE']
-            for tile in menu.tiles:
-                if tile.grid_pos == self.grid_pos:
-                    tile.obstructed = False
+            if self.game.battle_mode:
+                menu = self.game.menus['BATTLE']
+                for tile in menu.tiles:
+                    if tile.grid_pos == self.grid_pos:
+                        tile.obstructed = False
 
             self.game.hero_party.remove(self)
 
-            if self in self.game.menus['BATTLE'].characters:
-                self.game.menus['BATTLE'].heroes.remove(self)
-                self.game.menus['BATTLE'].characters.remove(self)
-                self.game.battle.all_characters.remove(self)
+            if self.game.battle_mode:
+
+                if self in self.game.menus['BATTLE'].characters:
+                    self.game.menus['BATTLE'].heroes.remove(self)
+                    self.game.menus['BATTLE'].characters.remove(self)
+                    self.game.battle.all_characters.remove(self)
 
             for i in range(4):
                 menu = self.game.menus['HERO' + str(i + 1)]

@@ -88,22 +88,47 @@ ENEMY_PARTIES = {
 LOOT_TABLE = {
 
     'GHOSTBLADE': [
-        ['BANDAGE'],
-        ['BANDAGE'],
-        ['BANDAGE']
+        [],
+        ['CHERISHED_LETTER'],
+        []
     ],
+
+    'SUPPLIES': [
+        ['BANDAGE', 'TORCH'],
+        ['FOOD'],
+        []
+    ],
+
     'DESERT': [
-        ['BANDAGE'],
-        ['BANDAGE'],
-        ['TORCH']
+        ['BANDAGE', 'TORCH'],
+        ['FOOD'],
+        ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN']
     ],
+
+    'TUTORIALCHEST': [
+        ['BANDAGE', 'FOOD'],
+        ['HOLY_BOOK'],
+        []
+    ],
+
+    'CHEST': [
+        ['BANDAGE', 'TORCH', 'FOOD', 'FOOD2'],
+        ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN'],
+        ['LUCKY_RING', 'FORSAKEN_COIN']
+    ],
+
+    'L2CHEST': [
+        ['FOOD', 'FOOD2'],
+        ['SAPPHIRE_EARRINGS', 'MAGIC_LAMP'],
+        ['LUCKY_RING', 'FORSAKEN_COIN']
+    ]
 
 }
 
 LOOT_TABLE['TUTORIAL'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L2B1'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L2B2'] = LOOT_TABLE['DESERT']
-LOOT_TABLE['BARREL'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['BARREL'] = LOOT_TABLE['SUPPLIES']
 
 TILESET = p.image.load(path.join(tiles_folder, 'tileset.png'))
 

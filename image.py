@@ -1173,17 +1173,18 @@ class StorageSlot(Image):
                     for i in range(3):
                         if self.game.inventory[self.index] != None:
                             if self.game.inventory[self.index].equipable:
-                                if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
-                                    temp = self.menu.hero.equipment[i]
-                                    if self.menu.hero.equipment[i] != None:
-                                        self.menu.hero.equipment[i].remove_item(self.menu.hero)
-                                    self.menu.hero.equipment[i] = self.game.inventory[self.index]
-                                    self.menu.hero.equipment[i].equip_item(self.menu.hero)
-                                    self.game.inventory[self.index] = temp
-                                    self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
-                                    self.game.selecting_equipment = False
-                                    sound = p.mixer.Sound(BUTTON_SOUND)
-                                    sound.play()
+                                if self.game.inventory[self.index].character == self.menu.hero.type or self.game.inventory[self.index].character == 'ANY':
+                                    if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
+                                        temp = self.menu.hero.equipment[i]
+                                        if self.menu.hero.equipment[i] != None:
+                                            self.menu.hero.equipment[i].remove_item(self.menu.hero)
+                                        self.menu.hero.equipment[i] = self.game.inventory[self.index]
+                                        self.menu.hero.equipment[i].equip_item(self.menu.hero)
+                                        self.game.inventory[self.index] = temp
+                                        self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
+                                        self.game.selecting_equipment = False
+                                        sound = p.mixer.Sound(BUTTON_SOUND)
+                                        sound.play()
                         else:
                             if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
                                 temp = self.menu.hero.equipment[i]

@@ -53,41 +53,6 @@ class Battle(p.sprite.Sprite):
             self.game.selected_character = self.all_characters[self.turn_order_counter % len(self.all_characters)]
             self.game.selected_character.start_turn()
 
-    def generate_loot(self):
-
-        self.loot_list = []
-        self.items = []
-
-        number_of_common = random.randint(2, 3)
-        number_of_rare = random.randint(1, 2)
-        number_of_very_rare = random.randint(0, 1)
-
-        if self.battle == 'GHOSTBLADE':
-
-            self.loot_list.append('BANDAGE')
-            self.loot_list.append('BANDAGE')
-            self.loot_list.append('BANDAGE')
-
-        else:
-
-            for i in range(number_of_common):
-                self.loot_list.append(random.choice(LOOT_TABLE[self.battle][0]))
-
-            for i in range(number_of_rare):
-                self.loot_list.append(random.choice(LOOT_TABLE[self.battle][1]))
-
-            for i in range(number_of_very_rare):
-                self.loot_list.append(random.choice(LOOT_TABLE[self.battle][2]))
-
-        for item in self.loot_list:
-
-            if item == 'BANDAGE':
-
-                self.items.append(Bandage(self.game))
-
-            if item == 'TORCH':
-
-                self.items.append(Torch(self.game))
 
 
     def end_battle(self):
@@ -126,7 +91,7 @@ class Battle(p.sprite.Sprite):
 
         self.game.last_interacted.beaten = True
 
-        self.generate_loot()
+        self.items = self.game.generate_loot(self.battle)
         self.game.check_stage_clear()
 
         self.game.open_menu('LOOT', loot_list = self.items)

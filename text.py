@@ -518,7 +518,7 @@ class InventoryHealth(Text):
         self.menu = menu
         self.hero = self.menu.hero
         self.scale = 2
-        self.text = str(self.hero.max_health)
+        self.text = str(int(self.hero.max_health))
         self.pos = [588, 356]
         self.width = 3 * FONT_WIDTH
         self.height = 1 * FONT_HEIGHT
@@ -530,7 +530,7 @@ class InventoryHealth(Text):
     def update(self):
 
         self.hero = self.menu.hero
-        self.text = str(self.hero.max_health)
+        self.text = str(int(self.hero.max_health))
         
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
@@ -988,7 +988,7 @@ class InventoryHeal(Text):
         self.menu = menu
         self.hero = self.menu.hero
         self.scale = 2
-        self.text = str(self.hero.healing[0])
+        self.text = str(int(self.hero.healing[0]))
         self.pos = [832, 488]
         self.width = 3 * FONT_WIDTH
         self.height = 1 * FONT_HEIGHT
@@ -1000,7 +1000,7 @@ class InventoryHeal(Text):
     def update(self):
 
         self.hero = self.menu.hero
-        self.text = str(self.hero.healing[0])
+        self.text = str(int(self.hero.healing[0]))
         
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))

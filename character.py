@@ -63,7 +63,7 @@ class Character(p.sprite.Sprite):
 
     def calculate_damage_dealt(self, damage, damage_dealer = None, debuff = False):
 
-        if self in self.game.battle.all_characters:
+        if self in self.game.characters:
 
             missed = False
             dodged = False
@@ -112,7 +112,7 @@ class Character(p.sprite.Sprite):
                 self.current_health = max(0, self.current_health - damage)
 
                 if self.current_health == 0 and self.death == 0 and self in self.game.battle.all_characters:
-                    if self in self.game.menus['BATTLE'].enemies:
+                    if self not in self.game.hero_party:
                         if debuff == False:
                             if damage_dealer.barking == False:
                                 BarkTimer(self.game, damage_dealer, random.choice(damage_dealer.killbarks))
@@ -123,7 +123,7 @@ class Character(p.sprite.Sprite):
 
                 if self.deaths_door:
                     self.effects.append(DeathsDoor(self.game, self))
-                    if self in self.game.menus['BATTLE'].heroes:
+                    if self in self.game.hero_party:
                         if self.barking == False:
                             BarkTimer(self.game, self, random.choice(self.deathsdoorbarks))
 
