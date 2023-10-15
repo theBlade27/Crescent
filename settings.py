@@ -50,7 +50,8 @@ MOUSE_SPRITESHEET = p.image.load(path.join(UI_folder, 'mouse.png'))
 MAPS = {
     'TUTORIAL': path.join(map_folder, 'tutorial.tmx'),
     'RESET': path.join(map_folder, 'reset.tmx'),
-    'DESERT2': path.join(map_folder, 'level2.tmx')
+    'DESERT2': path.join(map_folder, 'level2.tmx'),
+    'DESERT3': path.join(map_folder, 'level3.tmx'),
 }
 
 
@@ -75,14 +76,20 @@ BATTLE_MAPS = {
     'TUTORIAL': path.join(map_folder, 'tutorial_battle.tmx'),
     'GHOSTBLADE': path.join(map_folder, 'ghostblade.tmx'),
     'L2B1': path.join(map_folder, 'level2_battle1.tmx'),
-    'L2B2': path.join(map_folder, 'level2_battle2.tmx')
+    'L2B2': path.join(map_folder, 'level2_battle2.tmx'),
+    'L3B1': path.join(map_folder, 'level3_battle1.tmx'),
+    'L3B2': path.join(map_folder, 'level3_battle2.tmx'),
+    'L3B3': path.join(map_folder, 'level3_battle3.tmx'),
 }
 
 ENEMY_PARTIES = {
     'GHOSTBLADE': ['GHOSTBLADE'],
     'TUTORIAL': ['BANDIT1'],
     'L2B1': ['BANDIT2', 'BANDIT1'],
-    'L2B2': ['BANDIT3']
+    'L2B2': ['BANDIT3'],
+    'L3B1': ['BANDIT4', 'BANDIT3', 'BANDIT1'],
+    'L3B2': ['BANDIT2', 'BANDIT3', 'BANDIT4'],
+    'L3B3': ['BANDIT2', 'BANDIT1', 'BANDIT4', 'BANDIT3']
 }
 
 LOOT_TABLE = {
@@ -93,7 +100,7 @@ LOOT_TABLE = {
         []
     ],
 
-    'SUPPLIES': [
+    'BARREL': [
         ['BANDAGE', 'TORCH'],
         ['FOOD'],
         []
@@ -121,6 +128,12 @@ LOOT_TABLE = {
         ['FOOD', 'FOOD2'],
         ['SAPPHIRE_EARRINGS', 'MAGIC_LAMP'],
         ['LUCKY_RING', 'FORSAKEN_COIN']
+    ],
+
+    'CRATE': [
+        ['FOOD'],
+        ['FOOD2'],
+        ['FOOD3']
     ]
 
 }
@@ -128,7 +141,9 @@ LOOT_TABLE = {
 LOOT_TABLE['TUTORIAL'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L2B1'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L2B2'] = LOOT_TABLE['DESERT']
-LOOT_TABLE['BARREL'] = LOOT_TABLE['SUPPLIES']
+LOOT_TABLE['L3B1'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['L3B2'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['L3B3'] = LOOT_TABLE['DESERT']
 
 TILESET = p.image.load(path.join(tiles_folder, 'tileset.png'))
 
@@ -162,7 +177,8 @@ CHARACTER_SPRITESHEETS = {
     'BANDIT1': p.image.load(path.join(enemies_folder, 'bandit1.png')),
     'BANDIT2': p.image.load(path.join(enemies_folder, 'bandit2.png')),
     'BANDIT3': p.image.load(path.join(enemies_folder, 'bandit3.png')),
-    'GHOSTBLADE': p.image.load(path.join(enemies_folder, 'ghostblade.png'))
+    'GHOSTBLADE': p.image.load(path.join(enemies_folder, 'ghostblade.png')),
+    'BANDIT4': p.image.load(path.join(enemies_folder, 'bandit4.png'))
 }
 
 MENU_SPRITESHEETS = {

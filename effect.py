@@ -223,7 +223,7 @@ class Burning(Effect):
         if self.timed:
 
             self.duration -= 1
-            if self.character in self.game.hero_party:
+            if self.character in self.game.characters:
                 self.character.calculate_damage_dealt(self.damage, debuff = True)
             if self.duration == 0:
                 self.remove_effect()

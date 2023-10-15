@@ -517,11 +517,11 @@ class Game:
 
                 if event.key == p.K_q:
 
-                    self.start_battle('L2B1')
+                    self.start_battle('L3B1')
 
                 if event.key == p.K_b:
 
-                    self.next_level(MAPS['DESERT2'])
+                    self.next_level(MAPS['DESERT3'])
 
                 if event.key == p.K_e:
 

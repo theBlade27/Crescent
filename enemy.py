@@ -19,13 +19,13 @@ class Enemy(Character):
 
             self.name = 'APPARITION'
             self.max_health = 10
-            self.speed = 2
+            self.speed = 3
             self.frontliner = True
-            self.damage = [3, 5]
+            self.damage = [4, 5]
             self.mobility = 3
             self.protection = 15
             self.agility = 5
-            self.precision = 100
+            self.precision = 95
             self.crit = 5
             self.bleed = 60
             self.venom = 60
@@ -41,7 +41,7 @@ class Enemy(Character):
         if self.type == 'BANDIT1':
 
             self.name = 'SCIMITAR'
-            self.max_health = 10
+            self.max_health = 12
             self.speed = 5
             self.frontliner = True
             self.mobility = 3
@@ -57,7 +57,8 @@ class Enemy(Character):
             self.debuff = 30
 
             self.skills = [
-                ScimitarSlash(self.game, self)
+                ScimitarSlash(self.game, self),
+                RallyingWinds(self.game, self)
             ]
 
             self.damage = [4, 6]
@@ -106,10 +107,37 @@ class Enemy(Character):
             self.debuff = 60
 
             self.skills = [
-                CrushingBlow(self.game, self)
+                CrushingBlow(self.game, self),
+                IntimidatingRoar(self.game, self)
             ]
 
-            self.damage = [5, 8]
+            self.damage = [6, 10]
+
+            self.sanity_reduction_skills = [8, 12]
+
+        if self.type == 'BANDIT4':
+
+            self.name = 'ARTILLERY'
+            self.max_health = 10
+            self.speed = 0
+            self.frontliner = False
+            self.mobility = 2
+            self.protection = 0
+            self.agility = 0
+            self.precision = 80
+            self.crit = 30
+            self.bleed = 30
+            self.venom = 30
+            self.fire = 30
+            self.death = 0
+            self.stun = 15
+            self.debuff = 30
+
+            self.skills = [
+                Boom(self.game, self)
+            ]
+
+            self.damage = [6, 14]
 
         self.grid_pos = grid_pos
         self.current_health = self.max_health
@@ -122,6 +150,8 @@ class Enemy(Character):
         self.can_use_skill = False
         self.target = None
         self.index = 0
+
+        self.primary_skill = self.skills[0]
 
     def update(self):
 
@@ -143,7 +173,7 @@ class Enemy(Character):
 
         self.find_ideal_target()
 
-        if self.ideal_target_in_range == False or self.can_use_skill == False:
+        if self.ideal_target_in_range == False or self.can_use_skill == False or self.primary_skill not in self.usable_skills:
 
             EnemyIsMovingTimer(self.game, self)
 
@@ -309,8 +339,6 @@ class Enemy(Character):
             
             self.selected_skill.use_skill(target_tile)
 
-        self.check_usable(self.grid_pos)
-
         if self.can_use_skill == True:
 
             self.determine_skill()
@@ -324,7 +352,11 @@ class Enemy(Character):
 
         menu = self.game.menus['BATTLE']
 
-        self.selected_skill = random.choice(self.usable_skills)
+        if self.primary_skill in self.usable_skills:
+            self.selected_skill = self.primary_skill
+        else:
+            self.selected_skill = random.choice(self.usable_skills)
+
         self.targetable_characters = []
 
         if self.selected_skill.targets_heroes == True:
@@ -340,7 +372,7 @@ class Enemy(Character):
 
             for enemy in menu.enemies:
 
-                distance = vec(enemy.grid_pos) - vec(enemy.grid_pos)
+                distance = vec(enemy.grid_pos) - vec(self.grid_pos)
                 if distance.length() >= self.selected_skill.range[0] and distance.length() < self.selected_skill.range[1]:
                     if enemy not in self.targetable_characters:
                         self.targetable_characters.append(enemy)

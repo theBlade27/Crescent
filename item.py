@@ -57,21 +57,28 @@ class Torch(Item):
         super().__init__(game)
 
         self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(20, 0, 20, 20)
-        self.desc = 'TORCH\nREMOVES BLINDNESS.'
+        self.desc = 'TORCH\nREPLACES BLINDESS WITH PRECISION'
 
     def use(self, index):
 
         character = self.game.selected_character
 
+        used = False
+
         if type(character) == Hero:
 
             for effect in character.effects:
-                if type(effect) == Blindness or type(effect) == Blindness2 or type(effect) == Blindness3:
+                if type(effect) == Blindness or type(effect) == Blindness2 or type(effect) == Blindness3 or type(effect) == Precision:
                     effect.remove_effect()
+                    used = True
 
-                    self.game.inventory[index] = None
-                    self.game.selected_item = None
-                    self.kill()
+            if used == True:
+                character.effects.append(Precision(self.game, character))
+                self.game.inventory[index] = None
+                self.game.selected_item = None
+                self.kill()
+
+                
 
 class Food1(Item):
 
@@ -102,11 +109,23 @@ class Food1(Item):
                     if type(effect) == Starving:
                         character.effects.remove(effect)
 
+                        self.character.damage[0] *= 1.1
+                        self.character.damage[1] *= 1.1
+                        self.character.protection += 10
+                        self.character.speed += 1
+                        self.character.precision += 5
+                        self.character.agility += 5
+                        self.character.crit += 5
+
                 for effect in character.effects:
                     if type(effect) == Satiated:
                         character.effects.remove(effect)
 
                 character.current_health += self.healing
+
+                for effect in character.effects:
+                    if type(effect) == DeathsDoor:
+                        effect.remove_effect()
 
                 self.game.inventory[index] = None
                 self.game.selected_item = None
@@ -173,7 +192,7 @@ class HolyBook(Item):
         super().__init__(game)
 
         self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(20, 40, 20, 20)
-        self.desc = 'HOLY BOOK (BLADE ONLY)\nFAITH IS ALL I NEED.\nSANITY RECOVERY+ CRIT+'
+        self.desc = 'HOLY BOOK (BLADE ONLY)\nFAITH IS ALL I NEED.\nSANITY RECOVERY SKILLS+ CRIT+'
 
         self.equipable = True
 
@@ -181,10 +200,16 @@ class HolyBook(Item):
 
     def equip_item(self, character):
 
+        character.sanity_recovery_skills[0] *= 1.2
+        character.sanity_recovery_skills[1] *= 1.2
+
         character.sanity_recovery_factor += 20
         character.crit += 10
 
     def remove_item(self, character):
+
+        character.sanity_recovery_skills[0] /= 1.2
+        character.sanity_recovery_skills[1] /= 1.2
 
         character.sanity_recovery_factor -= 20
         character.crit -= 10
@@ -247,19 +272,19 @@ class CrescentCoin(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.1
-        character.damage[1] *= 1.1
+        character.damage[0] *= 1.15
+        character.damage[1] *= 1.15
         character.precision += 10
         character.protection -= 10
-        character.max_health *= 0.9
+        character.max_health *= 0.85
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.1
-        character.damage[1] /= 1.1
+        character.damage[0] /= 1.15
+        character.damage[1] /= 1.15
         character.precision -= 10
         character.protection += 10
-        character.max_health /= 0.9
+        character.max_health /= 0.85
 
 class CursedCoin(Item):
 
@@ -273,19 +298,19 @@ class CursedCoin(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.2
-        character.damage[1] *= 1.2
+        character.damage[0] *= 1.3
+        character.damage[1] *= 1.3
         character.precision += 20
         character.protection -= 20
-        character.max_health *= 0.8
+        character.max_health *= 0.7
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.2
-        character.damage[1] /= 1.2
+        character.damage[0] /= 1.3
+        character.damage[1] /= 1.3
         character.precision -= 20
         character.protection += 20
-        character.max_health /= 0.8
+        character.max_health /= 0.7
 
 class ForsakenCoin(Item):
 
@@ -299,11 +324,11 @@ class ForsakenCoin(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.3
-        character.damage[1] *= 1.3
+        character.damage[0] *= 1.5
+        character.damage[1] *= 1.5
         character.precision += 30
         character.protection -= 30
-        character.max_health *= 0.7
+        character.max_health *= 0.5
 
     def remove_item(self, character):
 
@@ -311,7 +336,7 @@ class ForsakenCoin(Item):
         character.damage[1] /= 1.3
         character.precision -= 30
         character.protection += 30
-        character.max_health /= 0.7
+        character.max_health /= 0.5
 
 class MagicLamp(Item):
 

@@ -78,3 +78,62 @@ class AridStab(EnemySkill):
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
+class IntimidatingRoar(EnemySkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.range = [3, 6]
+        self.name = 'INTIMIDATING ROAR'
+
+        self.sanity_reducing = True
+        self.multiplier = 0.1
+
+        self.effects_on_hit = ['WEAKNESS']
+
+        self.targets_all_in_range = True
+
+        self.sound = p.mixer.Sound(LIGHT_SOUND)
+
+        self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 40)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
+class Boom(EnemySkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.range = [3, 10]
+        self.name = 'BOOOOOOM!!!'
+
+        self.effects_on_hit = ['BROKEN', 'BURNING']
+
+        self.splash = 2
+
+        self.sound = p.mixer.Sound(LIGHT_SOUND)
+
+        self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
+class RallyingWinds(EnemySkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.range = [1, 5]
+        self.name = 'RALLYING WINDS'
+
+        self.heals = True
+        self.multiplier = 0
+
+        self.effects_on_hit = ['STRENGTH', 'PRECISION']
+        self.effects_on_user = ['STRENGTH', 'PRECISION']
+
+        self.targets_all_in_range = True
+        self.targets_heroes = False
+
+        self.sound = p.mixer.Sound(LIGHT_SOUND)
+
+        self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 80)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))

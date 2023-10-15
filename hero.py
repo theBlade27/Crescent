@@ -25,7 +25,7 @@ class Hero(Character):
 
             self.killbarks = [
                 'YOUR KIND IS NO LONGER WELCOME HERE.',
-                'BE GONE, FIEND.'
+                'BEGONE, FIEND.'
             ]
 
             self.healbarks = [
@@ -109,7 +109,7 @@ class Hero(Character):
             self.name = 'ARCANE'
             self.max_health = 12
             self.speed = 6
-            self.damage = [5, 8]
+            self.damage = [6, 8]
             self.healing = [7, 10]
             self.sanity_recovery_skills = [0, 0]
             self.mobility = 6

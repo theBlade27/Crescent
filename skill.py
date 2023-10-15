@@ -85,14 +85,14 @@ class Skill(p.sprite.Sprite):
 
                     if crit:
 
-                        damage_numbers.append('CRIT' + str(damage))
+                        damage_numbers.append('CRIT' + str(int(damage)))
                         if self.character.barking == False:
 
                             BarkTimer(self.game, self.character, random.choice(self.character.critbarks))
 
                     else:
 
-                        damage_numbers.append(damage)
+                        damage_numbers.append(str(int(damage)))
 
                 elif missed:
 
@@ -105,23 +105,23 @@ class Skill(p.sprite.Sprite):
         if self.sanity_recovering == True:
 
             for target in self.targets:
-                sanity_recovery = random.randint(self.character.sanity_recovery_skills[0], self.character.sanity_recovery_skills[1]) * self.multiplier
-                sanity = target.calculate_sanity_increase(sanity_recovery)
+                sanity_recovery = random.randint(int(self.character.sanity_recovery_skills[0]), int(self.character.sanity_recovery_skills[1]))
+                sanity = int(target.calculate_sanity_increase(sanity_recovery))
 
                 sanity_heal_numbers.append(sanity)
 
         if self.sanity_reducing == True:
 
             for target in self.targets:
-                sanity_reduction = random.randint(self.character.sanity_reduction_skills[0], self.character.sanity_reduction_skills[1]) * self.multiplier
-                sanity = target.calculate_sanity_decrease(sanity_reduction)
+                sanity_reduction = random.randint(int(self.character.sanity_reduction_skills[0]), int(self.character.sanity_reduction_skills[1]))
+                sanity = int(target.calculate_sanity_decrease(sanity_reduction))
 
                 sanity_damage_numbers.append(sanity)
 
         if self.heals == True:
 
             for target in self.targets:
-                healing = random.randint(self.character.healing[0], self.character.healing[1]) * self.multiplier
+                healing = random.randint(int(self.character.healing[0]), int(self.character.healing[1])) * self.multiplier
                 healing, crit = target.calculate_health_healed(healing, self.character)
                 if crit:
                     self.character.calculate_sanity_increase(5)
@@ -129,11 +129,11 @@ class Skill(p.sprite.Sprite):
 
                 if crit:
 
-                    heal_numbers.append('CRIT' + str(healing))
+                    heal_numbers.append('CRIT' + str(int(healing)))
 
                 else:
 
-                    heal_numbers.append(healing)
+                    heal_numbers.append(str(int(healing)))
 
 
         for effect in self.effects_on_user:
@@ -1027,7 +1027,7 @@ class EnemySkill(Skill):
 
             for character in characters:
 
-                damage = random.randint(self.character.damage[0], self.character.damage[1]) * self.multiplier
+                damage = random.randint(int(self.character.damage[0]), int(self.character.damage[1])) * self.multiplier
                 damage, crit, missed, dodged = character.calculate_damage_dealt(damage, self.character)
                 if crit:
                     character.calculate_sanity_decrease(10)
@@ -1044,7 +1044,7 @@ class EnemySkill(Skill):
 
                     if crit:
 
-                        damage_numbers.append('CRIT' + str(damage))
+                        damage_numbers.append('CRIT' + str(int(damage)))
 
                         if character.barking == False:
 
@@ -1052,7 +1052,7 @@ class EnemySkill(Skill):
 
                     else:
 
-                        damage_numbers.append(damage)
+                        damage_numbers.append(str(int(damage)))
 
                 elif missed:
 
@@ -1067,16 +1067,16 @@ class EnemySkill(Skill):
         if self.sanity_recovering == True:
 
             for character in characters:
-                sanity_recovery = random.randint(self.character.sanity_recovery_skills[0], self.character.sanity_recovery_skills[1]) * self.multiplier
-                sanity = character.calculate_sanity_increase(sanity_recovery)
+                sanity_recovery = random.randint(int(self.character.sanity_recovery_skills[0]), int(self.character.sanity_recovery_skills[1]))
+                sanity = int(character.calculate_sanity_increase(sanity_recovery))
 
                 sanity_heal_numbers.append(sanity)
 
         if self.sanity_reducing == True:
 
             for character in characters:
-                sanity_reduction = random.randint(self.character.sanity_reduction_skills[0], self.character.sanity_reduction_skills[1]) * self.multiplier
-                sanity = character.calculate_sanity_decrease(sanity_reduction)
+                sanity_reduction = random.randint(int(self.character.sanity_reduction_skills[0]), int(self.character.sanity_reduction_skills[1]))
+                sanity = int(character.calculate_sanity_decrease(sanity_reduction))
 
                 sanity_damage_numbers.append(sanity)
 
@@ -1090,16 +1090,16 @@ class EnemySkill(Skill):
 
             for character in characters:
 
-                healing = random.randint(self.character.healing[0], self.character.healing[1]) * self.multiplier
-                healing = character.calculate_health_healed(healing, self.character)
+                healing = random.randint(int(self.character.healing[0]), int(self.character.healing[1])) * self.multiplier
+                healing, crit = character.calculate_health_healed(healing, self.character)
 
                 if crit:
 
-                    heal_numbers.append('CRIT' + str(healing))
+                    heal_numbers.append('CRIT' + str(int(healing)))
 
                 else:
 
-                    heal_numbers.append(healing)
+                    heal_numbers.append(str(int(healing)))
 
         for effect in self.effects_on_user:
 

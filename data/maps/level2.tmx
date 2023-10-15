@@ -352,7 +352,7 @@ I'VE HEARD AWFUL THINGS...</property>
    <object id="43" name="level" x="820" y="780" width="20" height="20">
     <properties>
      <property name="description" value="ONWARDS!"/>
-     <property name="level" value="TUTORIAL"/>
+     <property name="level" value="DESERT3"/>
      <property name="stageclear" type="bool" value="true"/>
     </properties>
    </object>
