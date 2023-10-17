@@ -10,6 +10,8 @@ from sprite import *
 from effect import *
 from battle import *
 from item import *
+from scene import *
+from cutscene import *
 import random
 
 class Game:
@@ -96,6 +98,8 @@ class Game:
         self.camera_group = p.sprite.LayeredUpdates()
         self.timers = p.sprite.LayeredUpdates()
         self.barks = p.sprite.LayeredUpdates()
+        self.scenes_group = p.sprite.LayeredUpdates()
+        self.cutscenes_group = p.sprite.LayeredUpdates()
 
     def check_stage_clear(self):
 
@@ -179,7 +183,7 @@ class Game:
     def load_font(self):
 
         self.font_spritesheet = Sprite(FONT)
-        self.letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '\"', '%', '\'', '(', ')', '+', '-', '.', ',', '/', ':', ';', '=', '?', '[', ']', '\\', ' '] 
+        self.letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '\"', '%', '\'', '(', ')', '+', '-', '.', ',', '/', ':', ';', '=', '?', '[', ']', '\\', ' ', '$'] 
         self.font = {}
         for i in range(0, len(self.letters)):
             self.font[self.letters[i]] = self.font_spritesheet.get_sprite(i * FONT_WIDTH, 0, FONT_WIDTH, FONT_HEIGHT)
@@ -263,7 +267,7 @@ class Game:
 
         self.battle = Battle(self, type)
 
-    def open_menu(self, menu, character = None, loot_list = None, text = None):
+    def open_menu(self, menu, character = None, loot_list = None, text = None, money = None):
 
         if menu == 'INVENTORY':
 
@@ -277,7 +281,7 @@ class Game:
 
         if menu == 'LOOT':
 
-            self.menus[menu] = Loot(self, loot_list)
+            self.menus[menu] = Loot(self, loot_list, money)
 
         if menu == 'SELECT_SKILLS':
 
@@ -313,6 +317,10 @@ class Game:
         if len(LOOT_TABLE[type][2]) > 0:
             for i in range(number_of_very_rare):
                 loot_list.append(random.choice(LOOT_TABLE[type][2]))
+
+        money = random.randint(LOOT_TABLE[type][3][0], LOOT_TABLE[type][3][1])
+
+        money *= 50
 
         for item in loot_list:
 
@@ -372,7 +380,7 @@ class Game:
 
                 inventory.append(Food3(self))
 
-        return inventory
+        return inventory, money
 
     def play_combat_animations(self, attacker, targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers):
 
@@ -432,6 +440,8 @@ class Game:
 
         self.menus['TOP'].images['TEXT'].update()
 
+        self.scenes_group.update()
+
     def tick_check(self):
 
         if self.ticks >= 100:
@@ -476,6 +486,8 @@ class Game:
         for sprite in self.barks:
             self.screen.blit(sprite.image, sprite.pos)
 
+        for sprite in self.scenes_group:
+            self.screen.blit(sprite.image, sprite.pos)
 
         for sprite in self.mouse_group:
             self.screen.blit(sprite.image, sprite.pos)
@@ -526,6 +538,9 @@ class Game:
                 if event.key == p.K_e:
 
                     BarkTimer(self, self.hero_party[0], 'TEST')
+
+                if event.key == p.K_l:
+                    CutScene(self, 'intro')
 
                 if event.key == p.K_t:
 

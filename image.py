@@ -1162,12 +1162,13 @@ class StorageSlot(Image):
                     else:
 
                         temp = self.game.selected_item
-                        pos_of_item = self.game.inventory.index(self.game.selected_item)
-                        self.game.inventory[pos_of_item] = self.game.inventory[self.index]
-                        self.game.inventory[self.index] = temp
-                        self.game.selected_item = None
-                        sound = p.mixer.Sound(BUTTON_SOUND)
-                        sound.play()
+                        if self.game.selected_item in self.game.inventory:
+                            pos_of_item = self.game.inventory.index(self.game.selected_item)
+                            self.game.inventory[pos_of_item] = self.game.inventory[self.index]
+                            self.game.inventory[self.index] = temp
+                            self.game.selected_item = None
+                            sound = p.mixer.Sound(BUTTON_SOUND)
+                            sound.play()
 
                 else:
                     for i in range(3):

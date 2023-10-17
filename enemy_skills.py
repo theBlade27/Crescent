@@ -109,7 +109,7 @@ class Boom(EnemySkill):
 
         self.effects_on_hit = ['BROKEN', 'BURNING']
 
-        self.splash = 2
+        self.splash = 4
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
@@ -121,7 +121,7 @@ class RallyingWinds(EnemySkill):
     def __init__(self, game, character):
         super().__init__(game, character)
 
-        self.range = [1, 5]
+        self.range = [1, 10]
         self.name = 'RALLYING WINDS'
 
         self.heals = True

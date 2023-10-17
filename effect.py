@@ -327,6 +327,10 @@ class Satiated(Effect):
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(80, 280, 20, 20)
 
+    def apply_effect(self):
+        
+        pass
+
     def remove_effect(self):
 
         if self in self.character.effects:

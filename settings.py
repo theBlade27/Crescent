@@ -97,43 +97,50 @@ LOOT_TABLE = {
     'GHOSTBLADE': [
         [],
         ['CHERISHED_LETTER'],
-        []
+        [],
+        [0, 0]
     ],
 
     'BARREL': [
         ['BANDAGE', 'TORCH'],
         ['FOOD'],
-        []
+        [],
+        [0, 1]
     ],
 
     'DESERT': [
         ['BANDAGE', 'TORCH'],
         ['FOOD'],
-        ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN']
+        ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN'],
+        [3, 7]
     ],
 
     'TUTORIALCHEST': [
         ['BANDAGE', 'FOOD'],
         ['HOLY_BOOK'],
-        []
+        [],
+        [5, 5]
     ],
 
     'CHEST': [
         ['BANDAGE', 'TORCH', 'FOOD', 'FOOD2'],
         ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN'],
-        ['LUCKY_RING', 'FORSAKEN_COIN']
+        ['LUCKY_RING', 'FORSAKEN_COIN'],
+        [5, 10]
     ],
 
     'L2CHEST': [
         ['FOOD', 'FOOD2'],
         ['SAPPHIRE_EARRINGS', 'MAGIC_LAMP'],
-        ['LUCKY_RING', 'FORSAKEN_COIN']
+        ['LUCKY_RING', 'FORSAKEN_COIN'],
+        [0, 0]
     ],
 
     'CRATE': [
         ['FOOD'],
         ['FOOD2'],
-        ['FOOD3']
+        ['FOOD3'],
+        [0, 1]
     ]
 
 }

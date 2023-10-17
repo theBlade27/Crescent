@@ -247,7 +247,7 @@ class Loot(Interaction):
         self.alert_visible = True
         self.inventory = []
 
-        self.inventory = self.game.generate_loot(self.type)
+        self.inventory, self.money = self.game.generate_loot(self.type)
 
     def update(self):
 
@@ -273,10 +273,14 @@ class Loot(Interaction):
                     self.game.menus['TOP'].images['PORTRAIT'].update()
 
                     if self.game.mouse.pressed['M1']:
-                        self.game.open_menu('LOOT', loot_list = self.inventory)
+                        self.game.open_menu('LOOT', loot_list = self.inventory, money = self.money)
+                        self.game.money += self.money
                         self.looted = True
                         sound = p.mixer.Sound(BLIP_SOUND)
                         sound.play()
+
+                        for menu in self.game.menus.values():
+                            menu.update_images()
 
         else:
 

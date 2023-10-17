@@ -275,7 +275,7 @@ class SkillInfo(Menu):
 
 class Loot(Menu):
 
-    def __init__(self, game, loot_list):
+    def __init__(self, game, loot_list, money):
         super().__init__(game)
 
         self.scale = 1
@@ -291,7 +291,7 @@ class Loot(Menu):
 
         self.images = {
             'INVENTORY_ICON': InventoryIcon(self.game),
-            'TITLE': MenuTitle(self.game, 'LOOT!'),
+            'TITLE': MenuTitle(self.game, 'LOOT! +$' + str(money)),
             'EXIT': ExitButton(self.game, self),
         }
 

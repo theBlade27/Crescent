@@ -57,26 +57,22 @@ class Torch(Item):
         super().__init__(game)
 
         self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(20, 0, 20, 20)
-        self.desc = 'TORCH\nREPLACES BLINDESS WITH PRECISION'
+        self.desc = 'TORCH\nREMOVES BLINDNESS'
 
     def use(self, index):
 
         character = self.game.selected_character
 
-        used = False
 
         if type(character) == Hero:
 
             for effect in character.effects:
-                if type(effect) == Blindness or type(effect) == Blindness2 or type(effect) == Blindness3 or type(effect) == Precision:
+                if type(effect) == Blindness or type(effect) == Blindness2 or type(effect) == Blindness3:
                     effect.remove_effect()
-                    used = True
 
-            if used == True:
-                character.effects.append(Precision(self.game, character))
-                self.game.inventory[index] = None
-                self.game.selected_item = None
-                self.kill()
+                    self.game.inventory[index] = None
+                    self.game.selected_item = None
+                    self.kill()
 
                 
 
@@ -95,46 +91,52 @@ class Food1(Item):
 
         character = self.game.selected_character
 
-        stuffed = False
-
-        for effect in character.effects:
-            if type(effect) == Stuffed:
-                stuffed = True
-
         if type(character) == Hero:
 
-            if stuffed == False:
+            for effect in character.effects:
+                if type(effect) == Starving:
+                    character.effects.remove(effect)
 
-                for effect in character.effects:
-                    if type(effect) == Starving:
-                        character.effects.remove(effect)
+                    character.damage[0] *= 1.1
+                    character.damage[1] *= 1.1
+                    character.protection += 10
+                    character.speed += 1
+                    character.precision += 5
+                    character.agility += 5
+                    character.crit += 5
 
-                        self.character.damage[0] *= 1.1
-                        self.character.damage[1] *= 1.1
-                        self.character.protection += 10
-                        self.character.speed += 1
-                        self.character.precision += 5
-                        self.character.agility += 5
-                        self.character.crit += 5
+                    character.current_health += self.healing
+                    character.effects.append(Stuffed(self.game, character, self.duration))
 
-                for effect in character.effects:
-                    if type(effect) == Satiated:
-                        character.effects.remove(effect)
+                    for effect in character.effects:
+                        if type(effect) == DeathsDoor:
+                            effect.remove_effect()
+                        
+                    self.game.inventory[index] = None
+                    self.game.selected_item = None
+                    self.kill()
 
-                character.current_health += self.healing
+                    for menu in self.game.menus.values():
+                        menu.update_images()
 
-                for effect in character.effects:
-                    if type(effect) == DeathsDoor:
-                        effect.remove_effect()
+                elif type(effect) == Satiated:
+                    character.effects.remove(effect)
 
-                self.game.inventory[index] = None
-                self.game.selected_item = None
-                self.kill()
+                    character.current_health += self.healing
+                    character.effects.append(Stuffed(self.game, character, self.duration))
 
-                character.effects.append(Stuffed(self.game, character, self.duration))
+                    for effect in character.effects:
+                        if type(effect) == DeathsDoor:
+                            effect.remove_effect()
 
-                for menu in self.game.menus.values():
-                    menu.update_images()
+                    self.game.inventory[index] = None
+                    self.game.selected_item = None
+                    self.kill()
+
+                    for menu in self.game.menus.values():
+                        menu.update_images()
+
+                
 
 class Food2(Food1):
 

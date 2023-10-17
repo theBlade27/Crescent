@@ -86,16 +86,17 @@ class Battle(p.sprite.Sprite):
 
         self.game.battle_mode = False
 
-        for menu in self.game.menus.values():
-            menu.update_images()
-
         self.game.last_interacted.beaten = True
 
-        self.items = self.game.generate_loot(self.battle)
+        self.items, money = self.game.generate_loot(self.battle)
         self.game.check_stage_clear()
 
-        self.game.open_menu('LOOT', loot_list = self.items)
+        self.game.open_menu('LOOT', loot_list = self.items, money = money)
+        self.game.money += money
         self.loot_open = True
+
+        for menu in self.game.menus.values():
+            menu.update_images()
 
         
 
