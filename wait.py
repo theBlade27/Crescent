@@ -104,6 +104,29 @@ class EnemyIsMovingTimer(Timer):
         if now >= self.target_time:
             self.character.move_tile()
             self.kill()
+            
+class HeroIsMovingTimer(Timer):
+
+    def __init__(self, game, character):
+        super().__init__(game, 2000)
+
+        self.character = character
+
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
+
+    def update(self):
+
+        self.game.textbox_text = '{} IS HAVING A MOMENT...'.format(self.character.name)
+        self.game.menus['TOP'].update_images()
+        self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+        self.game.menus['TOP'].images['PORTRAIT'].update()
+        
+        now = p.time.get_ticks()
+
+        if now >= self.target_time:
+            self.character.move_tile()
+            self.kill()
 
 class EnemyIsAttackingTimer(Timer):
 
@@ -118,6 +141,29 @@ class EnemyIsAttackingTimer(Timer):
     def update(self):
 
         self.game.textbox_text = '{} IS USING {}'.format(self.character.name, self.character.selected_skill.name)
+        self.game.menus['TOP'].update_images()
+        self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+        self.game.menus['TOP'].images['PORTRAIT'].update()
+        
+        now = p.time.get_ticks()
+
+        if now >= self.target_time:
+            self.character.use_selected_skill()
+            self.kill()
+
+class HeroIsAttackingTimer(Timer):
+
+    def __init__(self, game, character):
+        super().__init__(game, 2000)
+
+        self.character = character
+
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
+
+    def update(self):
+
+        self.game.textbox_text = '{} IS LASHING OUT!'.format(self.character.name, self.character.selected_skill.name)
         self.game.menus['TOP'].update_images()
         self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
         self.game.menus['TOP'].images['PORTRAIT'].update()
@@ -168,6 +214,7 @@ class ShowSkillEffectivenessTimer(Timer):
         now = p.time.get_ticks()
 
         if now >= self.target_time:
+            self.game.actingout = True
             self.game.battle.start_next_character_turn()
             if 'COMBAT_ANIMATIONS' in self.game.menus:
                 self.game.menus['COMBAT_ANIMATIONS'].kill()

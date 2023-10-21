@@ -28,162 +28,164 @@ class Tile(p.sprite.Sprite):
         self.hitbox = p.Rect(x * MAP_SCALE * TILE_SIZE + offset[0], y * MAP_SCALE * TILE_SIZE + offset[1], 60, 60)
 
     def update(self):
+            
+        if self.game.actingout == False:
 
-        self.image = self.background.copy()
-        if self.hitbox.collidepoint(self.game.mouse.pos):
-            if self.game.mouse.pressed['M2']:
-
-                if self.has_enemy or self.has_hero:
-
-                    for character in self.game.menus['BATTLE'].characters:
-
-                        if character.grid_pos == self.grid_pos:
-
-                            self.game.open_menu('INVENTORY', character)
-                            self.game.menus['INVENTORY'].hero = character
-
-        if self.traversable:
-
-            if self.game.selected_character.has_used_skill == False:
-                    
-                    if self.game.selected_character.has_moved == False:
-
-                        self.image.blit(MOVEMENTINDICATOR, (0, 0))
-
-                        if self.hitbox.collidepoint(self.game.mouse.pos):
-                            if self.obstructed == False:
-                                self.image.blit(CONFIRMATION, (0, 0))
-                                if self.game.mouse.pressed['M1']:
-                                    self.game.selected_character.selected_skill.use_skill(self)
-                            else:
-                                self.game.selected_tile = self
-                                self.game.menus['BATTLE'].cross = True
-
-        self.traversable = False
-
-        if self.game.selected_character.selected_skill != None:
-
+            self.image = self.background.copy()
             if self.hitbox.collidepoint(self.game.mouse.pos):
-                self.game.selected_tile = self
+                if self.game.mouse.pressed['M2']:
 
-            if self.being_targeted and self.targetable == False:
-                self.image.blit(CONFIRMATION, (0, 0))
+                    if self.has_enemy or self.has_hero:
 
-                self.being_targeted = False
+                        for character in self.game.menus['BATTLE'].characters:
 
-            if self.targetable:
+                            if character.grid_pos == self.grid_pos:
 
-                if self.game.selected_character.selected_skill != None:
+                                self.game.open_menu('INVENTORY', character)
+                                self.game.menus['INVENTORY'].hero = character
 
-                    if self.game.selected_character.selected_skill.targets_enemies == True:
-                        self.image.blit(ATTACKINDICATOR, (0, 0))
+            if self.traversable:
 
-                        if self.game.selected_character.has_used_skill == False:
+                if self.game.selected_character.has_used_skill == False:
+                        
+                        if self.game.selected_character.has_moved == False:
 
-                            if self.being_targeted:
-                                self.image.blit(CONFIRMATION, (0, 0))
+                            self.image.blit(MOVEMENTINDICATOR, (0, 0))
 
-                            self.being_targeted = False
-
-                            if self.game.selected_character.selected_skill.targets_all_in_range == False:
-
-                                if self.hitbox.collidepoint(self.game.mouse.pos):
-                                    self.game.selected_tile = self
-                                    if self.has_enemy:
-                                        menu = self.game.menus['BATTLE']
-                                        skill = self.game.selected_character.selected_skill
-
-                                        for tile in menu.tiles:
-                                            selected_tile = self.game.selected_tile
-                                            distance = vec(tile.grid_pos) - vec(selected_tile.grid_pos)
-                                            if distance.length() <= skill.splash:
-                                                tile.being_targeted = True
-
-                                        if self.game.mouse.pressed['M1']:
-                                            menu = self.game.menus['BATTLE']
-                                            targeted_tiles = []
-                                            for tile in menu.tiles:
-                                                if tile.being_targeted:
-                                                    targeted_tiles.append(tile)
-                                            self.game.selected_character.has_used_skill = True
-                                            self.game.selected_character.selected_skill.use_skill(targeted_tiles)
-                                    elif self.has_hero:
-                                        self.game.selected_tile = self
-                                        self.game.menus['BATTLE'].cross = True
-                                    elif self.obstructed:
-                                        self.game.selected_tile = self
-                                        self.game.menus['BATTLE'].cross = True
-                                    else:
-                                        self.image.blit(CONFIRMATION, (0, 0))
-
-                            else:
-                                if self.has_enemy:
+                            if self.hitbox.collidepoint(self.game.mouse.pos):
+                                if self.obstructed == False:
                                     self.image.blit(CONFIRMATION, (0, 0))
-                                    self.being_targeted = True
+                                    if self.game.mouse.pressed['M1']:
+                                        self.game.selected_character.selected_skill.use_skill(self)
+                                else:
+                                    self.game.selected_tile = self
+                                    self.game.menus['BATTLE'].cross = True
+
+            self.traversable = False
+
+            if self.game.selected_character.selected_skill != None:
+
+                if self.hitbox.collidepoint(self.game.mouse.pos):
+                    self.game.selected_tile = self
+
+                if self.being_targeted and self.targetable == False:
+                    self.image.blit(CONFIRMATION, (0, 0))
+
+                    self.being_targeted = False
+
+                if self.targetable:
+
+                    if self.game.selected_character.selected_skill != None:
+
+                        if self.game.selected_character.selected_skill.targets_enemies == True:
+                            self.image.blit(ATTACKINDICATOR, (0, 0))
+
+                            if self.game.selected_character.has_used_skill == False:
+
+                                if self.being_targeted:
+                                    self.image.blit(CONFIRMATION, (0, 0))
+
+                                self.being_targeted = False
+
+                                if self.game.selected_character.selected_skill.targets_all_in_range == False:
+
                                     if self.hitbox.collidepoint(self.game.mouse.pos):
-                                        if self.game.mouse.pressed['M1']:
+                                        self.game.selected_tile = self
+                                        if self.has_enemy:
                                             menu = self.game.menus['BATTLE']
-                                            targeted_tiles = []
+                                            skill = self.game.selected_character.selected_skill
+
                                             for tile in menu.tiles:
-                                                if tile.being_targeted:
-                                                    targeted_tiles.append(tile)
-                                            self.game.selected_character.has_used_skill = True
-                                            self.game.selected_character.selected_skill.use_skill(targeted_tiles)
+                                                selected_tile = self.game.selected_tile
+                                                distance = vec(tile.grid_pos) - vec(selected_tile.grid_pos)
+                                                if distance.length() <= skill.splash:
+                                                    tile.being_targeted = True
 
-                if self.game.selected_character.selected_skill != None:
+                                            if self.game.mouse.pressed['M1']:
+                                                menu = self.game.menus['BATTLE']
+                                                targeted_tiles = []
+                                                for tile in menu.tiles:
+                                                    if tile.being_targeted:
+                                                        targeted_tiles.append(tile)
+                                                self.game.selected_character.has_used_skill = True
+                                                self.game.selected_character.selected_skill.use_skill(targeted_tiles)
+                                        elif self.has_hero:
+                                            self.game.selected_tile = self
+                                            self.game.menus['BATTLE'].cross = True
+                                        elif self.obstructed:
+                                            self.game.selected_tile = self
+                                            self.game.menus['BATTLE'].cross = True
+                                        else:
+                                            self.image.blit(CONFIRMATION, (0, 0))
 
-                    if self.game.selected_character.selected_skill.targets_enemies == False:
-                        self.image.blit(HEALINDICATOR, (0, 0))
+                                else:
+                                    if self.has_enemy:
+                                        self.image.blit(CONFIRMATION, (0, 0))
+                                        self.being_targeted = True
+                                        if self.hitbox.collidepoint(self.game.mouse.pos):
+                                            if self.game.mouse.pressed['M1']:
+                                                menu = self.game.menus['BATTLE']
+                                                targeted_tiles = []
+                                                for tile in menu.tiles:
+                                                    if tile.being_targeted:
+                                                        targeted_tiles.append(tile)
+                                                self.game.selected_character.has_used_skill = True
+                                                self.game.selected_character.selected_skill.use_skill(targeted_tiles)
 
-                        if self.game.selected_character.has_used_skill == False:
+                    if self.game.selected_character.selected_skill != None:
 
-                            if self.being_targeted:
-                                self.image.blit(CONFIRMATION, (0, 0))
+                        if self.game.selected_character.selected_skill.targets_enemies == False:
+                            self.image.blit(HEALINDICATOR, (0, 0))
 
-                            self.being_targeted = False
+                            if self.game.selected_character.has_used_skill == False:
 
-                            if self.game.selected_character.selected_skill.targets_all_in_range == False:
+                                if self.being_targeted:
+                                    self.image.blit(CONFIRMATION, (0, 0))
 
-                                if self.hitbox.collidepoint(self.game.mouse.pos):
+                                self.being_targeted = False
+
+                                if self.game.selected_character.selected_skill.targets_all_in_range == False:
+
+                                    if self.hitbox.collidepoint(self.game.mouse.pos):
+                                        if self.has_hero:
+                                            self.image.blit(CONFIRMATION, (0, 0))
+                                            self.being_targeted = True
+                                            if self.game.mouse.pressed['M1']:
+
+                                                menu = self.game.menus['BATTLE']
+                                                targeted_tiles = []
+                                                for tile in menu.tiles:
+                                                    if tile.being_targeted:
+                                                        targeted_tiles.append(tile)
+                                                self.game.selected_character.has_used_skill = True
+                                                self.game.selected_character.selected_skill.use_skill(targeted_tiles)
+                                        elif self.has_enemy:
+                                            self.game.selected_tile = self
+                                            self.game.menus['BATTLE'].cross = True
+                                        elif self.obstructed:
+                                            self.game.selected_tile = self
+                                            self.game.menus['BATTLE'].cross = True
+                                        else:
+                                            self.image.blit(CONFIRMATION, (0, 0))
+
+                                else:
                                     if self.has_hero:
                                         self.image.blit(CONFIRMATION, (0, 0))
                                         self.being_targeted = True
-                                        if self.game.mouse.pressed['M1']:
-
-                                            menu = self.game.menus['BATTLE']
-                                            targeted_tiles = []
-                                            for tile in menu.tiles:
-                                                if tile.being_targeted:
-                                                    targeted_tiles.append(tile)
-                                            self.game.selected_character.has_used_skill = True
-                                            self.game.selected_character.selected_skill.use_skill(targeted_tiles)
-                                    elif self.has_enemy:
-                                        self.game.selected_tile = self
-                                        self.game.menus['BATTLE'].cross = True
-                                    elif self.obstructed:
-                                        self.game.selected_tile = self
-                                        self.game.menus['BATTLE'].cross = True
-                                    else:
-                                        self.image.blit(CONFIRMATION, (0, 0))
-
-                            else:
-                                if self.has_hero:
-                                    self.image.blit(CONFIRMATION, (0, 0))
-                                    self.being_targeted = True
-                                    if self.hitbox.collidepoint(self.game.mouse.pos):
-                                        if self.game.mouse.pressed['M1']:
-                                            menu = self.game.menus['BATTLE']
-                                            targeted_tiles = []
-                                            for tile in menu.tiles:
-                                                if tile.being_targeted:
-                                                    targeted_tiles.append(tile)
-                                            self.game.selected_character.has_used_skill = True
-                                            self.game.selected_character.selected_skill.use_skill(targeted_tiles)
+                                        if self.hitbox.collidepoint(self.game.mouse.pos):
+                                            if self.game.mouse.pressed['M1']:
+                                                menu = self.game.menus['BATTLE']
+                                                targeted_tiles = []
+                                                for tile in menu.tiles:
+                                                    if tile.being_targeted:
+                                                        targeted_tiles.append(tile)
+                                                self.game.selected_character.has_used_skill = True
+                                                self.game.selected_character.selected_skill.use_skill(targeted_tiles)
 
 
-        self.targetable = False
-        self.has_enemy = False
-        self.has_hero = False
+            self.targetable = False
+            self.has_enemy = False
+            self.has_hero = False
 
 class Obstacle(Tile):
 

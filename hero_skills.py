@@ -4,6 +4,26 @@ from settings import *
 from skill import *
 from effect import *
 
+class BladeActOut(HeroSkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.name = 'ACT OUT'
+        self.desc = 'USED WHEN INSANE'
+
+        self.multiplier = 0.5
+
+        self.image = self.spritesheet.get_sprite(0, 60, 20, 20)
+        self.image = p.transform.scale(self.image, (160, 160))
+
+        self.range = [0, 3]
+
+        self.sound = p.mixer.Sound(HEAVY_SOUND)
+
+        self.combat_animation = self.spritesheet.get_sprite(0, 80, 120, 40)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
 class Vanquish(HeroSkill):
 
     def __init__(self, game, character):
@@ -72,7 +92,6 @@ class SteelTempest(HeroSkill):
         self.targets_all_in_range = True
 
         self.effects_on_hit = ['BLEEDING', 'BLINDING']
-        self.debuffing = True
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
@@ -112,6 +131,28 @@ class FalseHopes(HeroSkill):
         self.combat_animation = self.spritesheet.get_sprite(0, 160, 120, 80)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
 
+class ArcaneActOut(HeroSkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.name = 'ACT OUT'
+        self.desc = 'USED WHEN INSANE'
+
+        self.image = self.spritesheet.get_sprite(40, 60, 20, 20)
+        self.image = p.transform.scale(self.image, (160, 160))
+
+        self.range = [4, 10]
+
+        self.multiplier = 0.5
+
+        self.effects_on_hit = ['BURNING', 'BROKEN']
+
+        self.sound = p.mixer.Sound(HEAVY_SOUND)
+
+        self.combat_animation = self.spritesheet.get_sprite(0, 240, 120, 40)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
 class AzureEruption(HeroSkill):
 
     def __init__(self, game, character):
@@ -130,7 +171,6 @@ class AzureEruption(HeroSkill):
         self.splash = 2
 
         self.effects_on_hit = ['BURNING']
-        self.debuffing = True
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
@@ -157,7 +197,6 @@ class Illuminate(HeroSkill):
         self.targets_all_in_range = True
 
         self.effects_on_hit = ['BURNING', 'STUNNING', 'BLINDING']
-        self.debuffing = True
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
@@ -178,7 +217,6 @@ class ArcaneAssault(HeroSkill):
         self.range = [4, 10]
 
         self.effects_on_hit = ['BURNING', 'BROKEN']
-        self.debuffing = True
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 

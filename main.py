@@ -175,6 +175,10 @@ class Game:
         # this is important so the player doesnt open loads of menus on top of each other
         self.loot_open = False
 
+        # keeps track of whether a character is acting out
+        # this is important so the game knows when to take away control from the player
+        self.actingout = False
+
         # if the game is being reset, the players inventory and money is reset
 
         if reset == True:
@@ -305,8 +309,8 @@ class Game:
                 Hero(self, 'BLADE', self.spawn_location),
                 None,
                 None,
-                None
-                #Hero(self, 'ARCANE', (self.spawn_location[0], self.spawn_location[1] + 100)),
+                #None,
+                Hero(self, 'ARCANE', (self.spawn_location[0], self.spawn_location[1] + 100)),
                 #Hero(self, 'ARCANE', (self.spawn_location[0] + 100, self.spawn_location[1])),
                 #Hero(self, 'ARCANE', (self.spawn_location[0] + 100, self.spawn_location[1] + 100)),
             ]

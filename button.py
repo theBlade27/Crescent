@@ -202,7 +202,7 @@ class SkillButton(Button):
             if self.index == 5 and self.game.selected_character.has_used_skill:
                 self.visible = False
 
-            if self.game.selected_character.stunned:
+            if self.game.selected_character.stunned or self.game.actingout:
                 self.visible = False
 
             self.spritesheet = Sprite(MENU_SPRITESHEETS['BUTTON'].copy(), scale = 8)
@@ -226,7 +226,7 @@ class SkillButton(Button):
                             self.hero.selected_skill = self.skill
                         for tile in self.game.menus['BATTLE'].tiles:
                             tile.being_targeted = False
-                        if (not(self.index == 4 and self.game.selected_character.has_moved)) and (not(self.index == 5 and self.game.selected_character.has_used_skill)) and not self.game.selected_character.stunned:
+                        if (not(self.index == 4 and self.game.selected_character.has_moved)) and (not(self.index == 5 and self.game.selected_character.has_used_skill)) and not self.game.selected_character.stunned and not self.game.actingout:
                             self.sound.play()
 
                 if self.game.mouse.pressed['M2']:
@@ -234,7 +234,7 @@ class SkillButton(Button):
                     if self.game.battle_mode:
                         self.image = self.pressed_image.copy()
                         self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
-                        if (self.index >= 0 and self.index <= 3) and not self.game.selected_character.stunned:
+                        if (self.index >= 0 and self.index <= 3) and not self.game.selected_character.stunned and not self.game.actingout:
                             self.hero.selected_skill = self.skill
                             sound = p.mixer.Sound(BUTTON_SOUND)
                             sound.play()
