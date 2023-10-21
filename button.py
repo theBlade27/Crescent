@@ -32,6 +32,39 @@ class Button(Image):
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
                 self.sound.play()
 
+class PlayButton(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+
+        self.spritesheet = Sprite(MENU_SPRITESHEETS['PLAYBUTTON'].copy(), scale = 8)
+
+        self.pos = [53 * 8, 98 * 8]
+
+        self.unpressed_image = self.spritesheet.get_sprite(0, 0, 130, 50)
+        self.pressed_image = self.spritesheet.get_sprite(0, 50 , 130, 50)
+
+        self.image = self.unpressed_image.copy()
+
+        self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
+
+        self.sound = p.mixer.Sound(BUTTON_SOUND)
+
+    def update(self):
+
+        self.image.blit(self.unpressed_image, [0, 0])
+
+        if self.hitbox.collidepoint(self.game.mouse.pos):
+            self.image = self.pressed_image.copy()
+
+            if self.game.mouse.pressed['M1']:
+                self.game.menus['PLAY'].kill()
+                self.game.reset_game()
+                self.kill()
+                self.sound.play()
+
 class MapButton(Button):
 
     def __init__(self, game, menu):
@@ -77,12 +110,7 @@ class InventoryButton(Button):
     
         if self.hitbox.collidepoint(self.game.mouse.pos):
             if self.game.mouse.pressed['M1']:
-                if self.game.inventory_open == False:
-                    self.game.open_menu('INVENTORY')
-                    self.game.inventory_open = True
-                else:
-                    self.game.close_menu('INVENTORY')
-                    self.game.inventory_open = False
+                self.game.open_menu('INVENTORY')
 
 class RepositionButton(Button):
 
@@ -128,8 +156,9 @@ class ExitButton(Button):
     
         if self.hitbox.collidepoint(self.game.mouse.pos):
             if self.game.mouse.pressed['M1']:
+                self.game.close_menu('INVENTORY')
+                self.game.close_menu('SELECT_SKILLS')
                 self.menu.kill()
-                self.game.inventory_open = False
 
 class SkillButton(Button):
 
@@ -205,20 +234,13 @@ class SkillButton(Button):
                     if self.game.battle_mode:
                         self.image = self.pressed_image.copy()
                         self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
-                        if self.game.selected_character.stunned == False:
-                            self.hero.selected_skill = self.skill
-                        for tile in self.game.menus['BATTLE'].tiles:
-                            tile.being_targeted = False
                         if (self.index >= 0 and self.index <= 3) and not self.game.selected_character.stunned:
                             self.hero.selected_skill = self.skill
                             sound = p.mixer.Sound(BUTTON_SOUND)
                             sound.play()
-                            self.game.close_menu('INVENTORY')
-                            if 'SELECT_SKILLS' in self.game.menus:
-                                self.game.menus['SELECT_SKILLS'].selected_skill = self.skill
-                                self.game.menus['SELECT_SKILLS'].update_images()
-                            else:
-                                self.game.open_menu('SELECT_SKILLS', self.hero)
+                            self.game.open_menu('SELECT_SKILLS', self.hero)
+
+
 
             if self.hero.selected_skill == self.skill:
                 self.image = self.pressed_image.copy()

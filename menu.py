@@ -215,6 +215,25 @@ class CombatAnimation(Menu):
 
         pass
 
+class NewGameMenu(Menu):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.scale = 8
+
+        self.pos = [0, 0]
+
+        self.background = MENU_SPRITESHEETS['NEWGAMEBACKGROUND'].copy()
+        self.image = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
+        self.background = self.image
+
+        self.hitbox = p.rect.Rect(self.pos[0], self.pos[1], self.image.get_width(), self.image.get_height())
+
+        self.images = {
+            'PLAY': PlayButton(self.game, self)
+        }
+
 class SkillInfo(Menu):
 
     def __init__(self, game, hero):
@@ -636,12 +655,7 @@ class EnemyPreview(Menu):
 
         if self.hitbox.collidepoint(self.game.mouse.pos):
             if self.game.mouse.pressed['M2']:
-                if self.game.inventory_open == False:
-                    self.game.open_menu('INVENTORY', self.enemy)
-                    self.game.inventory_open = True
-                else:
-                    self.game.menus['INVENTORY'].hero = self.enemy
-                    self.game.menus['INVENTORY'].update_images()
+                self.game.open_menu('INVENTORY', self.enemy)
 
                 sound = p.mixer.Sound(BUTTON_SOUND)
                 sound.play()
@@ -665,8 +679,6 @@ class Bark(Menu):
         self.images = {
             'TEXT': BarkText(self.game, text)
         }
-
-
 
 class HeroPreview(Menu):
 
@@ -718,12 +730,9 @@ class HeroPreview(Menu):
 
             if self.hitbox.collidepoint(self.game.mouse.pos):
                 if self.game.mouse.pressed['M2']:
-                    if self.game.inventory_open == False:
-                        self.game.open_menu('INVENTORY', self.hero)
-                        self.game.inventory_open = True
-                    else:
-                        self.game.menus['INVENTORY'].hero = self.hero
-                        self.game.menus['INVENTORY'].update_images()
+                    self.game.open_menu('INVENTORY', self.hero)
+                    self.game.menus['INVENTORY'].hero = self.hero
+                    self.game.menus['INVENTORY'].update_images()
 
                     sound = p.mixer.Sound(BUTTON_SOUND)
                     sound.play()

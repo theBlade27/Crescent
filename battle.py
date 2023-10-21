@@ -2,6 +2,7 @@ import pygame as p
 from settings import *
 from menu import *
 from item import *
+from cutscene import *
 
 class Battle(p.sprite.Sprite):
 
@@ -46,7 +47,8 @@ class Battle(p.sprite.Sprite):
         if len(menu.enemies) == 0:
             self.end_battle()
         elif len(menu.heroes) == 0:
-            self.game.quit()
+            self.game.reset_game()
+            CutScene(self.game, 'gameover')
         else:
             self.turn_order_counter = self.all_characters.index(self.game.selected_character)
             self.turn_order_counter += 1

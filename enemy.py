@@ -69,7 +69,7 @@ class Enemy(Character):
             self.max_health = 8
             self.speed = 7
             self.frontliner = False
-            self.mobility = 4
+            self.mobility = 3
             self.protection = 0
             self.agility = 20
             self.precision = 95
@@ -165,9 +165,7 @@ class Enemy(Character):
             self.last_update = now
             self.current_frame = (self.current_frame + 1) % len(self.images)
             self.image = p.transform.flip(self.images[self.current_frame], self.flipped, False)
-            if self.game.inventory_open:
-                self.combat_image = self.combat_images[self.current_frame]
-                self.game.menus['INVENTORY'].images['COMBAT_IMAGE'].update()
+            self.combat_image = self.combat_images[self.current_frame]
 
     def calculate_skill(self):
 

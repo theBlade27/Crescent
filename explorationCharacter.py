@@ -88,20 +88,20 @@ class ExplorationCharacter(p.sprite.Sprite):
 
     def update(self):
 
-        if self.game.inventory_open == False:
+        self.running = True
 
-            self.running = True
+        self.calculate_acceleration()
+        self.calculate_velocity()
+        self.calculate_position()
 
-            self.calculate_acceleration()
-            self.calculate_velocity()
-            self.calculate_position()
+        if self.vel.x == 0 and self.vel.y == 0:
+            self.running = False
 
-            if self.vel.x == 0 and self.vel.y == 0:
-                self.running = False
-
-            self.play_animations()
+        self.play_animations()
 
     def calculate_acceleration(self):
+
+        self.pos = vec(self.pos[0], self.pos[1])
 
         self.acc = vec(0, 0)
 

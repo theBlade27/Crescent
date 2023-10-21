@@ -209,7 +209,9 @@ MENU_SPRITESHEETS = {
     'ITEMS': p.image.load(path.join(items_folder, 'items.png')),
     'COMBAT_BACKGROUND': p.image.load(path.join(backgrounds_folder, 'combat_background.png')),
     'REPOSITION_SMALL': p.image.load(path.join(slots_folder, 'slot_reposition_small.png')),
-    'BARK': p.image.load(path.join(backgrounds_folder, 'background_bark.png'))
+    'BARK': p.image.load(path.join(backgrounds_folder, 'background_bark.png')),
+    'NEWGAMEBACKGROUND': p.image.load(path.join(backgrounds_folder, 'newgamebackground.png')),
+    'PLAYBUTTON': p.image.load(path.join(buttons_folder, 'play.png'))
 }
 
 FONT = p.image.load(path.join(UI_folder, 'font.png'))

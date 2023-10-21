@@ -28,6 +28,9 @@ class CalculateSkillTimer(Timer):
         self.character = character
         self.change_in_health = change_in_health
 
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
+
     def update(self):
 
         self.game.textbox_text = 'IT IS {}\'S TURN'.format(self.character.name)
@@ -54,6 +57,9 @@ class PlayerTurnTimer(Timer):
 
         self.character = character
         self.change_in_health = change_in_health
+
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
 
     def update(self):
 
@@ -83,6 +89,9 @@ class EnemyIsMovingTimer(Timer):
 
         self.character = character
 
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
+
     def update(self):
 
         self.game.textbox_text = '{} IS MOVING'.format(self.character.name)
@@ -102,6 +111,9 @@ class EnemyIsAttackingTimer(Timer):
         super().__init__(game, 1000)
 
         self.character = character
+
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
 
     def update(self):
 
@@ -123,6 +135,9 @@ class NextTurnTimer(Timer):
 
         self.character = character
 
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
+
     def update(self):
         
         now = p.time.get_ticks()
@@ -139,6 +154,9 @@ class ShowSkillEffectivenessTimer(Timer):
         self.text = text
         self.character = character
 
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
+
     def update(self):
 
         self.game.textbox_text = self.text
@@ -151,7 +169,8 @@ class ShowSkillEffectivenessTimer(Timer):
 
         if now >= self.target_time:
             self.game.battle.start_next_character_turn()
-            self.game.menus['COMBAT_ANIMATIONS'].kill()
+            if 'COMBAT_ANIMATIONS' in self.game.menus:
+                self.game.menus['COMBAT_ANIMATIONS'].kill()
             self.game.numbers.empty()
             self.kill()
 
@@ -161,6 +180,9 @@ class StunnedTimer(Timer):
         super().__init__(game, 2000)
 
         self.character = character
+
+        self.game.close_menu('INVENTORY')
+        self.game.close_menu('SELECT_SKILLS')
 
     def update(self):
 

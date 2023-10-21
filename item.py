@@ -105,7 +105,7 @@ class Food1(Item):
                     character.agility += 5
                     character.crit += 5
 
-                    character.current_health += self.healing
+                    character.current_health = min(character.max_health, character.current_health + self.healing)
                     character.effects.append(Stuffed(self.game, character, self.duration))
 
                     for effect in character.effects:

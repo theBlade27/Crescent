@@ -14,6 +14,8 @@ from scene import *
 from cutscene import *
 import random
 
+# this class manages the entire game. it deals with starting up the game for the first time, resetting the game, changing levels, and finally updating and drawing every object
+
 class Game:
 
     def __init__(self):
@@ -27,10 +29,19 @@ class Game:
 
     def new(self):
 
+        # when the game starts, all the groups that all the objects are in are created, and the game is reset
+        # then, the introduction cutscene is played
+
         self.set_up_groups()
+        self.menus = {}
+
         self.reset_game()
 
+        CutScene(self, 'intro')
+
     def set_up_window(self):
+
+        # initialises the window in fullscreen and initialises the clock
 
         p.display.set_caption(TITLE)
         screen_size = (WIDTH, HEIGHT)
@@ -39,6 +50,10 @@ class Game:
 
     def reset_game(self):
 
+        # ticks are what are used to track how much the player has moved around
+        # this system is used instead of simply just looking at the time so that events dont happen whilst the player isnt doing anything
+        # it is increased whenever the player moves around
+
         self.ticks = 0
 
         self.end_game(True)
@@ -46,6 +61,10 @@ class Game:
         self.set_up_variables(True)
 
     def end_game(self, reset):
+
+        # depending on whether the game needs to reset completely or the game just needs to switch to the next level, this function can do two things
+        # if the level just needs to be changed, the 'reset' parameter is False, so it clears the 'all' group - this contains everything except stuff that needs to be saved between stages, such as characters
+        # otherwise, the 'reset' parameter is True, so every object is killed
 
         if reset == True:
 
@@ -66,10 +85,14 @@ class Game:
             for sprite in self.all:
 
                 sprite.kill()
+
+        # resets the background
             
         self.map_background = p.Surface((1, 1))
 
     def next_level(self, map):
+
+        # this function is used to change levels, and takes in the map that the level is being changed to as a parameter
 
         self.end_game(False)
 
@@ -77,6 +100,8 @@ class Game:
 
 
     def set_up_groups(self):
+
+        # sets up all the groups
 
         self.all = p.sprite.LayeredUpdates()
 
@@ -103,7 +128,13 @@ class Game:
 
     def check_stage_clear(self):
 
+        # this function checks that every battle on a given stage has been beaten
+
         self.stageclear = True
+
+        # 'interactable_objects' is a group that would contain any objects that start battles, so it is looped through
+        # when a battle is beaten, the 'interactable' that it is associated with has its 'beaten' property set to True
+        # if no object is found to be beaten, the stage has been cleared
 
         for object in self.interactable_objects:
 
@@ -115,21 +146,66 @@ class Game:
 
     def set_up_variables(self, reset, map = MAPS['RESET']):
 
+        # this function is called whenever the level is changed or the game is reset
+        # this is an important function that sets up all the variables needed for the game to function
+        # it resets many variables such as 'stageclear' back to False
+
         reset = reset
 
+        # creates a mouse object
         self.mouse = Mouse(self)
+
+        # this variable is used for debugging, and when true, all hitboxes are highlighted
         self.debug = False
+
+        # this variable enables the player to hide the menus on the sides that shows character health so they can see more the map if they wish
         self.clear_view = False
+
+        # this variable keeps track of whether the player is in a battle or not
+        # this is important as the player shouldnt be able to move around the map and access chests whilst they are mid battle
         self.battle_mode = False
+
+        # keeps track of whether this stage has been cleared
         self.stageclear = False
 
+        # battle is grid based, and this keeps track of the tile the player is selecting
         self.selected_tile = None
 
-        self.inventory_open = False
+        # these keep track of whether the inventory or loot menu is open
+        # this is important so the player doesnt open loads of menus on top of each other
         self.loot_open = False
-        self.deleting = False
+
+        # if the game is being reset, the players inventory and money is reset
 
         if reset == True:
+
+            self.inventory = [
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                ForsakenCoin(self),
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+            ]
 
             self.inventory = [
                 None,
@@ -161,19 +237,31 @@ class Game:
 
             self.money = 0
 
+        # keeps track of the item the player has selected in the inventory
         self.selected_item = None
+
+        # keeps track of whether the player is selecting an item to equip
         self.selecting_equipment = False
 
-        self.textbox_text = ''
-        self.textbox_portrait = p.Surface((160, 160))
-        self.textbox_portrait.fill(DARKBLUE)
 
+        # calls a function to set up the map based on the parameter passed in
         self.set_up_map(map)
+
+        # calls the 'set_up_party' function with the reset parameter set to True or False depending on whether the game is being reset
 
         if reset == True:
             self.set_up_party(True)
         else:
             self.set_up_party(False)
+
+        # resets the textbox at the top of the screen
+
+        self.textbox_text = ''
+        self.textbox_portrait = p.Surface((160, 160))
+        self.textbox_portrait.fill(DARKBLUE)
+
+        # more vital objects are set up, such as the camera, menus
+        # the font is also loaded
 
         self.set_up_camera()
         self.load_font()
@@ -181,6 +269,14 @@ class Game:
         
 
     def load_font(self):
+
+        # this function loads up the font
+        # first, it loads the font image
+        # then it creates a list of all the possible characters
+        # the order of the characters in the list is the same as the order of the characters in the image
+        # a dictionary is created for the font
+        # for every character in the list, the character is added to the dictionary, with the image of the character as its key
+        # it does this by increasing the x position of where the image is grabbed from by the width of the character each time
 
         self.font_spritesheet = Sprite(FONT)
         self.letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '\"', '%', '\'', '(', ')', '+', '-', '.', ',', '/', ':', ';', '=', '?', '[', ']', '\\', ' ', '$'] 
@@ -190,10 +286,18 @@ class Game:
 
     def set_up_map(self, map):
 
+        # creates a map object
+        # sets the games background to a picture of the map
+
         self.map = Map(self, map)
         self.map_background = self.map.draw_map()
 
     def set_up_party(self, reset):
+
+        # depending on whether the game is reset or not
+        # the function either resets the party to just one character with no accessories
+        # or it just changes their position to the new maps spawn location, as well as healing their health by a third
+        # the spawn location is a variable that varies level to level, and is used to determine where on the map they spawn
 
         if reset:
 
@@ -201,7 +305,10 @@ class Game:
                 Hero(self, 'BLADE', self.spawn_location),
                 None,
                 None,
-                None,
+                None
+                #Hero(self, 'ARCANE', (self.spawn_location[0], self.spawn_location[1] + 100)),
+                #Hero(self, 'ARCANE', (self.spawn_location[0] + 100, self.spawn_location[1])),
+                #Hero(self, 'ARCANE', (self.spawn_location[0] + 100, self.spawn_location[1] + 100)),
             ]
 
         else:
@@ -226,6 +333,7 @@ class Game:
                 self.hero_party[3].exploration_character.pos = (self.spawn_location[0] + 96, self.spawn_location[1] + 96)
                 self.hero_party[3].current_health = min(self.hero_party[3].current_health + self.hero_party[3].max_health / 3, self.hero_party[3].max_health)
 
+            # since every hero is healed, their 'deaths door' debuff needs to be removed as they no longer meet the requirements
 
             for hero in self.hero_party:
 
@@ -243,11 +351,22 @@ class Game:
 
     def set_up_camera(self):
 
+        # the selected character is set to be the first character in the players party
+        # the 'camera_focus' variable tracks what the camera should be focusing on
+        # it is set to be the selected character
+
+        # the camera object is created
+
+
         self.selected_character = self.hero_party[0]
         self.camera_focus = self.selected_character.exploration_character
         self.camera = Camera(self, self.map.width, self.map.height)
 
     def set_up_menus(self):
+
+        # sets up the menus required for the game
+        # TOP is the menu that has all the buttons for doing thigns such as opening the inventory, as well as containing the information textbox
+        # the HERO menus each correlate to one of the heroes in the party, and show their health and sanity
 
         self.menus = {
             'TOP': TopMenu(self),
@@ -265,11 +384,17 @@ class Game:
 
         self.battle_mode = True
 
+        # creates a battle object based on the string that is passed in as a parameter
         self.battle = Battle(self, type)
 
     def open_menu(self, menu, character = None, loot_list = None, text = None, money = None):
 
+        # this function opens up menus and ensures they have the correct parameters
+
         if menu == 'INVENTORY':
+
+            self.close_menu('INVENTORY')
+            self.close_menu('SELECT_SKILLS')
 
             if character == None:
 
@@ -285,6 +410,9 @@ class Game:
 
         if menu == 'SELECT_SKILLS':
 
+            self.close_menu('INVENTORY')
+            self.close_menu('SELECT_SKILLS')
+
             self.menus[menu] = SkillInfo(self, character)
 
         if menu == 'BARK':
@@ -292,6 +420,8 @@ class Game:
             self.menus[menu] = Bark(self, character, text)
 
     def close_menu(self, menu):
+
+        # closes menus
 
         if menu in self.menus:
 
@@ -384,6 +514,8 @@ class Game:
 
     def play_combat_animations(self, attacker, targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers):
 
+        # this function creates the menu that shows the animations for combat, as well as showing things like the damage number, and whether the character dodged
+
         self.menus['COMBAT_ANIMATIONS'] = CombatAnimation(self, attacker, targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers)
 
     def check_inventory_full(self):
@@ -440,7 +572,10 @@ class Game:
 
         self.menus['TOP'].images['TEXT'].update()
 
+        self.cutscenes_group.update()
+
         self.scenes_group.update()
+        self.cutscenes_group.update()
 
     def tick_check(self):
 
@@ -450,6 +585,10 @@ class Game:
                     for effect in hero.effects:
                         effect.tick()
             self.ticks = 0
+
+        if len(self.hero_party) == 0:
+            self.reset_game()
+            CutScene(self, 'gameover')
 
     def draw(self):
 
@@ -482,6 +621,9 @@ class Game:
 
         for sprite in self.menus['TOP'].images.values():
             self.screen.blit(sprite.image, sprite.pos)
+
+        if 'PLAY' in self.menus:
+            self.screen.blit(self.menus['PLAY'].image, (0, 0))
 
         for sprite in self.barks:
             self.screen.blit(sprite.image, sprite.pos)
@@ -540,7 +682,7 @@ class Game:
                     BarkTimer(self, self.hero_party[0], 'TEST')
 
                 if event.key == p.K_l:
-                    CutScene(self, 'intro')
+                    CutScene(self, 'gameover')
 
                 if event.key == p.K_t:
 

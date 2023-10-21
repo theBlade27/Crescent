@@ -265,8 +265,8 @@ class HeroPreviewSlot(Image):
                     if self.menu.hero != None:
                         self.game.camera_focus = self.menu.hero.exploration_character
                         self.game.selected_character = self.menu.hero
-                        if self.game.inventory_open:
-                            self.game.menus['INVENTORY'].hero = self.menu.hero
+                        self.game.close_menu('SELECTED_SKILLS')
+                        self.game.menus['INVENTORY'].hero = self.menu.hero
                         sound = p.mixer.Sound(BUTTON_SOUND)
                         sound.play()
                 
@@ -764,6 +764,18 @@ class OnUseEnemyEffectDisplay(Image):
                 elif skill.effects_on_user[self.index] == 'SLOWNESS3':
 
                     self.image.blit(p.transform.scale(Slowness3(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'CRIT':
+
+                    self.image.blit(p.transform.scale(Crit(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'CRIT2':
+
+                    self.image.blit(p.transform.scale(Crit2(self.game, None).image, [80, 80]), [0, 0])
+
+                elif skill.effects_on_user[self.index] == 'CRIT3':
+
+                    self.image.blit(p.transform.scale(Crit3(self.game, None).image, [80, 80]), [0, 0])
 
                 
 

@@ -2,6 +2,7 @@ import pygame as p
 from sprite import *
 from settings import *
 from scene import *
+from menu import *
 
 class CutScene(p.sprite.Sprite):
 
@@ -13,16 +14,31 @@ class CutScene(p.sprite.Sprite):
         self.game = game
         self.category = category
 
-        if category == 'intro':
-            self.scenes = ['eyescene', 'starscene']
-            self.lengths = [13, 48]
+        if category == 'gameover':
+            self.scenes = ['gameover', 'crescentscene']
+            self.lengths = [4, 30]
             self.total_length = 2
+
+        if category == 'intro':
+            self.scenes = ['eyescene', 'starscene', 'facescene', 'heroscene', 'crescentscene']
+            self.lengths = [13, 48, 20, 32, 30]
+            self.total_length = 5
 
         self.scene_counter = 0
 
         self.current_scene = Scene(self.game, self.category, self.scenes[self.scene_counter], self.lengths[self.scene_counter], self)
 
         self.cutscene_over = False
+
+        self.hitbox = p.rect.Rect(0, 0, 1920, 1080)
+
+    def update(self):
+
+        if self.hitbox.collidepoint(self.game.mouse.pos):
+
+            if self.game.mouse.pressed['M1']:
+
+                self.end_cutscene()
 
     def next_scene(self):
 
@@ -39,8 +55,15 @@ class CutScene(p.sprite.Sprite):
 
         else:
 
-            self.current_scene.kill()
+            self.end_cutscene()
 
-            self.kill()
+    def end_cutscene(self):
+
+        self.current_scene.kill()
+
+        if self.category == 'intro' or self.category == 'gameover':
+            self.game.menus['PLAY'] = NewGameMenu(self.game)
+
+        self.kill()
 
 

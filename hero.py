@@ -59,7 +59,7 @@ class Hero(Character):
             self.bleed = 60
             self.venom = 60
             self.fire = 60
-            self.death = 66
+            self.death = 0
             self.stun = 70
             self.debuff = 60
             self.equipment = [None, None, None]
@@ -188,9 +188,7 @@ class Hero(Character):
             self.last_update = now
             self.current_frame = (self.current_frame + 1) % len(self.images)
             self.image = p.transform.flip(self.images[self.current_frame], self.flipped, False)
-            if self.game.inventory_open:
-                self.combat_image = self.combat_images[self.current_frame]
-                self.game.menus['INVENTORY'].images['COMBAT_IMAGE'].update()
+            self.combat_image = self.combat_images[self.current_frame]
 
     def start_turn(self):
 
@@ -290,17 +288,7 @@ class Hero(Character):
 
             for i in range(4):
                 menu = self.game.menus['HERO' + str(i + 1)]
-                if menu.hero == self:
-                    menu.kill()
-
-            i = 0
-
-            for hero in self.game.hero_party:
-
-                if hero != None:
-
-                    self.game.menus['HERO' + str(i + 1)].hero = hero
-                    i += 1
+                menu.hero = self.game.hero_party[i]
 
             for menu in self.game.menus.values():
                 menu.update()

@@ -41,7 +41,6 @@ class Tile(p.sprite.Sprite):
 
                             self.game.open_menu('INVENTORY', character)
                             self.game.menus['INVENTORY'].hero = character
-                            self.game.inventory_open = True
 
         if self.traversable:
 
