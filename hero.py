@@ -44,6 +44,18 @@ class Hero(Character):
             self.scaredbarks = [
                 'IT... IT\'S HOPELESS...'
             ]
+            
+            self.actoutbarks = [
+                'YOU...\nYOU\'RE ONE OF THEM!'
+            ]
+
+            self.meltdownbarks = [
+                'THERE\'S NO HOPE.'
+            ]
+
+            self.giveupbarks = [
+                'WHAT\'S THE POINT.'
+            ]
 
             self.name = 'BLADE'
             self.max_health = 20
@@ -107,6 +119,18 @@ class Hero(Character):
                 'NO... NOT AGAIN...'
             ]
 
+            self.actoutbarks = [
+                'GET. AWAY. FROM. ME.'
+            ]
+
+            self.meltdownbarks = [
+                '(STARTS SOBBING)'
+            ]
+
+            self.giveupbarks = [
+                'I... CAN\'T'
+            ]
+
             
             self.name = 'ARCANE'
             self.max_health = 12
@@ -154,12 +178,17 @@ class Hero(Character):
         self.has_moved = False
 
         self.insane = True
+        self.meltingdown = False
+        self.givingup = False
+
+        self.sanity_reduction_skills = [8, 15]
 
         self.effects = [
             Satiated(self.game, self)
         ]
 
     def update(self):
+            
 
         if self.has_used_skill == False:
 
@@ -235,6 +264,7 @@ class Hero(Character):
 
         if self.insane == False:
 
+
             if self.stunned == False:
 
                 PlayerTurnTimer(self.game, self, change_in_health)
@@ -251,16 +281,143 @@ class Hero(Character):
 
                 if rand == 1:
 
+                    if len(self.game.hero_party) > 1:
+
+                        self.game.actingout = True
+                        CalculateSkillTimer(self.game, self, change_in_health)
+
+                    else:
+
+                        self.game.actingout = False
+                        self.meltingdown = True
+                        PlayerTurnTimer(self.game, self, change_in_health)
+
+                elif rand == 2 or rand == 3:
+
+                    self.game.actingout = False
+                    self.meltingdown = True
+                    PlayerTurnTimer(self.game, self, change_in_health)
+
+                elif rand == 4:
+
                     self.game.actingout = True
-                    CalculateSkillTimer(self.game, self, change_in_health)
+                    self.givingup = True
+                    PlayerTurnTimer(self.game, self, change_in_health)
 
                 else:
-
+                    self.game.actingout = False
                     PlayerTurnTimer(self.game, self, change_in_health)
 
             else:
 
                 StunnedTimer(self.game, self)
+
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+    def giveup(self):
+
+        rand = random.randint(8, 15)
+        sanity_reduction = rand
+        sanity = int(self.calculate_sanity_decrease(sanity_reduction))
+
+        self.selected_skill = EnemySkip(self.game, self)
+
+        if self.barking == False:
+
+            BarkTimer(self.game, self, random.choice(self.giveupbarks))
+
+        applied_debuff = random.randint(1, 4)
+
+        successful = False
+
+        if applied_debuff <= 3:
+                
+            rand = random.randint(0, 100)
+
+            if rand >= 50:
+                successful = True
+
+            if successful:
+
+                if applied_debuff == 1:
+
+                    for effect in self.effects:
+                        if type(effect) == Blindness:
+                            effect.remove_effect()
+
+                    self.effects.append(Blindness(self.game, self))
+
+                if applied_debuff == 2:
+
+                    for effect in self.effects:
+                        if type(effect) == Weakness:
+                            effect.remove_effect()
+
+                    self.effects.append(Weakness(self.game, self))
+
+                if applied_debuff == 3:
+
+                    for effect in self.effects:
+                        if type(effect) == BrokenArmour:
+                            effect.remove_effect()
+
+                    self.effects.append(BrokenArmour(self.game, self))
+
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+    def meltdown(self):
+
+        if self.barking == False:
+
+            BarkTimer(self.game, self, random.choice(self.meltdownbarks))
+
+        for hero in self.game.hero_party:
+            if hero != None:
+                rand = random.randint(8, 15)
+                sanity_reduction = rand
+                sanity = int(hero.calculate_sanity_decrease(sanity_reduction))
+
+                applied_debuff = random.randint(1, 4)
+
+                successful = False
+
+                if applied_debuff <= 3:
+                
+                    rand = random.randint(0, 100)
+
+                    if rand >= 50:
+                        successful = True
+
+                    if successful:
+
+                        if applied_debuff == 1:
+
+                            for effect in hero.effects:
+                                if type(effect) == Blindness:
+                                    effect.remove_effect()
+
+                            hero.effects.append(Blindness(self.game, hero))
+
+                        if applied_debuff == 2:
+
+                            for effect in hero.effects:
+                                if type(effect) == Weakness:
+                                    effect.remove_effect()
+
+                            hero.effects.append(Weakness(self.game, hero))
+
+                        if applied_debuff == 3:
+
+                            for effect in hero.effects:
+                                if type(effect) == BrokenArmour:
+                                    effect.remove_effect()
+
+                            hero.effects.append(BrokenArmour(self.game, hero))
+
+        for menu in self.game.menus.values():
+            menu.update_images()
 
     def calculate_skill(self):
 

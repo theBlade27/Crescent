@@ -556,6 +556,9 @@ class Game:
         self.menus['TOP'].images['TEXT'].update()
         self.menus['TOP'].images['PORTRAIT'].update()
 
+        for menu in self.menus.values():
+            menu.colour = FAKEBLACK
+
         self.mouse_group.update()
         self.characters.update()
         self.effects_group.update()

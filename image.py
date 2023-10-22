@@ -266,7 +266,8 @@ class HeroPreviewSlot(Image):
                         self.game.camera_focus = self.menu.hero.exploration_character
                         self.game.selected_character = self.menu.hero
                         self.game.close_menu('SELECTED_SKILLS')
-                        self.game.menus['INVENTORY'].hero = self.menu.hero
+                        if 'INVENTORY' in self.game.menus:
+                            self.game.menus['INVENTORY'].hero = self.menu.hero
                         sound = p.mixer.Sound(BUTTON_SOUND)
                         sound.play()
                 

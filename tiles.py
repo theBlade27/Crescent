@@ -28,11 +28,29 @@ class Tile(p.sprite.Sprite):
         self.hitbox = p.Rect(x * MAP_SCALE * TILE_SIZE + offset[0], y * MAP_SCALE * TILE_SIZE + offset[1], 60, 60)
 
     def update(self):
+
+        self.image = self.background.copy()
             
         if self.game.actingout == False:
 
-            self.image = self.background.copy()
             if self.hitbox.collidepoint(self.game.mouse.pos):
+
+                if self.has_enemy or self.has_hero:
+
+                    for character in self.game.menus['BATTLE'].characters:
+
+                        if character.grid_pos == self.grid_pos:
+
+                            for menu in self.game.menus:
+                                if menu == 'HERO1' or menu == 'HERO2' or menu == 'HERO3' or menu == 'HERO4':
+                                    if self.game.menus[menu].hero == character:
+                                        self.game.menus[menu].colour = WHITE
+                                        self.game.menus[menu].update()
+                                if menu == 'ENEMY1' or menu == 'ENEMY2' or menu == 'ENEMY3' or menu == 'ENEMY4' or menu == 'ENEMY5' or menu == 'ENEMY6':
+                                    if self.game.menus[menu].enemy == character:
+                                        self.game.menus[menu].colour = WHITE
+                                        self.game.menus[menu].update()
+
                 if self.game.mouse.pressed['M2']:
 
                     if self.has_enemy or self.has_hero:

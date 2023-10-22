@@ -21,6 +21,8 @@ class BladeActOut(HeroSkill):
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 
+        self.sanity_reducing = True
+
         self.combat_animation = self.spritesheet.get_sprite(0, 80, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
 
@@ -147,6 +149,8 @@ class ArcaneActOut(HeroSkill):
         self.multiplier = 0.5
 
         self.effects_on_hit = ['BURNING', 'BROKEN']
+
+        self.sanity_reducing = True
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 

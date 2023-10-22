@@ -80,6 +80,10 @@ class PlayerTurnTimer(Timer):
             if self.character not in self.game.battle.all_characters:
                 self.game.selected_character = self.game.battle.all_characters[(self.game.battle.turn_order_counter - 1) % len(self.game.battle.all_characters)]
                 self.game.battle.start_next_character_turn()
+            if self.character.meltingdown:
+                self.character.meltdown()
+            if self.character.givingup:
+                self.character.giveup()
             self.kill()
 
 class EnemyIsMovingTimer(Timer):
@@ -148,6 +152,7 @@ class EnemyIsAttackingTimer(Timer):
         now = p.time.get_ticks()
 
         if now >= self.target_time:
+            
             self.character.use_selected_skill()
             self.kill()
 
@@ -214,10 +219,12 @@ class ShowSkillEffectivenessTimer(Timer):
         now = p.time.get_ticks()
 
         if now >= self.target_time:
-            self.game.actingout = True
             self.game.battle.start_next_character_turn()
             if 'COMBAT_ANIMATIONS' in self.game.menus:
                 self.game.menus['COMBAT_ANIMATIONS'].kill()
+            for menu in self.game.menus.values():
+                menu.colour = FAKEBLACK
+                menu.update()
             self.game.numbers.empty()
             self.kill()
 
@@ -265,9 +272,31 @@ class BarkTimer(Timer):
 
     def update(self):
 
+        if self.character.meltingdown:
+            for menu in list(self.game.menus):
+                if menu == 'HERO1' or menu == 'HERO2' or menu == 'HERO3' or menu == 'HERO4':
+                    self.game.menus[menu].colour = PURPLE
+                    self.game.menus[menu].update()
+
+        if self.character.givingup:
+            for menu in list(self.game.menus):
+                if menu == 'HERO1' or menu == 'HERO2' or menu == 'HERO3' or menu == 'HERO4':
+                    if self.game.menus[menu].hero == self.character:
+                        self.game.menus[menu].colour = PURPLE
+                        self.game.menus[menu].update()
+
         now = p.time.get_ticks()
 
         if now >= self.target_time:
+            if self.character.meltingdown:
+                self.character.meltingdown = False
+                for menu in self.game.menus.values():
+                    menu.update_images()
+            if self.character.givingup:
+                self.character.givingup = False
+                self.character.selected_skill.use_skill()
+                for menu in self.game.menus.values():
+                    menu.update_images()
             self.character.barking = False
             self.menu.kill()
             self.kill()

@@ -16,6 +16,7 @@ class Menu(p.sprite.Sprite):
         self.game = game
         self.scale = 4
         self.visible = True
+        self.colour = FAKEBLACK
 
     def update(self):
 
@@ -47,6 +48,10 @@ class CombatAnimation(Menu):
         self.heal_numbers = heal_numbers
         self.sanity_damage_numbers = sanity_damage_numbers
         self.sanity_heal_numbers = sanity_heal_numbers
+
+        self.menus = []
+
+        self.menucolours = []
 
         crit = False
 
@@ -155,6 +160,16 @@ class CombatAnimation(Menu):
 
             if len(damage_numbers) > 0:
 
+                for menu in self.game.menus.values():
+                    if type(menu) == HeroPreview:
+                        if menu.hero == target:
+                            self.menus.append(menu)
+                            self.menucolours.append(RED)
+                    if type(menu) == EnemyPreview:
+                        if menu.enemy == target:
+                            self.menus.append(menu)
+                            self.menucolours.append(RED)
+
                 number_image = DamageNumber(self.game, damage_numbers[i]).image
 
                 y -= number_image.get_height()
@@ -162,6 +177,16 @@ class CombatAnimation(Menu):
                 self.image.blit(number_image, [starting_distance + gap * i + (image.get_width() / 2) - (number_image.get_width() / 2), y])
 
             if len(heal_numbers) > 0:
+
+                for menu in self.game.menus.values():
+                    if type(menu) == HeroPreview:
+                        if menu.hero == target:
+                            self.menus.append(menu)
+                            self.menucolours.append(GREEN)
+                    if type(menu) == EnemyPreview:
+                        if menu.enemy == target:
+                            self.menus.append(menu)
+                            self.menucolours.append(GREEN)
 
                 number_image = HealNumber(self.game, heal_numbers[i]).image
 
@@ -171,6 +196,16 @@ class CombatAnimation(Menu):
 
             if len(sanity_heal_numbers) > 0:
 
+                for menu in self.game.menus.values():
+                    if type(menu) == HeroPreview:
+                        if menu.hero == target:
+                            self.menus.append(menu)
+                            self.menucolours.append(WHITE)
+                    if type(menu) == EnemyPreview:
+                        if menu.enemy == target:
+                            self.menus.append(menu)
+                            self.menucolours.append(WHITE)
+
                 number_image = SanityHealNumber(self.game, sanity_heal_numbers[i]).image
 
                 y -= number_image.get_height()
@@ -178,6 +213,16 @@ class CombatAnimation(Menu):
                 self.image.blit(number_image, [starting_distance + gap * i + (image.get_width() / 2) - (number_image.get_width() / 2), y])
 
             if len(sanity_damage_numbers) > 0:
+
+                for menu in self.game.menus.values():
+                    if type(menu) == HeroPreview:
+                        if menu.hero == target:
+                            self.menus.append(menu)
+                            self.menucolours.append(PURPLE)
+                    if type(menu) == EnemyPreview:
+                        if menu.enemy == target:
+                            self.menus.append(menu)
+                            self.menucolours.append(PURPLE)
 
                 number_image = SanityDamageNumber(self.game, sanity_damage_numbers[i]).image
 
@@ -196,6 +241,10 @@ class CombatAnimation(Menu):
 
     def update(self):
 
+        for i in range(len(self.menus)):
+            self.menus[i].colour = self.menucolours[i]
+            self.menus[i].update()
+
         self.pos[0] = 386
         self.pos[1] = 218
 
@@ -208,8 +257,6 @@ class CombatAnimation(Menu):
 
         self.pos[0] += self.shake_offset_x
         self.pos[1] += self.shake_offset_y
-
-
 
     def update_images(self):
 
@@ -641,7 +688,17 @@ class EnemyPreview(Menu):
         self.update_images()
 
     def update(self):
-        super().update()
+        
+        background = colour_swap(self.background.copy(), FAKEBLACK, self.colour)
+
+        self.image = background
+
+        for image in self.images.values():
+            if image.visible:
+                self.image.blit(image.image, image.pos)
+
+        if self.hitbox.collidepoint(self.game.mouse.pos):
+            self.update_images()
 
         if self.enemy == None:
             self.visible = False
@@ -667,7 +724,10 @@ class Bark(Menu):
 
         self.game.barks.add(self)
 
-        self.index = self.game.hero_party.index(hero)
+        if hero in self.game.hero_party:
+            self.index = self.game.hero_party.index(hero)
+        else:
+            self.kill()
 
         self.pos = [352, 200 + 160 * self.index]
         self.background = MENU_SPRITESHEETS['BARK'].copy()
@@ -712,7 +772,17 @@ class HeroPreview(Menu):
         }
 
     def update(self):
-        super().update()
+
+        background = colour_swap(self.background.copy(), FAKEBLACK, self.colour)
+
+        self.image = background
+
+        for image in self.images.values():
+            if image.visible:
+                self.image.blit(image.image, image.pos)
+
+        if self.hitbox.collidepoint(self.game.mouse.pos):
+            self.update_images()
 
         self.hero = self.game.hero_party[self.index]
 

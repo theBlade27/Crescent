@@ -67,6 +67,12 @@ class Skill(p.sprite.Sprite):
         sanity_heal_numbers = []
         sanity_damage_numbers = []
 
+        if self.game.actingout:
+
+            if self.character.barking == False:
+
+                BarkTimer(self.game, self.character, random.choice(self.character.actoutbarks))
+
         for tile in tiles:
 
             for character in self.game.characters:
@@ -88,7 +94,9 @@ class Skill(p.sprite.Sprite):
                         damage_numbers.append('CRIT' + str(int(damage)))
                         if self.character.barking == False:
 
-                            BarkTimer(self.game, self.character, random.choice(self.character.critbarks))
+                            if self.game.actingout == False:
+
+                                BarkTimer(self.game, self.character, random.choice(self.character.critbarks))
 
                     else:
 
@@ -986,7 +994,7 @@ class Skill(p.sprite.Sprite):
         self.game.play_combat_animations(self.character, self.targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers)
 
         ShowSkillEffectivenessTimer(self.game, self.character, self.text)
-        
+
         rand = random.randint(1, 3)
 
         if rand == 3:
@@ -996,7 +1004,6 @@ class Skill(p.sprite.Sprite):
                 if self.character.barking == False:
 
                     BarkTimer(self.game, self.character, random.choice(self.barks))
-
 
 class EnemySkill(Skill):
 
