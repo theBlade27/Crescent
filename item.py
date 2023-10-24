@@ -86,6 +86,7 @@ class Food1(Item):
 
         self.healing = 5
         self.duration = 4
+        self.sanity = 8
 
     def use(self, index):
 
@@ -106,6 +107,7 @@ class Food1(Item):
                     character.crit += 5
 
                     character.current_health = min(character.max_health, character.current_health + self.healing)
+                    character.current_health = min(character.max_sanity, character.current_sanity + self.sanity)
                     character.effects.append(Stuffed(self.game, character, self.duration))
 
                     for effect in character.effects:
@@ -147,7 +149,8 @@ class Food2(Food1):
         self.desc = 'MEAL\nEVIL CANNOT BE VANQUISHED ON AN EMPTY STOMACH.'
 
         self.healing = 10
-        self.duration = 8
+        self.duration = 5
+        self.sanity = 16
 
 class Food3(Food1):
 
@@ -158,7 +161,8 @@ class Food3(Food1):
         self.desc = 'FEAST\nTHERE ARE FEW THINGS A GOOD FEAST CANNOT FIX!'
 
         self.healing = 20
-        self.duration = 16
+        self.duration = 6
+        self.sanity = 24
 
 class CherishedLetter(Item):
 

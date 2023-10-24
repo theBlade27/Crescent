@@ -371,6 +371,45 @@ class Loot(Menu):
 
         self.update_images()
 
+class Upgrade(Menu):
+
+    def __init__(self, game, hero):
+        super().__init__(game)
+
+        self.scale = 1
+
+        self.hero = hero
+
+        self.pos = [352, 196]
+        self.background = MENU_SPRITESHEETS['BACKGROUND'].copy()
+        self.image = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
+        self.background = self.image
+
+        self.hitbox = p.rect.Rect(self.pos[0], self.pos[1], self.image.get_width(), self.image.get_height())
+
+        self.upgrading_armour = False
+        self.upgrading_weapon = False
+
+        self.images = {
+            'INVENTORY_ICON': InventoryIcon(self.game),
+            'TITLE': MenuTitle(self.game, 'INVENTORY'),
+            'EXIT': ExitButton(self.game, self),
+            'ARMOUR': ArmourUpgradeButton(self.game, self),
+            'WEAPON': WeaponUpgradeButton(self.game, self),
+            'UPGRADE': UpgradeButton(self.game, self)
+        }
+
+        for i in range (4):
+            self.images['HEROSLOT' + str(i + 1)] = HeroUpgradePortraitSlot(self.game, self, i)
+            self.images['PORTRAIT' + str(i + 1)] = HeroUpgradePortrait(self.game, i)
+
+        for i in range (25):
+            self.images['STORAGE_SLOT' + str(i + 1)] = StorageSlot(self.game, self, i)
+            self.images['STORAGE_IMAGE' + str(i + 1)] = StorageImage(self.game, i)
+
+
+        self.update_images()
+
 class Inventory(Menu):
 
     def __init__(self, game, hero):
@@ -426,7 +465,9 @@ class Inventory(Menu):
             'DEBUFF': InventoryDebuff(self.game, self),
             'DEBUFF_ICON': InventoryDebuffIcon(self.game),
             'MOBILITY': InventoryMobility(self.game, self),
-            'MOBILITY_ICON': InventoryMobilityIcon(self.game)
+            'MOBILITY_ICON': InventoryMobilityIcon(self.game),
+            'WEAPON': InventoryWeaponLevel(self.game, self),
+            'ARMOUR': InventoryArmourLevel(self.game, self)
         }
 
         for i in range (4):

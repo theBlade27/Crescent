@@ -56,18 +56,10 @@ class Hero(Character):
             self.giveupbarks = [
                 'WHAT\'S THE POINT.'
             ]
+            
 
             self.name = 'BLADE'
-            self.max_health = 20
-            self.speed = 3
-            self.damage = [7, 10]
-            self.healing = [4, 7]
-            self.sanity_recovery_skills = [4, 7]
             self.mobility = 3
-            self.protection = 15
-            self.agility = 5
-            self.precision = 95
-            self.crit = 5
             self.bleed = 60
             self.venom = 60
             self.fire = 60
@@ -133,16 +125,7 @@ class Hero(Character):
 
             
             self.name = 'ARCANE'
-            self.max_health = 12
-            self.speed = 6
-            self.damage = [6, 8]
-            self.healing = [7, 10]
-            self.sanity_recovery_skills = [0, 0]
-            self.mobility = 6
-            self.protection = 0
-            self.agility = 4
-            self.precision = 95
-            self.crit = 10
+            self.mobility = 5
             self.bleed = 30
             self.venom = 30
             self.fire = 30
@@ -165,8 +148,6 @@ class Hero(Character):
 
             self.starting_grid_pos = [0, 0]
 
-        self.current_health = self.max_health
-
         self.current_sanity = 100
         self.max_sanity = 100
 
@@ -177,11 +158,30 @@ class Hero(Character):
         self.has_used_skill = False
         self.has_moved = False
 
-        self.insane = True
+        self.insane = False
         self.meltingdown = False
         self.givingup = False
 
+        self.armour_level = 0
+        self.weapon_level = 0
+
+        self.max_health = ARMOUR_VALUES[self.type][self.armour_level][0]
+        self.protection = ARMOUR_VALUES[self.type][self.armour_level][1]
+        self.speed = ARMOUR_VALUES[self.type][self.armour_level][2]
+        self.agility = ARMOUR_VALUES[self.type][self.armour_level][3]
+        self.healing[0] = ARMOUR_VALUES[self.type][self.armour_level][4]
+        self.healing[1] = ARMOUR_VALUES[self.type][self.armour_level][5]
+        self.sanity_recovery_skills[0] = ARMOUR_VALUES[self.type][self.armour_level][4]
+        self.sanity_recovery_skills[1] = ARMOUR_VALUES[self.type][self.armour_level][5]
+
+        self.damage[0] = WEAPON_VALUES[self.type][self.weapon_level][0]
+        self.damage[1] = WEAPON_VALUES[self.type][self.weapon_level][1]
+        self.precision = WEAPON_VALUES[self.type][self.weapon_level][2]
+        self.crit = WEAPON_VALUES[self.type][self.weapon_level][3]
+
         self.sanity_reduction_skills = [8, 15]
+
+        self.current_health = self.max_health
 
         self.effects = [
             Satiated(self.game, self)
@@ -248,6 +248,22 @@ class Hero(Character):
                 if type(effect) == DeathsDoor:
                     effect.remove_effect()
 
+        if self.current_sanity == 0:
+            self.insane = True
+        
+        if self.insane == True:
+            if self.current_sanity > 66:
+                self.insane = False
+
+        if self.insane == True:
+            self.effects.append(Insanity(self.game, self))
+            if self.barking == False:
+                BarkTimer(self.game, self, random.choice(self.goinginsanebarks))
+        else:
+            for effect in self.effects:
+                if type(effect) == Insanity:
+                    effect.remove_effect()
+
         current_health = self.current_health
 
         for effect in self.effects:
@@ -267,7 +283,17 @@ class Hero(Character):
 
             if self.stunned == False:
 
-                PlayerTurnTimer(self.game, self, change_in_health)
+                rand = random.randint(0, 100)
+
+                if rand < self.current_sanity:
+
+                    PlayerTurnTimer(self.game, self, change_in_health)
+
+                else:
+
+                    self.game.actingout = False
+                    self.meltingdown = True
+                    PlayerTurnTimer(self.game, self, change_in_health)
 
             else:
 
@@ -277,11 +303,17 @@ class Hero(Character):
 
             if self.stunned == False:
 
-                rand = random.randint(1, 1)
+                rand = random.randint(1, 6)
 
                 if rand == 1:
 
-                    if len(self.game.hero_party) > 1:
+                    hero_party_length = 0
+
+                    for hero in self.game.hero_party:
+                        if hero != None:
+                            hero_party_length += 1
+
+                    if hero_party_length > 1:
 
                         self.game.actingout = True
                         CalculateSkillTimer(self.game, self, change_in_health)

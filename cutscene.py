@@ -20,9 +20,9 @@ class CutScene(p.sprite.Sprite):
             self.total_length = 2
 
         if category == 'intro':
-            self.scenes = ['eyescene', 'starscene', 'facescene', 'heroscene', 'crescentscene']
-            self.lengths = [13, 48, 20, 32, 30]
-            self.total_length = 5
+            self.scenes = ['logo', 'eyescene', 'starscene', 'facescene', 'heroscene', 'crescentscene']
+            self.lengths = [3, 13, 48, 20, 32, 30]
+            self.total_length = 6
 
         self.scene_counter = 0
 

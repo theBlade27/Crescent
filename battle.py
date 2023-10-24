@@ -76,6 +76,9 @@ class Battle(p.sprite.Sprite):
             if type(character) == Enemy:
                 character.kill()
                 self.game.menus['ENEMY' + str(character.index)].kill()
+            if type(character) == Hero:
+                if character != None:
+                    character.selected_skill == None
 
         hero_found = False
         i = 0

@@ -1,5 +1,9 @@
+# this file contains every constant in one place to make life easier
+
 import pygame as p
 from os import path
+
+# lot of variable created to store folder directories so i dont have to write so much every time i need to load an image
 
 folder = path.dirname(__file__)
 data_folder = path.join(folder, 'data')
@@ -20,18 +24,22 @@ snd_folder = path.join(data_folder, 'snd')
 
 map_folder = path.join(data_folder, 'maps')
 
-
 TITLE = 'CRESCENT'
 WIDTH = 1920
 HEIGHT = 1080
 FPS = 60
 
+
+# this constant changes how quickly the camera moves to its new position
+# it determines how smoothly it moves
 LAG_FACTOR = 0.05
 
 TILE_SIZE = 20
 MAP_SCALE = 3
 BATTLE_MAP_SCALE = 6
 
+
+# RGB values for colours
 BLACK = (0, 0, 0)
 FAKEBLACK = (1, 1, 1)
 WHITE = (255, 255, 255)
@@ -47,6 +55,8 @@ PURPLE = (104, 56, 108)
 
 MOUSE_SPRITESHEET = p.image.load(path.join(UI_folder, 'mouse.png'))
 
+
+# dictionary of all the map files, so they can be easily accessed by name
 MAPS = {
     'TUTORIAL': path.join(map_folder, 'tutorial.tmx'),
     'RESET': path.join(map_folder, 'reset.tmx'),
@@ -72,6 +82,41 @@ STRESS_SOUND = path.join(snd_folder, 'stress.wav')
 MOVE_SOUND = path.join(snd_folder, 'move.wav')
 NEXT_SOUND = path.join(snd_folder, 'next.wav')
 
+
+WEAPON_VALUES = {
+    'BLADE':
+    [
+        [7, 10, 95, 5], # damage[0], damage[1], precision, crit
+        [9, 13, 105, 10],
+        [12, 17, 115, 15]
+    ],
+    'ARCANE':
+    [
+        [6, 12, 95, 10],
+        [8, 16, 105, 15],
+        [11, 22, 115, 20]
+    ]
+}
+
+ARMOUR_VALUES = {
+    'BLADE':
+    [
+        [30, 15, 3, 5, 4, 7], # maxhealth, protection, speed, agility, healing[0], healing[1]
+        [39, 25, 4, 10, 6, 10],
+        [50, 35, 5, 15, 9, 14]
+    ],
+    'ARCANE':
+    [
+        [16, 0, 6, 15, 8, 10],
+        [21, 5, 7, 20, 11, 14],
+        [28, 10, 9, 25, 15, 20]
+    ]
+}
+
+BLACKSMITH_COSTS = [1000, 2500, 10000]
+
+
+# dictionary of all the battle map files, so they can be easily accessed by name
 BATTLE_MAPS = {
     'TUTORIAL': path.join(map_folder, 'tutorial_battle.tmx'),
     'GHOSTBLADE': path.join(map_folder, 'ghostblade.tmx'),
@@ -82,6 +127,7 @@ BATTLE_MAPS = {
     'L3B3': path.join(map_folder, 'level3_battle3.tmx'),
 }
 
+# dictionary of all the different encounters the player may face, so they can be easily accessed by name
 ENEMY_PARTIES = {
     'GHOSTBLADE': ['GHOSTBLADE'],
     'TUTORIAL': ['BANDIT1'],
@@ -92,13 +138,16 @@ ENEMY_PARTIES = {
     'L3B3': ['BANDIT2', 'BANDIT1', 'BANDIT4', 'BANDIT3']
 }
 
+# dictionary of all different loot tables, so they can be easily accessed by name
+# each entry is a list of lists
+
 LOOT_TABLE = {
 
     'GHOSTBLADE': [
-        [],
-        ['CHERISHED_LETTER'],
-        [],
-        [0, 0]
+        [], # common items
+        ['CHERISHED_LETTER'], # rare items
+        [], # very rare items
+        [0, 0] # minimum and maximum amount of gold
     ],
 
     'BARREL': [
@@ -175,7 +224,6 @@ HEALINDICATOR = p.transform.scale(HEALINDICATOR, (60, 60))
 HEALINDICATOR.set_alpha(100)
 
 
-
 CHARACTER_SPRITESHEETS = {
     'BLADE': p.image.load(path.join(heroes_folder, 'blade.png')),
     'ARCANE': p.image.load(path.join(heroes_folder, 'arcane.png')),
@@ -211,18 +259,28 @@ MENU_SPRITESHEETS = {
     'REPOSITION_SMALL': p.image.load(path.join(slots_folder, 'slot_reposition_small.png')),
     'BARK': p.image.load(path.join(backgrounds_folder, 'background_bark.png')),
     'NEWGAMEBACKGROUND': p.image.load(path.join(backgrounds_folder, 'newgamebackground.png')),
-    'PLAYBUTTON': p.image.load(path.join(buttons_folder, 'play.png'))
+    'PLAYBUTTON': p.image.load(path.join(buttons_folder, 'play.png')),
+    'UPGRADE': p.image.load(path.join(buttons_folder, 'upgrade_button.png'))
 }
 
 FONT = p.image.load(path.join(UI_folder, 'font.png'))
 FONT_WIDTH = 11
 FONT_HEIGHT = 18
 
+# this number determines how much a characters acceleration increases by when WASD is pressed
 ACCELERATION = 1
+
+# this number determines how fast a character slows down
 FRICTION = -0.2
+
+# this number determines the minimum distance a character has to be start moving towards the player controlled character
 FOLLOW_DISTANCE = 100
+
+# this number determines the maximum distance a character has to be from another in order to be repulsed
 REPULSION_RADIUS = 60
 
+# this number determines the maximum distance the player controlled character can be and still interact with a tile on the map
 INTERACT_RADIUS = 100
 
+# this number determines the maximum distance the player controlled character can be from an enemy to start a battle
 BATTLE_RADIUS = 200

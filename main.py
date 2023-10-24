@@ -144,7 +144,7 @@ class Game:
 
                     self.stageclear = False
 
-    def set_up_variables(self, reset, map = MAPS['RESET']):
+    def set_up_variables(self, reset, map = MAPS['TUTORIAL']):
 
         # this function is called whenever the level is changed or the game is reset
         # this is an important function that sets up all the variables needed for the game to function
@@ -239,7 +239,7 @@ class Game:
                 None,
             ]
 
-            self.money = 0
+            self.money = 10000
 
         # keeps track of the item the player has selected in the inventory
         self.selected_item = None
@@ -309,8 +309,8 @@ class Game:
                 Hero(self, 'BLADE', self.spawn_location),
                 None,
                 None,
-                #None,
-                Hero(self, 'ARCANE', (self.spawn_location[0], self.spawn_location[1] + 100)),
+                None,
+                #Hero(self, 'ARCANE', (self.spawn_location[0], self.spawn_location[1] + 100)),
                 #Hero(self, 'ARCANE', (self.spawn_location[0] + 100, self.spawn_location[1])),
                 #Hero(self, 'ARCANE', (self.spawn_location[0] + 100, self.spawn_location[1] + 100)),
             ]
@@ -397,8 +397,11 @@ class Game:
 
         if menu == 'INVENTORY':
 
+            # makes sure that any menus are closed before opening new ones to prevent overlap
+
             self.close_menu('INVENTORY')
             self.close_menu('SELECT_SKILLS')
+            self.close_menu('UPGRADE')
 
             if character == None:
 
@@ -416,8 +419,28 @@ class Game:
 
             self.close_menu('INVENTORY')
             self.close_menu('SELECT_SKILLS')
+            self.close_menu('UPGRADE')
 
             self.menus[menu] = SkillInfo(self, character)
+
+            if type(self.selected_character) == Hero:
+                self.selected_character.selected_skill == None
+
+        if menu == 'UPGRADE':
+
+            self.close_menu('INVENTORY')
+            self.close_menu('SELECT_SKILLS')
+            self.close_menu('UPGRADE')
+
+            self.menus[menu] = Upgrade(self, character)
+
+            if character == None:
+
+                self.menus[menu] = Upgrade(self, self.selected_character)
+
+            else:
+
+                self.menus[menu] = Upgrade(self, character)
 
         if menu == 'BARK':
 
@@ -433,12 +456,24 @@ class Game:
 
     def generate_loot(self, type):
 
+        # this function returns a list of items that the player can choose to add to their inventory after a battle or opening a chest
+
+        # the lists start out empty
+
+        # this list contains the list of the items names
         loot_list = []
+
+        # this list contains the actual items
         inventory = []
 
+
+        # the number of each rarity of item is randomly chosen
         number_of_common = random.randint(1, 2)
         number_of_rare = random.randint(1, 1)
         number_of_very_rare = random.randint(0, 1)
+
+        # then for every item needed, an item is randomly selected from the corresponding dictionary entry in the LOOT_tABLE dictionary and added to 'loot_list'
+        # each entry is a list of lists, with [0] being a list of possible common items, [1] being rare items, and [2] being very rare items
 
         if len(LOOT_TABLE[type][0]) > 0:
             for i in range(number_of_common):
@@ -452,9 +487,13 @@ class Game:
             for i in range(number_of_very_rare):
                 loot_list.append(random.choice(LOOT_TABLE[type][2]))
 
+        # each entry also contains a minimum and maximum amount of gold, where [3][0] is the minimum and [3][1] is the maximum
+
         money = random.randint(LOOT_TABLE[type][3][0], LOOT_TABLE[type][3][1])
 
         money *= 50
+
+        # depending on the items in the list of item names that, the corresponding object is added to 'inventory'
 
         for item in loot_list:
 
@@ -524,18 +563,30 @@ class Game:
 
     def check_inventory_full(self):
 
+        # in order to make it so the player can only pick up a certain amount of items, the inventory has to be checked to make sure it is not full
+
         first_slot_found = False
         first_slot = 0
 
         i = 0
 
+        # the inventory is looped through
+
         for item in self.inventory:
             if item == None:
+
+                # if an empty slot is found
+
                 if first_slot_found == False:
+
+                    # if an empty slot has not been found yet, set the index of the first empty slot found to i and set 'first_slot_found' to True
+
                     first_slot = i
                     first_slot_found = True
 
             i += 1
+
+        # whether an empty slot has been found is returned, as long as the position of the first empty slot
 
         return first_slot_found, first_slot
 
@@ -543,15 +594,32 @@ class Game:
 
     def run(self):
 
+        # although small, this function makes sure everything happens in the right order
+        # it is called 60 times a second
+
+        # first, the program checks for events, such as the player pressing ESC to quit
+
         self.events()
+
+        # secondly, the program updates every object
+        # for example, objects like the 'ExplorationCharacter' object will check for the player pressing the movement keys WASD when they update, and then move accordingly
+
         self.update()
+
+        # finally, every object is drawn at its new position
+        # any objects, like the 'ExplorationCharacter' mentioned above, will have appeared to move
+
         self.draw()
 
     def update(self):
 
+        # the textbox on the top menu is cleared every update, so when nothing is actively changing it in the update cycle it remains clear
+
         self.textbox_text = ''
         self.textbox_portrait = p.Surface((160, 160))
         self.textbox_portrait.fill(DARKBLUE)
+
+        # the menu is updated so its image actually changed to show this change
 
         self.menus['TOP'].images['TEXT'].update()
         self.menus['TOP'].images['PORTRAIT'].update()
@@ -559,10 +627,14 @@ class Game:
         for menu in self.menus.values():
             menu.colour = FAKEBLACK
 
+        # each group has to be updated in a particular in order for the game to work as intended, which is why i dont just write 'self.all.update()'
+
         self.mouse_group.update()
         self.characters.update()
         self.effects_group.update()
         self.timers.update()
+
+        # things such as the exploration characters, tiles, and the camera dont need to be updated during battle and would waste resources, so they only update outside of battle
 
         if self.battle_mode == False:
             self.tile_objects.update()
@@ -570,6 +642,8 @@ class Game:
             self.exploration_characters.update()
             self.camera_group.update()
         else:
+
+            # on the other hand, some things only need to be updated whilst a battle is going on
             self.selected_tile = None
             self.menus['BATTLE'].cross = False
             self.skills_group.update()
@@ -579,25 +653,43 @@ class Game:
 
         self.menus['TOP'].images['TEXT'].update()
 
-        self.cutscenes_group.update()
-
         self.scenes_group.update()
         self.cutscenes_group.update()
 
     def tick_check(self):
 
+        # this function is charge of making changes based on how much the player has moved around
+        # whenever the player presses WASD, there is some code in 'ExplorationCharacter' that increments 'self.ticks'
+        # i made ticks dependent on movement rather than time so players can take as long as they want to read any text or plan where to go without worrying about starving
+
         if self.ticks >= 100:
+
+            # after 100 ticks, every effect in each heros list of effects 'ticks'
+            # for example, if a character is bleeding, they will take some damage
+            # this is also done to make sure buffs run out after some time
+
             for hero in self.hero_party:
                 if hero != None:
                     for effect in hero.effects:
                         effect.tick()
             self.ticks = 0
 
+        # this function also checks if the player has lost, and resets the game when they do, as well as playing a game over cutscene
+
         if len(self.hero_party) == 0:
             self.reset_game()
             CutScene(self, 'gameover')
 
     def draw(self):
+
+        # the screen is filled with black, and then every sprite is drawn
+        # note that most sprites have to have their image drawn at a different position to where it actually is due to the camera
+        # 'self.camera.apply' returns the position should be after taking the position of the camera into account
+        # objects which are unaffected by the cameras movement, such as menus, do not have to have their position changed
+        # the order at which sprite are drawn is very important
+
+        # 'self.debug' is a boolean which i turn on and off and is used to test whether the hitboxes are in the right position compared to the sprite they are associated with
+
 
         self.screen.fill(FAKEBLACK)
 
@@ -657,14 +749,14 @@ class Game:
                 if event.key == p.K_UP:
                     for hero in self.hero_party:
                         if hero != None:
-                            hero.current_health = min(hero.max_health, hero.current_health + 1)
+                            hero.current_sanity = min(hero.max_sanity, hero.current_sanity + 20)
                     for menu in self.menus.values():
                         menu.update_images()
 
                 if event.key == p.K_DOWN:
                     for hero in self.hero_party:
                         if hero != None:
-                            hero.current_health = max(0, hero.current_health - 1)
+                            hero.current_sanity = max(0, hero.current_sanity - 20)
                     for menu in self.menus.values():
                         menu.update_images()
 
@@ -686,7 +778,7 @@ class Game:
 
                 if event.key == p.K_e:
 
-                    BarkTimer(self, self.hero_party[0], 'TEST')
+                    self.open_menu('UPGRADE')
 
                 if event.key == p.K_l:
                     CutScene(self, 'gameover')
@@ -701,12 +793,19 @@ class Game:
 
     def quit(self):
 
+        # closes the window
+
         p.quit()
         sys.exit()
+
+# the game object is created
 
 game = Game()
 
 while True:
+
+    # FPS is a constant equal to 60
+    # the games 'run' function is used 60 times per second
 
     game.run()
     game.clock.tick(FPS)

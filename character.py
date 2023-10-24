@@ -55,6 +55,7 @@ class Character(p.sprite.Sprite):
         self.sanity_recovery_skills = [0, 0]
         self.sanity_reduction_skills = [0, 0]
         self.healing = [0, 0]
+        self.damage = [0, 0]
 
         self.sanity_damage_factor = 0
         self.sanity_recovery_factor = 0
@@ -94,6 +95,17 @@ class Character(p.sprite.Sprite):
                     if crit == True:
                         damage = damage_dealer.damage[1] * damage_dealer.selected_skill.multiplier
                         damage *= 1.5
+
+                    marked = False
+
+                    for effect in self.effects:
+                        if type(effect) == Mark:
+                            marked = True
+
+                    if marked == True:
+
+                        damage = damage * damage_dealer.selected_skill.mark_damage_multiplier
+
 
                     protection = self.protection / 100
 

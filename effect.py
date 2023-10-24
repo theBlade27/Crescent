@@ -173,7 +173,49 @@ class Weakness3(Weakness):
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(20, 160, 20, 20)
 
 
-        
+class Insanity(Effect):
+
+    def __init__(self, game, character):
+        super().__init__(game, character, -1)
+
+        self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(40, 240, 20, 20)
+
+    def apply_effect(self):
+
+        for effect in self.character.effects:
+            if isinstance(effect, Insanity):
+                effect.remove_effect()
+    
+        self.character.damage[0] /= 1.1
+        self.character.damage[1] /= 1.1
+        self.character.protection -= 10
+        self.character.speed -= 1
+        self.character.precision -= 5
+        self.character.agility -= 5
+        self.character.crit -= 5
+
+        self.character.death -= 33
+
+        for menu in self.game.menus.values():
+            menu.update_images()
+
+    def remove_effect(self):
+
+        self.character.damage[0] *= 1.1
+        self.character.damage[1] *= 1.1
+        self.character.protection += 10
+        self.character.speed += 1
+        self.character.precision += 5
+        self.character.agility += 5
+        self.character.crit += 5
+
+        self.character.death += 33
+
+        if self in self.character.effects:
+            self.character.effects.remove(self)
+
+            for menu in self.game.menus.values():
+                menu.update_images()
 
 class DeathsDoor(Effect):
 
@@ -191,6 +233,14 @@ class DeathsDoor(Effect):
         self.character.sanity_recovery_factor -= 50
         self.character.sanity_damage_factor += 50
 
+        self.character.damage[0] /= 1.2
+        self.character.damage[1] /= 1.2
+        self.character.protection -= 20
+        self.character.speed -= 2
+        self.character.precision -= 10
+        self.character.agility -= 10
+        self.character.crit -= 10
+
     def tick(self):
 
         self.character.calculate_sanity_decrease(10)
@@ -202,6 +252,14 @@ class DeathsDoor(Effect):
 
         self.character.sanity_recovery_factor += 50
         self.character.sanity_damage_factor -= 50
+
+        self.character.damage[0] *= 1.2
+        self.character.damage[1] *= 1.2
+        self.character.protection += 20
+        self.character.speed += 2
+        self.character.precision += 10
+        self.character.agility += 10
+        self.character.crit += 10
 
         if self in self.character.effects:
 

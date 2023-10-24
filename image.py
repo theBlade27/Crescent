@@ -57,6 +57,68 @@ class CoinIcon(Image):
         self.background = self.image
         self.pos = [1460, 108]
 
+class InventoryWeaponLevel(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        if self.hero != None and type(self.hero) == Hero:
+            level = self.menu.hero.weapon_level
+            self.image = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0 + level * 9, 18, 9, 9)
+
+        else:
+            self.image = p.Surface((36, 36))
+            self.image.fill(BLUE)
+
+        self.pos = [996, 316]
+
+    def update(self):
+
+        self.hero = self.menu.hero
+
+        if self.hero != None and type(self.hero) == Hero:
+            level = self.menu.hero.weapon_level
+            self.image = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0 + level * 9, 18, 9, 9)
+
+        else:
+            self.image = p.Surface((36, 36))
+            self.image.fill(BLUE)
+
+
+class InventoryArmourLevel(Image):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+
+        if self.hero != None and type(self.hero) == Hero:
+            level = self.menu.hero.armour_level
+            self.image = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(27 + level * 9, 18, 9, 9)
+
+        else:
+            self.image = p.Surface((36, 36))
+            self.image.fill(BLUE)
+
+        self.pos = [956, 316]
+
+    def update(self):
+
+        self.hero = self.menu.hero
+
+        if self.hero != None and type(self.hero) == Hero:
+            level = self.menu.hero.armour_level
+            self.image = Sprite(MENU_SPRITESHEETS['SMALL_ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(27 + level * 9, 18, 9, 9)
+
+        else:
+            self.image = p.Surface((36, 36))
+            self.image.fill(BLUE)
+
+
 class InventoryHealthIcon(Image):
 
     def __init__(self, game):
@@ -265,7 +327,6 @@ class HeroPreviewSlot(Image):
                     if self.menu.hero != None:
                         self.game.camera_focus = self.menu.hero.exploration_character
                         self.game.selected_character = self.menu.hero
-                        self.game.close_menu('SELECTED_SKILLS')
                         if 'INVENTORY' in self.game.menus:
                             self.game.menus['INVENTORY'].hero = self.menu.hero
                         sound = p.mixer.Sound(BUTTON_SOUND)
@@ -279,6 +340,43 @@ class HeroPreviewSlot(Image):
             if self.game.selected_character == self.menu.hero:
 
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+
+class HeroUpgradePortraitSlot(Image):
+
+    def __init__(self, game, menu, index):
+        super().__init__(game)
+
+        self.image = MENU_SPRITESHEETS['SLOT'].copy()
+        self.scale = 4
+        self.image = p.transform.scale(self.image, (self.image.get_width() * self.scale, self.image.get_height() * self.scale))
+        self.background = self.image
+        self.index = index
+        self.pos = [548 + self.index * 120, 176]
+        self.menu = menu
+
+        self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
+
+    def update(self):
+        
+        self.image.blit(self.background, [0, 0])
+        self.image = colour_swap(self.image, RED, FAKEBLACK)
+        if self.hitbox.collidepoint(self.game.mouse.pos):
+
+            self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+            if self.game.mouse.pressed['M1']:
+                self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+                if self.game.hero_party[self.index] != None:
+                    self.game.menus['UPGRADE'].hero = self.game.hero_party[self.index]
+                    self.game.menus['BOTTOM'].update_images()
+                    sound = p.mixer.Sound(BUTTON_SOUND)
+                    sound.play()
+
+        if self.menu.hero == self.game.hero_party[self.index]:
+            self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+
+        if self.game.hero_party[self.index] == None:
+            self.image.fill(BLUE)
+
 
 class HeroInventoryPortraitSlot(Image):
 
@@ -315,6 +413,7 @@ class HeroInventoryPortraitSlot(Image):
 
         if self.game.hero_party[self.index] == None:
             self.image.fill(BLUE)
+
 
 class HeroInventorySkillSlot(Image):
 
@@ -353,12 +452,18 @@ class HeroInventorySkillSlot(Image):
                     self.game.menus['BOTTOM'].update_images()
 
                 if self.game.mouse.pressed['M2']:
-                    self.hero.selected_skill = self.hero.skills[self.index]
-                    sound = p.mixer.Sound(BUTTON_SOUND)
-                    sound.play()
-                    self.game.menus['BOTTOM'].update_images()
-                    self.game.close_menu('INVENTORY')
-                    self.game.open_menu('SELECT_SKILLS', self.hero)
+                    if self.hero.selected_skill != self.hero.skills[self.index]:
+                        self.hero.selected_skill = self.hero.skills[self.index]
+                        sound = p.mixer.Sound(BUTTON_SOUND)
+                        sound.play()
+                        self.game.menus['BOTTOM'].update_images()
+                        self.game.open_menu('SELECT_SKILLS', self.hero)
+                    else:
+                        self.hero.selected_skill = None
+                        sound = p.mixer.Sound(BUTTON_SOUND)
+                        sound.play()
+                        self.game.menus['BOTTOM'].update_images()
+                        self.game.open_menu('SELECT_SKILLS', self.hero)
 
             if self.hero.selected_skill == self.hero.skills[self.index]:
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
@@ -465,6 +570,25 @@ class HeroInventoryPortrait(Image):
             self.image.fill(DARKBLUE)
             self.image.blit(self.game.hero_party[self.index].portrait, [0, 0])
 
+class HeroUpgradePortrait(Image):
+
+    def __init__(self, game, index):
+        super().__init__(game)
+
+        self.index = index
+        if self.game.hero_party[self.index] != None:
+            self.image = self.game.hero_party[self.index].portrait.copy()
+        else:
+            self.image = p.Surface((40, 40))
+            self.image.fill(BLUE)
+        self.pos = [560 + self.index * 120, 188]
+
+    def update(self):
+
+        if self.game.hero_party[self.index] != None:
+            self.image.fill(DARKBLUE)
+            self.image.blit(self.game.hero_party[self.index].portrait, [0, 0])
+
 class HeroLargePortrait(Image):
 
     def __init__(self, game):
@@ -538,17 +662,19 @@ class SkillRangeIndicator(Image):
 
         self.image.blit(self.out_of_range_image, [0, 0])
 
-        if skill.heals == False:
+        if skill != None:
 
-            if self.index >= skill.range[0] and self.index < skill.range[1]:
+            if skill.heals == False:
 
-                self.image.blit(self.damage_icon, [16, 16])
+                if self.index >= skill.range[0] and self.index < skill.range[1]:
 
-        if skill.heals:
+                    self.image.blit(self.damage_icon, [16, 16])
 
-            if self.index >= skill.range[0] and self.index < skill.range[1]:
+            if skill.heals:
 
-                self.image.blit(self.heal_icon, [16, 16])
+                if self.index >= skill.range[0] and self.index < skill.range[1]:
+
+                    self.image.blit(self.heal_icon, [16, 16])
 
 class OnHitEffectIcon(Image):
 

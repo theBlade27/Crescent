@@ -61,7 +61,7 @@ class Enemy(Character):
                 RallyingWinds(self.game, self)
             ]
 
-            self.damage = [4, 6]
+            self.damage = [3, 5]
 
         if self.type == 'BANDIT2':
 
@@ -86,7 +86,7 @@ class Enemy(Character):
                 AridStab(self.game, self)
             ]
 
-            self.damage = [2, 5]
+            self.damage = [2, 4]
 
         if self.type == 'BANDIT3':
 
@@ -111,7 +111,7 @@ class Enemy(Character):
                 IntimidatingRoar(self.game, self)
             ]
 
-            self.damage = [6, 10]
+            self.damage = [5, 9]
 
             self.sanity_reduction_skills = [8, 12]
 
@@ -137,7 +137,7 @@ class Enemy(Character):
                 Boom(self.game, self)
             ]
 
-            self.damage = [6, 14]
+            self.damage = [5, 13]
 
         self.grid_pos = grid_pos
         self.current_health = self.max_health

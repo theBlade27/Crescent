@@ -17,7 +17,7 @@ class BladeActOut(HeroSkill):
         self.image = self.spritesheet.get_sprite(0, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 3]
+        self.range = [0, 4]
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 
@@ -32,14 +32,16 @@ class Vanquish(HeroSkill):
         super().__init__(game, character)
 
         self.name = 'VANQUISH'
-        self.desc = 'WITH A SWIFT AND DECISIVE STRIKE, THE BLADE STRIKES DOWN THE ENEMY, \nLEAVING THEM WOUNDED, REELING AND BROKEN'
+        self.desc = 'WITH A SWIFT AND DECISIVE STRIKE, THE BLADE STRIKES DOWN THE ENEMY, \nLEAVING THEM WOUNDED, REELING AND BROKEN\n+30% AGAINST MARKED'
 
         self.image = self.spritesheet.get_sprite(0, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 3]
+        self.range = [0, 4]
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
+
+        self.mark_damage_multiplier = 1.3
 
         self.combat_animation = self.spritesheet.get_sprite(0, 80, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -89,7 +91,7 @@ class SteelTempest(HeroSkill):
 
         self.range = [0, 3]
 
-        self.multiplier = 0.7
+        self.multiplier = 0.8
 
         self.targets_all_in_range = True
 

@@ -107,7 +107,7 @@ class Boom(EnemySkill):
         self.range = [3, 10]
         self.name = 'BOOOOOOM!!!'
 
-        self.effects_on_hit = ['BROKEN', 'BURNING']
+        self.effects_on_hit = ['BROKEN']
 
         self.splash = 4
 
@@ -127,8 +127,8 @@ class RallyingWinds(EnemySkill):
         self.heals = True
         self.multiplier = 0
 
-        self.effects_on_hit = ['STRENGTH', 'PRECISION']
-        self.effects_on_user = ['STRENGTH', 'PRECISION']
+        self.effects_on_hit = ['PRECISION']
+        self.effects_on_user = ['PRECISION']
 
         self.targets_all_in_range = True
         self.targets_heroes = False
