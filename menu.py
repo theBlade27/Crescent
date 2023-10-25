@@ -378,6 +378,8 @@ class Upgrade(Menu):
 
         self.scale = 1
 
+        self.cost = 0
+
         self.hero = hero
 
         self.pos = [352, 196]
@@ -396,7 +398,16 @@ class Upgrade(Menu):
             'EXIT': ExitButton(self.game, self),
             'ARMOUR': ArmourUpgradeButton(self.game, self),
             'WEAPON': WeaponUpgradeButton(self.game, self),
-            'UPGRADE': UpgradeButton(self.game, self)
+            'UPGRADE': UpgradeButton(self.game, self),
+            'WEAPON_TEXT': WeaponText(self.game, self),
+            'ARMOUR_TEXT': ArmourText(self.game, self),
+            'COST_ICON': CostIcon(self.game),
+            'COST_TEXT': CostText(self.game, self),
+            'NPC_TEXTBOX': NPCTextbox(self.game),
+            'NPC_TEXT': NPCText(self.game, 'WELCOME TO THE FORGE!\nWHAT CAN I DO FOR YOU?'),
+            'NPC_PORTRAIT_SLOT': NPCSlot(self.game),
+            'NPC_PORTRAIT': NPCPortrait(self.game, 'BLACKSMITH')
+
         }
 
         for i in range (4):

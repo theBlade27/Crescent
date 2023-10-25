@@ -41,7 +41,7 @@ class Skill(p.sprite.Sprite):
         self.combat_animation = p.Surface((1, 1))
         self.combat_animation.fill(BLACK)
 
-        self.mark_damage_multiplier = 0
+        self.mark_damage_multiplier = 1
 
         self.barks = []
 

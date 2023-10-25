@@ -113,7 +113,7 @@ ARMOUR_VALUES = {
     ]
 }
 
-BLACKSMITH_COSTS = [1000, 2500, 10000]
+BLACKSMITH_COSTS = [1000, 2500]
 
 
 # dictionary of all the battle map files, so they can be easily accessed by name
@@ -260,7 +260,8 @@ MENU_SPRITESHEETS = {
     'BARK': p.image.load(path.join(backgrounds_folder, 'background_bark.png')),
     'NEWGAMEBACKGROUND': p.image.load(path.join(backgrounds_folder, 'newgamebackground.png')),
     'PLAYBUTTON': p.image.load(path.join(buttons_folder, 'play.png')),
-    'UPGRADE': p.image.load(path.join(buttons_folder, 'upgrade_button.png'))
+    'UPGRADE': p.image.load(path.join(buttons_folder, 'upgrade_button.png')),
+    'NPC_TEXTBOX': p.image.load(path.join(UI_folder, 'NPCtext.png'))
 }
 
 FONT = p.image.load(path.join(UI_folder, 'font.png'))

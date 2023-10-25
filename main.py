@@ -239,7 +239,7 @@ class Game:
                 None,
             ]
 
-            self.money = 10000
+            self.money = 0
 
         # keeps track of the item the player has selected in the inventory
         self.selected_item = None
@@ -283,7 +283,7 @@ class Game:
         # it does this by increasing the x position of where the image is grabbed from by the width of the character each time
 
         self.font_spritesheet = Sprite(FONT)
-        self.letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '\"', '%', '\'', '(', ')', '+', '-', '.', ',', '/', ':', ';', '=', '?', '[', ']', '\\', ' ', '$'] 
+        self.letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '\"', '%', '\'', '(', ')', '+', '-', '.', ',', '/', ':', ';', '=', '?', '[', ']', '\\', ' ', '$', '<', '>'] 
         self.font = {}
         for i in range(0, len(self.letters)):
             self.font[self.letters[i]] = self.font_spritesheet.get_sprite(i * FONT_WIDTH, 0, FONT_WIDTH, FONT_HEIGHT)
@@ -491,7 +491,7 @@ class Game:
 
         money = random.randint(LOOT_TABLE[type][3][0], LOOT_TABLE[type][3][1])
 
-        money *= 50
+        money *= 25
 
         # depending on the items in the list of item names that, the corresponding object is added to 'inventory'
 

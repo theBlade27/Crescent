@@ -288,7 +288,26 @@ class SanityDamageNumber(Text):
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
 
-    
+class NPCText(Text):
+
+    def __init__(self, game, text):
+        super().__init__(game)
+
+        self.scale = 1
+        self.text = text
+        self.pos = [560, 20]
+
+        self.width = 40 * FONT_WIDTH
+        self.height = 7 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
 
 class TextboxText(Text):
 
@@ -310,6 +329,30 @@ class TextboxText(Text):
 
         self.text = self.game.textbox_text
 
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+class CostText(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.scale = 4
+        self.text = str(self.menu.cost)
+        self.pos = [956, 544]
+
+        self.width = 4 * FONT_WIDTH
+        self.height = 1 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+
+        self.text = str(self.menu.cost)
+        
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
 
@@ -509,6 +552,130 @@ class InventoryName(Text):
         
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+class WeaponText(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.scale = 1
+        self.text = ''
+        
+        if self.hero != None and type(self.hero) == Hero:
+            level = self.hero.weapon_level
+            if level < (len(WEAPON_VALUES[self.hero.type])) - 1:
+                self.text += 'DAMAGE: {}-{} -> {}-{}'.format(
+                    WEAPON_VALUES[self.hero.type][level][0],
+                    WEAPON_VALUES[self.hero.type][level][1],
+                    WEAPON_VALUES[self.hero.type][level + 1][0],
+                    WEAPON_VALUES[self.hero.type][level + 1][1])
+                self.text += '\nPRECISION: {} -> {}'.format(
+                    WEAPON_VALUES[self.hero.type][level][2],
+                    WEAPON_VALUES[self.hero.type][level + 1][2])
+                self.text += '\nCRIT: {} -> {}'.format(
+                    WEAPON_VALUES[self.hero.type][level][3],
+                    WEAPON_VALUES[self.hero.type][level + 1][3])
+
+        self.pos = [648, 292]
+        
+        self.width = 30 * FONT_WIDTH
+        self.height = 6 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+
+        self.hero = self.menu.hero
+        self.text = ''
+        
+        if self.hero != None and type(self.hero) == Hero:
+            level = self.hero.weapon_level
+            if level < (len(WEAPON_VALUES[self.hero.type])) - 1:
+                self.text += 'DAMAGE: {}-{} -> {}-{}'.format(
+                    WEAPON_VALUES[self.hero.type][level][0],
+                    WEAPON_VALUES[self.hero.type][level][1],
+                    WEAPON_VALUES[self.hero.type][level + 1][0],
+                    WEAPON_VALUES[self.hero.type][level + 1][1])
+                self.text += '\nPRECISION: {} -> {}'.format(
+                    WEAPON_VALUES[self.hero.type][level][2],
+                    WEAPON_VALUES[self.hero.type][level + 1][2])
+                self.text += '\nCRIT: {} -> {}'.format(
+                    WEAPON_VALUES[self.hero.type][level][3],
+                    WEAPON_VALUES[self.hero.type][level + 1][3])
+        
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+
+class ArmourText(Text):
+
+    def __init__(self, game, menu):
+        super().__init__(game)
+
+        self.menu = menu
+        self.hero = self.menu.hero
+        self.scale = 1
+        self.text = ''
+        
+        if self.hero != None and type(self.hero) == Hero:
+            level = self.hero.armour_level
+            if level < (len(ARMOUR_VALUES[self.hero.type])) - 1:
+                self.text += 'HEALTH: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][0],
+                    ARMOUR_VALUES[self.hero.type][level + 1][0])
+                self.text += '\nPROTECTION: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][1],
+                    ARMOUR_VALUES[self.hero.type][level + 1][1])
+                self.text += '\nSPEED: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][2],
+                    ARMOUR_VALUES[self.hero.type][level + 1][2])
+                self.text += '\nAGILITY: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][3],
+                    ARMOUR_VALUES[self.hero.type][level + 1][3])
+                self.text += '\nHEALING: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][4],
+                    ARMOUR_VALUES[self.hero.type][level + 1][4])
+
+        self.pos = [648, 408]
+        
+        self.width = 30 * FONT_WIDTH
+        self.height = 6 * FONT_HEIGHT
+
+        self.image = p.Surface((self.width, self.height))
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
+    def update(self):
+
+        self.hero = self.menu.hero
+        self.text = ''
+        
+        if self.hero != None and type(self.hero) == Hero:
+            level = self.hero.armour_level
+            if level < (len(ARMOUR_VALUES[self.hero.type])) - 1:
+                self.text += 'HEALTH: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][0],
+                    ARMOUR_VALUES[self.hero.type][level + 1][0])
+                self.text += '\nPROTECTION: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][1],
+                    ARMOUR_VALUES[self.hero.type][level + 1][1])
+                self.text += '\nSPEED: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][2],
+                    ARMOUR_VALUES[self.hero.type][level + 1][2])
+                self.text += '\nAGILITY: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][3],
+                    ARMOUR_VALUES[self.hero.type][level + 1][3])
+                self.text += '\nHEALING: {} -> {}'.format(
+                    ARMOUR_VALUES[self.hero.type][level][4],
+                    ARMOUR_VALUES[self.hero.type][level + 1][4])
+        
+        self.draw_text()
+        self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
+
 
 class InventoryHealth(Text):
 

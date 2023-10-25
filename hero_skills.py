@@ -146,7 +146,7 @@ class ArcaneActOut(HeroSkill):
         self.image = self.spritesheet.get_sprite(40, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [4, 10]
+        self.range = [7, 14]
 
         self.multiplier = 0.5
 
@@ -170,7 +170,7 @@ class AzureEruption(HeroSkill):
         self.image = self.spritesheet.get_sprite(0, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [7, 14]
+        self.range = [4, 10]
 
         self.multiplier = 0.7
 
@@ -220,7 +220,7 @@ class ArcaneAssault(HeroSkill):
         self.image = self.spritesheet.get_sprite(40, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [4, 10]
+        self.range = [7, 14]
 
         self.effects_on_hit = ['BURNING', 'BROKEN']
 

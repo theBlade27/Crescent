@@ -17,6 +17,29 @@ class Image(p.sprite.Sprite):
 
         self.image.blit(self.background, [0, 0])
 
+class NPCTextbox(Image):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = MENU_SPRITESHEETS['NPC_TEXTBOX'].copy()
+        self.scale = 4
+        self.image = p.transform.scale(self.image, (self.image.get_width() * self.scale, self.image.get_height() * self.scale))
+        self.background = self.image
+        self.pos = [548, 12]
+
+class NPCSlot(Image):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = MENU_SPRITESHEETS['SLOT_THICK'].copy()
+        self.scale = 4
+        self.image = p.transform.scale(self.image, (self.image.get_width() * self.scale, self.image.get_height() * self.scale))
+        self.background = self.image
+        self.pos = [1016, 124]
+
+
 class TextboxBackground(Image):
 
     def __init__(self, game):
@@ -56,6 +79,13 @@ class CoinIcon(Image):
         self.image = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(180, 0, 20, 20)
         self.background = self.image
         self.pos = [1460, 108]
+
+class CostIcon(CoinIcon):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.pos = [876, 540]
 
 class InventoryWeaponLevel(Image):
 
@@ -550,6 +580,18 @@ class HeroPreviewPortrait(Image):
         self.image.fill(DARKBLUE)
         if self.menu.hero != None:
             self.image.blit(self.menu.hero.portrait.copy(), [0, 0])
+
+class NPCPortrait(Image):
+
+    def __init__(self, game, npc):
+        super().__init__(game)
+
+        self.pos = [1032, 140]
+
+        if npc == 'BLACKSMITH':
+            self.image = Sprite(PORTRAITS, scale = 4).get_sprite(60, 0, 20, 20)
+            self.background = self.image
+        
 
 class HeroInventoryPortrait(Image):
 

@@ -69,43 +69,53 @@ class UpgradeButton(Image):
 
                         level = self.hero.armour_level
 
-                        cost = BLACKSMITH_COSTS[level]
+                        if level != len(BLACKSMITH_COSTS):
 
-                        if self.game.money >= cost:
-                            self.game.money -= cost
+                            cost = BLACKSMITH_COSTS[level]
 
-                            self.hero.armour_level += 1
+                            if self.game.money >= cost:
+                                self.game.money -= cost
 
-                            self.hero.max_health = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][0]
-                            self.hero.protection = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][1]
-                            self.hero.speed = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][2]
-                            self.hero.agility = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][3]
-                            self.hero.healing[0] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][4]
-                            self.hero.healing[1] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][5]
-                            self.hero.sanity_recovery_skills[0] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][4]
-                            self.hero.sanity_recovery_skills[1] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][5]
+                                self.hero.armour_level += 1
 
-                            self.image = self.pressed_image.copy()
-                            self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+                                self.hero.max_health = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][0]
+                                self.hero.protection = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][1]
+                                self.hero.speed = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][2]
+                                self.hero.agility = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][3]
+                                self.hero.healing[0] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][4]
+                                self.hero.healing[1] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][5]
+                                self.hero.sanity_recovery_skills[0] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][4]
+                                self.hero.sanity_recovery_skills[1] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][5]
+
+                                self.image = self.pressed_image.copy()
+                                self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+
+                                self.menu.cost = 0
+                                self.menu.upgrading_armour = False
 
                     if self.menu.upgrading_weapon:
 
                         level = self.hero.weapon_level
 
-                        cost = BLACKSMITH_COSTS[level]
+                        if level != len(BLACKSMITH_COSTS):
 
-                        if self.game.money >= cost:
-                            self.game.money -= cost
+                            cost = BLACKSMITH_COSTS[level]
 
-                            self.hero.weapon_level += 1
+                            if self.game.money >= cost:
+                                self.game.money -= cost
 
-                            self.hero.damage[0] = WEAPON_VALUES[self.hero.type][self.hero.weapon_level][0]
-                            self.hero.damage[1] = WEAPON_VALUES[self.hero.type][self.hero.weapon_level][1]
-                            self.hero.precision = WEAPON_VALUES[self.hero.type][self.hero.weapon_level][2]
-                            self.hero.crit = WEAPON_VALUES[self.hero.type][self.hero.weapon_level][3]
+                                self.hero.weapon_level += 1
 
-                            self.image = self.pressed_image.copy()
-                            self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+                                self.hero.damage[0] = WEAPON_VALUES[self.hero.type][self.hero.weapon_level][0]
+                                self.hero.damage[1] = WEAPON_VALUES[self.hero.type][self.hero.weapon_level][1]
+                                self.hero.precision = WEAPON_VALUES[self.hero.type][self.hero.weapon_level][2]
+                                self.hero.crit = WEAPON_VALUES[self.hero.type][self.hero.weapon_level][3]
+
+                                self.image = self.pressed_image.copy()
+                                self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+
+                                self.menu.cost = 0
+                                self.menu.upgrading_weapon = False
 
                     for menu in self.game.menus.values():
                         if menu != self.menu:
@@ -288,9 +298,17 @@ class WeaponUpgradeButton(Button):
                 if self.game.mouse.pressed['M1']:
                     if self.menu.upgrading_weapon:
                         self.menu.upgrading_weapon = False
+                        self.menu.cost = 0
                     else:
                         self.menu.upgrading_weapon = True
                         self.menu.upgrading_armour = False
+
+                        level = self.hero.weapon_level
+                        if level == len(BLACKSMITH_COSTS):
+                            self.menu.cost = 'MAX'
+                        else:
+                            cost = BLACKSMITH_COSTS[level]
+                            self.menu.cost = cost
 
             if self.menu.upgrading_weapon == True:
                 self.image = self.pressed_image.copy()
@@ -344,9 +362,17 @@ class ArmourUpgradeButton(Button):
                 if self.game.mouse.pressed['M1']:
                     if self.menu.upgrading_armour:
                         self.menu.upgrading_armour = False
+                        self.menu.cost = 0
                     else:
                         self.menu.upgrading_armour = True
                         self.menu.upgrading_weapon = False
+
+                        level = self.hero.armour_level
+                        if level == len(BLACKSMITH_COSTS):
+                            self.menu.cost = 'MAX'
+                        else:
+                            cost = BLACKSMITH_COSTS[level]
+                            self.menu.cost = cost
 
             if self.menu.upgrading_armour == True:
                 self.image = self.pressed_image.copy()
