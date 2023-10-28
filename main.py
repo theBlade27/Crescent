@@ -391,7 +391,7 @@ class Game:
         # creates a battle object based on the string that is passed in as a parameter
         self.battle = Battle(self, type)
 
-    def open_menu(self, menu, character = None, loot_list = None, text = None, money = None):
+    def open_menu(self, menu, character = None, loot_list = None, text = None, money = None, items = None, object = None):
 
         # this function opens up menus and ensures they have the correct parameters
 
@@ -402,6 +402,7 @@ class Game:
             self.close_menu('INVENTORY')
             self.close_menu('SELECT_SKILLS')
             self.close_menu('UPGRADE')
+            self.close_menu('TRADER')
 
             if character == None:
 
@@ -413,6 +414,11 @@ class Game:
 
         if menu == 'LOOT':
 
+            self.close_menu('INVENTORY')
+            self.close_menu('SELECT_SKILLS')
+            self.close_menu('UPGRADE')
+            self.close_menu('TRADER')
+
             self.menus[menu] = Loot(self, loot_list, money)
 
         if menu == 'SELECT_SKILLS':
@@ -420,19 +426,28 @@ class Game:
             self.close_menu('INVENTORY')
             self.close_menu('SELECT_SKILLS')
             self.close_menu('UPGRADE')
+            self.close_menu('TRADER')
 
             self.menus[menu] = SkillInfo(self, character)
 
             if type(self.selected_character) == Hero:
                 self.selected_character.selected_skill == None
 
+        if menu == 'TRADER':
+
+            self.close_menu('INVENTORY')
+            self.close_menu('SELECT_SKILLS')
+            self.close_menu('UPGRADE')
+            self.close_menu('TRADER')
+
+            self.menus[menu] = Trader(self, items, object)
+
         if menu == 'UPGRADE':
 
             self.close_menu('INVENTORY')
             self.close_menu('SELECT_SKILLS')
             self.close_menu('UPGRADE')
-
-            self.menus[menu] = Upgrade(self, character)
+            self.close_menu('TRADER')
 
             if character == None:
 
@@ -454,7 +469,7 @@ class Game:
 
             self.menus[menu].kill()
 
-    def generate_loot(self, type):
+    def generate_loot(self, type, common = [1, 2], rare = [1, 1], very_rare = [0, 1]):
 
         # this function returns a list of items that the player can choose to add to their inventory after a battle or opening a chest
 
@@ -466,11 +481,14 @@ class Game:
         # this list contains the actual items
         inventory = []
 
+        common = common
+        rare = rare
+        very_rare = very_rare
 
         # the number of each rarity of item is randomly chosen
-        number_of_common = random.randint(1, 2)
-        number_of_rare = random.randint(1, 1)
-        number_of_very_rare = random.randint(0, 1)
+        number_of_common = random.randint(common[0], common[1])
+        number_of_rare = random.randint(rare[0], rare[1])
+        number_of_very_rare = random.randint(very_rare[0], very_rare[1])
 
         # then for every item needed, an item is randomly selected from the corresponding dictionary entry in the LOOT_tABLE dictionary and added to 'loot_list'
         # each entry is a list of lists, with [0] being a list of possible common items, [1] being rare items, and [2] being very rare items
@@ -491,7 +509,7 @@ class Game:
 
         money = random.randint(LOOT_TABLE[type][3][0], LOOT_TABLE[type][3][1])
 
-        money *= 25
+        money *= 50
 
         # depending on the items in the list of item names that, the corresponding object is added to 'inventory'
 
@@ -778,7 +796,7 @@ class Game:
 
                 if event.key == p.K_e:
 
-                    self.open_menu('UPGRADE')
+                    self.open_menu('TRADER')
 
                 if event.key == p.K_l:
                     CutScene(self, 'gameover')

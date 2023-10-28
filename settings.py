@@ -190,6 +190,13 @@ LOOT_TABLE = {
         ['FOOD2'],
         ['FOOD3'],
         [0, 1]
+    ],
+
+    'TRADER': [
+        ['FOOD', 'FOOD2', 'BANDAGE', 'TORCH'],
+        ['FOOD3', 'CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN', 'LUCKY_RING'],
+        ['FORSAKEN_COIN', 'SAPPHIRE_EARRINGS', 'MAGIC_LAMP', 'CHERISHED_LETTER'],
+        [0, 0]
     ]
 
 }

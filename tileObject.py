@@ -285,6 +285,74 @@ class Loot(Interaction):
         else:
 
             self.alert_visible = False
+
+
+class Blacksmith(Interaction):
+
+    def __init__(self, game, x, y):
+        super().__init__(game, x, y, 'IT\'S A BLACKSMITH!')
+
+    def update(self):
+    
+        accessible = True
+
+        character_location = self.game.camera_focus.pos
+        distance_to_target = character_location - vec((self.pos[0] + 30), (self.pos[1] + 30))
+
+        if distance_to_target.length() > INTERACT_RADIUS:
+            accessible = False
+                
+        if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
+            self.game.mouse.image = self.game.mouse.images[2]
+            if accessible == True:
+
+                self.game.textbox_text = self.description
+                self.game.menus['TOP'].images['TEXT'].update()
+                self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+                self.game.menus['TOP'].images['PORTRAIT'].update()
+
+                if self.game.mouse.pressed['M1']:
+                    self.game.open_menu('UPGRADE')
+                    sound = p.mixer.Sound(BLIP_SOUND)
+                    sound.play()
+
+                    for menu in self.game.menus.values():
+                        menu.update_images()
+
+class Trader(Interaction):
+
+    def __init__(self, game, x, y):
+        super().__init__(game, x, y, 'IT\'S A TRADER!')
+
+        self.inventory, money = self.game.generate_loot('TRADER', [2, 4], [1, 3], [1, 2])
+
+    def update(self):
+    
+        accessible = True
+
+        character_location = self.game.camera_focus.pos
+        distance_to_target = character_location - vec((self.pos[0] + 30), (self.pos[1] + 30))
+
+        if distance_to_target.length() > INTERACT_RADIUS:
+            accessible = False
+                
+        if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
+            self.game.mouse.image = self.game.mouse.images[2]
+            if accessible == True:
+
+                self.game.textbox_text = self.description
+                self.game.menus['TOP'].images['TEXT'].update()
+                self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
+                self.game.menus['TOP'].images['PORTRAIT'].update()
+
+                if self.game.mouse.pressed['M1']:
+                    self.game.open_menu('TRADER', items = self.inventory, object = self)
+                    sound = p.mixer.Sound(BLIP_SOUND)
+                    sound.play()
+
+                    for menu in self.game.menus.values():
+                        menu.update_images()
+        
         
 class CollisionHitbox(p.sprite.Sprite):
 

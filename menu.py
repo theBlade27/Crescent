@@ -371,6 +371,54 @@ class Loot(Menu):
 
         self.update_images()
 
+class Trader(Menu):
+
+    def __init__(self, game, items, object):
+        super().__init__(game)
+
+        self.object = object
+
+        self.scale = 1
+
+        self.cost = 0
+
+        self.pos = [352, 196]
+        self.background = MENU_SPRITESHEETS['BACKGROUND'].copy()
+        self.image = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
+        self.background = self.image
+
+        self.hitbox = p.rect.Rect(self.pos[0], self.pos[1], self.image.get_width(), self.image.get_height())
+
+        self.selling = False
+
+        self.images = {
+            'INVENTORY_ICON': InventoryIcon(self.game),
+            'TITLE': MenuTitle(self.game, 'INVENTORY'),
+            'EXIT': ExitButton(self.game, self),
+            'NPC_TEXTBOX': NPCTextbox(self.game),
+            'NPC_TEXT': NPCText(self.game, 'WOULD YOU LIKE TO MAKE A PURCHASE?'),
+            'NPC_PORTRAIT_SLOT': NPCSlot(self.game),
+            'NPC_PORTRAIT': NPCPortrait(self.game, 'TRADER')
+
+        }
+
+
+        for i in range(25):
+            self.images['STORAGE_SLOT' + str(i + 1)] = StorageSlot(self.game, self, i)
+            self.images['STORAGE_IMAGE' + str(i + 1)] = StorageImage(self.game, i)
+
+        
+        self.inventory = items
+
+        for i in range(len(self.inventory)):
+            self.images['TRADER_SLOT' + str(i + 1)] = TraderSlot(self.game, self, i)
+            self.images['TRADER_IMAGE' + str(i + 1)] = TraderImage(self.game, self, i)
+
+
+        self.update_images()
+
+
+
 class Upgrade(Menu):
 
     def __init__(self, game, hero):

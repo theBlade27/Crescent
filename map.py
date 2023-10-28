@@ -78,6 +78,11 @@ class Map(p.sprite.Sprite):
             if event.name == 'level':
                 Level(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE, event.description, event.level, event.stageclear)
 
+            if event.name == 'blacksmith':
+                Blacksmith(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE)
+
+            if event.name == 'trader':
+                Trader(self.game, event.x * MAP_SCALE, event.y * MAP_SCALE)
 
     def generate_map(self, surface):
 

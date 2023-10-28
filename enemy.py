@@ -41,7 +41,7 @@ class Enemy(Character):
         if self.type == 'BANDIT1':
 
             self.name = 'SCIMITAR'
-            self.max_health = 12
+            self.max_health = 14
             self.speed = 5
             self.frontliner = True
             self.mobility = 3
@@ -61,12 +61,12 @@ class Enemy(Character):
                 RallyingWinds(self.game, self)
             ]
 
-            self.damage = [3, 5]
+            self.damage = [4, 6]
 
         if self.type == 'BANDIT2':
 
             self.name = 'FLINTLOCK'
-            self.max_health = 8
+            self.max_health = 10
             self.speed = 7
             self.frontliner = False
             self.mobility = 3
@@ -86,12 +86,12 @@ class Enemy(Character):
                 AridStab(self.game, self)
             ]
 
-            self.damage = [2, 4]
+            self.damage = [3, 5]
 
         if self.type == 'BANDIT3':
 
             self.name = 'TABARZIN'
-            self.max_health = 20
+            self.max_health = 24
             self.speed = 2
             self.frontliner = True
             self.mobility = 3
@@ -111,14 +111,14 @@ class Enemy(Character):
                 IntimidatingRoar(self.game, self)
             ]
 
-            self.damage = [5, 9]
+            self.damage = [6, 10]
 
             self.sanity_reduction_skills = [8, 12]
 
         if self.type == 'BANDIT4':
 
             self.name = 'ARTILLERY'
-            self.max_health = 10
+            self.max_health = 8
             self.speed = 0
             self.frontliner = False
             self.mobility = 2
@@ -137,7 +137,7 @@ class Enemy(Character):
                 Boom(self.game, self)
             ]
 
-            self.damage = [5, 13]
+            self.damage = [8, 14]
 
         self.grid_pos = grid_pos
         self.current_health = self.max_health

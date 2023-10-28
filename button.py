@@ -258,11 +258,17 @@ class WeaponUpgradeButton(Button):
     def __init__(self, game, menu):
         super().__init__(game, menu)
 
-        self.hero = self.game.selected_character
+        self.hero = self.menu.hero
 
-        self.level = self.hero.weapon_level
+        if self.hero != None:
 
-        self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0 + self.level * 20, 20, 20, 20)
+            self.level = self.hero.weapon_level
+
+            self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0 + self.level * 20, 20, 20, 20)
+
+        else:
+
+            self.icon = p.Surface((80, 80))
 
         self.spritesheet = Sprite(MENU_SPRITESHEETS['BUTTON'].copy(), scale = 4)
 
@@ -279,8 +285,8 @@ class WeaponUpgradeButton(Button):
 
     def update(self):
         
-        self.hero = self.game.selected_character
-        if type(self.hero) == Hero:
+        self.hero = self.menu.hero
+        if type(self.hero) == Hero and self.hero != None:
             self.level = self.hero.weapon_level
             self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(0 + self.level * 20, 20, 20, 20)
 
@@ -319,11 +325,16 @@ class ArmourUpgradeButton(Button):
     def __init__(self, game, menu):
         super().__init__(game, menu)
 
-        self.hero = self.game.selected_character
+        self.hero = self.menu.hero
 
-        self.level = self.hero.armour_level
+        if self.hero != None:
 
-        self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(60 + self.level * 20, 20, 20, 20)
+            self.level = self.hero.armour_level
+            self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(60 + self.level * 20, 20, 20, 20)
+
+        else:
+
+            self.icon = p.Surface((80, 80))
 
         self.spritesheet = Sprite(MENU_SPRITESHEETS['BUTTON'].copy(), scale = 4)
 
@@ -340,9 +351,9 @@ class ArmourUpgradeButton(Button):
 
     def update(self):
         
-        self.hero = self.game.selected_character
+        self.hero = self.menu.hero
 
-        if type(self.hero) == Hero:
+        if type(self.hero) == Hero and self.hero != None:
             self.level = self.hero.armour_level
             self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(60 + self.level * 20, 20, 20, 20)
 

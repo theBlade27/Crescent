@@ -398,6 +398,8 @@ class HeroUpgradePortraitSlot(Image):
                 if self.game.hero_party[self.index] != None:
                     self.game.menus['UPGRADE'].hero = self.game.hero_party[self.index]
                     self.game.menus['BOTTOM'].update_images()
+                    self.game.menus['UPGRADE'].images['WEAPON'].update()
+                    self.game.menus['UPGRADE'].images['ARMOUR'].update()
                     sound = p.mixer.Sound(BUTTON_SOUND)
                     sound.play()
 
@@ -590,6 +592,10 @@ class NPCPortrait(Image):
 
         if npc == 'BLACKSMITH':
             self.image = Sprite(PORTRAITS, scale = 4).get_sprite(60, 0, 20, 20)
+            self.background = self.image
+
+        if npc == 'TRADER':
+            self.image = Sprite(PORTRAITS, scale = 4).get_sprite(40, 0, 20, 20)
             self.background = self.image
         
 
@@ -1264,6 +1270,10 @@ class EquipmentSlot(Image):
             self.image = colour_swap(self.image, RED, FAKEBLACK)
             if self.hitbox.collidepoint(self.game.mouse.pos):
 
+                if self.hero.equipment[self.index] != None:
+
+                    self.game.textbox_text = self.hero.equipment[self.index].desc
+
                 self.image = colour_swap(self.image, FAKEBLACK, WHITE)
                 if self.game.mouse.pressed['M1']:
                     if self.selecting == False:
@@ -1322,13 +1332,39 @@ class StorageSlot(Image):
 
             if self.game.inventory[self.index] != None:
                 self.game.textbox_text = self.game.inventory[self.index].desc
+                self.game.textbox_text += '\nCOST:${}'.format(self.game.inventory[self.index].cost)
 
             if self.game.mouse.pressed['M1']:
 
                 if self.game.deleting:
-                    self.game.inventory[self.index] = None
-                    sound = p.mixer.Sound(BUTTON_SOUND)
-                    sound.play()
+                    if 'TRADER' in self.game.menus:
+                        if self.menu == self.game.menus['TRADER']:
+                            if self.game.inventory[self.index] != None:
+                                self.game.money += self.game.inventory[self.index].cost
+                                self.game.inventory[self.index] = None
+                                sound = p.mixer.Sound(BUTTON_SOUND)
+                                sound.play()
+                                self.game.menus['TOP'].update_images()
+                        else:
+                            self.game.inventory[self.index] = None
+                            sound = p.mixer.Sound(BUTTON_SOUND)
+                            sound.play()
+                    elif 'UPGRADE' in self.game.menus:
+                        if self.menu == self.game.menus['UPGRADE']:
+                            if self.game.inventory[self.index] != None:
+                                self.game.money += self.game.inventory[self.index].cost
+                                self.game.inventory[self.index] = None
+                                sound = p.mixer.Sound(BUTTON_SOUND)
+                                sound.play()
+                                self.game.menus['TOP'].update_images()
+                        else:
+                            self.game.inventory[self.index] = None
+                            sound = p.mixer.Sound(BUTTON_SOUND)
+                            sound.play()
+                    else:
+                        self.game.inventory[self.index] = None
+                        sound = p.mixer.Sound(BUTTON_SOUND)
+                        sound.play()
 
                 elif self.game.selecting_equipment == False:
                     if self.game.selected_item == None:
@@ -1353,20 +1389,22 @@ class StorageSlot(Image):
 
                 else:
                     for i in range(3):
-                        if self.game.inventory[self.index] != None:
-                            if self.game.inventory[self.index].equipable:
-                                if self.game.inventory[self.index].character == self.menu.hero.type or self.game.inventory[self.index].character == 'ANY':
-                                    if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
-                                        temp = self.menu.hero.equipment[i]
-                                        if self.menu.hero.equipment[i] != None:
-                                            self.menu.hero.equipment[i].remove_item(self.menu.hero)
-                                        self.menu.hero.equipment[i] = self.game.inventory[self.index]
-                                        self.menu.hero.equipment[i].equip_item(self.menu.hero)
-                                        self.game.inventory[self.index] = temp
-                                        self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
-                                        self.game.selecting_equipment = False
-                                        sound = p.mixer.Sound(BUTTON_SOUND)
-                                        sound.play()
+                        if 'INVENTORY' in self.game.menus:
+                            if self.menu == self.game.menus['INVENTORY']:
+                                if self.game.inventory[self.index] != None:
+                                    if self.game.inventory[self.index].equipable:
+                                        if self.game.inventory[self.index].character == self.menu.hero.type or self.game.inventory[self.index].character == 'ANY':
+                                            if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
+                                                temp = self.menu.hero.equipment[i]
+                                                if self.menu.hero.equipment[i] != None:
+                                                    self.menu.hero.equipment[i].remove_item(self.menu.hero)
+                                                self.menu.hero.equipment[i] = self.game.inventory[self.index]
+                                                self.menu.hero.equipment[i].equip_item(self.menu.hero)
+                                                self.game.inventory[self.index] = temp
+                                                self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
+                                                self.game.selecting_equipment = False
+                                                sound = p.mixer.Sound(BUTTON_SOUND)
+                                                sound.play()
                         else:
                             if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
                                 temp = self.menu.hero.equipment[i]
@@ -1396,6 +1434,7 @@ class StorageSlot(Image):
             if self.game.inventory[self.index] != None:
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
 
+
 class StorageImage(Image):
 
     def __init__(self, game, index):
@@ -1424,6 +1463,37 @@ class StorageImage(Image):
         if self.game.inventory[self.index] != None:
 
             self.image = self.game.inventory[self.index].image.copy()
+
+class TraderImage(Image):
+
+    def __init__(self, game, menu, index):
+        super().__init__(game)
+
+        self.menu = menu
+
+        self.index = index
+
+        if self.menu.object.inventory[self.index] != None:
+
+            self.image = self.menu.object.inventory[self.index].image.copy()
+
+        else:
+
+            self.image = p.Surface((80, 80))
+            self.image.fill(DARKBLUE)
+
+        column = self.index % 4
+        row = self.index // 4
+
+        self.pos = [592 + column * 108, 188 + row * 108]
+
+    def update(self):
+        
+        self.image.fill(DARKBLUE)
+
+        if self.menu.object.inventory[self.index] != None:
+
+            self.image = self.menu.object.inventory[self.index].image.copy()
 
 class EquipmentImage(Image):
 
@@ -1469,6 +1539,50 @@ class EquipmentImage(Image):
 
             self.image.fill(BLUE)
 
+class TraderSlot(Image):
+
+    def __init__(self, game, menu, index):
+        super().__init__(game)
+
+        self.menu = menu
+        self.index = index
+        self.image = MENU_SPRITESHEETS['SLOT'].copy()
+        self.scale = 4
+        self.image = p.transform.scale(self.image, (self.image.get_width() * self.scale, self.image.get_height() * self.scale))
+        self.background = self.image
+
+        column = self.index % 4
+        row = self.index // 4
+
+        self.pos = [580 + column * 108, 176 + row * 108]
+
+        self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
+
+    def update(self):
+        
+        self.image.blit(self.background, [0, 0])
+        self.image = colour_swap(self.image, RED, FAKEBLACK)
+        if self.hitbox.collidepoint(self.game.mouse.pos):
+
+            if self.menu.inventory[self.index] != None:
+
+                self.game.textbox_text = self.menu.object.inventory[self.index].desc
+                self.game.textbox_text += '\nCOST:${}'.format(self.menu.object.inventory[self.index].cost)
+
+            self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+            if self.game.mouse.pressed['M1']:
+                self.game.selected_item = self.menu.object.inventory[self.index]
+                if self.game.selected_item != None:
+                    if self.game.money >= self.game.selected_item.cost:
+                        slotfound, slot = self.game.check_inventory_full()
+                        if slotfound == True:
+                            self.game.inventory[slot] = self.game.selected_item
+                            self.menu.object.inventory[self.index] = None
+                            self.game.money -= self.game.selected_item.cost
+                            self.game.selected_item = None
+                            self.game.menus['TOP'].update_images()
+                        sound = p.mixer.Sound(BUTTON_SOUND)
+                        sound.play()
 
 class LootSlot(Image):
 
@@ -1684,12 +1798,14 @@ class SelectedSkillImage(Image):
         self.menu = menu
         self.hero = self.menu.hero
         self.skill = self.hero.selected_skill
+        if self.skill == None:
+            self.skill = self.hero.skills[0]
+
+        self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
 
         self.background = MENU_SPRITESHEETS['SLOT_THICK'].copy()
         self.scale = 4
         self.background = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
-
-        self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
 
         self.pos = [8, 268]
 
@@ -1697,8 +1813,10 @@ class SelectedSkillImage(Image):
 
         self.hero = self.menu.hero 
         self.skill = self.hero.selected_skill
-        if self.skill != None:
-            self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
+        if self.skill == None:
+            self.skill = self.hero.skills[0]
+
+        self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
 
         self.image = self.background.copy()
         self.image.blit(self.icon, [16, 16])

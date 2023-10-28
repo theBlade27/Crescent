@@ -93,7 +93,7 @@ class Strength3(Strength):
 
 class Crit(Effect):
 
-    def __init__(self, game, character, duration = 3, crit_modifier = 20):
+    def __init__(self, game, character, duration = 3, crit_modifier = 10):
         self.crit_modifier = crit_modifier
         super().__init__(game, character, duration)
 
@@ -118,14 +118,14 @@ class Crit(Effect):
 class Crit2(Crit):
 
     def __init__(self, game, character, duration = 3):
-        super().__init__(game, character, duration, 50)
+        super().__init__(game, character, duration, 25)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 260, 20, 20)
 
 class Crit3(Crit):
 
     def __init__(self, game, character, duration = 3):
-        super().__init__(game, character, duration, 100)
+        super().__init__(game, character, duration, 40)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(0, 280, 20, 20)
 

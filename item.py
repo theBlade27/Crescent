@@ -37,6 +37,8 @@ class Bandage(Item):
         self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(0, 0, 20, 20)
         self.desc = 'BANDAGE\nUSED TO STAUNCH THE FLOW OF BLOOD.'
 
+        self.cost = 50
+
     def use(self, index):
 
         character = self.game.selected_character
@@ -58,6 +60,8 @@ class Torch(Item):
 
         self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(20, 0, 20, 20)
         self.desc = 'TORCH\nREMOVES BLINDNESS'
+
+        self.cost = 50
 
     def use(self, index):
 
@@ -87,6 +91,8 @@ class Food1(Item):
         self.healing = 5
         self.duration = 4
         self.sanity = 8
+
+        self.cost = 50
 
     def use(self, index):
 
@@ -152,6 +158,8 @@ class Food2(Food1):
         self.duration = 5
         self.sanity = 16
 
+        self.cost = 100
+
 class Food3(Food1):
 
     def __init__(self, game):
@@ -164,6 +172,8 @@ class Food3(Food1):
         self.duration = 6
         self.sanity = 24
 
+        self.cost = 200
+
 class CherishedLetter(Item):
 
     def __init__(self, game):
@@ -175,6 +185,8 @@ class CherishedLetter(Item):
         self.equipable = True
 
         self.character = 'BLADE'
+
+        self.cost = 250
 
     def equip_item(self, character):
 
@@ -204,6 +216,8 @@ class HolyBook(Item):
 
         self.character = 'BLADE'
 
+        self.cost = 200
+
     def equip_item(self, character):
 
         character.sanity_recovery_skills[0] *= 1.2
@@ -230,6 +244,8 @@ class LuckyRing(Item):
 
         self.equipable = True
 
+        self.cost = 500
+
     def equip_item(self, character):
 
         character.precision += 10
@@ -251,6 +267,8 @@ class GlisteningJambiya(Item):
         self.desc = 'GLISTENING JAMBIYA\nAN INTRICATE DAGGER.\nDAMAGE+ SPEED+\nPRECISION-'
 
         self.equipable = True
+
+        self.cost = 300
 
     def equip_item(self, character):
 
@@ -275,6 +293,8 @@ class CrescentCoin(Item):
         self.desc = 'CRESCENT COIN\nJUST A COIN...\nDAMAGE+ PRECISION+\nPROTECTION- HEALTH-'
 
         self.equipable = True
+
+        self.cost = 200
 
     def equip_item(self, character):
 
@@ -302,6 +322,8 @@ class CursedCoin(Item):
 
         self.equipable = True
 
+        self.cost = 350
+
     def equip_item(self, character):
 
         character.damage[0] *= 1.3
@@ -327,6 +349,8 @@ class ForsakenCoin(Item):
         self.desc = 'FORSAKEN COIN\nIT HOLDS OTHERWORLDY POWER.\nDAMAGE+++ PRECISION+++\nPROTECTION--- HEALTH---'
 
         self.equipable = True
+
+        self.cost = 500
 
     def equip_item(self, character):
 
@@ -356,6 +380,8 @@ class MagicLamp(Item):
 
         self.character = 'ARCANE'
 
+        self.cost = 200
+
     def equip_item(self, character):
 
         character.damage[0] *= 1.15
@@ -379,6 +405,8 @@ class SapphireEarrings(Item):
         self.equipable = True
 
         self.character = 'ARCANE'
+
+        self.cost = 250
 
     def equip_item(self, character):
 

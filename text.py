@@ -314,12 +314,12 @@ class TextboxText(Text):
     def __init__(self, game):
         super().__init__(game)
 
-        self.scale = 2
+        self.scale = 1
         self.text = ''
         self.pos = [176, 8]
 
-        self.width = 55 * FONT_WIDTH
-        self.height = 4 * FONT_HEIGHT
+        self.width = 110 * FONT_WIDTH
+        self.height = 8 * FONT_HEIGHT
 
         self.image = p.Surface((self.width, self.height))
         self.draw_text()

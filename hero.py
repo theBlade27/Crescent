@@ -257,8 +257,6 @@ class Hero(Character):
 
         if self.insane == True:
             self.effects.append(Insanity(self.game, self))
-            if self.barking == False:
-                BarkTimer(self.game, self, random.choice(self.goinginsanebarks))
         else:
             for effect in self.effects:
                 if type(effect) == Insanity:
