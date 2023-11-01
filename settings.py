@@ -34,8 +34,13 @@ FPS = 60
 # it determines how smoothly it moves
 LAG_FACTOR = 0.05
 
+# size of a a tile in pixels
 TILE_SIZE = 20
+
+# the amount each tile in a map is scaled by
 MAP_SCALE = 3
+
+# the amount each tile in a battle map is scaled by
 BATTLE_MAP_SCALE = 6
 
 
