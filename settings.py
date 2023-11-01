@@ -3,7 +3,7 @@
 import pygame as p
 from os import path
 
-# lot of variable created to store folder directories so i dont have to write so much every time i need to load an image
+# lots of variables created to store folder directories so i dont have to write so much every time i need to load an image
 
 folder = path.dirname(__file__)
 data_folder = path.join(folder, 'data')
@@ -62,6 +62,7 @@ MAPS = {
     'RESET': path.join(map_folder, 'reset.tmx'),
     'DESERT2': path.join(map_folder, 'level2.tmx'),
     'DESERT3': path.join(map_folder, 'level3.tmx'),
+    'DESERT4': path.join(map_folder, 'level4.tmx'),
 }
 
 
@@ -83,6 +84,34 @@ MOVE_SOUND = path.join(snd_folder, 'move.wav')
 NEXT_SOUND = path.join(snd_folder, 'next.wav')
 
 
+# the following dictionaries contain the various different values for each characters attributes
+# this is to make it easy to change the attributes such as health and damage when their equipment is upgraded
+# each entry has three lists, one for each upgrade level
+# each list contains a seperate entry for each attribute that it effects
+
+EXPERIENCE_VALUES = {
+    'BLADE':
+    [
+        [35, 5], # maxhealth, agility
+        [42, 10],
+        [50, 15]
+    ],
+
+    'ARCANE':
+    [
+        [20, 15],
+        [24, 20],
+        [30, 25]
+    ],
+
+    'BREACH':
+    [
+        [26, 10],
+        [32, 15],
+        [40, 20]
+    ]
+}
+
 WEAPON_VALUES = {
     'BLADE':
     [
@@ -92,28 +121,44 @@ WEAPON_VALUES = {
     ],
     'ARCANE':
     [
-        [6, 12, 95, 10],
-        [8, 16, 105, 15],
-        [11, 22, 115, 20]
+        [6, 10, 95, 10],
+        [8, 12, 105, 15],
+        [11, 16, 115, 20]
+    ],
+    'BREACH':
+    [
+        [8, 11, 95, 10],
+        [10, 14, 105, 20],
+        [14, 18, 115, 30]
     ]
 }
 
 ARMOUR_VALUES = {
     'BLADE':
     [
-        [30, 15, 3, 5, 4, 7], # maxhealth, protection, speed, agility, healing[0], healing[1]
-        [39, 25, 4, 10, 6, 10],
-        [50, 35, 5, 15, 9, 14]
+        [15, 3, 4, 7], # protection, speed, healing[0], healing[1]
+        [25, 4, 6, 10],
+        [35, 5, 9, 14]
     ],
     'ARCANE':
     [
-        [16, 0, 6, 15, 8, 10],
-        [21, 5, 7, 20, 11, 14],
-        [28, 10, 9, 25, 15, 20]
+        [0, 6, 8, 10],
+        [5, 7, 11, 14],
+        [10, 9, 15, 20]
+    ],
+    'BREACH':
+    [
+        [0, 5, 0, 0],
+        [5, 6, 0, 0],
+        [10, 7, 0, 0]
     ]
 }
 
-BLACKSMITH_COSTS = [1000, 2500]
+# lists of how much experience is required for each level up
+EXPERIENCE_COSTS = [100, 300, 600]
+
+# lists of how much each tier of upgrade costs at blacksmith
+BLACKSMITH_COSTS = [1250, 2500]
 
 
 # dictionary of all the battle map files, so they can be easily accessed by name
@@ -125,6 +170,10 @@ BATTLE_MAPS = {
     'L3B1': path.join(map_folder, 'level3_battle1.tmx'),
     'L3B2': path.join(map_folder, 'level3_battle2.tmx'),
     'L3B3': path.join(map_folder, 'level3_battle3.tmx'),
+    'L4B1': path.join(map_folder, 'level4_battle1.tmx'),
+    'L4B2': path.join(map_folder, 'level4_battle2.tmx'),
+    'L4B3': path.join(map_folder, 'level4_battle3.tmx'),
+    'L4B4': path.join(map_folder, 'level4_battle4.tmx'),
 }
 
 # dictionary of all the different encounters the player may face, so they can be easily accessed by name
@@ -135,7 +184,11 @@ ENEMY_PARTIES = {
     'L2B2': ['BANDIT3'],
     'L3B1': ['BANDIT4', 'BANDIT3', 'BANDIT1'],
     'L3B2': ['BANDIT2', 'BANDIT3', 'BANDIT4'],
-    'L3B3': ['BANDIT2', 'BANDIT1', 'BANDIT4', 'BANDIT3']
+    'L3B3': ['BANDIT2', 'BANDIT1', 'BANDIT4', 'BANDIT3'],
+    'L4B1': ['BANDIT4', 'BANDIT3', 'BANDIT2', 'BANDIT3'],
+    'L4B2': ['BANDIT3', 'BANDIT3', 'BANDIT3'],
+    'L4B3': ['BANDIT2', 'BANDIT4', 'BANDIT2', 'BANDIT4'],
+    'L4B4': ['BANDIT2', 'BANDIT5', 'BANDIT4', 'BANDIT1'],
 }
 
 # dictionary of all different loot tables, so they can be easily accessed by name
@@ -160,7 +213,7 @@ LOOT_TABLE = {
     'DESERT': [
         ['BANDAGE', 'TORCH'],
         ['FOOD'],
-        ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN'],
+        ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'WAR_SHIELD', 'STURDY_RING', 'BUCKET_HELMET'],
         [3, 7]
     ],
 
@@ -173,15 +226,15 @@ LOOT_TABLE = {
 
     'CHEST': [
         ['BANDAGE', 'TORCH', 'FOOD', 'FOOD2'],
-        ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN'],
-        ['LUCKY_RING', 'FORSAKEN_COIN'],
+        ['CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'WAR_SHIELD', 'STURDY_RING', 'BUCKET_HELMET'],
+        ['LUCKY_RING', 'CURSED_COIN', 'LIFE_CRYSTAL', 'RECOVERY_PENDANT', 'SEERS_STONE'],
         [5, 10]
     ],
 
     'L2CHEST': [
         ['FOOD', 'FOOD2'],
         ['SAPPHIRE_EARRINGS', 'MAGIC_LAMP'],
-        ['LUCKY_RING', 'FORSAKEN_COIN'],
+        ['CURSED_COIN'],
         [0, 0]
     ],
 
@@ -193,9 +246,9 @@ LOOT_TABLE = {
     ],
 
     'TRADER': [
-        ['FOOD', 'FOOD2', 'BANDAGE', 'TORCH'],
-        ['FOOD3', 'CRESCENT_COIN', 'GLISTENING_JAMBIYA', 'CURSED_COIN', 'LUCKY_RING'],
-        ['FORSAKEN_COIN', 'SAPPHIRE_EARRINGS', 'MAGIC_LAMP', 'CHERISHED_LETTER'],
+        ['FOOD', 'FOOD2', 'FOOD3', 'BANDAGE', 'TORCH'],
+        ['SAPPHIRE_EARRINGS', 'MAGIC_LAMP', 'CHERISHED_LETTER', 'SPENT_MATCH', 'SERRATED_EDGE'],
+        ['FORSAKEN_COIN', 'LUCKY_RING', 'DEATH_PACT', 'SEERS_STONE'],
         [0, 0]
     ]
 
@@ -207,6 +260,10 @@ LOOT_TABLE['L2B2'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L3B1'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L3B2'] = LOOT_TABLE['DESERT']
 LOOT_TABLE['L3B3'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['L4B1'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['L4B2'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['L4B3'] = LOOT_TABLE['DESERT']
+LOOT_TABLE['L4B4'] = LOOT_TABLE['DESERT']
 
 TILESET = p.image.load(path.join(tiles_folder, 'tileset.png'))
 
@@ -240,7 +297,8 @@ CHARACTER_SPRITESHEETS = {
     'BANDIT2': p.image.load(path.join(enemies_folder, 'bandit2.png')),
     'BANDIT3': p.image.load(path.join(enemies_folder, 'bandit3.png')),
     'GHOSTBLADE': p.image.load(path.join(enemies_folder, 'ghostblade.png')),
-    'BANDIT4': p.image.load(path.join(enemies_folder, 'bandit4.png'))
+    'BANDIT4': p.image.load(path.join(enemies_folder, 'bandit4.png')),
+    'BANDIT5': p.image.load(path.join(enemies_folder, 'bandit5.png'))
 }
 
 MENU_SPRITESHEETS = {

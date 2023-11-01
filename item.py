@@ -88,9 +88,9 @@ class Food1(Item):
         self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(40, 0, 20, 20)
         self.desc = 'RATIONS\nBEATS STARVING.'
 
-        self.healing = 5
+        self.healing = 8
         self.duration = 4
-        self.sanity = 8
+        self.sanity = 12
 
         self.cost = 50
 
@@ -113,7 +113,7 @@ class Food1(Item):
                     character.crit += 5
 
                     character.current_health = min(character.max_health, character.current_health + self.healing)
-                    character.current_health = min(character.max_sanity, character.current_sanity + self.sanity)
+                    character.current_sanity = min(character.max_sanity, character.current_sanity + self.sanity)
                     character.effects.append(Stuffed(self.game, character, self.duration))
 
                     for effect in character.effects:
@@ -130,7 +130,8 @@ class Food1(Item):
                 elif type(effect) == Satiated:
                     character.effects.remove(effect)
 
-                    character.current_health += self.healing
+                    character.current_health = min(character.max_health, character.current_health + self.healing)
+                    character.current_sanity = min(character.max_sanity, character.current_sanity + self.sanity)
                     character.effects.append(Stuffed(self.game, character, self.duration))
 
                     for effect in character.effects:
@@ -154,9 +155,9 @@ class Food2(Food1):
         self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(60, 0, 20, 20)
         self.desc = 'MEAL\nEVIL CANNOT BE VANQUISHED ON AN EMPTY STOMACH.'
 
-        self.healing = 10
+        self.healing = 16
         self.duration = 5
-        self.sanity = 16
+        self.sanity = 24
 
         self.cost = 100
 
@@ -168,9 +169,9 @@ class Food3(Food1):
         self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(80, 0, 20, 20)
         self.desc = 'FEAST\nTHERE ARE FEW THINGS A GOOD FEAST CANNOT FIX!'
 
-        self.healing = 20
+        self.healing = 24
         self.duration = 6
-        self.sanity = 24
+        self.sanity = 36
 
         self.cost = 200
 
@@ -190,19 +191,19 @@ class CherishedLetter(Item):
 
     def equip_item(self, character):
 
-        character.death -= 30
+        character.death -= 15
         character.protection -= 10
         character.sanity_damage_factor -= 20
-        character.damage[0] *= 1.2
-        character.damage[1] *= 1.2
+        character.damage[0] *= 1.1
+        character.damage[1] *= 1.1
 
     def remove_item(self, character):
 
-        character.death += 30
+        character.death += 15
         character.protection += 10
         character.sanity_damage_factor += 20
-        character.damage[0] /= 1.2
-        character.damage[1] /= 1.2
+        character.damage[0] /= 1.1
+        character.damage[1] /= 1.1
 
 class HolyBook(Item):
 
@@ -216,7 +217,7 @@ class HolyBook(Item):
 
         self.character = 'BLADE'
 
-        self.cost = 200
+        self.cost = 250
 
     def equip_item(self, character):
 
@@ -268,7 +269,7 @@ class GlisteningJambiya(Item):
 
         self.equipable = True
 
-        self.cost = 300
+        self.cost = 250
 
     def equip_item(self, character):
 
@@ -294,23 +295,23 @@ class CrescentCoin(Item):
 
         self.equipable = True
 
-        self.cost = 200
+        self.cost = 100
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.15
-        character.damage[1] *= 1.15
-        character.precision += 10
-        character.protection -= 10
-        character.max_health *= 0.85
+        character.damage[0] *= 1.05
+        character.damage[1] *= 1.05
+        character.precision += 5
+        character.protection -= 5
+        character.max_health *= 0.95
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.15
-        character.damage[1] /= 1.15
-        character.precision -= 10
-        character.protection += 10
-        character.max_health /= 0.85
+        character.damage[0] /= 1.05
+        character.damage[1] /= 1.05
+        character.precision -= 5
+        character.protection += 5
+        character.max_health /= 0.95
 
 class CursedCoin(Item):
 
@@ -322,23 +323,23 @@ class CursedCoin(Item):
 
         self.equipable = True
 
-        self.cost = 350
+        self.cost = 250
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.3
-        character.damage[1] *= 1.3
-        character.precision += 20
-        character.protection -= 20
-        character.max_health *= 0.7
+        character.damage[0] *= 1.1
+        character.damage[1] *= 1.1
+        character.precision += 10
+        character.protection -= 10
+        character.max_health *= 0.9
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.3
-        character.damage[1] /= 1.3
-        character.precision -= 20
-        character.protection += 20
-        character.max_health /= 0.7
+        character.damage[0] /= 1.1
+        character.damage[1] /= 1.1
+        character.precision -= 10
+        character.protection += 10
+        character.max_health /= 0.9
 
 class ForsakenCoin(Item):
 
@@ -354,19 +355,19 @@ class ForsakenCoin(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.5
-        character.damage[1] *= 1.5
-        character.precision += 30
-        character.protection -= 30
-        character.max_health *= 0.5
+        character.damage[0] *= 1.2
+        character.damage[1] *= 1.2
+        character.precision += 15
+        character.protection -= 15
+        character.max_health *= 0.8
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.3
-        character.damage[1] /= 1.3
-        character.precision -= 30
-        character.protection += 30
-        character.max_health /= 0.5
+        character.damage[0] /= 1.2
+        character.damage[1] /= 1.2
+        character.precision -= 15
+        character.protection += 15
+        character.max_health /= 0.8
 
 class MagicLamp(Item):
 
@@ -380,7 +381,7 @@ class MagicLamp(Item):
 
         self.character = 'ARCANE'
 
-        self.cost = 200
+        self.cost = 250
 
     def equip_item(self, character):
 
@@ -419,3 +420,223 @@ class SapphireEarrings(Item):
         character.healing[0] /= 1.20
         character.healing[1] /= 1.20
         character.max_health /= 0.85
+
+class LifeCrystal(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(100, 20, 20, 20)
+        self.desc = 'LIFE CRYSTAL\nIT HOLDS OTHERWORLDLY POWER\nHEALTH+'
+
+        self.equipable = True
+
+        self.cost = 250
+
+    def equip_item(self, character):
+
+        character.max_health *= 1.2
+
+    def remove_item(self, character):
+
+        character.max_health /= 1.2
+
+class WarShield(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(120, 20, 20, 20)
+        self.desc = 'WAR SHIELD\nA SIMPLE DEFENSIVE TOOL\nPROTECTION+\nSPEED-'
+
+        self.equipable = True
+
+        self.cost = 250
+
+    def equip_item(self, character):
+
+        character.protection += 15
+        character.speed -= 1
+
+    def remove_item(self, character):
+
+        character.protection -= 15
+        character.speed += 1
+
+class SturdyRing(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(140, 20, 20, 20)
+        self.desc = 'STURDY RING\nANCIENT, BUT INTACT\nPROTECTION+ HEALTH+\nDAMAGE-'
+
+        self.equipable = True
+
+        self.cost = 250
+
+    def equip_item(self, character):
+
+        character.protection += 10
+        character.max_health *= 1.1
+        character.damage[0] *= 0.95
+        character.damage[1] *= 0.95
+
+
+    def remove_item(self, character):
+
+        character.protection -= 15
+        character.max_health /= 1.1
+        character.damage[0] /= 0.95
+        character.damage[1] /= 0.95
+
+class BucketHelmet(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(160, 20, 20, 20)
+        self.desc = 'BUCKET HELMET\nTHIS. IS A BUCKET.\nPROTECTION++\nPRECISION-'
+
+        self.equipable = True
+
+        self.cost = 100
+
+    def equip_item(self, character):
+
+        character.protection += 20
+        character.precision -= 10
+
+
+    def remove_item(self, character):
+
+        character.protection -= 20
+        character.precision += 10
+
+class DeathPact(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(180, 20, 20, 20)
+        self.desc = 'DEATH PACT\nDID LIFE EVER HAVE MEANING ANYWAYS?\nCRIT+++++\nHEALTH-----'
+
+        self.equipable = True
+
+        self.cost = 500
+
+    def equip_item(self, character):
+
+        character.crit += 100
+        character.max_health *= 0.1
+
+    def remove_item(self, character):
+
+        character.crit -= 100
+        character.max_health /= 0.1
+
+class SeersStone(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(200, 20, 20, 20)
+        self.desc = 'SEERS STONE\nI SEE IT NOW. I SEE IT ALL\nPRECISION+ DODGE++\nSANITY DAMAGE+'
+
+        self.equipable = True
+
+        self.cost = 500
+
+    def equip_item(self, character):
+
+        character.precision += 10
+        character.agility += 15
+        character.sanity_damage_factor += 20
+
+    def remove_item(self, character):
+
+        character.precision -= 10
+        character.agility -= 15
+        character.sanity_damage_factor -= 20
+
+class RecoveryPendant(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(220, 20, 20, 20)
+        self.desc = 'RECOVERY PENDANT\nMERELY WEARING IT BRINGS PEACE\nHEALTH+ SANITY RECOVERY SKILLS+ HEALING+\nSPEED- DAMAGE-'
+
+        self.equipable = True
+
+        self.cost = 500
+
+    def equip_item(self, character):
+
+        character.max_health *= 1.1
+        character.healing[0] *= 1.1
+        character.healing[1] *= 1.1
+        character.sanity_recovery_skills[0] *= 1.1
+        character.sanity_recovery_skills[1] *= 1.1
+        character.speed -= 1
+        character.damage[0] *= 0.9
+        character.damage[1] *= 0.9
+
+    def remove_item(self, character):
+
+        character.max_health /= 1.1
+        character.healing[0] /= 1.1
+        character.healing[1] /= 1.1
+        character.sanity_recovery_skills[0] /= 1.1
+        character.sanity_recovery_skills[1] /= 1.1
+        character.speed += 1
+        character.damage[0] /= 0.9
+        character.damage[1] /= 0.9
+
+class SpentMatch(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(0, 80, 20, 20)
+        self.desc = 'SPENT MATCH (BREACH ONLY)\nDWINDLING. LIKE HOPE.\nCRIT+'
+
+        self.equipable = True
+
+        self.character = 'BREACH'
+
+        self.cost = 250
+
+    def equip_item(self, character):
+
+        character.crit += 10
+
+    def remove_item(self, character):
+
+        character.crit -= 10
+
+class SerratedEdge(Item):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.image = Sprite(MENU_SPRITESHEETS['ITEMS'], scale = 4).get_sprite(20, 80, 20, 20)
+        self.desc = 'SERRATED EDGE (BREACH ONLY)\nBRUTALLY EFFICIENT TOOL OF MURDER\nDAMAGE++\nHEALTH-'
+
+        self.equipable = True
+
+        self.character = 'BREACH'
+
+        self.cost = 250
+
+    def equip_item(self, character):
+
+        character.damage[0] *= 1.15
+        character.damage[1] *= 1.15
+        character.max_health *= 0.9
+
+    def remove_item(self, character):
+
+        character.damage[0] /= 1.15
+        character.damage[1] /= 1.15
+        character.max_health /= 0.9

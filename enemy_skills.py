@@ -29,6 +29,8 @@ class ScimitarSlash(EnemySkill):
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
+        self.mark_damage_multiplier = 1.2
+
         self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
 
@@ -44,6 +46,8 @@ class CrushingBlow(EnemySkill):
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 
+        self.mark_damage_multiplier = 1.2
+
         self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
 
@@ -58,6 +62,8 @@ class FlintShot(EnemySkill):
         self.effects_on_hit = ['BLINDING', 'ANTIDODGE']
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
+
+        self.mark_damage_multiplier = 1.2
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -90,9 +96,7 @@ class IntimidatingRoar(EnemySkill):
         self.sanity_reducing = True
         self.multiplier = 0.1
 
-        self.effects_on_hit = ['WEAKNESS']
-
-        self.targets_all_in_range = True
+        self.effects_on_hit = ['WEAKNESS', 'MARKING']
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
@@ -107,7 +111,9 @@ class Boom(EnemySkill):
         self.range = [3, 10]
         self.name = 'BOOOOOOM!!!'
 
-        self.effects_on_hit = ['BROKEN']
+        self.effects_on_hit = ['BLINDING']
+
+        self.sanity_reducing = True
 
         self.splash = 4
 
@@ -136,4 +142,40 @@ class RallyingWinds(EnemySkill):
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 80)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
+class Obliterate(EnemySkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.range = [0, 3]
+        self.name = 'OBLITERATE'
+
+        self.effects_on_hit = ['BROKEN', 'BLEEDING', 'MARKING']
+
+        self.mark_damage_multiplier = 1.2
+
+        self.sound = p.mixer.Sound(HEAVY_SOUND)
+
+        self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 40)
+        self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
+
+class GetThem(EnemySkill):
+
+    def __init__(self, game, character):
+        super().__init__(game, character)
+
+        self.range = [3, 8]
+        self.name = 'GET THEM!'
+
+        self.sanity_reducing = True
+        self.multiplier = 0.1
+
+        self.effects_on_hit = ['MARKING', 'ANTIDODGE2', 'BROKEN2']
+        self.effects_on_user = ['CRIT']
+
+        self.sound = p.mixer.Sound(HEAVY_SOUND)
+
+        self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))

@@ -103,7 +103,8 @@ class BattleInteraction(Interaction):
                     self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
                     self.game.menus['TOP'].images['PORTRAIT'].update()
 
-                    if self.game.mouse.pressed['M1']:
+                    pressed_keys = p.key.get_pressed()
+                    if pressed_keys[p.K_e]:
                         self.game.start_battle(self.type)
                         self.game.last_interacted = self
                         sound = p.mixer.Sound(BLIP_SOUND)
@@ -150,7 +151,8 @@ class GetNewCharacter(Interaction):
                     self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
                     self.game.menus['TOP'].images['PORTRAIT'].update()
 
-                    if self.game.mouse.pressed['M1']:
+                    pressed_keys = p.key.get_pressed()
+                    if pressed_keys[p.K_e]:
 
                         for i in range(len(self.game.hero_party)):
 
@@ -202,7 +204,8 @@ class Level(Interaction):
                         self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
                         self.game.menus['TOP'].images['PORTRAIT'].update()
 
-                        if self.game.mouse.pressed['M1']:
+                        pressed_keys = p.key.get_pressed()
+                        if pressed_keys[p.K_e]:
 
                             self.game.next_level(MAPS[self.type])
 
@@ -227,7 +230,8 @@ class Level(Interaction):
                     self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
                     self.game.menus['TOP'].images['PORTRAIT'].update()
 
-                    if self.game.mouse.pressed['M1']:
+                    pressed_keys = p.key.get_pressed()
+                    if pressed_keys[p.K_e]:
 
                         self.game.next_level(MAPS[self.type])
 
@@ -272,7 +276,8 @@ class Loot(Interaction):
                     self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
                     self.game.menus['TOP'].images['PORTRAIT'].update()
 
-                    if self.game.mouse.pressed['M1']:
+                    pressed_keys = p.key.get_pressed()
+                    if pressed_keys[p.K_e]:
                         self.game.open_menu('LOOT', loot_list = self.inventory, money = self.money)
                         self.game.money += self.money
                         self.looted = True
@@ -311,7 +316,8 @@ class Blacksmith(Interaction):
                 self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
                 self.game.menus['TOP'].images['PORTRAIT'].update()
 
-                if self.game.mouse.pressed['M1']:
+                pressed_keys = p.key.get_pressed()
+                if pressed_keys[p.K_e]:
                     self.game.open_menu('UPGRADE')
                     sound = p.mixer.Sound(BLIP_SOUND)
                     sound.play()
@@ -345,7 +351,8 @@ class Trader(Interaction):
                 self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
                 self.game.menus['TOP'].images['PORTRAIT'].update()
 
-                if self.game.mouse.pressed['M1']:
+                pressed_keys = p.key.get_pressed()
+                if pressed_keys[p.K_e]:
                     self.game.open_menu('TRADER', items = self.inventory, object = self)
                     sound = p.mixer.Sound(BLIP_SOUND)
                     sound.play()

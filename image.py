@@ -1337,34 +1337,12 @@ class StorageSlot(Image):
             if self.game.mouse.pressed['M1']:
 
                 if self.game.deleting:
-                    if 'TRADER' in self.game.menus:
-                        if self.menu == self.game.menus['TRADER']:
-                            if self.game.inventory[self.index] != None:
-                                self.game.money += self.game.inventory[self.index].cost
-                                self.game.inventory[self.index] = None
-                                sound = p.mixer.Sound(BUTTON_SOUND)
-                                sound.play()
-                                self.game.menus['TOP'].update_images()
-                        else:
-                            self.game.inventory[self.index] = None
-                            sound = p.mixer.Sound(BUTTON_SOUND)
-                            sound.play()
-                    elif 'UPGRADE' in self.game.menus:
-                        if self.menu == self.game.menus['UPGRADE']:
-                            if self.game.inventory[self.index] != None:
-                                self.game.money += self.game.inventory[self.index].cost
-                                self.game.inventory[self.index] = None
-                                sound = p.mixer.Sound(BUTTON_SOUND)
-                                sound.play()
-                                self.game.menus['TOP'].update_images()
-                        else:
-                            self.game.inventory[self.index] = None
-                            sound = p.mixer.Sound(BUTTON_SOUND)
-                            sound.play()
-                    else:
+                    if self.game.inventory[self.index] != None:
+                        self.game.money += self.game.inventory[self.index].cost
                         self.game.inventory[self.index] = None
                         sound = p.mixer.Sound(BUTTON_SOUND)
                         sound.play()
+                        self.game.menus['TOP'].update_images()
 
                 elif self.game.selecting_equipment == False:
                     if self.game.selected_item == None:
@@ -1405,6 +1383,17 @@ class StorageSlot(Image):
                                                 self.game.selecting_equipment = False
                                                 sound = p.mixer.Sound(BUTTON_SOUND)
                                                 sound.play()
+                                elif self.game.inventory[self.index] == None:
+                                    temp = self.menu.hero.equipment[i]
+                                    if self.menu.hero.equipment[i] != None:
+                                        self.menu.hero.equipment[i].remove_item(self.menu.hero)
+                                    self.menu.hero.equipment[i] = self.game.inventory[self.index]
+                                    self.game.inventory[self.index] = temp
+                                    self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
+                                    self.game.selecting_equipment = False
+                                    sound = p.mixer.Sound(BUTTON_SOUND)
+                                    sound.play()
+
                         else:
                             if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
                                 temp = self.menu.hero.equipment[i]

@@ -211,6 +211,8 @@ class Game:
                 None,
             ]
 
+            self.money = 10000
+
             self.inventory = [
                 None,
                 None,
@@ -305,15 +307,15 @@ class Game:
 
         if reset:
 
+
             self.hero_party = [
                 Hero(self, 'BLADE', self.spawn_location),
                 None,
                 None,
                 None,
-                #Hero(self, 'ARCANE', (self.spawn_location[0], self.spawn_location[1] + 100)),
-                #Hero(self, 'ARCANE', (self.spawn_location[0] + 100, self.spawn_location[1])),
-                #Hero(self, 'ARCANE', (self.spawn_location[0] + 100, self.spawn_location[1] + 100)),
+            
             ]
+
 
         else:
 
@@ -465,9 +467,29 @@ class Game:
 
         # closes menus
 
-        if menu in self.menus:
+        if menu == 'INVENTORY':
 
-            self.menus[menu].kill()
+            for menu in self.menus.values():
+                if type(menu) == Inventory:
+                    menu.kill()
+
+        if menu == 'SELECT_SKILLS':
+
+            for menu in self.menus.values():
+                if type(menu) == SkillInfo:
+                    menu.kill()
+
+        if menu == 'UPGRADE':
+
+            for menu in self.menus.values():
+                if type(menu) == Upgrade:
+                    menu.kill()
+
+        if menu == 'TRADER':
+
+            for menu in self.menus.values():
+                if type(menu) == Trader:
+                    menu.kill()
 
     def generate_loot(self, type, common = [1, 2], rare = [1, 1], very_rare = [0, 1]):
 
@@ -570,6 +592,46 @@ class Game:
             if item == 'FOOD3':
 
                 inventory.append(Food3(self))
+
+            if item == 'FOOD3':
+
+                inventory.append(Food3(self))
+
+            if item == 'LIFE_CRYSTAL':
+
+                inventory.append(LifeCrystal(self))
+
+            if item == 'WAR_SHIELD':
+
+                inventory.append(WarShield(self))
+
+            if item == 'STURDY_RING':
+
+                inventory.append(SturdyRing(self))
+
+            if item == 'BUCKET_HELMET':
+
+                inventory.append(BucketHelmet(self))
+
+            if item == 'DEATH_PACT':
+
+                inventory.append(DeathPact(self))
+
+            if item == 'SEERS_STONE':
+
+                inventory.append(SeersStone(self))
+
+            if item == 'RECOVERY_PENDANT':
+
+                inventory.append(RecoveryPendant(self))
+
+            if item == 'SPENT_MATCH':
+
+                inventory.append(SpentMatch(self))
+
+            if item == 'SERRATED_EDGE':
+
+                inventory.append(SerratedEdge(self))
 
         return inventory, money
 
@@ -743,7 +805,8 @@ class Game:
             self.screen.blit(self.menus['PLAY'].image, (0, 0))
 
         for sprite in self.barks:
-            self.screen.blit(sprite.image, sprite.pos)
+            if sprite.visible:
+                self.screen.blit(sprite.image, sprite.pos)
 
         for sprite in self.scenes_group:
             self.screen.blit(sprite.image, sprite.pos)
@@ -788,15 +851,11 @@ class Game:
 
                 if event.key == p.K_q:
 
-                    self.start_battle('L3B1')
+                    self.open_menu('INVENTORY')
 
                 if event.key == p.K_b:
 
-                    self.next_level(MAPS['DESERT3'])
-
-                if event.key == p.K_e:
-
-                    self.open_menu('TRADER')
+                    self.start_battle('L4B4')
 
                 if event.key == p.K_l:
                     CutScene(self, 'gameover')

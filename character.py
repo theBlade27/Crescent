@@ -158,6 +158,31 @@ class Character(p.sprite.Sprite):
             return True
         else:
             return False
+        
+    def calculate_experience(self, experience):
+
+        self.current_experience += experience
+
+        level = self.experience_level
+
+        if level != len(EXPERIENCE_COSTS):
+
+            if self.current_experience >= EXPERIENCE_COSTS[level]:
+
+                for item in self.equipment:
+                    if item != None:
+                        item.remove_item(self)
+
+                self.experience_level += 1
+
+                self.max_health = EXPERIENCE_VALUES[self.type][self.experience_level][0]
+                self.agility = EXPERIENCE_VALUES[self.type][self.experience_level][1]
+
+                self.current_experience = 0
+
+                for item in self.equipment:
+                    if item != None:
+                        item.equip_item(self)
 
     def calculate_health_healed(self, healing, healer):
 

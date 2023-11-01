@@ -41,7 +41,7 @@ class Enemy(Character):
         if self.type == 'BANDIT1':
 
             self.name = 'SCIMITAR'
-            self.max_health = 14
+            self.max_health = 18
             self.speed = 5
             self.frontliner = True
             self.mobility = 3
@@ -49,24 +49,24 @@ class Enemy(Character):
             self.agility = 10
             self.precision = 90
             self.crit = 15
-            self.bleed = 30
-            self.venom = 30
-            self.fire = 30
+            self.bleed = 20
+            self.venom = 20
+            self.fire = 20
             self.death = 0
-            self.stun = 25
-            self.debuff = 30
+            self.stun = 20
+            self.debuff = 20
 
             self.skills = [
                 ScimitarSlash(self.game, self),
                 RallyingWinds(self.game, self)
             ]
 
-            self.damage = [4, 6]
+            self.damage = [3, 5]
 
         if self.type == 'BANDIT2':
 
             self.name = 'FLINTLOCK'
-            self.max_health = 10
+            self.max_health = 14
             self.speed = 7
             self.frontliner = False
             self.mobility = 3
@@ -74,24 +74,24 @@ class Enemy(Character):
             self.agility = 20
             self.precision = 95
             self.crit = 10
-            self.bleed = 30
-            self.venom = 30
-            self.fire = 30
+            self.bleed = 15
+            self.venom = 15
+            self.fire = 15
             self.death = 0
             self.stun = 15
-            self.debuff = 30
+            self.debuff = 15
 
             self.skills = [
                 FlintShot(self.game, self),
                 AridStab(self.game, self)
             ]
 
-            self.damage = [3, 5]
+            self.damage = [3, 4]
 
         if self.type == 'BANDIT3':
 
             self.name = 'TABARZIN'
-            self.max_health = 24
+            self.max_health = 30
             self.speed = 2
             self.frontliner = True
             self.mobility = 3
@@ -99,26 +99,26 @@ class Enemy(Character):
             self.agility = 0
             self.precision = 90
             self.crit = 20
-            self.bleed = 50
-            self.venom = 50
-            self.fire = 50
+            self.bleed = 30
+            self.venom = 30
+            self.fire = 30
             self.death = 0
-            self.stun = 50
-            self.debuff = 60
+            self.stun = 30
+            self.debuff = 30
 
             self.skills = [
                 CrushingBlow(self.game, self),
                 IntimidatingRoar(self.game, self)
             ]
 
-            self.damage = [6, 10]
+            self.damage = [5, 10]
 
-            self.sanity_reduction_skills = [8, 12]
+            self.sanity_reduction_skills = [12, 20]
 
         if self.type == 'BANDIT4':
 
             self.name = 'ARTILLERY'
-            self.max_health = 8
+            self.max_health = 14
             self.speed = 0
             self.frontliner = False
             self.mobility = 2
@@ -126,18 +126,47 @@ class Enemy(Character):
             self.agility = 0
             self.precision = 80
             self.crit = 30
-            self.bleed = 30
-            self.venom = 30
-            self.fire = 30
+            self.bleed = 15
+            self.venom = 15
+            self.fire = 15
             self.death = 0
             self.stun = 15
-            self.debuff = 30
+            self.debuff = 15
 
             self.skills = [
                 Boom(self.game, self)
             ]
 
-            self.damage = [8, 14]
+            self.damage = [8, 12]
+
+            self.sanity_reduction_skills = [12, 20]
+
+        if self.type == 'BANDIT5':
+
+            self.name = 'COMMANDER'
+            self.max_health = 60
+            self.speed = 5
+            self.frontliner = True
+            self.mobility = 3
+            self.protection = 30
+            self.agility = 0
+            self.precision = 120
+            self.crit = 20
+            self.bleed = 60
+            self.venom = 60
+            self.fire = 60
+            self.death = 0
+            self.stun = 60
+            self.debuff = 60
+
+            self.skills = [
+                Obliterate(self.game, self),
+                GetThem(self.game, self)
+            ]
+
+            self.damage = [8, 16]
+
+            self.sanity_reduction_skills = [20, 30]
 
         self.grid_pos = grid_pos
         self.current_health = self.max_health
@@ -217,25 +246,58 @@ class Enemy(Character):
 
         menu = self.game.menus['BATTLE']
 
-        if self.frontliner == True:
+        mark_found = False
+        marked_heroes = []
 
-            self.distance_from_ideal_target = vec(100, 100)
+        for hero in menu.heroes:
+            for effect in hero.effects:
+                if type(effect) == Mark:
+                    marked_heroes.append(hero)
+                    mark_found = True
 
-            for hero in menu.heroes:
-                distance = vec(hero.grid_pos) - vec(self.grid_pos)
-                if distance.length() < self.distance_from_ideal_target.length():
-                    self.distance_from_ideal_target = distance
-                    self.ideal_target = hero
+        if mark_found == False:
 
-        if self.frontliner == False:
+            if self.frontliner == True:
 
-            self.distance_from_ideal_target = vec(0, 0)
+                self.distance_from_ideal_target = vec(100, 100)
 
-            for hero in menu.heroes:
-                distance = vec(hero.grid_pos) - vec(self.grid_pos)
-                if distance.length() > self.distance_from_ideal_target.length():
-                    self.distance_from_ideal_target = distance
-                    self.ideal_target = hero
+                for hero in menu.heroes:
+                    distance = vec(hero.grid_pos) - vec(self.grid_pos)
+                    if distance.length() < self.distance_from_ideal_target.length():
+                        self.distance_from_ideal_target = distance
+                        self.ideal_target = hero
+
+            if self.frontliner == False:
+
+                self.distance_from_ideal_target = vec(0, 0)
+
+                for hero in menu.heroes:
+                    distance = vec(hero.grid_pos) - vec(self.grid_pos)
+                    if distance.length() > self.distance_from_ideal_target.length():
+                        self.distance_from_ideal_target = distance
+                        self.ideal_target = hero
+
+        if mark_found == True:
+
+            if self.frontliner == True:
+
+                self.distance_from_ideal_target = vec(100, 100)
+
+                for hero in marked_heroes:
+                    distance = vec(hero.grid_pos) - vec(self.grid_pos)
+                    if distance.length() < self.distance_from_ideal_target.length():
+                        self.distance_from_ideal_target = distance
+                        self.ideal_target = hero
+
+            if self.frontliner == False:
+
+                self.distance_from_ideal_target = vec(0, 0)
+
+                for hero in marked_heroes:
+                    distance = vec(hero.grid_pos) - vec(self.grid_pos)
+                    if distance.length() > self.distance_from_ideal_target.length():
+                        self.distance_from_ideal_target = distance
+                        self.ideal_target = hero
 
         self.check_usable(self.grid_pos)
 
@@ -281,6 +343,7 @@ class Enemy(Character):
                                 if tile.grid_pos == temp_grid_pos:
                                     menu.check_obstructed()
                                     if tile.obstructed == False:
+                                        self.check_usable(tile.grid_pos)
                                         closest_tile = temp_grid_pos
                                         smallest_distance_from_target = distance_from_target
                                     
@@ -330,6 +393,7 @@ class Enemy(Character):
                                 if tile.grid_pos == temp_grid_pos:
                                     menu.check_obstructed()
                                     if tile.obstructed == False:
+                                        self.check_usable(tile.grid_pos)
                                         closest_tile = temp_grid_pos
                                         smallest_distance_from_target = distance_from_target
                                     
@@ -416,6 +480,8 @@ class Enemy(Character):
 
 
     def start_turn(self):
+
+        self.game.close_menu('INVENTORY')
 
         self.effect_applied_images.clear()
 

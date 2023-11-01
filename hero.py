@@ -58,13 +58,13 @@ class Hero(Character):
             ]
             
 
-            self.name = 'BLADE'
+            self.name = 'AZIZ'
             self.mobility = 3
             self.bleed = 60
             self.venom = 60
             self.fire = 60
             self.death = 66
-            self.stun = 70
+            self.stun = 40
             self.debuff = 60
             self.equipment = [None, None, None]
             self.frontliner = True
@@ -124,13 +124,13 @@ class Hero(Character):
             ]
 
             
-            self.name = 'ARCANE'
-            self.mobility = 5
+            self.name = 'YASMINE'
+            self.mobility = 4
             self.bleed = 30
             self.venom = 30
             self.fire = 30
             self.death = 66
-            self.stun = 50
+            self.stun = 30
             self.debuff = 40
             self.equipment = [None, None, None]
             self.frontliner = False
@@ -148,11 +148,75 @@ class Hero(Character):
 
             self.starting_grid_pos = [0, 0]
 
+        if self.type == 'BREACH':
+
+            self.deathsdoorbarks = [
+                'I GUESS THIS IS IT THEN.'
+            ]
+
+            self.killbarks = [
+                'ELIMINATED.',
+                'ANOTHER ONE BITES THE DUST!'
+            ]
+
+            self.healbarks = [
+                'YOU WON\'T REGRET THIS'
+            ]
+
+            self.healerbarks = [
+
+            ]
+
+            self.critbarks = [
+                'HEADSHOT!',
+                'I DESERVE A PAYRISE!'
+            ]
+
+            self.scaredbarks = [
+                'I DIDN\'T SIGN UP FOR THIS...'
+            ]
+
+            self.actoutbarks = [
+                'WHERE\'S MY MONEY HUH!'
+            ]
+
+            self.meltdownbarks = [
+                'USELESS... YOU\'RE ALL USELESS'
+            ]
+
+            self.giveupbarks = [
+                'IV\'E HAD ENOUGH THANKS.'
+            ]
+
+            
+            self.name = 'AUDREY'
+            self.mobility = 5
+            self.bleed = 40
+            self.venom = 40
+            self.fire = 40
+            self.death = 66
+            self.stun = 30
+            self.debuff = 40
+            self.equipment = [None, None, None]
+            self.frontliner = False
+
+            self.skills = [
+                DoubleTap(self.game, self),
+                KissOfFire(self.game, self),
+                BleedingBlade(self.game, self),
+                Firestarter(self.game, self),
+                HeroMove(self.game, self),
+                HeroSkip(self.game, self),
+                HeroRetreat(self.game, self),
+                BreachActOut(self.game, self)
+            ]
+
+            self.starting_grid_pos = [0, 2]
+
         self.current_sanity = 100
         self.max_sanity = 100
 
         self.current_experience = 0
-        self.max_experience = 100
 
         self.selected_skill = None
         self.has_used_skill = False
@@ -164,22 +228,24 @@ class Hero(Character):
 
         self.armour_level = 0
         self.weapon_level = 0
+        self.experience_level = 0
 
-        self.max_health = ARMOUR_VALUES[self.type][self.armour_level][0]
-        self.protection = ARMOUR_VALUES[self.type][self.armour_level][1]
-        self.speed = ARMOUR_VALUES[self.type][self.armour_level][2]
-        self.agility = ARMOUR_VALUES[self.type][self.armour_level][3]
-        self.healing[0] = ARMOUR_VALUES[self.type][self.armour_level][4]
-        self.healing[1] = ARMOUR_VALUES[self.type][self.armour_level][5]
-        self.sanity_recovery_skills[0] = ARMOUR_VALUES[self.type][self.armour_level][4]
-        self.sanity_recovery_skills[1] = ARMOUR_VALUES[self.type][self.armour_level][5]
+        self.max_health = EXPERIENCE_VALUES[self.type][self.experience_level][0]
+        self.agility = EXPERIENCE_VALUES[self.type][self.experience_level][1]
+
+        self.protection = ARMOUR_VALUES[self.type][self.armour_level][0]
+        self.speed = ARMOUR_VALUES[self.type][self.armour_level][1]
+        self.healing[0] = ARMOUR_VALUES[self.type][self.armour_level][2]
+        self.healing[1] = ARMOUR_VALUES[self.type][self.armour_level][3]
+        self.sanity_recovery_skills[0] = ARMOUR_VALUES[self.type][self.armour_level][2]
+        self.sanity_recovery_skills[1] = ARMOUR_VALUES[self.type][self.armour_level][3]
 
         self.damage[0] = WEAPON_VALUES[self.type][self.weapon_level][0]
         self.damage[1] = WEAPON_VALUES[self.type][self.weapon_level][1]
         self.precision = WEAPON_VALUES[self.type][self.weapon_level][2]
         self.crit = WEAPON_VALUES[self.type][self.weapon_level][3]
 
-        self.sanity_reduction_skills = [8, 15]
+        self.sanity_reduction_skills = [6, 12]
 
         self.current_health = self.max_health
 
@@ -227,6 +293,10 @@ class Hero(Character):
 
     def start_turn(self):
 
+        self.game.close_menu('INVENTORY')
+
+        self.game.actingout = False
+
         self.effect_applied_images.clear()
 
         self.selected_skill = None
@@ -252,7 +322,7 @@ class Hero(Character):
             self.insane = True
         
         if self.insane == True:
-            if self.current_sanity > 66:
+            if self.current_sanity > 50:
                 self.insane = False
 
         if self.insane == True:
@@ -281,17 +351,7 @@ class Hero(Character):
 
             if self.stunned == False:
 
-                rand = random.randint(0, 100)
-
-                if rand < self.current_sanity:
-
-                    PlayerTurnTimer(self.game, self, change_in_health)
-
-                else:
-
-                    self.game.actingout = False
-                    self.meltingdown = True
-                    PlayerTurnTimer(self.game, self, change_in_health)
+                PlayerTurnTimer(self.game, self, change_in_health)
 
             else:
 
@@ -350,8 +410,6 @@ class Hero(Character):
         rand = random.randint(8, 15)
         sanity_reduction = rand
         sanity = int(self.calculate_sanity_decrease(sanity_reduction))
-
-        self.selected_skill = EnemySkip(self.game, self)
 
         if self.barking == False:
 

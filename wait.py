@@ -294,7 +294,7 @@ class BarkTimer(Timer):
                     menu.update_images()
             if self.character.givingup:
                 self.character.givingup = False
-                self.character.selected_skill.use_skill()
+                NextTurnTimer(self.game, self.character)
                 for menu in self.game.menus.values():
                     menu.update_images()
             self.character.barking = False

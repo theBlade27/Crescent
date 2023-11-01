@@ -624,21 +624,15 @@ class ArmourText(Text):
         if self.hero != None and type(self.hero) == Hero:
             level = self.hero.armour_level
             if level < (len(ARMOUR_VALUES[self.hero.type])) - 1:
-                self.text += 'HEALTH: {} -> {}'.format(
+                self.text += '\nPROTECTION: {} -> {}'.format(
                     ARMOUR_VALUES[self.hero.type][level][0],
                     ARMOUR_VALUES[self.hero.type][level + 1][0])
-                self.text += '\nPROTECTION: {} -> {}'.format(
+                self.text += '\nSPEED: {} -> {}'.format(
                     ARMOUR_VALUES[self.hero.type][level][1],
                     ARMOUR_VALUES[self.hero.type][level + 1][1])
-                self.text += '\nSPEED: {} -> {}'.format(
+                self.text += '\nHEALING: {} -> {}'.format(
                     ARMOUR_VALUES[self.hero.type][level][2],
                     ARMOUR_VALUES[self.hero.type][level + 1][2])
-                self.text += '\nAGILITY: {} -> {}'.format(
-                    ARMOUR_VALUES[self.hero.type][level][3],
-                    ARMOUR_VALUES[self.hero.type][level + 1][3])
-                self.text += '\nHEALING: {} -> {}'.format(
-                    ARMOUR_VALUES[self.hero.type][level][4],
-                    ARMOUR_VALUES[self.hero.type][level + 1][4])
 
         self.pos = [648, 408]
         
@@ -657,21 +651,15 @@ class ArmourText(Text):
         if self.hero != None and type(self.hero) == Hero:
             level = self.hero.armour_level
             if level < (len(ARMOUR_VALUES[self.hero.type])) - 1:
-                self.text += 'HEALTH: {} -> {}'.format(
+                self.text += '\nPROTECTION: {} -> {}'.format(
                     ARMOUR_VALUES[self.hero.type][level][0],
                     ARMOUR_VALUES[self.hero.type][level + 1][0])
-                self.text += '\nPROTECTION: {} -> {}'.format(
+                self.text += '\nSPEED: {} -> {}'.format(
                     ARMOUR_VALUES[self.hero.type][level][1],
                     ARMOUR_VALUES[self.hero.type][level + 1][1])
-                self.text += '\nSPEED: {} -> {}'.format(
+                self.text += '\nHEALING: {} -> {}'.format(
                     ARMOUR_VALUES[self.hero.type][level][2],
                     ARMOUR_VALUES[self.hero.type][level + 1][2])
-                self.text += '\nAGILITY: {} -> {}'.format(
-                    ARMOUR_VALUES[self.hero.type][level][3],
-                    ARMOUR_VALUES[self.hero.type][level + 1][3])
-                self.text += '\nHEALING: {} -> {}'.format(
-                    ARMOUR_VALUES[self.hero.type][level][4],
-                    ARMOUR_VALUES[self.hero.type][level + 1][4])
         
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))

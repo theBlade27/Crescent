@@ -188,7 +188,7 @@ class HeroRegularExperienceBar(RegularBar):
         if type(self.game.selected_character) == Hero:
 
             self.hero = self.game.selected_character
-            self.progress = self.hero.current_experience/self.hero.max_experience
+            self.progress = self.hero.current_experience/EXPERIENCE_COSTS[self.hero.experience_level]
             self.bar_length = min(int(312 * self.progress), 312)
 
             self.bar = p.surface.Surface((self.bar_length, 24))
@@ -300,7 +300,7 @@ class InventoryExperienceBar(RegularBar):
 
         if type(self.hero) == Hero:
 
-            self.progress = self.hero.current_experience/self.hero.max_experience
+            self.progress = self.hero.current_experience/EXPERIENCE_COSTS[self.hero.experience_level]
             self.bar_length = min(int(312 * self.progress), 312)
 
             self.bar = p.surface.Surface((self.bar_length, 24))

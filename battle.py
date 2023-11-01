@@ -50,6 +50,8 @@ class Battle(p.sprite.Sprite):
             self.game.reset_game()
             CutScene(self.game, 'gameover')
         else:
+            self.all_characters.sort(key = lambda x : x.speed)
+            self.all_characters.reverse()
             self.turn_order_counter = self.all_characters.index(self.game.selected_character)
             self.turn_order_counter += 1
             self.game.selected_character = self.all_characters[self.turn_order_counter % len(self.all_characters)]
@@ -79,6 +81,11 @@ class Battle(p.sprite.Sprite):
             if type(character) == Hero:
                 if character != None:
                     character.selected_skill == None
+                    character.calculate_experience(50)
+                    for effect in character.effects:
+                        if isinstance(effect, Stun):
+                            effect.remove_effect()
+
 
         hero_found = False
         i = 0

@@ -76,22 +76,28 @@ class UpgradeButton(Image):
                             if self.game.money >= cost:
                                 self.game.money -= cost
 
+                                for item in self.hero.equipment:
+                                    if item != None:
+                                        item.remove_item(self.hero)
+
                                 self.hero.armour_level += 1
 
-                                self.hero.max_health = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][0]
-                                self.hero.protection = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][1]
-                                self.hero.speed = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][2]
-                                self.hero.agility = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][3]
-                                self.hero.healing[0] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][4]
-                                self.hero.healing[1] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][5]
-                                self.hero.sanity_recovery_skills[0] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][4]
-                                self.hero.sanity_recovery_skills[1] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][5]
+                                self.hero.protection = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][0]
+                                self.hero.speed = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][1]
+                                self.hero.healing[0] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][2]
+                                self.hero.healing[1] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][3]
+                                self.hero.sanity_recovery_skills[0] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][2]
+                                self.hero.sanity_recovery_skills[1] = ARMOUR_VALUES[self.hero.type][self.hero.armour_level][3]
 
                                 self.image = self.pressed_image.copy()
                                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
 
                                 self.menu.cost = 0
                                 self.menu.upgrading_armour = False
+
+                                for item in self.hero.equipment:
+                                    if item != None:
+                                        item.equip_item(self.hero)
 
                     if self.menu.upgrading_weapon:
 
@@ -103,6 +109,10 @@ class UpgradeButton(Image):
 
                             if self.game.money >= cost:
                                 self.game.money -= cost
+
+                                for item in self.hero.equipment:
+                                    if item != None:
+                                        item.remove_item(self.hero)
 
                                 self.hero.weapon_level += 1
 
@@ -116,6 +126,10 @@ class UpgradeButton(Image):
 
                                 self.menu.cost = 0
                                 self.menu.upgrading_weapon = False
+
+                                for item in self.hero.equipment:
+                                    if item != None:
+                                        item.equip_item(self.hero)
 
                     for menu in self.game.menus.values():
                         if menu != self.menu:
