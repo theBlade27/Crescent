@@ -3,6 +3,8 @@ from sprite import *
 from settings import *
 from skill import*
 
+# this file just contains all properties of the different skills enemys have, there is no complex code here
+
 class GhostVanquish(EnemySkill):
 
     def __init__(self, game, character):

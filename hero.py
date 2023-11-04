@@ -9,12 +9,18 @@ from hero_skills import *
 
 class Hero(Character):
 
+    # this class is pretty much the same as the 'Enemy' class but is controlled by the player most of the time, and has a few extra things
+
     def __init__(self, game, type, pos):
         super().__init__(game, type)
+
+        # each character has their own exploration character that moves around the map
 
         self.exploration_character = ExplorationCharacter(self.game, self.type, pos, self)
 
         self.barking = False
+
+        # lists of things the character says in different situation
 
         if self.type == 'BLADE':
 
@@ -56,8 +62,9 @@ class Hero(Character):
             self.giveupbarks = [
                 'WHAT\'S THE POINT.'
             ]
-            
 
+            # same properties as enemies
+            
             self.name = 'AZIZ'
             self.mobility = 3
             self.bleed = 60
@@ -66,7 +73,7 @@ class Hero(Character):
             self.death = 66
             self.stun = 40
             self.debuff = 60
-            self.equipment = [None, None, None]
+            self.equipment = [None, None, None] # slots to keep equipable items in
             self.frontliner = True
 
             self.skills = [
@@ -76,12 +83,12 @@ class Hero(Character):
                 FalseHopes(self.game, self),
                 HeroMove(self.game, self),
                 HeroSkip(self.game, self),
-                HeroRetreat(self.game, self),
-                BladeActOut(self.game, self)
+                HeroRetreat(self.game, self), # this skill was is used to retreat from battle
+                BladeActOut(self.game, self) # this skill can never be accessed by the player, and is only used when the character has gone insane and performs an action by themself
 
             ]
 
-            self.starting_grid_pos = [4, 1]
+            self.starting_grid_pos = [4, 1] # the heros starting formation, so frontliners start closer to the enemy than backliners
 
         if self.type == 'ARCANE':
 
@@ -213,22 +220,32 @@ class Hero(Character):
 
             self.starting_grid_pos = [0, 2]
 
-        self.current_sanity = 100
+        self.current_sanity = 100 # characters start with all of their sanity
         self.max_sanity = 100
 
-        self.current_experience = 0
+        self.current_experience = 0 # characters start with no experience
 
         self.selected_skill = None
         self.has_used_skill = False
         self.has_moved = False
 
+        # these properties keep track of events related to sanity
+
         self.insane = False
         self.meltingdown = False
         self.givingup = False
 
+        # these keep track of this characters various upgrade levels for when they get upgraded
+
         self.armour_level = 0
         self.weapon_level = 0
         self.experience_level = 0
+
+        # all of the characters stats are retrieved from the appropiate dictionary, with their type as the key, and their level being the correct list to retrieve the stat from
+        # for example, health is tied to the characters experience, so the EXPERIENCE_VALUES dictionary is accessed
+        # for BLADE, the key would be BLADE
+        # since the character is experience level 0, the first list in the list of lists is retrieved
+        # and max health is the first property on that list, so the first item on that list is retrieved and set to max_health
 
         self.max_health = EXPERIENCE_VALUES[self.type][self.experience_level][0]
         self.agility = EXPERIENCE_VALUES[self.type][self.experience_level][1]
@@ -249,13 +266,15 @@ class Hero(Character):
 
         self.current_health = self.max_health
 
+        # characters start off satiated
+
         self.effects = [
             Satiated(self.game, self)
         ]
 
     def update(self):
             
-
+        # if this character hasnt used a skill, allow the player to select one by pressing keys 1 to 6
         if self.has_used_skill == False:
 
             pressed_keys = p.key.get_pressed()
@@ -283,6 +302,8 @@ class Hero(Character):
 
     def play_animations(self):
 
+        # same as every other animation function
+
         now = p.time.get_ticks()
 
         if now - self.last_update > 1000:
@@ -293,7 +314,11 @@ class Hero(Character):
 
     def start_turn(self):
 
+        # mostly the same as the Enemy 'start_turn' function
+
         self.game.close_menu('INVENTORY')
+
+        # values reset
 
         self.game.actingout = False
 
@@ -317,6 +342,8 @@ class Hero(Character):
             for effect in self.effects:
                 if type(effect) == DeathsDoor:
                     effect.remove_effect()
+
+        # if sanity has become 0, this character is now insane
 
         if self.current_sanity == 0:
             self.insane = True
@@ -348,6 +375,7 @@ class Hero(Character):
 
         if self.insane == False:
 
+            # if this character is not insane or stunned, the player takes their turn normally
 
             if self.stunned == False:
 
@@ -363,6 +391,8 @@ class Hero(Character):
 
                 rand = random.randint(1, 6)
 
+                # if they are insane, they have a 1/6 chance of attacking another hero, a 1/3 chance of saying something negative and reducing everyones sanity, a 1/6 chance of skipping their turn, and a 1/3 chance of a normal turn
+
                 if rand == 1:
 
                     hero_party_length = 0
@@ -371,30 +401,35 @@ class Hero(Character):
                         if hero != None:
                             hero_party_length += 1
 
+                    # if there is another hero in the players party, attack them
+
                     if hero_party_length > 1:
 
-                        self.game.actingout = True
+                        self.game.actingout = True # this boolean being set to true indicates to the rest of the game that the player has lost control, so things such as buttons disappear and cannot be pressed temporarily
                         CalculateSkillTimer(self.game, self, change_in_health)
 
                     else:
 
+                    # otherwise, skip your turn
+
                         self.game.actingout = False
-                        self.meltingdown = True
+                        self.givingup = True
                         PlayerTurnTimer(self.game, self, change_in_health)
 
                 elif rand == 2 or rand == 3:
 
                     self.game.actingout = False
-                    self.meltingdown = True
+                    self.meltingdown = True # this boolean being set to true means this character will say something negative
                     PlayerTurnTimer(self.game, self, change_in_health)
 
                 elif rand == 4:
 
                     self.game.actingout = True
-                    self.givingup = True
+                    self.givingup = True # this boolean being set to true means this character will skip their turn
                     PlayerTurnTimer(self.game, self, change_in_health)
 
                 else:
+
                     self.game.actingout = False
                     PlayerTurnTimer(self.game, self, change_in_health)
 
@@ -407,55 +442,67 @@ class Hero(Character):
 
     def giveup(self):
 
+        # upon giving up this characters sanity decreases
+
         rand = random.randint(8, 15)
         sanity_reduction = rand
         sanity = int(self.calculate_sanity_decrease(sanity_reduction))
+
+        # they then say something negative
 
         if self.barking == False:
 
             BarkTimer(self.game, self, random.choice(self.giveupbarks))
 
-        applied_debuff = random.randint(1, 4)
+        # they will also have a 50% chance to apply a debuff on themselves
+
+        applied_debuff = random.randint(1, 3)
 
         successful = False
-
-        if applied_debuff <= 3:
                 
-            rand = random.randint(0, 100)
+        rand = random.randint(0, 100)
 
-            if rand >= 50:
-                successful = True
+        if rand >= 50:
+            successful = True
 
-            if successful:
+        # depending on the random number, a different debuff can be given
 
-                if applied_debuff == 1:
+        if successful:
 
-                    for effect in self.effects:
-                        if type(effect) == Blindness:
-                            effect.remove_effect()
+            if applied_debuff == 1:
 
-                    self.effects.append(Blindness(self.game, self))
+                # removes blindess
 
-                if applied_debuff == 2:
+                for effect in self.effects:
+                    if type(effect) == Blindness:
+                        effect.remove_effect()
 
-                    for effect in self.effects:
-                        if type(effect) == Weakness:
-                            effect.remove_effect()
+                # then adds it again so the timer resets
 
-                    self.effects.append(Weakness(self.game, self))
+                self.effects.append(Blindness(self.game, self))
 
-                if applied_debuff == 3:
+            if applied_debuff == 2:
 
-                    for effect in self.effects:
-                        if type(effect) == BrokenArmour:
-                            effect.remove_effect()
+                for effect in self.effects:
+                    if type(effect) == Weakness:
+                        effect.remove_effect()
 
-                    self.effects.append(BrokenArmour(self.game, self))
+                self.effects.append(Weakness(self.game, self))
+
+            if applied_debuff == 3:
+
+                for effect in self.effects:
+                    if type(effect) == BrokenArmour:
+                        effect.remove_effect()
+
+                self.effects.append(BrokenArmour(self.game, self))
 
         for menu in self.game.menus.values():
             menu.update_images()
 
     def meltdown(self):
+
+        # same as giving up, but instead everyone in the pary is affected
 
         if self.barking == False:
 
@@ -467,45 +514,46 @@ class Hero(Character):
                 sanity_reduction = rand
                 sanity = int(hero.calculate_sanity_decrease(sanity_reduction))
 
-                applied_debuff = random.randint(1, 4)
+                applied_debuff = random.randint(1, 3)
 
                 successful = False
-
-                if applied_debuff <= 3:
                 
-                    rand = random.randint(0, 100)
+                rand = random.randint(0, 100)
 
-                    if rand >= 50:
-                        successful = True
+                if rand >= 50:
+                    successful = True
 
-                    if successful:
+                if successful:
 
-                        if applied_debuff == 1:
+                    if applied_debuff == 1:
 
-                            for effect in hero.effects:
-                                if type(effect) == Blindness:
-                                    effect.remove_effect()
+                        for effect in hero.effects:
+                            if type(effect) == Blindness:
+                                effect.remove_effect()
 
-                            hero.effects.append(Blindness(self.game, hero))
+                        hero.effects.append(Blindness(self.game, hero))
 
-                        if applied_debuff == 2:
+                    if applied_debuff == 2:
 
-                            for effect in hero.effects:
-                                if type(effect) == Weakness:
-                                    effect.remove_effect()
+                        for effect in hero.effects:
+                            if type(effect) == Weakness:
+                                effect.remove_effect()
 
-                            hero.effects.append(Weakness(self.game, hero))
+                        hero.effects.append(Weakness(self.game, hero))
 
-                        if applied_debuff == 3:
+                    if applied_debuff == 3:
 
-                            for effect in hero.effects:
-                                if type(effect) == BrokenArmour:
-                                    effect.remove_effect()
+                        for effect in hero.effects:
+                            if type(effect) == BrokenArmour:
+                                effect.remove_effect()
 
-                            hero.effects.append(BrokenArmour(self.game, hero))
+                        hero.effects.append(BrokenArmour(self.game, hero))
 
         for menu in self.game.menus.values():
             menu.update_images()
+
+
+    # every skill to do with this hero attacking another has basically the same code as the code used for object of the Enemy class to make decisions, but shorter
 
     def calculate_skill(self):
 
@@ -710,6 +758,8 @@ class Hero(Character):
         
     def calculate_sanity_decrease(self, amount):
 
+        # changes the amount this characters sanity would decrease by this characters sanity damage factor, which is changed by some effects and items
+
         sanity_factor = self.sanity_damage_factor / 100
 
         extra_sanity_damage = sanity_factor * amount
@@ -723,6 +773,8 @@ class Hero(Character):
         return amount
 
     def calculate_sanity_increase(self, amount):
+
+        # changes the amount this characters sanity would increase by this characters sanity recovery factor, which is changed by some effects and items
 
         sanity_factor = self.sanity_recovery_factor / 100
 
@@ -740,6 +792,8 @@ class Hero(Character):
 
         if self in self.game.characters:
 
+            # replaces this heros slot in the hero party with the None placeholder
+
             self.game.hero_party.append(None)
 
             sound = p.mixer.Sound(DEATH_SOUND)
@@ -750,6 +804,8 @@ class Hero(Character):
                 for tile in menu.tiles:
                     if tile.grid_pos == self.grid_pos:
                         tile.obstructed = False
+
+            # removes self from all lists
 
             self.game.hero_party.remove(self)
 
@@ -767,6 +823,8 @@ class Hero(Character):
             for menu in self.game.menus.values():
                 menu.update()
                 menu.update_images()
+
+            # kills the exploration character associated with this character
 
             self.exploration_character.kill()
 

@@ -37,7 +37,7 @@ class Battle(p.sprite.Sprite):
         self.all_characters.reverse()
 
         # the games selected character is set to the last character on the list (this is done because the turn counter is incremented before the turn starts, so if a character dies the position of the character who just had their turn can still be found and the turn order is not disrupted)
-        self.game.selected_character = self.all_characters[len(self.all_characters)]
+        self.game.selected_character = self.all_characters[len(self.all_characters) - 1]
 
         self.start_next_character_turn()
 

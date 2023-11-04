@@ -4,14 +4,16 @@ from settings import *
 
 class Effect(p.sprite.Sprite):
 
+    # all effects follow the same blueprint, so i am only going to comment on a few examples because the idea stays the same with the most of them
+
     def __init__(self, game, character, duration = 3):
 
         self.groups = game.effects_group, game.all
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game
-        self.character = character
-        self.duration = duration
+        self.character = character # the character the effect is applied to
+        self.duration = duration # the amount of rounds the effect needs to last
 
         if self.character == None:
 
@@ -19,8 +21,12 @@ class Effect(p.sprite.Sprite):
 
         else:
 
+            # if the duration is more than 0, it is an effect that only lasts a certain amount of rounds
+
             if duration > -1:
                 self.timed = True
+
+            # otherwise it is an effect that persists until some other condition has been met
             else:
                 self.timed = False
 
@@ -28,13 +34,20 @@ class Effect(p.sprite.Sprite):
 
     def apply_effect(self):
 
+        # this is where the characters stats are changed
+
         pass
 
     def tick(self):
 
+        # if this effect is a timed one
+
         if self.timed:
 
+            # reduce the remaining duration by 1
             self.duration -= 1
+
+            # once the remaining duration is 0, remove the effect
             if self.duration == 0:
                 self.remove_effect()
 
@@ -43,7 +56,11 @@ class Effect(p.sprite.Sprite):
 
     def remove_effect(self):
 
+        # this is where the characters stats are reverted
+
         if self in self.character.effects:
+
+            # remove this effect from the list of the characters effect
 
             self.character.effects.remove(self)
             for menu in self.game.menus.values():
@@ -59,6 +76,8 @@ class Strength(Effect):
 
     def apply_effect(self):
 
+        # the characters damage is increased
+
         self.character.damage[0] = self.character.damage[0] * self.damage_multiplier
         self.character.damage[1] = self.character.damage[1] * self.damage_multiplier
 
@@ -66,6 +85,8 @@ class Strength(Effect):
             menu.update_images()
 
     def remove_effect(self):
+
+        # the characters damage is decreased to the same amount as it was before the effect was applied
 
         self.character.damage[0] = self.character.damage[0] / self.damage_multiplier
         self.character.damage[1] = self.character.damage[1] / self.damage_multiplier

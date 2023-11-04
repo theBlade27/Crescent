@@ -4,6 +4,8 @@ from settings import *
 from skill import *
 from effect import *
 
+# this file just contains all the properties of the different skills heros have, there is no complex code here
+
 class BladeActOut(HeroSkill):
 
     def __init__(self, game, character):

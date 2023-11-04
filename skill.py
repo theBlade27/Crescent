@@ -89,6 +89,13 @@ class Skill(p.sprite.Sprite):
                 if crit:
                     self.character.calculate_sanity_increase(5)
 
+                if target.deaths_door == True:
+                    if target in self.game.battle.all_characters:
+                        self.text += '{} IS ON THE BRINK OF DEATH!\n'.format(target.name)
+                        target.effect_applied_images.append(DeathsDoor(self.game, None).image)
+                    else:
+                        self.text += '{} MET THEIR END.\n'.format(target.name)
+
                 if (not missed) and (not dodged):
 
                     if crit:
