@@ -1801,7 +1801,11 @@ class SelectedSkillImage(Image):
         if self.skill == None:
             self.skill = self.hero.skills[0]
 
-        self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
+        if type(self.hero) == Hero:
+            self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
+        else:
+            self.image = p.Surface((80, 80))
+            self.image.fill(BLUE)
 
         self.background = MENU_SPRITESHEETS['SLOT_THICK'].copy()
         self.scale = 4
@@ -1812,14 +1816,16 @@ class SelectedSkillImage(Image):
     def update(self):
 
         self.hero = self.menu.hero 
-        self.skill = self.menu.skill
-        if self.skill == None:
-            self.skill = self.hero.skills[0]
 
-        self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
+        if type(self.hero) == Hero:
+            self.skill = self.menu.skill
+            if self.skill == None:
+                self.skill = self.hero.skills[0]
 
-        self.image = self.background.copy()
-        self.image.blit(self.icon, [16, 16])
+            self.icon = p.transform.scale(self.skill.image.copy(), [80, 80])
+
+            self.image = self.background.copy()
+            self.image.blit(self.icon, [16, 16])
 
 class SkillInfoSlot(Image):
 

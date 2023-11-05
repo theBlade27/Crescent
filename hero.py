@@ -31,11 +31,13 @@ class Hero(Character):
 
             self.killbarks = [
                 'YOUR KIND IS NO LONGER WELCOME HERE.',
-                'BEGONE, FIEND.'
+                'BEGONE, FIEND.',
+                'STAIN THIS WORLD NO MORE.'
             ]
 
             self.healbarks = [
-                'IT\'S NOT OVER YET.'
+                'IT\'S NOT OVER YET.',
+                'IM BACK!'
             ]
 
             self.healerbarks = [
@@ -44,35 +46,40 @@ class Hero(Character):
 
             self.critbarks = [
                 'WE CAN DO THIS!',
-                'THE LIGHT HAS CLAIMED YOU!'
+                'THE LIGHT HAS CLAIMED YOU!',
+                'AHAH!'
             ]
 
             self.scaredbarks = [
-                'IT... IT\'S HOPELESS...'
+                'IT... IT\'S HOPELESS...',
+                '(BREATHES HEAVILY)'
             ]
             
             self.actoutbarks = [
-                'YOU...\nYOU\'RE ONE OF THEM!'
+                'YOU...\nYOU\'RE ONE OF THEM!',
+                'YOU TRAITOR!'
             ]
 
             self.meltdownbarks = [
-                'THERE\'S NO HOPE.'
+                'THERE\'S NO HOPE.',
+                'THIS TASK...\nIT IS NOT POSSIBLE.'
             ]
 
             self.giveupbarks = [
-                'WHAT\'S THE POINT.'
+                'WHAT\'S THE POINT.',
+                'WHY BOTHER.'
             ]
 
             # same properties as enemies
             
             self.name = 'AZIZ'
             self.mobility = 3
-            self.bleed = 60
-            self.venom = 60
-            self.fire = 60
+            self.bleed = 50
+            self.venom = 50
+            self.fire = 50
             self.death = 66
-            self.stun = 40
-            self.debuff = 60
+            self.stun = 50
+            self.debuff = 50
             self.equipment = [None, None, None] # slots to keep equipable items in
             self.frontliner = True
 
@@ -93,7 +100,8 @@ class Hero(Character):
         if self.type == 'ARCANE':
 
             self.deathsdoorbarks = [
-                'NO NOT YET!\nIV\'E SO MUCH TO LIVE FOR!'
+                'NO NOT YET!\nIV\'E SO MUCH TO LIVE FOR!',
+                'THIS CANNOT BE!'
             ]
 
             self.killbarks = [
@@ -102,11 +110,13 @@ class Hero(Character):
             ]
 
             self.healbarks = [
-                'THANKS FRIEND :)'
+                'THANKS FRIEND :)',
+                'TEAMWORK!'
             ]
 
             self.healerbarks = [
-                'SHHH SHHH....\nYOU\'RE OKAY :)',
+                'YOU\'RE OKAY :)',
+                'DON\'T WORRY\nI AM HERE.'
             ]
 
             self.critbarks = [
@@ -115,30 +125,34 @@ class Hero(Character):
             ]
 
             self.scaredbarks = [
-                'NO... NOT AGAIN...'
+                'NO... NOT AGAIN...',
+                'PLEASE NO MORE!'
             ]
 
             self.actoutbarks = [
-                'GET. AWAY. FROM. ME.'
+                'GET. AWAY. FROM. ME.',
+                'CRAZY? I WAS CRAZY ONCE'
             ]
 
             self.meltdownbarks = [
-                '(STARTS SOBBING)'
+                '(STARTS SOBBING)',
+                'DON\'T LOOK AT ME.'
             ]
 
             self.giveupbarks = [
-                'I... CAN\'T'
+                'I... CAN\'T',
+                'NO.'
             ]
 
             
             self.name = 'YASMINE'
             self.mobility = 4
-            self.bleed = 30
-            self.venom = 30
-            self.fire = 30
+            self.bleed = 25
+            self.venom = 25
+            self.fire = 25
             self.death = 66
-            self.stun = 30
-            self.debuff = 40
+            self.stun = 25
+            self.debuff = 25
             self.equipment = [None, None, None]
             self.frontliner = False
 
@@ -158,7 +172,8 @@ class Hero(Character):
         if self.type == 'BREACH':
 
             self.deathsdoorbarks = [
-                'I GUESS THIS IS IT THEN.'
+                'I GUESS THIS IS IT THEN.',
+                '(COUGHS VIOLENTLY)'
             ]
 
             self.killbarks = [
@@ -168,6 +183,7 @@ class Hero(Character):
 
             self.healbarks = [
                 'YOU WON\'T REGRET THIS'
+                'DYING WASN\'T ON MY CONTRACT'
             ]
 
             self.healerbarks = [
@@ -180,30 +196,34 @@ class Hero(Character):
             ]
 
             self.scaredbarks = [
-                'I DIDN\'T SIGN UP FOR THIS...'
+                'I DIDN\'T SIGN UP FOR THIS...',
+                'WHAT. THE. HELL.'
             ]
 
             self.actoutbarks = [
-                'WHERE\'S MY MONEY HUH!'
+                'WHERE\'S MY MONEY HUH!',
+                'LISTEN HERE BUDDY!'
             ]
 
             self.meltdownbarks = [
-                'USELESS... YOU\'RE ALL USELESS'
+                'USELESS... YOU\'RE ALL USELESS',
+                'I JUST WANT YOU ALL TO KNOW\n I HATE YOU ALL.'
             ]
 
             self.giveupbarks = [
-                'IV\'E HAD ENOUGH THANKS.'
+                'IV\'E HAD ENOUGH THANKS.',
+                'NO THANKS.'
             ]
 
             
             self.name = 'AUDREY'
             self.mobility = 5
-            self.bleed = 40
-            self.venom = 40
-            self.fire = 40
+            self.bleed = 35
+            self.venom = 35
+            self.fire = 35
             self.death = 66
-            self.stun = 30
-            self.debuff = 40
+            self.stun = 35
+            self.debuff = 35
             self.equipment = [None, None, None]
             self.frontliner = False
 
@@ -589,7 +609,7 @@ class Hero(Character):
         menu = self.game.menus['BATTLE']
         self.ideal_target_in_range = False
 
-        skill = self.skills[7]
+        skill = self.skills[6]
 
         distance = vec(self.ideal_target.grid_pos) - vec(tile)
         if distance.length() >= skill.range[0] and distance.length() < skill.range[1]:
@@ -713,7 +733,7 @@ class Hero(Character):
     def determine_skill(self):
 
         menu = self.game.menus['BATTLE']
-        self.selected_skill = self.skills[7]
+        self.selected_skill = self.skills[6]
 
         self.targetable_characters = []
 

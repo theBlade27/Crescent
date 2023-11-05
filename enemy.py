@@ -41,37 +41,37 @@ class Enemy(Character):
         if self.type == 'BANDIT1':
 
             self.name = 'SCIMITAR'
-            self.max_health = 18
+            self.max_health = 20
             self.speed = 5
             self.frontliner = True
             self.mobility = 3
             self.protection = 10
-            self.agility = 10
+            self.agility = 5
             self.precision = 90
             self.crit = 15
-            self.bleed = 20
-            self.venom = 20
-            self.fire = 20
+            self.bleed = 30
+            self.venom = 30
+            self.fire = 30
             self.death = 0
-            self.stun = 20
-            self.debuff = 20
+            self.stun = 35
+            self.debuff = 30
 
             self.skills = [
                 ScimitarSlash(self.game, self),
                 RallyingWinds(self.game, self)
             ]
 
-            self.damage = [3, 5]
+            self.damage = [5, 8]
 
         if self.type == 'BANDIT2':
 
             self.name = 'FLINTLOCK'
-            self.max_health = 14
+            self.max_health = 16
             self.speed = 7
             self.frontliner = False
             self.mobility = 3
             self.protection = 0
-            self.agility = 20
+            self.agility = 10
             self.precision = 95
             self.crit = 10
             self.bleed = 15
@@ -86,12 +86,12 @@ class Enemy(Character):
                 AridStab(self.game, self)
             ]
 
-            self.damage = [3, 4]
+            self.damage = [4, 7]
 
         if self.type == 'BANDIT3':
 
             self.name = 'TABARZIN'
-            self.max_health = 30
+            self.max_health = 32
             self.speed = 2
             self.frontliner = True
             self.mobility = 3
@@ -111,20 +111,20 @@ class Enemy(Character):
                 IntimidatingRoar(self.game, self)
             ]
 
-            self.damage = [5, 10]
+            self.damage = [7, 11]
 
-            self.sanity_reduction_skills = [12, 20] # range of numbers that sanity reducing attacks reduce a heros sanity by
+            self.sanity_reduction_skills = [8, 16] # range of numbers that sanity reducing attacks reduce a heros sanity by
 
         if self.type == 'BANDIT4':
 
             self.name = 'ARTILLERY'
-            self.max_health = 14
+            self.max_health = 16
             self.speed = 0
             self.frontliner = False
             self.mobility = 2
             self.protection = 0
-            self.agility = 0
-            self.precision = 80
+            self.agility = 10
+            self.precision = 90
             self.crit = 30
             self.bleed = 15
             self.venom = 15
@@ -139,7 +139,7 @@ class Enemy(Character):
 
             self.damage = [8, 12]
 
-            self.sanity_reduction_skills = [12, 20]
+            self.sanity_reduction_skills = [8, 16]
 
         if self.type == 'BANDIT5':
 
@@ -147,26 +147,26 @@ class Enemy(Character):
             self.max_health = 60
             self.speed = 5
             self.frontliner = True
-            self.mobility = 3
-            self.protection = 30
+            self.mobility = 4
+            self.protection = 40
             self.agility = 0
             self.precision = 120
-            self.crit = 20
-            self.bleed = 60
-            self.venom = 60
-            self.fire = 60
-            self.death = 1
-            self.stun = 60
-            self.debuff = 60
+            self.crit = 30
+            self.bleed = 70
+            self.venom = 70
+            self.fire = 70
+            self.death = 66
+            self.stun = 70
+            self.debuff = 70
 
             self.skills = [
                 Obliterate(self.game, self),
                 GetThem(self.game, self)
             ]
 
-            self.damage = [8, 16]
+            self.damage = [12, 20]
 
-            self.sanity_reduction_skills = [20, 30]
+            self.sanity_reduction_skills = [16, 24]
 
         self.grid_pos = grid_pos
         self.current_health = self.max_health

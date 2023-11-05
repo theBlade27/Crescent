@@ -58,10 +58,10 @@ class FlintShot(EnemySkill):
     def __init__(self, game, character):
         super().__init__(game, character)
 
-        self.range = [3, 8]
+        self.range = [5, 9]
         self.name = 'FLINT SHOT'
 
-        self.effects_on_hit = ['BLINDING', 'ANTIDODGE']
+        self.effects_on_hit = ['BLINDING']
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
@@ -110,7 +110,7 @@ class Boom(EnemySkill):
     def __init__(self, game, character):
         super().__init__(game, character)
 
-        self.range = [3, 10]
+        self.range = [6, 11]
         self.name = 'BOOOOOOM!!!'
 
         self.effects_on_hit = ['BLINDING']
@@ -135,8 +135,8 @@ class RallyingWinds(EnemySkill):
         self.heals = True
         self.multiplier = 0
 
-        self.effects_on_hit = ['DODGE']
-        self.effects_on_user = ['DODGE']
+        self.effects_on_hit = ['STRENGTH']
+        self.effects_on_user = ['STRENGTH']
 
         self.targets_all_in_range = True
         self.targets_heroes = False
@@ -151,7 +151,7 @@ class Obliterate(EnemySkill):
     def __init__(self, game, character):
         super().__init__(game, character)
 
-        self.range = [0, 3]
+        self.range = [0, 4]
         self.name = 'OBLITERATE'
 
         self.effects_on_hit = ['BROKEN', 'BLEEDING', 'MARKING']
@@ -168,7 +168,7 @@ class GetThem(EnemySkill):
     def __init__(self, game, character):
         super().__init__(game, character)
 
-        self.range = [3, 8]
+        self.range = [4, 12]
         self.name = 'GET THEM!'
 
         self.sanity_reducing = True

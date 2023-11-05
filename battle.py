@@ -39,6 +39,14 @@ class Battle(p.sprite.Sprite):
         # the games selected character is set to the last character on the list (this is done because the turn counter is incremented before the turn starts, so if a character dies the position of the character who just had their turn can still be found and the turn order is not disrupted)
         self.game.selected_character = self.all_characters[len(self.all_characters) - 1]
 
+        if STORY_BARKS[self.battle] != '':
+
+            if self.game.hero_party[0].barking == False:
+
+                BarkTimer(self.game, self.game.hero_party[0], STORY_BARKS[self.battle])
+
+        self.game.play_music(BATTLE_MUSIC)
+
         self.start_next_character_turn()
 
     def start_next_character_turn(self):
@@ -49,32 +57,34 @@ class Battle(p.sprite.Sprite):
 
         ]
 
-        for character in self.game.menus['BATTLE'].characters:
-            self.all_characters.append(character)
+        if 'BATTLE' in self.game.menus:
 
-        self.all_characters.sort(key = lambda x : x.speed)
-        self.all_characters.reverse()
+            for character in self.game.menus['BATTLE'].characters:
+                self.all_characters.append(character)
 
-        menu = self.game.menus['BATTLE']
-        
-        if len(menu.enemies) == 0:
-            # if there are no enemies left, end the battle
-            self.end_battle()
-        elif len(menu.heroes) == 0:
-            # if there are no heroes left, the player has failed and the game will restart, playing a cutscene
-            self.game.reset_game()
-            CutScene(self.game, 'gameover')
-        else:
-            # otherwise, the battle needs to continue
+            self.all_characters.sort(key = lambda x : x.speed)
+            self.all_characters.reverse()
 
-            # the position of the current character is found in the list of characters
-            self.turn_order_counter = self.all_characters.index(self.game.selected_character)
-            # the counter is incremented
-            self.turn_order_counter += 1
-            # the character after the one that has just taken their turn is selected
-            self.game.selected_character = self.all_characters[self.turn_order_counter % len(self.all_characters)]
-            # the character starts their turn
-            self.game.selected_character.start_turn()
+            menu = self.game.menus['BATTLE']
+            
+            if len(menu.enemies) == 0:
+                # if there are no enemies left, end the battle
+                self.end_battle()
+            elif len(menu.heroes) == 0:
+                # if there are no heroes left, the player has failed and the game will restart, playing a cutscene
+                self.game.reset_game()
+                CutScene(self.game, 'gameover')
+            else:
+                # otherwise, the battle needs to continue
+
+                # the position of the current character is found in the list of characters
+                self.turn_order_counter = self.all_characters.index(self.game.selected_character)
+                # the counter is incremented
+                self.turn_order_counter += 1
+                # the character after the one that has just taken their turn is selected
+                self.game.selected_character = self.all_characters[self.turn_order_counter % len(self.all_characters)]
+                # the character starts their turn
+                self.game.selected_character.start_turn()
 
 
 
@@ -153,6 +163,8 @@ class Battle(p.sprite.Sprite):
 
             for menu in self.game.menus.values():
                 menu.update_images()
+
+            self.game.play_music(BACKGROUND_MUSIC)
 
         
 

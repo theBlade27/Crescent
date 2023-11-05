@@ -253,8 +253,8 @@ class CherishedLetter(Item):
         character.death -= 15
         character.protection -= 10
         character.sanity_damage_factor -= 20
-        character.damage[0] *= 1.1
-        character.damage[1] *= 1.1
+        character.damage[0] *= 1.2
+        character.damage[1] *= 1.2
 
     def remove_item(self, character):
 
@@ -263,8 +263,8 @@ class CherishedLetter(Item):
         character.death += 15
         character.protection += 10
         character.sanity_damage_factor += 20
-        character.damage[0] /= 1.1
-        character.damage[1] /= 1.1
+        character.damage[0] /= 1.2
+        character.damage[1] /= 1.2
 
 class HolyBook(Item):
 
@@ -310,13 +310,13 @@ class LuckyRing(Item):
 
     def equip_item(self, character):
 
-        character.precision += 10
+        character.precision += 15
         character.crit += 10
         character.max_health *= 0.9
 
     def remove_item(self, character):
 
-        character.precision -= 10
+        character.precision -= 15
         character.crit -= 10
         character.max_health /= 0.9
 
@@ -334,15 +334,15 @@ class GlisteningJambiya(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.1
-        character.damage[1] *= 1.1
+        character.damage[0] *= 1.2
+        character.damage[1] *= 1.2
         character.speed += 2
         character.precision -= 10
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.1
-        character.damage[1] /= 1.1
+        character.damage[0] /= 1.2
+        character.damage[1] /= 1.2
         character.speed -= 2
         character.precision += 10
 
@@ -360,16 +360,16 @@ class CrescentCoin(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.05
-        character.damage[1] *= 1.05
+        character.damage[0] *= 1.15
+        character.damage[1] *= 1.15
         character.precision += 5
         character.protection -= 5
         character.max_health *= 0.95
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.05
-        character.damage[1] /= 1.05
+        character.damage[0] /= 1.15
+        character.damage[1] /= 1.15
         character.precision -= 5
         character.protection += 5
         character.max_health /= 0.95
@@ -388,16 +388,16 @@ class CursedCoin(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.1
-        character.damage[1] *= 1.1
+        character.damage[0] *= 1.25
+        character.damage[1] *= 1.25
         character.precision += 10
         character.protection -= 10
         character.max_health *= 0.9
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.1
-        character.damage[1] /= 1.1
+        character.damage[0] /= 1.25
+        character.damage[1] /= 1.25
         character.precision -= 10
         character.protection += 10
         character.max_health /= 0.9
@@ -416,16 +416,16 @@ class ForsakenCoin(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.2
-        character.damage[1] *= 1.2
+        character.damage[0] *= 1.35
+        character.damage[1] *= 1.35
         character.precision += 15
         character.protection -= 15
         character.max_health *= 0.8
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.2
-        character.damage[1] /= 1.2
+        character.damage[0] /= 1.35
+        character.damage[1] /= 1.35
         character.precision -= 15
         character.protection += 15
         character.max_health /= 0.8
@@ -446,14 +446,14 @@ class MagicLamp(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.15
-        character.damage[1] *= 1.15
+        character.damage[0] *= 1.2
+        character.damage[1] *= 1.2
         character.sanity_damage_factor += 15
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.15
-        character.damage[1] /= 1.15
+        character.damage[0] /= 1.2
+        character.damage[1] /= 1.2
         character.sanity_damage_factor -= 15
 
 class SapphireEarrings(Item):
@@ -516,12 +516,12 @@ class WarShield(Item):
 
     def equip_item(self, character):
 
-        character.protection += 15
+        character.protection += 10
         character.speed -= 1
 
     def remove_item(self, character):
 
-        character.protection -= 15
+        character.protection -= 10
         character.speed += 1
 
 class SturdyRing(Item):
@@ -546,7 +546,7 @@ class SturdyRing(Item):
 
     def remove_item(self, character):
 
-        character.protection -= 15
+        character.protection -= 10
         character.max_health /= 1.1
         character.damage[0] /= 0.95
         character.damage[1] /= 0.95
@@ -565,13 +565,13 @@ class BucketHelmet(Item):
 
     def equip_item(self, character):
 
-        character.protection += 20
+        character.protection += 10
         character.precision -= 10
 
 
     def remove_item(self, character):
 
-        character.protection -= 20
+        character.protection -= 10
         character.precision += 10
 
 class DeathPact(Item):
@@ -610,14 +610,14 @@ class SeersStone(Item):
 
     def equip_item(self, character):
 
-        character.precision += 10
-        character.agility += 15
+        character.precision += 15
+        character.agility += 20
         character.sanity_damage_factor += 20
 
     def remove_item(self, character):
 
-        character.precision -= 10
-        character.agility -= 15
+        character.precision -= 15
+        character.agility -= 20
         character.sanity_damage_factor -= 20
 
 class RecoveryPendant(Item):
@@ -670,11 +670,11 @@ class SpentMatch(Item):
 
     def equip_item(self, character):
 
-        character.crit += 10
+        character.crit += 15
 
     def remove_item(self, character):
 
-        character.crit -= 10
+        character.crit -= 15
 
 class SerratedEdge(Item):
 
@@ -692,12 +692,12 @@ class SerratedEdge(Item):
 
     def equip_item(self, character):
 
-        character.damage[0] *= 1.15
-        character.damage[1] *= 1.15
+        character.damage[0] *= 1.2
+        character.damage[1] *= 1.2
         character.max_health *= 0.9
 
     def remove_item(self, character):
 
-        character.damage[0] /= 1.15
-        character.damage[1] /= 1.15
+        character.damage[0] /= 1.2
+        character.damage[1] /= 1.2
         character.max_health /= 0.9

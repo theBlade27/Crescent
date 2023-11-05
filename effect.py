@@ -285,7 +285,7 @@ class DeathsDoor(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Burning(Effect):

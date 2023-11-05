@@ -90,6 +90,11 @@ STRESS_SOUND = path.join(snd_folder, 'stress.wav')
 MOVE_SOUND = path.join(snd_folder, 'move.wav')
 NEXT_SOUND = path.join(snd_folder, 'next.wav')
 
+BACKGROUND_MUSIC = path.join(snd_folder, 'BACKGROUND.mp3')
+BATTLE_MUSIC = path.join(snd_folder, 'BATTLE.mp3')
+INTRO_MUSIC = path.join(snd_folder, 'INTRO.mp3')
+OUTRO_MUSIC = path.join(snd_folder, 'OUTRO.mp3')
+
 
 # the following dictionaries contain the various different values for each characters attributes
 # this is to make it easy to change the attributes such as health and damage when their equipment is upgraded
@@ -99,9 +104,9 @@ NEXT_SOUND = path.join(snd_folder, 'next.wav')
 EXPERIENCE_VALUES = {
     'BLADE':
     [
-        [35, 5], # maxhealth, agility
-        [42, 10],
-        [50, 15]
+        [35, 0], # maxhealth, agility
+        [42, 5],
+        [50, 10]
     ],
 
     'ARCANE':
@@ -195,7 +200,31 @@ ENEMY_PARTIES = {
     'L4B1': ['BANDIT4', 'BANDIT3', 'BANDIT2', 'BANDIT3'],
     'L4B2': ['BANDIT3', 'BANDIT3', 'BANDIT3'],
     'L4B3': ['BANDIT2', 'BANDIT4', 'BANDIT2', 'BANDIT4'],
-    'L4B4': ['BANDIT2', 'BANDIT5', 'BANDIT4', 'BANDIT1'],
+    'L4B4': ['BANDIT2', 'BANDIT5', 'BANDIT4', 'BANDIT3', 'BANDIT3'],
+}
+
+
+# dictionary of what characters will say upon entering a battle
+STORY_BARKS = {
+    'TUTORIAL': 'YOU ARE NOT WELCOME HERE.',
+    'L2B1': 'GREAT. MORE OF THESE GUYS.',
+    'L2B2': 'WHAT A MONSTER OF A MAN!',
+    'L3B1': 'I DONT LIKE THE LOOK\nOF THAT CANNON...',
+    'L3B2': '',
+    'L3B3': 'THIS IS ISNT LOOKING GREAT.',
+    'L4B1': 'JUST A FEW MORE BATTLES...',
+    'L4B2': '',
+    'L4B3': '',
+    'L4B4': 'WELL THIS IS IT.\nWE DEFEAT THEIR LEADER,\nWE RESTORE HOPE.'
+
+}
+
+# dictionary of what characters will say upon entering a level
+LEVEL_BARKS = {
+    'TUTORIAL': '',
+    'DESERT2': 'BACK TO WORK.',
+    'DESERT3': 'LET US CONTINUE!',
+    'DESERT4': 'WE\'RE SO CLOSE NOW!'
 }
 
 # dictionary of all different loot tables, so they can be easily accessed by name

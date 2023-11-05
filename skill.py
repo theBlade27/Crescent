@@ -130,6 +130,10 @@ class Skill(p.sprite.Sprite):
                     if crit:
 
                         damage_numbers.append('CRIT' + str(int(damage)))
+
+                        # give bonus chance for stunning and debuffs upon crit
+                        self.bonus_stun += 30
+                        self.bonus_debuff += 30
                         if self.character.barking == False:
 
                             if self.game.actingout == False:
@@ -388,11 +392,11 @@ class Skill(p.sprite.Sprite):
                         # using a random number, decide if the effect is actually applied, with this skills 'bonus_debuff' property increasing the chance
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        # if the random number is greater than the targets resistance to debuffs, it is successful
+                        # if the random number is less than the targets resistance to debuffs, it is successful
 
-                        if rand >= self.character.fire:
+                        if rand <= self.character.fire:
                             self.successful = True
                         else:
                             self.successful = False
@@ -418,9 +422,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.fire:
+                        if rand <= self.character.fire:
                             self.successful = True
                         else:
                             self.successful = False
@@ -442,9 +446,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.fire:
+                        if rand <= self.character.fire:
                             self.successful = True
                         else:
                             self.successful = False
@@ -467,9 +471,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.bleed:
+                        if rand <= self.character.bleed:
                             self.successful = True
                         else:
                             self.successful = False
@@ -492,9 +496,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.bleed:
+                        if rand <= self.character.bleed:
                             self.successful = True
                         else:
                             self.successful = False
@@ -517,9 +521,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.bleed:
+                        if rand <= self.character.bleed:
                             self.successful = True
                         else:
                             self.successful = False
@@ -541,9 +545,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_stun
+                        rand -= self.bonus_stun
 
-                        if rand >= self.character.stun:
+                        if rand <= self.character.stun:
                             self.successful = True
                             for effect in target.effects:
                                 if type(effect) == StunResist:
@@ -577,9 +581,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -601,9 +605,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -625,9 +629,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -649,9 +653,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -673,9 +677,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -697,9 +701,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -883,9 +887,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -907,9 +911,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -931,9 +935,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -955,9 +959,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -979,9 +983,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1003,9 +1007,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1027,9 +1031,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1051,9 +1055,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1075,9 +1079,9 @@ class Skill(p.sprite.Sprite):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1097,8 +1101,14 @@ class Skill(p.sprite.Sprite):
 
         # reset things
 
-        for tile in self.game.menus['BATTLE'].tiles:
-            tile.being_targeted = False
+        if crit:
+            self.bonus_stun -= 30
+            self.bonus_debuff -= 30
+
+        if 'BATTLE' in self.game.menus.values():
+
+            for tile in self.game.menus['BATTLE'].tiles:
+                tile.being_targeted = False
 
         for menu in self.game.menus.values():
             menu.update_images()
@@ -1108,6 +1118,12 @@ class Skill(p.sprite.Sprite):
         # play this skills sound if it went through
 
         if not dodged and not missed:
+
+            # reverts values that were changed from a crit
+
+            if crit:
+                self.bonus_stun -= 30
+                self.bonus_debuff -= 30
 
             self.sound.play()
 
@@ -1187,6 +1203,9 @@ class EnemySkill(Skill):
                     if crit:
 
                         damage_numbers.append('CRIT' + str(int(damage)))
+
+                        self.bonus_stun += 30
+                        self.bonus_debuff += 30
 
                         if character.barking == False:
 
@@ -1421,9 +1440,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.bleed:
+                        if rand <= self.character.bleed:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1445,9 +1464,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.bleed:
+                        if rand <= self.character.bleed:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1469,9 +1488,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.bleed:
+                        if rand <= self.character.bleed:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1493,9 +1512,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_stun
+                        rand -= self.bonus_stun
 
-                        if rand >= self.character.stun:
+                        if rand <= self.character.stun:
                             self.successful = True
                             for effect in character.effects:
                                 if type(effect) == StunResist:
@@ -1529,9 +1548,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1553,9 +1572,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1577,9 +1596,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1601,9 +1620,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1625,9 +1644,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1649,9 +1668,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1674,9 +1693,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.fire:
+                        if rand <= self.character.fire:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1698,9 +1717,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.fire:
+                        if rand <= self.character.fire:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1722,9 +1741,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.fire:
+                        if rand <= self.character.fire:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1908,9 +1927,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1932,9 +1951,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1956,9 +1975,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -1980,9 +1999,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -2004,9 +2023,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -2028,9 +2047,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -2052,9 +2071,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -2076,9 +2095,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -2100,9 +2119,9 @@ class EnemySkill(Skill):
 
                         rand = random.randint(0, 100)
 
-                        rand += self.bonus_debuff
+                        rand -= self.bonus_debuff
 
-                        if rand >= self.character.debuff:
+                        if rand <= self.character.debuff:
                             self.successful = True
                         else:
                             self.successful = False
@@ -2121,13 +2140,21 @@ class EnemySkill(Skill):
                             character.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
                 i += 1
 
-        for tile in self.game.menus['BATTLE'].tiles:
-            tile.being_targeted = False
+        if 'BATTLE' in self.game.menus.values():
+
+            for tile in self.game.menus['BATTLE'].tiles:
+                tile.being_targeted = False
 
         for menu in self.game.menus.values():
             menu.update_images()
 
         if not dodged and not missed:
+
+            # reverts values that were changed from a crit
+
+            if crit:
+                self.bonus_stun -= 30
+                self.bonus_debuff -= 30
 
             self.sound.play()
 

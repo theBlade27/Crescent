@@ -155,9 +155,7 @@ class UpgradeButton(Image):
                                     if item != None:
                                         item.equip_item(self.hero)
 
-                    for menu in self.game.menus.values():
-                        if menu != self.menu:
-                            menu.update_images()
+                    self.game.menus['TOP'].update_images()
 
 class PlayButton(Image):
 
@@ -191,6 +189,8 @@ class PlayButton(Image):
                 self.game.reset_game()
                 self.kill()
                 self.sound.play()
+
+                self.game.play_music(BACKGROUND_MUSIC)
 
 class MapButton(Button):
 

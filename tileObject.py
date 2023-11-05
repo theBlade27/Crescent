@@ -239,6 +239,12 @@ class Level(Interaction):
 
                             self.game.next_level(MAPS[self.type])
 
+                            if LEVEL_BARKS[self.type] != '':
+
+                                if self.game.hero_party[0].barking == False:
+
+                                    BarkTimer(self.game, self.game.hero_party[0], LEVEL_BARKS[self.type])
+
         # if the stage has not been cleared yet
 
         else:

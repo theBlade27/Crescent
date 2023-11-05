@@ -20,7 +20,7 @@ class Game:
 
     def __init__(self):
 
-        p.mixer.pre_init(44100, -16, 4, 2048)
+        p.mixer.pre_init(44100, -16, 4, 512)
         p.init()
 
         self.set_up_window()
@@ -34,6 +34,7 @@ class Game:
 
         self.set_up_groups()
         self.menus = {}
+        self.background_music = None
 
         self.reset_game()
 
@@ -61,6 +62,23 @@ class Game:
         self.set_up_variables(True)
 
         self.open_menu('INSTRUCTIONS')
+
+    def play_music(self, track):
+
+        # this function switches music tracks
+
+        # set the volume of the last tract to zero
+
+        if self.background_music != None:
+
+            self.background_music.set_volume(0)
+            self.background_music.stop()
+
+        # then play the next track
+
+        self.background_music = p.mixer.Sound(track)
+        self.background_music.set_volume(1)
+        self.background_music.play(-1)
 
     def end_game(self, reset):
 

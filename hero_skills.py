@@ -40,6 +40,10 @@ class Vanquish(HeroSkill):
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 
+        self.barks = [
+            'YOU SHALL BE VANQUISHED!'
+            ]
+
         self.mark_damage_multiplier = 1.3
 
         self.combat_animation = self.spritesheet.get_sprite(0, 80, 120, 40)
@@ -95,6 +99,14 @@ class SteelTempest(HeroSkill):
         self.targets_all_in_range = True
 
         self.effects_on_hit = ['BLEEDING', 'BLINDING']
+
+        self.bonus_debuff = 30
+
+        self.debuffing = True
+
+        self.barks = [
+            'YOUR BLOOD SHALL\nCLEANSE THE LAND'
+            ]
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
@@ -170,9 +182,17 @@ class AzureEruption(HeroSkill):
 
         self.multiplier = 0.7
 
+        self.bonus_debuff = 30
+
         self.splash = 3
 
+        self.barks = [
+            'BURN. BURN! BURN!!'
+            ]
+
         self.effects_on_hit = ['BURNING']
+
+        self.debuffing = True
 
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
@@ -194,11 +214,19 @@ class Illuminate(HeroSkill):
 
         self.multiplier = 0.1
 
+        self.bonus_debuff = 30
+
         self.targets_enemies = True
+
+        self.barks = [
+            'ARE YOUR EYES BURNING YET?'
+            ]
 
         self.targets_all_in_range = True
 
-        self.effects_on_hit = ['BURNING', 'STUNNING', 'BLINDING']
+        self.effects_on_hit = ['BURNING2', 'STUNNING', 'BLINDING']
+
+        self.debuffing = True
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
@@ -218,7 +246,15 @@ class ArcaneAssault(HeroSkill):
 
         self.range = [5, 10]
 
+        self.bonus_debuff = 30
+
         self.effects_on_hit = ['BURNING', 'BROKEN']
+
+        self.debuffing = True
+
+        self.barks = [
+            'SKIDOOSH!'
+            ]
 
         self.sound = p.mixer.Sound(HEAVY_SOUND)
 
@@ -292,6 +328,14 @@ class DoubleTap(HeroSkill):
 
         self.effects_on_hit = ['BROKEN']
 
+        self.debuffing = True
+
+        self.bonus_debuff = 30
+
+        self.barks = [
+            'PEW PEW!'
+            ]
+
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
         self.combat_animation = self.spritesheet.get_sprite(0, 80, 120, 40)
@@ -309,6 +353,12 @@ class KissOfFire(HeroSkill):
         self.image = p.transform.scale(self.image, (160, 160))
 
         self.range = [0, 2]
+
+        self.barks = [
+            'THAT LOOKED LIKE IT HURT'
+            ]
+        
+        self.debuffing = True
 
         self.multiplier = 1.7
 
@@ -336,6 +386,10 @@ class BleedingBlade(HeroSkill):
 
         self.effects_on_hit = ['BLEEDING']
 
+        self.bonus_debuff = 30
+
+        self.debuffing = True
+
         self.sound = p.mixer.Sound(MEDIUM_SOUND)
 
         self.combat_animation = self.spritesheet.get_sprite(0, 160, 120, 40)
@@ -357,6 +411,14 @@ class Firestarter(HeroSkill):
         self.splash = 2
 
         self.multiplier = 0.3
+
+        self.bonus_debuff = 30
+
+        self.debuffing = True
+
+        self.barks = [
+            'FIRE IN THE HOLE!'
+            ]
 
         self.effects_on_hit = ['MARKING', 'BURNING']
 

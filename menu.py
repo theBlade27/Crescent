@@ -302,7 +302,10 @@ class CombatAnimation(Menu):
             # reduce the shake intensity over time so the shaking slows down
             if self.shake_intensity > 0:
                 self.shake_intensity -= 1
-            self.game.menus['BATTLE'].image.fill(BLACK)
+
+            for menu in self.game.menus:
+                if menu == 'BATTLE':
+                    self.game.menus['BATTLE'].image.fill(BLACK)
 
         # change by the position by shake intensity
 
