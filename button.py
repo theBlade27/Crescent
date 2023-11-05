@@ -4,6 +4,8 @@ from settings import *
 from image import *
 from skill import *
 
+# buttons are a type of image which appear to be pressed on when clicked
+
 class Button(Image):
 
     def __init__(self, game, menu):
@@ -12,6 +14,8 @@ class Button(Image):
         self.menu = menu
 
         self.spritesheet = Sprite(MENU_SPRITESHEETS['BUTTON'].copy(), scale = 4)
+
+        # the pressed and unpressed image is retrieved
 
         self.unpressed_image = self.spritesheet.get_sprite(0, 0, 22, 27)
         self.pressed_image = self.spritesheet.get_sprite(22, 0 , 22, 27)
@@ -24,8 +28,12 @@ class Button(Image):
 
         self.image.blit(self.unpressed_image, [0, 0])
 
+        # when the mouse hovers over the button, the black is replaced with white
+
         if self.hitbox.collidepoint(self.game.mouse.pos):
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+
+            # when M1 is pressed, the image changes to the pressed image, and the black is replaced with yellow
 
             if self.game.mouse.pressed['M1']:
                 self.image = self.pressed_image.copy()
@@ -65,20 +73,30 @@ class UpgradeButton(Image):
 
                 if self.game.mouse.pressed['M1']:
 
+                    # if the player is upgrading armour
+
                     if self.menu.upgrading_armour:
 
                         level = self.hero.armour_level
 
+                        # if the heros armour isnt max level
+
                         if level != len(BLACKSMITH_COSTS):
+
+                            # if the player has more money than the cost of the upgrade
 
                             cost = BLACKSMITH_COSTS[level]
 
                             if self.game.money >= cost:
                                 self.game.money -= cost
 
+                                # temporarily revert any changes made by the heros equipment
+
                                 for item in self.hero.equipment:
                                     if item != None:
                                         item.remove_item(self.hero)
+
+                                # increase the heros armour levels and change all their armour stats
 
                                 self.hero.armour_level += 1
 
@@ -92,12 +110,18 @@ class UpgradeButton(Image):
                                 self.image = self.pressed_image.copy()
                                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
 
+                                # reset variables
+
                                 self.menu.cost = 0
                                 self.menu.upgrading_armour = False
+
+                                # reapply any changes made by the heros equipment
 
                                 for item in self.hero.equipment:
                                     if item != None:
                                         item.equip_item(self.hero)
+
+                    # same but for upgrading weapons
 
                     if self.menu.upgrading_weapon:
 
@@ -175,6 +199,7 @@ class MapButton(Button):
 
         self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(20, 0, 20, 20)
 
+        # draw the icon on top of the images for the button
         self.unpressed_image.blit(self.icon, (4, 8))
         self.pressed_image.blit(self.icon, (4, 12))
 
@@ -205,7 +230,8 @@ class InventoryButton(Button):
         self.unpressed_image.blit(self.icon, (4, 8))
         self.pressed_image.blit(self.icon, (4, 12))
 
-        self.pos = [1644, 0]
+        # self.pos = [1644, 0]
+        self.pos = [1828, 0]
         self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
 
     def update(self):
@@ -214,6 +240,26 @@ class InventoryButton(Button):
         if self.hitbox.collidepoint(self.game.mouse.pos):
             if self.game.mouse.pressed['M1']:
                 self.game.open_menu('INVENTORY')
+
+class HelpButton(Button):
+
+    def __init__(self, game, menu):
+        super().__init__(game, menu)
+
+        self.icon = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'].copy(), scale = 4).get_sprite(320, 0, 20, 20)
+
+        self.unpressed_image.blit(self.icon, (4, 8))
+        self.pressed_image.blit(self.icon, (4, 12))
+
+        self.pos = [1736, 0]
+        self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
+
+    def update(self):
+        super().update()
+    
+        if self.hitbox.collidepoint(self.game.mouse.pos):
+            if self.game.mouse.pressed['M1']:
+                self.game.open_menu('INSTRUCTIONS')
 
 class RepositionButton(Button):
 
@@ -258,13 +304,23 @@ class ExitButton(Button):
         super().update()
     
         if self.hitbox.collidepoint(self.game.mouse.pos):
+            # when pressed, close menus
             if self.game.mouse.pressed['M1']:
-                self.game.close_menu('INVENTORY')
-                self.game.close_menu('SELECT_SKILLS')
-                self.game.close_menu('UPGRADE')
-                if type(self.game.selected_character) == Hero:
-                    self.game.selected_character.selected_skill == None
+                self.game.close_menu()
                 self.menu.kill()
+
+class ExitButtonBeige(ExitButton):
+
+    def __init__(self, game, menu):
+        super().__init__(game, menu)
+
+        self.unpressed_image = colour_swap(self.unpressed_image, LIGHTBLUE, WHITE)
+        self.unpressed_image = colour_swap(self.unpressed_image, BLUE, BEIGE)
+        self.unpressed_image = colour_swap(self.unpressed_image, DARKBLUE, DARKBEIGE)
+
+        self.pressed_image = colour_swap(self.pressed_image, LIGHTBLUE, WHITE)
+        self.pressed_image = colour_swap(self.pressed_image, BLUE, BEIGE)
+        self.pressed_image = colour_swap(self.pressed_image, DARKBLUE, DARKBEIGE)
 
 
 class WeaponUpgradeButton(Button):
@@ -314,6 +370,9 @@ class WeaponUpgradeButton(Button):
 
             if self.hitbox.collidepoint(self.game.mouse.pos):
                 self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+
+                # when the upgrade weapon button is pressed, and the player isnt already upgrading a weapon, set 'upgrading_weapon' to true
+                # then update the cost of upgrading the weapon to the next level
 
                 if self.game.mouse.pressed['M1']:
                     if self.menu.upgrading_weapon:
@@ -430,6 +489,8 @@ class SkillButton(Button):
 
         self.visible = True
 
+        # only appear during battle and during the players turn
+
         if self.game.battle_mode == False:
             self.visible = False
 
@@ -439,11 +500,17 @@ class SkillButton(Button):
             self.skill = self.hero.skills[self.index]
             self.icon = self.skill.image
 
+            # if the player has moved, hide the movement button
+
             if self.index == 4 and self.game.selected_character.has_moved:
                 self.visible = False
 
+            # if the player has used their skill, hide the pass turn button
+
             if self.index == 5 and self.game.selected_character.has_used_skill:
                 self.visible = False
+
+            # if the player is stunned or acting out, hide all skill buttons
 
             if self.game.selected_character.stunned or self.game.actingout:
                 self.visible = False
@@ -459,27 +526,31 @@ class SkillButton(Button):
             if self.hitbox.collidepoint(self.game.mouse.pos):
                 self.image = colour_swap(self.image, FAKEBLACK, WHITE)
 
+                # if the player has pressed M1
+
                 if self.game.mouse.pressed['M1']:
                     if self.game.battle_mode:
                         self.image = self.pressed_image.copy()
                         self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
-                        if self.game.selected_character.stunned == False:
-                            self.hero.selected_skill = self.skill
-                        for tile in self.game.menus['BATTLE'].tiles:
-                            tile.being_targeted = False
+                        # if the character is not stunned or acting out, select this skill
                         if (not(self.index == 4 and self.game.selected_character.has_moved)) and (not(self.index == 5 and self.game.selected_character.has_used_skill)) and not self.game.selected_character.stunned and not self.game.actingout:
                             self.sound.play()
+                            self.hero.selected_skill = self.skill
+                        # reset the tiles to reflect the targetting of the new skill
+                        for tile in self.game.menus['BATTLE'].tiles:
+                            tile.being_targeted = False
 
                 if self.game.mouse.pressed['M2']:
+
+                    # if the player presses M2, open up a menu that explains the skill they pressed on
 
                     if self.game.battle_mode:
                         self.image = self.pressed_image.copy()
                         self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
                         if (self.index >= 0 and self.index <= 3) and not self.game.selected_character.stunned and not self.game.actingout:
-                            self.hero.selected_skill = self.skill
                             sound = p.mixer.Sound(BUTTON_SOUND)
                             sound.play()
-                            self.game.open_menu('SELECT_SKILLS', self.hero)
+                            self.game.open_menu('SELECT_SKILLS', self.hero, skill = self.skill)
 
 
 

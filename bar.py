@@ -4,6 +4,8 @@ from settings import *
 from image import *
 from hero import Hero
 
+# bars are a type of image which display a progress bar based on the progress of the bar, which can represent health, sanity, or experience
+
 class RegularBar(Image):
 
     def __init__(self, game):
@@ -51,9 +53,12 @@ class HeroSmallHealthBar(SmallBar):
 
         if self.menu.hero != None:
             self.hero = self.menu.hero
+            # the progress of this health is a decimal value equal to some value divided by the max value it can be
             self.progress = self.hero.current_health/self.hero.max_health
+        # the maximum length of the bar is then multiplied by the decimal value in order to find how long the bar should be
         self.bar_length = min(int(216 * self.progress), 216)
 
+        # finally, the new bar is drawn with updated length
         self.bar = p.surface.Surface((self.bar_length, 12))
         self.bar.fill(RED)
 

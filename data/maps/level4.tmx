@@ -340,7 +340,7 @@
    <object id="44" name="character" x="120" y="740" width="20" height="20">
     <properties>
      <property name="character" value="BREACH"/>
-     <property name="description" value="NEED A HAND?"/>
+     <property name="description" value="HELP ME COLLECT THIS BOUNTY WILL YA?"/>
     </properties>
    </object>
    <object id="45" name="battle" x="260" y="700" width="20" height="20">

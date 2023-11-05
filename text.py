@@ -3,6 +3,9 @@ from sprite import *
 from settings import *
 from image import *
 
+# text is a type of image which uses the font loaded in main.py to draw words
+# most are very simple so will not to be explained
+
 class Text(Image):
 
     def __init__(self, game):
@@ -12,14 +15,21 @@ class Text(Image):
 
     def draw_text(self):
 
+        # first the background is filled to draw over previous text
+
         self.image.fill(BLUE)
 
         x = 0
         y = 0
 
+        # for every letter in the text
+
         for letter in self.text:
 
+            # if the character is one of the characters in the list of characters that there is an image for
+
             if letter in self.game.letters:
+                # get the image of the letter, scale it to the right size, change x by the width of this character so the next character can be drawn next to this one
                 letter_image = self.game.font[letter]
                 letter_image = p.transform.scale(letter_image, (FONT_WIDTH * self.scale, FONT_HEIGHT * self.scale))
                 self.image.blit(letter_image, (x, y))
@@ -27,6 +37,8 @@ class Text(Image):
 
             if letter == ' ':
                 x += FONT_WIDTH * self.scale
+
+            # if a new line is started, the x is reset so characters are drawn at the start of the line again, and the y is changed so characters are drawn below the last line
             
             if letter == '\n':
                 x = 0
@@ -484,7 +496,7 @@ class SkillName(Text):
         self.menu = menu
         self.hero = self.menu.hero
         self.scale = 2
-        self.text = self.hero.selected_skill.name
+        self.text = self.menu.skill.name
         self.pos = [164, 268]
         self.width = 40 * FONT_WIDTH
         self.height = 1 * FONT_HEIGHT
@@ -496,8 +508,8 @@ class SkillName(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        if self.hero.selected_skill != None:
-            self.text = self.hero.selected_skill.name
+        if self.menu.skill != None:
+            self.text = self.menu.skill.name
         
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
@@ -510,7 +522,7 @@ class SkillDesc(Text):
         self.menu = menu
         self.hero = self.menu.hero
         self.scale = 1
-        self.text = self.hero.selected_skill.desc
+        self.text = self.menu.skill.desc
         self.pos = [164, 308]
         self.width = 85 * FONT_WIDTH
         self.height = 8 * FONT_HEIGHT
@@ -522,8 +534,8 @@ class SkillDesc(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        if self.hero.selected_skill != None:
-            self.text = self.hero.selected_skill.desc
+        if self.menu.skill != None:
+            self.text = self.menu.skill.desc
         
         self.draw_text()
         self.image = p.transform.scale(self.image, (self.width * self.scale, self.height * self.scale))
@@ -567,9 +579,9 @@ class WeaponText(Text):
             level = self.hero.weapon_level
             if level < (len(WEAPON_VALUES[self.hero.type])) - 1:
                 self.text += 'DAMAGE: {}-{} -> {}-{}'.format(
-                    WEAPON_VALUES[self.hero.type][level][0],
+                    WEAPON_VALUES[self.hero.type][level][0], # gets the damage value for this heros level
                     WEAPON_VALUES[self.hero.type][level][1],
-                    WEAPON_VALUES[self.hero.type][level + 1][0],
+                    WEAPON_VALUES[self.hero.type][level + 1][0], # gets the damage value for this heros level if their level was one more
                     WEAPON_VALUES[self.hero.type][level + 1][1])
                 self.text += '\nPRECISION: {} -> {}'.format(
                     WEAPON_VALUES[self.hero.type][level][2],
@@ -773,7 +785,7 @@ class SkillDamageMultiplier(Text):
 
         self.menu = menu
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
         self.scale = 2
         self.text = 'X' + str(self.skill.multiplier)
         self.pos = [48, 384]
@@ -787,7 +799,7 @@ class SkillDamageMultiplier(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
 
         self.image.fill(BLUE)
 
@@ -807,7 +819,7 @@ class SkillCritMultiplier(Text):
 
         self.menu = menu
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
         self.scale = 2
         if self.skill.bonus_crit < 0:
             self.text = '-' + str(self.skill.bonus_crit)
@@ -826,7 +838,7 @@ class SkillCritMultiplier(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
 
         self.image.fill(BLUE)
 
@@ -849,7 +861,7 @@ class SkillPrecisionMultiplier(Text):
 
         self.menu = menu
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
         self.scale = 2
         if self.skill.bonus_precision < 0:
             self.text = '-' + str(self.skill.bonus_precision)
@@ -868,7 +880,7 @@ class SkillPrecisionMultiplier(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
 
         self.image.fill(BLUE)
 
@@ -892,7 +904,7 @@ class SkillStunMultiplier(Text):
 
         self.menu = menu
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
         self.scale = 2
         if 'STUNNING' in self.skill.effects_on_hit:
             if self.skill.bonus_stun < 0:
@@ -901,7 +913,7 @@ class SkillStunMultiplier(Text):
                 self.text = '+' + str(self.skill.bonus_stun)
             if self.skill.bonus_stun == 0:
                 self.text = '+0'
-        self.pos = [48, 464]
+        self.pos = [48, 504]
         self.width = 9 * FONT_WIDTH
         self.height = 1 * FONT_HEIGHT
 
@@ -912,7 +924,7 @@ class SkillStunMultiplier(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
 
         self.image.fill(BLUE)
 
@@ -941,7 +953,7 @@ class SkillDebuffMultiplier(Text):
 
         self.menu = menu
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
         self.scale = 2
         if self.skill.debuffing:
             if self.skill.bonus_debuff < 0:
@@ -950,7 +962,7 @@ class SkillDebuffMultiplier(Text):
                 self.text = '+' + str(self.skill.bonus_debuff)
             if self.skill.bonus_debuff == 0:
                 self.text = '+0'
-        self.pos = [48, 504]
+        self.pos = [48, 544]
         self.width = 9 * FONT_WIDTH
         self.height = 1 * FONT_HEIGHT
 
@@ -961,7 +973,7 @@ class SkillDebuffMultiplier(Text):
     def update(self):
         
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
 
         self.image.fill(BLUE)
 

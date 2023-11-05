@@ -614,7 +614,7 @@ class Enemy(Character):
 
         # various values are reset
 
-        self.game.close_menu('INVENTORY')
+        self.game.close_menu()
 
         self.effect_applied_images.clear()
 

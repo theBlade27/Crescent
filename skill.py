@@ -8,42 +8,43 @@ vec = p.math.Vector2
 
 class Skill(p.sprite.Sprite):
 
+    # each character has a list of skills
+    # skills are what are used to deal damage or heal other characters during combat
+
     def __init__(self, game, character):
 
         self.groups = game.skills_group
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game
-        self.name = ''
-        self.desc = ''
-        self.character = character
-        self.targets = []
+        self.name = '' # name of the skill
+        self.desc = '' # description of the skill
+        self.character = character # the character this skill belongs to
+        self.targets = [] # the targets this skill is going to be used on
 
-        self.range = [0, 0]
-        self.multiplier = 1
-        self.targets_all_in_range = False
-        self.splash = 0
-        self.heals = False
-        self.sanity_recovering = False
-        self.sanity_reducing = False
-        self.debuffing = False
+        self.range = [0, 0] # the minimum and maximum range in tiles this skill can target characters in
+        self.multiplier = 1 # the damage/healing multiplier (for example some skills deal more or less damage for a tradeoff)
+        self.targets_all_in_range = False # whether this skill targets every single character in its range
+        self.splash = 0 # the amount of tiles around the target that are also affected by the skill
+        self.heals = False # whether the skill damages or heals
+        self.sanity_recovering = False # whether the skill increases sanity
+        self.sanity_reducing = False # whether the skill decreases sanity
+        self.debuffing = False # whether this skill applies debuffs
 
-        self.effects_on_hit = []
-        self.effects_on_user = []
+        self.effects_on_hit = [] # the effects this skill applies on targets it is used on
+        self.effects_on_user = [] # the effects this skill applies on the character that uses it
 
-        self.bonus_stun = 0
-        self.bonus_debuff = 0
-
-        self.bonus_crit = 0
-
-        self.bonus_precision = 0
+        self.bonus_stun = 0 # bonus chance to stun
+        self.bonus_debuff = 0 # bonus chance to add debuffs
+        self.bonus_crit = 0 # bonus chance to crit
+        self.bonus_precision = 0 # bonus chance to hit
 
         self.combat_animation = p.Surface((1, 1))
         self.combat_animation.fill(BLACK)
 
-        self.mark_damage_multiplier = 1
+        self.mark_damage_multiplier = 1 # bonus damage to marked targets
 
-        self.barks = []
+        self.barks = [] # things the character may say after using this skill
 
     def update(self):
 
@@ -58,12 +59,14 @@ class Skill(p.sprite.Sprite):
 
         self.targets = []
 
-        self.text = ''
+        self.text = '' # this text will be displayed at the top of the screen
 
         crit = False
         dodged = False
         missed = False
 
+        # these numbers will be displayed to the player on the combat animation to show how effective a skill is
+        # for example, it would show how much damage an attack did after it is used
         damage_numbers = []
         heal_numbers = []
         sanity_heal_numbers = []
@@ -71,30 +74,56 @@ class Skill(p.sprite.Sprite):
 
         if self.game.actingout:
 
+            # if the character using this skill is acting out, say something from the characters list of 'actoutbarks'
+
             if self.character.barking == False:
 
                 BarkTimer(self.game, self.character, random.choice(self.character.actoutbarks))
 
         for tile in tiles:
 
+            # gets a list of every character who is standing on the tiles that are passed into this function
+
             for character in self.game.characters:
                 if character.grid_pos == tile.grid_pos:
                     self.targets.append(character)
 
+        # if this skill does damage
+
         if self.heals == False:
 
+            # for every target that needs to be damaged
+
             for target in self.targets:
+
+                # the damage they should take is found by choosing a random number from the user of this skills damage range and multiply it by the multiplier of this skill
+
                 damage = random.randint(int(self.character.damage[0]), int(self.character.damage[1])) * self.multiplier
+
+                # then the amount the targets health goes down by is calculated by the 'calculate_damage_dealt' function which is in the Character class
+                # as well as this, information about exactly how much damage was dealt after everything was accounted for, whether it crit, whether it missed and whether the character dodged are returned
+
                 damage, crit, missed, dodged = target.calculate_damage_dealt(damage, self.character)
+
+                # if the character crit, increase their sanity
                 if crit:
                     self.character.calculate_sanity_increase(5)
 
+                # if the character got to deaths door
+
                 if target.deaths_door == True:
+
+                    # if the character is still alive, the text must change to indicate that character is almost dead
+
                     if target in self.game.battle.all_characters:
                         self.text += '{} IS ON THE BRINK OF DEATH!\n'.format(target.name)
                         target.effect_applied_images.append(DeathsDoor(self.game, None).image)
                     else:
+
+                    # otherwise, say they aer dead
                         self.text += '{} MET THEIR END.\n'.format(target.name)
+
+                # if the attack crit, add the word CRIT in front of the damage text that is displayed and make the character say something
 
                 if (not missed) and (not dodged):
 
@@ -109,7 +138,11 @@ class Skill(p.sprite.Sprite):
 
                     else:
 
+                        # otherwise, just write the word normally
+
                         damage_numbers.append(str(int(damage)))
+
+                # indicate to the player if the attack was missed or the target dodged
 
                 elif missed:
 
@@ -119,6 +152,8 @@ class Skill(p.sprite.Sprite):
 
                     damage_numbers.append('DODGED')
 
+        # same but for sanity recovering skills
+
         if self.sanity_recovering == True:
 
             for target in self.targets:
@@ -127,6 +162,8 @@ class Skill(p.sprite.Sprite):
 
                 sanity_heal_numbers.append(sanity)
 
+        # same but for sanity reducing skills
+
         if self.sanity_reducing == True:
 
             for target in self.targets:
@@ -134,6 +171,8 @@ class Skill(p.sprite.Sprite):
                 sanity = int(target.calculate_sanity_decrease(sanity_reduction))
 
                 sanity_damage_numbers.append(sanity)
+
+        # same but for healing skills
 
         if self.heals == True:
 
@@ -152,16 +191,25 @@ class Skill(p.sprite.Sprite):
 
                     heal_numbers.append(str(int(healing)))
 
+        # for every effect in 'effects_on_user', apply that effect on the user
 
         for effect in self.effects_on_user:
 
+            # if the effect is STRENGTH
+
             if effect == 'STRENGTH':
+
+                # remove strength
         
                 for effect in self.character.effects:
                     if type(effect) == Strength:
                         effect.remove_effect()
 
+                # then apply it again to reset the timer
+
                 self.character.effects.append(Strength(self.game, self.character))
+
+                # then add an image of the effect to the combat animation so the player knows the strength effect has been applied to the user
                 self.character.effect_applied_images.append(Strength(self.game, None).image)
 
             if effect == 'STRENGTH2':
@@ -290,29 +338,66 @@ class Skill(p.sprite.Sprite):
                 self.character.effects.append(Protection3(self.game, self.character))
                 self.character.effect_applied_images.append(Protection3(self.game, None).image)
 
+            if effect == 'DODGE':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Dodge:
+                        effect.remove_effect()
 
+                self.character.effects.append(Dodge(self.game, self.character))
+                self.character.effect_applied_images.append(Dodge(self.game, None).image)
+
+            if effect == 'DODGE2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Dodge2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Dodge2(self.game, self.character))
+                self.character.effect_applied_images.append(Dodge2(self.game, None).image)
+
+            if effect == 'DODGE3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Dodge3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Dodge3(self.game, self.character))
+                self.character.effect_applied_images.append(Dodge3(self.game, None).image)
+
+        # same but for effects applied on targets
 
         for target in self.targets:
 
+            # reset the targets list of applied effects
+
             target.effect_applied_images.clear()
 
-            i = 0
+            # for every effect this skill applies
 
             for effect in self.effects_on_hit:
+
+                # if the skill actually hit
                     
                 if (not missed) and (not dodged):
+
+                    # if the effect is BURNING
                 
                     if effect == 'BURNING':
 
-
+                        # using a random number, decide if the effect is actually applied, with this skills 'bonus_debuff' property increasing the chance
                         rand = random.randint(0, 100)
 
                         rand += self.bonus_debuff
+
+                        # if the random number is greater than the targets resistance to debuffs, it is successful
 
                         if rand >= self.character.fire:
                             self.successful = True
                         else:
                             self.successful = False
+
+                        # if it is successful, apply the effect
 
                         if self.successful:
 
@@ -322,6 +407,8 @@ class Skill(p.sprite.Sprite):
 
                             target.effects.append(Burning(self.game, target))
                             target.effect_applied_images.append(Burning(self.game, None).image)
+
+                        # if not, a cross will be drawn to indicate to the player that the effect was not applied
 
                         else:
 
@@ -657,6 +744,33 @@ class Skill(p.sprite.Sprite):
                         target.effects.append(Strength3(self.game, target))
                         target.effect_applied_images.append(Strength3(self.game, None).image)
 
+                    if effect == 'DODGE':
+        
+                        for effect in target.effects:
+                            if type(effect) == Dodge:
+                                effect.remove_effect()
+
+                        target.effects.append(Dodge(self.game, target))
+                        target.effect_applied_images.append(Dodge(self.game, None).image)
+
+                    if effect == 'DODGE2':
+        
+                        for effect in target.effects:
+                            if type(effect) == Dodge2:
+                                effect.remove_effect()
+
+                        target.effects.append(Dodge2(self.game, target))
+                        target.effect_applied_images.append(Dodge2(self.game, None).image)
+
+                    if effect == 'DODGE3':
+        
+                        for effect in target.effects:
+                            if type(effect) == Dodge3:
+                                effect.remove_effect()
+
+                        target.effects.append(Dodge3(self.game, target))
+                        target.effect_applied_images.append(Dodge3(self.game, None).image)
+
                     if effect == 'CRIT':
         
                         for effect in target.effects:
@@ -981,7 +1095,7 @@ class Skill(p.sprite.Sprite):
 
                             target.effect_applied_images.append(p.transform.scale(CROSS, [40, 40]))
 
-                i += 1
+        # reset things
 
         for tile in self.game.menus['BATTLE'].tiles:
             tile.being_targeted = False
@@ -991,18 +1105,28 @@ class Skill(p.sprite.Sprite):
 
         self.character.has_used_skill = True
 
+        # play this skills sound if it went through
+
         if not dodged and not missed:
 
             self.sound.play()
 
         else:
 
+            # or play the MISS_SOUND if it missed
+
             sound = p.mixer.Sound(MISS_SOUND)
             sound.play()
 
+        # play combat animations, displaying how effective the skill was using the numbers calculated earlier
+
         self.game.play_combat_animations(self.character, self.targets, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers)
 
+        # after this timer is up, the combat animation is killed and the next character starts their turn
+
         ShowSkillEffectivenessTimer(self.game, self.character, self.text)
+
+        # there is a 1 in 3 chance the character says something related to the skill they used
 
         rand = random.randint(1, 3)
 
@@ -1013,6 +1137,8 @@ class Skill(p.sprite.Sprite):
                 if self.character.barking == False:
 
                     BarkTimer(self.game, self.character, random.choice(self.barks))
+
+# this is pretty much the same but for enemies instead
 
 class EnemySkill(Skill):
 
@@ -1253,6 +1379,33 @@ class EnemySkill(Skill):
 
                 self.character.effects.append(Protection3(self.game, self.character))
                 self.character.effect_applied_images.append(Protection3(self.game, None).image)
+
+            if effect == 'DODGE':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Dodge:
+                        effect.remove_effect()
+
+                self.character.effects.append(Dodge(self.game, self.character))
+                self.character.effect_applied_images.append(Dodge(self.game, None).image)
+
+            if effect == 'DODGE2':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Dodge2:
+                        effect.remove_effect()
+
+                self.character.effects.append(Dodge2(self.game, self.character))
+                self.character.effect_applied_images.append(Dodge2(self.game, None).image)
+
+            if effect == 'DODGE3':
+        
+                for effect in self.character.effects:
+                    if type(effect) == Dodge3:
+                        effect.remove_effect()
+
+                self.character.effects.append(Dodge3(self.game, self.character))
+                self.character.effect_applied_images.append(Dodge3(self.game, None).image)
 
 
         for character in characters:
@@ -1616,6 +1769,33 @@ class EnemySkill(Skill):
                         character.effects.append(Strength3(self.game, character))
                         character.effect_applied_images.append(Strength3(self.game, None).image)
 
+                    if effect == 'DODGE':
+        
+                        for effect in character.effects:
+                            if type(effect) == Dodge:
+                                effect.remove_effect()
+
+                        character.effects.append(Dodge(self.game, character))
+                        character.effect_applied_images.append(Dodge(self.game, None).image)
+
+                    if effect == 'DODGE2':
+        
+                        for effect in character.effects:
+                            if type(effect) == Dodge2:
+                                effect.remove_effect()
+
+                        character.effects.append(Dodge2(self.game, character))
+                        character.effect_applied_images.append(Dodge2(self.game, None).image)
+
+                    if effect == 'DODGE3':
+        
+                        for effect in character.effects:
+                            if type(effect) == Dodge3:
+                                effect.remove_effect()
+
+                        character.effects.append(Dodge3(self.game, character))
+                        character.effect_applied_images.append(Dodge3(self.game, None).image)
+
                     if effect == 'CRIT':
         
                         for effect in character.effects:
@@ -1960,7 +2140,7 @@ class EnemySkill(Skill):
 
         ShowSkillEffectivenessTimer(self.game, self.character, self.text)
         
-
+# this skill is used when an enemy wants to move to another tile
 class EnemyMove(EnemySkill):
 
     def __init__(self, game, character):
@@ -1974,9 +2154,13 @@ class EnemyMove(EnemySkill):
 
         character = self.game.selected_character
 
+        # makes the tile this character is standing in not obstructed, as this character is about to move away from it
+
         for tile in menu.tiles:
             if tile.grid_pos == character.grid_pos:
                 tile.obstructed = False
+
+        # changes the direction this character is facing dependent on whether the x component of the distance is positive or negative
 
         distance = vec(target_tile) - vec(character.grid_pos)
         if distance[0] > 0:
@@ -1984,7 +2168,11 @@ class EnemyMove(EnemySkill):
         elif distance[0] < 0:
             character.flipped = True
 
+        # changes the image to be flipped to the new direction
+
         character.image = p.transform.flip(character.images[character.current_frame], character.flipped, False)
+
+        # the characters position is changed
 
         character.grid_pos = target_tile
 
@@ -2024,6 +2212,8 @@ class HeroRetreat(Skill):
 
         self.game.battle.end_battle()
 
+# pretty much the same as EnemyMove but also updates the battle map to show which tiles can be moved to whenever this is selected
+
 class HeroMove(Skill):
 
     def __init__(self, game, character):
@@ -2035,13 +2225,21 @@ class HeroMove(Skill):
 
     def update(self):
 
+        # if this skill is selected
+
         if self == self.game.selected_character.selected_skill:
             menu = self.game.menus['BATTLE']
+
+            # for every tile
             for tile in menu.tiles:
+
+                # if the distance betwen this tile and the character trying to move is smaller than the characters mobility stat
                 distance = vec(tile.grid_pos[0], tile.grid_pos[1]) - vec(self.game.selected_character.grid_pos[0], self.game.selected_character.grid_pos[1])
                 if distance.length() < self.game.selected_character.mobility:
+                    # the tile is traversable
                     tile.traversable = True
                 else:
+                    # otherwise it isnt
                     tile.traversable = False
 
     def use_skill(self, target_tile):

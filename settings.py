@@ -49,12 +49,14 @@ BLACK = (0, 0, 0)
 FAKEBLACK = (1, 1, 1)
 WHITE = (255, 255, 255)
 RED = (228, 59, 68)
-DARKBLUE = (18, 14, 25)
+DARKBLUE = (24, 20, 37)
 BLUE = (38, 43, 68)
+LIGHTBLUE = (58, 68, 102)
 YELLOW = (254, 231, 97)
 GREEN = (99, 199, 77)
 DARKGREEN = (62, 137, 72)
 BEIGE = (234, 212, 170)
+DARKBEIGE = (228, 166, 114)
 ORANGE = (247, 118, 34)
 PURPLE = (104, 56, 108)
 
@@ -331,7 +333,8 @@ MENU_SPRITESHEETS = {
     'NEWGAMEBACKGROUND': p.image.load(path.join(backgrounds_folder, 'newgamebackground.png')),
     'PLAYBUTTON': p.image.load(path.join(buttons_folder, 'play.png')),
     'UPGRADE': p.image.load(path.join(buttons_folder, 'upgrade_button.png')),
-    'NPC_TEXTBOX': p.image.load(path.join(UI_folder, 'NPCtext.png'))
+    'NPC_TEXTBOX': p.image.load(path.join(UI_folder, 'NPCtext.png')),
+    'INSTRUCTIONS': p.image.load(path.join(backgrounds_folder, 'instructions.png'))
 }
 
 FONT = p.image.load(path.join(UI_folder, 'font.png'))

@@ -36,8 +36,7 @@ class CalculateSkillTimer(Timer):
         self.character = character
         self.change_in_health = change_in_health
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
 
@@ -71,8 +70,7 @@ class PlayerTurnTimer(Timer):
         self.character = character
         self.change_in_health = change_in_health
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
 
@@ -109,8 +107,7 @@ class EnemyIsMovingTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
 
@@ -132,8 +129,7 @@ class HeroIsMovingTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
 
@@ -155,8 +151,7 @@ class EnemyIsAttackingTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
 
@@ -183,8 +178,7 @@ class HeroIsAttackingTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
 
@@ -206,8 +200,7 @@ class NextTurnTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
         
@@ -225,8 +218,7 @@ class ShowSkillEffectivenessTimer(Timer):
         self.text = text
         self.character = character
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
 
@@ -263,8 +255,7 @@ class StunnedTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu('INVENTORY')
-        self.game.close_menu('SELECT_SKILLS')
+        self.game.close_menu()
 
     def update(self):
 

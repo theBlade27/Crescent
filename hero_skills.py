@@ -56,7 +56,7 @@ class Command(HeroSkill):
         self.image = self.spritesheet.get_sprite(20, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 14]
+        self.range = [0, 12]
 
         self.multiplier = 0
 
@@ -112,7 +112,7 @@ class FalseHopes(HeroSkill):
         self.image = self.spritesheet.get_sprite(60, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 14]
+        self.range = [0, 12]
 
         self.targets_enemies = False
 

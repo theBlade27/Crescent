@@ -135,14 +135,24 @@ class Battle(p.sprite.Sprite):
         # the game checks if every battle of the map has beaten to know if the next level can be unlocked yet
         self.game.check_stage_clear()
 
-        # a menu opens showing the generated loot
-        self.game.open_menu('LOOT', loot_list = self.items, money = money)
+        # if this battle is the final battle, show the final cutscene
 
-        # the players money is increased
-        self.game.money += money
+        if self.battle == 'L4B4':
 
-        for menu in self.game.menus.values():
-            menu.update_images()
+            CutScene(self.game, 'victory')
+
+        # otherwise
+
+        else:
+
+            # a menu opens showing the generated loot
+            self.game.open_menu('LOOT', loot_list = self.items, money = money)
+
+            # the players money is increased
+            self.game.money += money
+
+            for menu in self.game.menus.values():
+                menu.update_images()
 
         
 

@@ -60,6 +60,8 @@ class Game:
 
         self.set_up_variables(True)
 
+        self.open_menu('INSTRUCTIONS')
+
     def end_game(self, reset):
 
         # depending on whether the game needs to reset completely or the game just needs to switch to the next level, this function can do two things
@@ -393,7 +395,7 @@ class Game:
         # creates a battle object based on the string that is passed in as a parameter
         self.battle = Battle(self, type)
 
-    def open_menu(self, menu, character = None, loot_list = None, text = None, money = None, items = None, object = None):
+    def open_menu(self, menu, character = None, loot_list = None, text = None, money = None, items = None, object = None, skill = None):
 
         # this function opens up menus and ensures they have the correct parameters
 
@@ -401,10 +403,7 @@ class Game:
 
             # makes sure that any menus are closed before opening new ones to prevent overlap
 
-            self.close_menu('INVENTORY')
-            self.close_menu('SELECT_SKILLS')
-            self.close_menu('UPGRADE')
-            self.close_menu('TRADER')
+            self.close_menu()
 
             if character == None:
 
@@ -416,40 +415,27 @@ class Game:
 
         if menu == 'LOOT':
 
-            self.close_menu('INVENTORY')
-            self.close_menu('SELECT_SKILLS')
-            self.close_menu('UPGRADE')
-            self.close_menu('TRADER')
+            self.close_menu()
 
             self.menus[menu] = Loot(self, loot_list, money)
 
         if menu == 'SELECT_SKILLS':
 
-            self.close_menu('INVENTORY')
-            self.close_menu('SELECT_SKILLS')
-            self.close_menu('UPGRADE')
-            self.close_menu('TRADER')
+            self.close_menu()
 
-            self.menus[menu] = SkillInfo(self, character)
+            self.menus[menu] = SkillInfo(self, character, skill)
 
             if type(self.selected_character) == Hero:
                 self.selected_character.selected_skill == None
 
         if menu == 'TRADER':
 
-            self.close_menu('INVENTORY')
-            self.close_menu('SELECT_SKILLS')
-            self.close_menu('UPGRADE')
-            self.close_menu('TRADER')
-
+            self.close_menu()
             self.menus[menu] = Trader(self, items, object)
 
         if menu == 'UPGRADE':
 
-            self.close_menu('INVENTORY')
-            self.close_menu('SELECT_SKILLS')
-            self.close_menu('UPGRADE')
-            self.close_menu('TRADER')
+            self.close_menu()
 
             if character == None:
 
@@ -459,37 +445,30 @@ class Game:
 
                 self.menus[menu] = Upgrade(self, character)
 
+        if menu == 'INSTRUCTIONS':
+
+            self.close_menu()
+            self.menus[menu] = Instructions(self)
+
         if menu == 'BARK':
 
             self.menus[menu] = Bark(self, character, text)
 
-    def close_menu(self, menu):
+    def close_menu(self):
 
         # closes menus
 
-        if menu == 'INVENTORY':
-
-            for menu in self.menus.values():
-                if type(menu) == Inventory:
-                    menu.kill()
-
-        if menu == 'SELECT_SKILLS':
-
-            for menu in self.menus.values():
-                if type(menu) == SkillInfo:
-                    menu.kill()
-
-        if menu == 'UPGRADE':
-
-            for menu in self.menus.values():
-                if type(menu) == Upgrade:
-                    menu.kill()
-
-        if menu == 'TRADER':
-
-            for menu in self.menus.values():
-                if type(menu) == Trader:
-                    menu.kill()
+        for menu in self.menus.values():
+            if type(menu) == Inventory:
+                menu.kill()
+            if type(menu) == SkillInfo:
+                menu.kill()
+            if type(menu) == Upgrade:
+                menu.kill()
+            if type(menu) == Trader:
+                menu.kill()
+            if type(menu) == Instructions:
+                menu.kill()
 
     def generate_loot(self, type, common = [1, 2], rare = [1, 1], very_rare = [0, 1]):
 
@@ -756,7 +735,13 @@ class Game:
 
         # this function also checks if the player has lost, and resets the game when they do, as well as playing a game over cutscene
 
-        if len(self.hero_party) == 0:
+        hero_found = False
+
+        for hero in self.hero_party:
+            if hero != None:
+                hero_found = True
+
+        if hero_found == False:
             self.reset_game()
             CutScene(self, 'gameover')
 
@@ -827,17 +812,40 @@ class Game:
                 if event.key == p.K_ESCAPE:
                     self.quit()
 
+                if event.key == p.K_c:
+
+                    self.clear_view = not self.clear_view
+
+                """
+
                 if event.key == p.K_UP:
                     for hero in self.hero_party:
                         if hero != None:
-                            hero.current_sanity = min(hero.max_sanity, hero.current_sanity + 20)
+                            hero.calculate_sanity_increase(20)
                     for menu in self.menus.values():
                         menu.update_images()
 
                 if event.key == p.K_DOWN:
                     for hero in self.hero_party:
                         if hero != None:
-                            hero.current_sanity = max(0, hero.current_sanity - 20)
+                            hero.calculate_sanity_decrease(20)
+                    for menu in self.menus.values():
+                        menu.update_images()
+
+                if event.key == p.K_LEFT:
+                    for hero in self.hero_party:
+                        if hero != None:
+                            hero.calculate_damage_dealt(5, debuff = True)
+                    for menu in self.menus.values():
+                        menu.update_images()
+
+                if event.key == p.K_RIGHT:
+                    for hero in self.hero_party:
+                        if hero != None:
+                            hero.current_health = min(hero.max_health, hero.current_health + 5)
+                            for effect in hero.effects:
+                                if type(effect) == DeathsDoor:
+                                    effect.remove_effect()
                     for menu in self.menus.values():
                         menu.update_images()
 
@@ -845,20 +853,20 @@ class Game:
 
                     self.debug = not self.debug
 
-                if event.key == p.K_c:
-
-                    self.clear_view = not self.clear_view
-
                 if event.key == p.K_q:
 
                     self.open_menu('INVENTORY')
+
+                if event.key == p.K_n:
+
+                    self.next_level(MAPS['DESERT4'])
 
                 if event.key == p.K_b:
 
                     self.start_battle('L4B4')
 
                 if event.key == p.K_l:
-                    CutScene(self, 'gameover')
+                    CutScene(self, 'victory')
 
                 if event.key == p.K_t:
 
@@ -866,6 +874,8 @@ class Game:
                         if hero != None:
                             for effect in hero.effects:
                                 effect.tick()
+
+                """
 
 
     def quit(self):

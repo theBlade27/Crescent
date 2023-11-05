@@ -3,6 +3,10 @@ from sprite import *
 from settings import *
 from hero import *
 
+# images are very simple, but also very important, as every menu has a list of these
+# most of these are self explanatory, they are just images that dont change, or will change only very slightly
+# some are more complex, and will be explained
+
 class Image(p.sprite.Sprite):
 
     def __init__(self, game):
@@ -351,6 +355,8 @@ class HeroPreviewSlot(Image):
 
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
 
+            # when M1 is clicked, change the games selected character and change the cameras focus to this new character
+
             if self.game.mouse.pressed['M1']:
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
                 if self.game.battle_mode == False:
@@ -393,6 +399,7 @@ class HeroUpgradePortraitSlot(Image):
         if self.hitbox.collidepoint(self.game.mouse.pos):
 
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+            # when M1 is pressed, update the menu to show the armour and weapon levels of the character that was clicked on
             if self.game.mouse.pressed['M1']:
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
                 if self.game.hero_party[self.index] != None:
@@ -432,6 +439,7 @@ class HeroInventoryPortraitSlot(Image):
         if self.hitbox.collidepoint(self.game.mouse.pos):
 
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+            # if M1 is pressed, change the character whose stats are being displayed to this characters
             if self.game.mouse.pressed['M1']:
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
                 if self.game.hero_party[self.index] != None:
@@ -477,28 +485,13 @@ class HeroInventorySkillSlot(Image):
             if self.hitbox.collidepoint(self.game.mouse.pos):
 
                 self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+
+                # when M1 is pressed, bring up a menu showing this characters skills
                 if self.game.mouse.pressed['M1']:
-                    self.hero.selected_skill = self.hero.skills[self.index]
+                    skill = self.game.selected_character.skills[self.index]
                     sound = p.mixer.Sound(BUTTON_SOUND)
                     sound.play()
-                    self.game.menus['BOTTOM'].update_images()
-
-                if self.game.mouse.pressed['M2']:
-                    if self.hero.selected_skill != self.hero.skills[self.index]:
-                        self.hero.selected_skill = self.hero.skills[self.index]
-                        sound = p.mixer.Sound(BUTTON_SOUND)
-                        sound.play()
-                        self.game.menus['BOTTOM'].update_images()
-                        self.game.open_menu('SELECT_SKILLS', self.hero)
-                    else:
-                        self.hero.selected_skill = None
-                        sound = p.mixer.Sound(BUTTON_SOUND)
-                        sound.play()
-                        self.game.menus['BOTTOM'].update_images()
-                        self.game.open_menu('SELECT_SKILLS', self.hero)
-
-            if self.hero.selected_skill == self.hero.skills[self.index]:
-                self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+                    self.game.open_menu('SELECT_SKILLS', self.hero, skill = skill)
 
             if self.game.selected_character == None:
                 self.image.fill(BLUE)
@@ -706,7 +699,7 @@ class SkillRangeIndicator(Image):
     def update(self):
 
         self.hero = self.menu.hero
-        skill = self.hero.selected_skill
+        skill = self.menu.skill
 
         self.image.blit(self.out_of_range_image, [0, 0])
 
@@ -780,13 +773,15 @@ class OnUseEnemyEffectDisplay(Image):
     def update(self):
 
         self.hero = self.menu.hero
-        skill = self.hero.selected_skill
+        skill = self.menu.skill
 
         self.image.fill(BLUE)
 
         if skill != None:
 
             if self.index < len(skill.effects_on_user):
+
+                # based on the index of this image, get the effect of the same index in the skills effects it applies on the user and then draw the images effect
 
                 if skill.effects_on_user[self.index] == 'BURNING':
 
@@ -976,13 +971,15 @@ class OnHitEnemyEffectDisplay(Image):
     def update(self):
 
         self.hero = self.menu.hero
-        skill = self.hero.selected_skill
+        skill = self.menu.skill
 
         self.image.fill(BLUE)
 
         if skill != None:
 
             if self.index < len(skill.effects_on_hit):
+
+                # based on the index of this image, get the effect of the same index in the skills effects it applies on the target and then draw the images effect
 
                 if skill.effects_on_hit[self.index] == 'BURNING':
 
@@ -1330,11 +1327,18 @@ class StorageSlot(Image):
 
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
 
+            # if the player mouse is hovering over an item and it is not empty, update the text at the top of the screen to display their description
+
             if self.game.inventory[self.index] != None:
                 self.game.textbox_text = self.game.inventory[self.index].desc
                 self.game.textbox_text += '\nCOST:${}'.format(self.game.inventory[self.index].cost)
 
+
+            # when they press M1
+
             if self.game.mouse.pressed['M1']:
+
+                # if they are pressing shift, delete the item they clicked on and then increase the players money by the cost of the item
 
                 if self.game.deleting:
                     if self.game.inventory[self.index] != None:
@@ -1344,15 +1348,23 @@ class StorageSlot(Image):
                         sound.play()
                         self.game.menus['TOP'].update_images()
 
+                # if the player is not currently selecting equipment
+
                 elif self.game.selecting_equipment == False:
+
+                    # if the player has not already selected an item, select the item in this item slot
                     if self.game.selected_item == None:
                         self.game.selected_item = self.game.inventory[self.index]
                         sound = p.mixer.Sound(BUTTON_SOUND)
                         sound.play()
+
+                    # otherwise, if the player clicks on the item and it is already selected, unselect it
                     elif self.game.selected_item == self.game.inventory[self.index]:
                         self.game.selected_item = None
                         sound = p.mixer.Sound(BUTTON_SOUND)
                         sound.play()
+
+                    # otherwise, if the player clicks on another item whilst they have an item selected, swap the two items
                 
                     else:
 
@@ -1366,13 +1378,21 @@ class StorageSlot(Image):
                             sound.play()
 
                 else:
+
+                    # if the player is selecting equipment
                     for i in range(3):
                         if 'INVENTORY' in self.game.menus:
                             if self.menu == self.game.menus['INVENTORY']:
+
+                                # if this slot isnt empty and the item is equipable
                                 if self.game.inventory[self.index] != None:
                                     if self.game.inventory[self.index].equipable:
+
+                                        # if the item can be equipped by the selected character
                                         if self.game.inventory[self.index].character == self.menu.hero.type or self.game.inventory[self.index].character == 'ANY':
                                             if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
+
+                                                # swap the item in the inventory and the item in this equipment slot
                                                 temp = self.menu.hero.equipment[i]
                                                 if self.menu.hero.equipment[i] != None:
                                                     self.menu.hero.equipment[i].remove_item(self.menu.hero)
@@ -1383,6 +1403,8 @@ class StorageSlot(Image):
                                                 self.game.selecting_equipment = False
                                                 sound = p.mixer.Sound(BUTTON_SOUND)
                                                 sound.play()
+
+                                # otherwise, remove the item from the equipment slot
                                 elif self.game.inventory[self.index] == None:
                                     temp = self.menu.hero.equipment[i]
                                     if self.menu.hero.equipment[i] != None:
@@ -1393,20 +1415,8 @@ class StorageSlot(Image):
                                     self.game.selecting_equipment = False
                                     sound = p.mixer.Sound(BUTTON_SOUND)
                                     sound.play()
-
-                        else:
-                            if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
-                                temp = self.menu.hero.equipment[i]
-                                if self.menu.hero.equipment[i] != None:
-                                    self.menu.hero.equipment[i].remove_item(self.menu.hero)
-                                self.menu.hero.equipment[i] = self.game.inventory[self.index]
-                                self.game.inventory[self.index] = temp
-                                self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
-                                self.game.selecting_equipment = False
-                                sound = p.mixer.Sound(BUTTON_SOUND)
-                                sound.play()
                             
-
+            # if the player presses M2, use the item on the selected character
             if self.game.mouse.pressed['M2']:
 
                 self.game.selected_item = self.game.inventory[self.index]
@@ -1559,11 +1569,15 @@ class TraderSlot(Image):
                 self.game.textbox_text += '\nCOST:${}'.format(self.menu.object.inventory[self.index].cost)
 
             self.image = colour_swap(self.image, FAKEBLACK, WHITE)
+            # if the player pressed M1
             if self.game.mouse.pressed['M1']:
                 self.game.selected_item = self.menu.object.inventory[self.index]
+
+                # if this slot has an item and the player has enough money
                 if self.game.selected_item != None:
                     if self.game.money >= self.game.selected_item.cost:
                         slotfound, slot = self.game.check_inventory_full()
+                        # if there is space in the inventory, add the item to the inventory and reduce the players money by the items cost
                         if slotfound == True:
                             self.game.inventory[slot] = self.game.selected_item
                             self.menu.object.inventory[self.index] = None
@@ -1663,9 +1677,9 @@ class SkillDamageIcon(Image):
 
         self.image.fill(BLUE)
 
-        if self.menu.hero.selected_skill != None:
+        if self.menu.skill != None:
 
-            if self.menu.hero.selected_skill.heals == False:
+            if self.menu.skill == False:
 
                 self.image.blit(self.damage_icon, [0, 0])
 
@@ -1720,16 +1734,16 @@ class SkillStunIcon(Image):
 
         self.image = self.icon.copy()
 
-        self.pos = [8, 464]
+        self.pos = [8, 504]
         self.menu = menu
 
     def update(self):
 
         self.image.fill(BLUE)
 
-        if self.menu.hero.selected_skill != None:
+        if self.menu.skill != None:
 
-            if 'STUNNING' in self.menu.hero.selected_skill.effects_on_hit:
+            if 'STUNNING' in self.menu.skill.effects_on_hit:
 
                 self.image.blit(self.icon, [0, 0])
 
@@ -1742,18 +1756,15 @@ class SkillDebuffIcon(Image):
 
         self.image = self.icon.copy()
 
-        self.pos = [8, 504]
+        self.pos = [8, 544]
         self.menu = menu
 
     def update(self):
 
         self.image.fill(BLUE)
 
-        if self.menu.hero.selected_skill != None:
-
-            if self.menu.hero.selected_skill.debuffing:
-
-                self.image.blit(self.icon, [0, 0])
+        if self.menu.skill.debuffing:
+            self.image.blit(self.icon, [0, 0])
 
 class SkillInfoImage(Image):
 
@@ -1786,7 +1797,7 @@ class SelectedSkillImage(Image):
 
         self.menu = menu
         self.hero = self.menu.hero
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
         if self.skill == None:
             self.skill = self.hero.skills[0]
 
@@ -1801,7 +1812,7 @@ class SelectedSkillImage(Image):
     def update(self):
 
         self.hero = self.menu.hero 
-        self.skill = self.hero.selected_skill
+        self.skill = self.menu.skill
         if self.skill == None:
             self.skill = self.hero.skills[0]
 
@@ -1841,12 +1852,12 @@ class SkillInfoSlot(Image):
 
                 self.image = colour_swap(self.image, FAKEBLACK, WHITE)
                 if self.game.mouse.pressed['M1']:
-                    self.hero.selected_skill = self.hero.skills[self.index]
+                    self.menu.skill = self.hero.skills[self.index]
                     sound = p.mixer.Sound(BUTTON_SOUND)
                     sound.play()
                     self.game.menus['BOTTOM'].update_images()
 
-            if self.hero.selected_skill == self.hero.skills[self.index]:
+            if self.menu.skill == self.hero.skills[self.index]:
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
 
 

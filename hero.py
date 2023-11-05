@@ -83,7 +83,7 @@ class Hero(Character):
                 FalseHopes(self.game, self),
                 HeroMove(self.game, self),
                 HeroSkip(self.game, self),
-                HeroRetreat(self.game, self), # this skill was is used to retreat from battle
+                #HeroRetreat(self.game, self), # this skill was used to retreat from battle, but has been removed
                 BladeActOut(self.game, self) # this skill can never be accessed by the player, and is only used when the character has gone insane and performs an action by themself
 
             ]
@@ -149,7 +149,7 @@ class Hero(Character):
                 Rekindle(self.game, self),
                 HeroMove(self.game, self),
                 HeroSkip(self.game, self),
-                HeroRetreat(self.game, self),
+                #HeroRetreat(self.game, self),
                 ArcaneActOut(self.game, self)
             ]
 
@@ -214,7 +214,7 @@ class Hero(Character):
                 Firestarter(self.game, self),
                 HeroMove(self.game, self),
                 HeroSkip(self.game, self),
-                HeroRetreat(self.game, self),
+                #HeroRetreat(self.game, self),
                 BreachActOut(self.game, self)
             ]
 
@@ -316,7 +316,7 @@ class Hero(Character):
 
         # mostly the same as the Enemy 'start_turn' function
 
-        self.game.close_menu('INVENTORY')
+        self.game.close_menu()
 
         # values reset
 
@@ -770,6 +770,12 @@ class Hero(Character):
 
         self.current_sanity = max(0, self.current_sanity - amount)
 
+        if self.current_sanity == 0:
+            self.insane = True
+
+        if self.insane:
+            self.effects.append(Insanity(self.game, self))
+
         return amount
 
     def calculate_sanity_increase(self, amount):
@@ -785,6 +791,14 @@ class Hero(Character):
         amount = int(amount)
 
         self.current_sanity = min(self.max_sanity, self.current_sanity + amount)
+
+        if self.current_sanity > 50:
+            self.insane = False
+
+        if self.insane == False:
+            for effect in self.effects:
+                if type(effect) == Insanity:
+                    effect.remove_effect()
 
         return amount
 
@@ -830,6 +844,8 @@ class Hero(Character):
 
 
             self.kill()
+
+            self.game.tick_check()
 
 
 

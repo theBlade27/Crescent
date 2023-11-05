@@ -20,12 +20,17 @@ class CutScene(p.sprite.Sprite):
 
         if category == 'gameover':
             self.scenes = ['gameover', 'crescentscene'] # each scene in the cutscene
-            self.lengths = [4, 30] # the amount of frames in each scene
+            self.lengths = [3, 30] # the amount of frames in each scene
             self.total_length = 2 # the amount of scenes in the cutscene
 
         if category == 'intro':
-            self.scenes = ['logo', 'eyescene', 'starscene', 'facescene', 'heroscene', 'crescentscene']
-            self.lengths = [3, 13, 48, 20, 32, 30]
+            self.scenes = ['logo', 'eyescene', 'heroscene', 'crescentscene']
+            self.lengths = [3, 13, 16, 30]
+            self.total_length = 4
+
+        if category == 'victory':
+            self.scenes = ['victory', 'thanks', 'credits', 'playtesters', 'specialthanks', 'crescentscene']
+            self.lengths = [3, 3, 3, 3, 3, 3]
             self.total_length = 6
 
         self.scene_counter = 0
@@ -84,7 +89,7 @@ class CutScene(p.sprite.Sprite):
 
         # open up the new game menu if appropiate
 
-        if self.category == 'intro' or self.category == 'gameover':
+        if self.category == 'intro' or self.category == 'gameover' or self.category == 'victory':
             self.game.menus['PLAY'] = NewGameMenu(self.game)
 
         self.kill()

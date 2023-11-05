@@ -14,7 +14,7 @@ class Scene(p.sprite.Sprite):
         # some scenes shift up, while others shift down
         # it is decided here
 
-        if type == 'heroscene' or type == 'gameover':
+        if type == 'heroscene' or type == 'gameover' or type == 'victory' or type == 'thanks' or type == 'credits' or type == 'playtesters' or type == 'specialthanks':
             self.up = True
         else:
             self.up = False
@@ -79,27 +79,39 @@ class Scene(p.sprite.Sprite):
 
         if type == 'eyescene':
 
-            self.lengths = [3000, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 3000, 100, 100]
-
-        if type == 'starscene':
-
-            self.lengths = [3000, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
-
-        if type == 'facescene':
-
-            self.lengths = [3000, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+            self.lengths = [2000, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 2000, 2000, 2000]
 
         if type == 'heroscene':
 
-            self.lengths = [300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]
+            self.lengths = [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
 
         if type == 'crescentscene':
 
-            self.lengths = [3000, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 100, 100, 100]
+            self.lengths = [3000, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 2000, 2000, 2000]
 
         if type == 'gameover':
 
-            self.lengths = [3000, 3000, 3000, 100]
+            self.lengths = [4000, 4000, 4000]
+
+        if type == 'victory':
+
+            self.lengths = [4000, 4000, 4000]
+
+        if type == 'thanks':
+
+            self.lengths = [4000, 4000, 4000]
+
+        if type == 'credits':
+
+            self.lengths = [4000, 4000, 4000]
+
+        if type == 'playtesters':
+
+            self.lengths = [4000, 4000, 4000]
+
+        if type == 'specialthanks':
+
+            self.lengths = [4000, 4000, 4000]
 
         self.animation_complete = False
         self.movement_complete = False

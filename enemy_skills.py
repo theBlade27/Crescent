@@ -117,7 +117,7 @@ class Boom(EnemySkill):
 
         self.sanity_reducing = True
 
-        self.splash = 4
+        self.splash = 2
 
         self.sound = p.mixer.Sound(LIGHT_SOUND)
 
@@ -135,8 +135,8 @@ class RallyingWinds(EnemySkill):
         self.heals = True
         self.multiplier = 0
 
-        self.effects_on_hit = ['PRECISION']
-        self.effects_on_user = ['PRECISION']
+        self.effects_on_hit = ['DODGE']
+        self.effects_on_user = ['DODGE']
 
         self.targets_all_in_range = True
         self.targets_heroes = False

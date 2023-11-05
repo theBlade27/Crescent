@@ -6,6 +6,9 @@ from button import *
 from bar import *
 from map import *
 
+# the menu class is very important, it is how the player interacts with the game and how all information is displayed to them
+# some menus are self explanatory, but more complicated ones will be explained
+
 class Menu(p.sprite.Sprite):
 
     def __init__(self, game):
@@ -14,25 +17,35 @@ class Menu(p.sprite.Sprite):
         p.sprite.Sprite.__init__(self, self.groups)
 
         self.game = game
-        self.scale = 4
-        self.visible = True
-        self.colour = FAKEBLACK
+        self.scale = 4 # how much this menus size is scaled
+        self.visible = True # whether this menu is visible
+        self.colour = FAKEBLACK # this menus colour
 
     def update(self):
 
+        # everytime this menu updates, draw the background of this menu
+
         self.image.blit(self.background, [0, 0])
+
+        # and then, on top of the background, for every image item that forms this menu, if that image is visible, draw it in the right place
 
         for image in self.images.values():
             if image.visible:
                 self.image.blit(image.image, image.pos)
+
+        # only update the images if the players mouse is hovering over this menu (this saves resources)
 
         if self.hitbox.collidepoint(self.game.mouse.pos):
             self.update_images()
 
     def update_images(self):
 
+        # update every image that is in this menus list of images
+
         for image in self.images.values():
             image.update()
+
+# this menu deals with displaying an animation to the player upon a skill being used, and it displays exactly how effective the skill was with numbers
 
 class CombatAnimation(Menu):
 
@@ -65,6 +78,8 @@ class CombatAnimation(Menu):
             if 'CRIT' in str(number):
                 crit = True
 
+        # if there was a crit, this menu will shake more intensely
+
         if crit == True:
             self.shaking = True
             self.shake_intensity = 30
@@ -87,9 +102,11 @@ class CombatAnimation(Menu):
 
         self.height = self.image.get_height()
 
-        self.attacker_image = self.attacker.selected_skill.combat_animation
+        self.attacker_image = self.attacker.selected_skill.combat_animation # the attackers image is the image of the skill they are currently using
 
         self.target_images = []
+
+        # for every target the skill was used on (unless it was the user of the skill itself), retrieve the image of them stand it and flip it so they are facing the character using the skill
 
         for target in self.targets:
 
@@ -100,8 +117,8 @@ class CombatAnimation(Menu):
 
         self.image.blit(self.background, [0, 0])
 
-        starting_distance = 540
-        ending_distance = 760
+        starting_distance = 540 # minimum distance a character should be drawn from the left side of the screen
+        ending_distance = 760 # maximum distance a character should be drawn from the left side of the screen
 
         total_distance = ending_distance - starting_distance
 
@@ -109,9 +126,11 @@ class CombatAnimation(Menu):
 
         if len(self.target_images) > 0:
 
-            gap = total_distance / len(self.target_images)
+            gap = total_distance / len(self.target_images) # this calaculates a number so that the image of every target is evenly spaced out
 
         i = 0
+
+        # for every target, draw their images, starting at the starting distance and increasing the distance by a constant number each time so the targets are evenly spaced
 
         for image in self.target_images:
 
@@ -121,12 +140,17 @@ class CombatAnimation(Menu):
 
         i = 0
 
+        # draw the attackers image
+
         self.image.blit(self.attacker_image, [0, self.height - self.attacker_image.get_height()])
 
-
+        # if the number of numbers in the lists of numbers for damage/health/sanity healing/sanity damage or the number of applied effects is greater than the number of targets, then this skill has done something to the attacker as well, so this needs to be conveyed
         if len(heal_numbers) > len(self.target_images) or len(damage_numbers) > len(self.target_images) or len(sanity_heal_numbers) > len(self.target_images) or len(sanity_damage_numbers) > len(self.target_images) or len(self.attacker.effect_applied_images) > 0:
 
+            # set the y of the next image to be drawn to be right above the attackers image
             y = self.height - (self.attacker.combat_images[0].get_height() * 2)
+
+            # then for each number list or the list of applied effects, if this lists length is greater than the length of the list of targets, draw the number or effect above the attackers head
 
             if len(heal_numbers) > len(self.target_images):
 
@@ -152,13 +176,23 @@ class CombatAnimation(Menu):
 
                 self.image.blit(effect_image, [0 + (self.attacker.combat_images[0].get_width()) - (effect_image.get_width() / 2), y])
 
+        # then for every target
+
         for image in self.target_images:
+
+            # set the y value of the next image to be directly above the targets image
 
             y = self.height - image.get_height()
 
             target = self.targets[i]
 
+            # for every type of number
+
+            # if there is number in this list
+
             if len(damage_numbers) > 0:
+
+                # change the outline colour of the character being effected by this skill to an appropiate colour
 
                 for menu in self.game.menus.values():
                     if type(menu) == HeroPreview:
@@ -170,9 +204,15 @@ class CombatAnimation(Menu):
                             self.menus.append(menu)
                             self.menucolours.append(RED)
 
+                # create a text object to display this information information
+
                 number_image = DamageNumber(self.game, damage_numbers[i]).image
 
+                # decrease the y so the next number appears higher up on the screen and the numbers do not overlap
+
                 y -= number_image.get_height()
+
+                # draw the image in the correct position
 
                 self.image.blit(number_image, [starting_distance + gap * i + (image.get_width() / 2) - (number_image.get_width() / 2), y])
 
@@ -236,6 +276,8 @@ class CombatAnimation(Menu):
 
                 self.image.blit(effect_image, [starting_distance + gap * i + (image.get_width() / 2) - (effect_image.get_width() / 2), y])
 
+            # then increase i so the next set of numbers appear more to the right so they appear above the next character
+
             i += 1
 
 
@@ -245,15 +287,24 @@ class CombatAnimation(Menu):
             self.menus[i].colour = self.menucolours[i]
             self.menus[i].update()
 
+        # reset this menus position
+
         self.pos[0] = 386
         self.pos[1] = 218
 
+        # if this menu is shaking
+
         if self.shaking:
+            # change the position of this menu by a random number
             self.shake_offset_x = random.randint(-self.shake_intensity, self.shake_intensity)
             self.shake_offset_y = random.randint(-self.shake_intensity, self.shake_intensity)
+
+            # reduce the shake intensity over time so the shaking slows down
             if self.shake_intensity > 0:
                 self.shake_intensity -= 1
             self.game.menus['BATTLE'].image.fill(BLACK)
+
+        # change by the position by shake intensity
 
         self.pos[0] += self.shake_offset_x
         self.pos[1] += self.shake_offset_y
@@ -281,15 +332,37 @@ class NewGameMenu(Menu):
             'PLAY': PlayButton(self.game, self)
         }
 
+class Instructions(Menu):
+
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.scale = 1
+
+        self.pos = [352, 196]
+
+        self.background = MENU_SPRITESHEETS['INSTRUCTIONS'].copy()
+        self.image = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
+        self.background = self.image
+
+        self.hitbox = p.rect.Rect(self.pos[0], self.pos[1], self.image.get_width(), self.image.get_height())
+
+        self.images = {
+            'EXIT': ExitButtonBeige(self.game, self),
+        }
+
+        self.update_images()
+
+
 class SkillInfo(Menu):
 
-    def __init__(self, game, hero):
+    def __init__(self, game, hero, skill):
         super().__init__(game)
 
         self.scale = 1
 
         self.hero = hero
-        self.selected_skill = self.hero.selected_skill
+        self.skill = skill
 
         self.pos = [352, 196]
         self.background = MENU_SPRITESHEETS['BACKGROUND'].copy()
@@ -327,14 +400,14 @@ class SkillInfo(Menu):
             self.images['EFFECTS_ON_HIT' + str(i + 1)] = OnHitEnemyEffectDisplay(self.game, self, i)
             self.images['EFFECTS_ON_USE' + str(i + 1)] = OnUseEnemyEffectDisplay(self.game, self, i)
 
-        for i in range (14):
+        for i in range (12):
             self.images['RANGE' + str(i + 1)] = SkillRangeIndicator(self.game, self, i)
 
         self.update_images()
 
     def update_images(self):
 
-        if self.game.selected_character.selected_skill != None:
+        if self.skill != None:
 
             for image in self.images.values():
                 image.update()
@@ -396,7 +469,7 @@ class Trader(Menu):
             'TITLE': MenuTitle(self.game, 'INVENTORY'),
             'EXIT': ExitButton(self.game, self),
             'NPC_TEXTBOX': NPCTextbox(self.game),
-            'NPC_TEXT': NPCText(self.game, 'WOULD YOU LIKE TO MAKE A PURCHASE?'),
+            'NPC_TEXT': NPCText(self.game, 'FOR YOU MY FRIEND?\nHALF PRICE!'),
             'NPC_PORTRAIT_SLOT': NPCSlot(self.game),
             'NPC_PORTRAIT': NPCPortrait(self.game, 'TRADER')
 
@@ -452,7 +525,7 @@ class Upgrade(Menu):
             'COST_ICON': CostIcon(self.game),
             'COST_TEXT': CostText(self.game, self),
             'NPC_TEXTBOX': NPCTextbox(self.game),
-            'NPC_TEXT': NPCText(self.game, 'WELCOME TO THE FORGE!\nWHAT CAN I DO FOR YOU?'),
+            'NPC_TEXT': NPCText(self.game, 'NEED AN UPGRADE?'),
             'NPC_PORTRAIT_SLOT': NPCSlot(self.game),
             'NPC_PORTRAIT': NPCPortrait(self.game, 'BLACKSMITH')
 
@@ -561,11 +634,12 @@ class TopMenu(Menu):
             'TEXTBOX_BACKGROUND': TextboxBackground(self.game),
             'SLOT': SlotTextbox(self.game),
             'PORTRAIT': TextboxPortrait(self.game),
-            'MAP': MapButton(self.game, self),
-            'CAMP': CampButton(self.game, self),
+            #'MAP': MapButton(self.game, self),
+            #'CAMP': CampButton(self.game, self),
             'INVENTORY': InventoryButton(self.game, self),
-            'REPOSITION': RepositionButton(self.game, self),
-            'SETTINGS': SettingsButton(self.game, self),
+            #'REPOSITION': RepositionButton(self.game, self),
+            #'SETTINGS': SettingsButton(self.game, self),
+            'HELP': HelpButton(self.game, self),
             'COIN_ICON': CoinIcon(self.game),
             'TEXT': TextboxText(self.game),
             'MONEY_TEXT': MoneyText(self.game)
@@ -605,7 +679,7 @@ class BottomMenu(Menu):
             'SKILL4': SkillButton(self.game, self, 3),
             'MOVE': SkillButton(self.game, self, 4),
             'SKIP': SkillButton(self.game, self, 5),
-            'RETREAT': SkillButton(self.game, self, 6),
+            #'RETREAT': SkillButton(self.game, self, 6),
         }
 
     def update(self):
@@ -623,6 +697,8 @@ class BottomMenu(Menu):
         
         for image in self.images.values():
             image.update()
+
+# this menu is incredibly important, it is where all battles take place
 
 class BattleMenu(Menu):
 
@@ -661,11 +737,17 @@ class BattleMenu(Menu):
         self.cross = False
 
         self.battle = battle
+        self.map = Map(self.game, BATTLE_MAPS[self.battle], self) # when this object is created, the spawn location and enemys needed are also retrieved
 
-        self.map = Map(self.game, BATTLE_MAPS[self.battle], self)
+        # generates this maps background
 
         self.background = self.map.generate_battle_background()
+
+        # make this menus image its background
+
         self.image = self.background
+
+        # adds every hero to this menus list of heroes and the list of all characters, as well as putting them in the right place
 
         for hero in self.game.hero_party:
             if hero != None:
@@ -676,6 +758,7 @@ class BattleMenu(Menu):
         for hero in self.heroes:
             self.characters.append(hero)
 
+        # then add every enemy to the list of all characters, set their grid positions and give them an index
         index = 1
 
         for enemy in self.enemies:
@@ -684,6 +767,8 @@ class BattleMenu(Menu):
             enemy.index = index
             index += 1
 
+        # create a preview menu for each enemy
+
         for i in range(len(self.enemies)):
             self.game.menus['ENEMY' + str(i + 1)] = EnemyPreview(self.game, i, self.enemies[i])
 
@@ -691,6 +776,8 @@ class BattleMenu(Menu):
 
     def spawn_heroes(self):
 
+        # depending on the direction heroes are spawned in, every hero is spawned at the player spawn location on the map, with their position slightly changed by their starting position, so frontliners start closer to the enemies
+        # the hero is also flipped depending on whether they spawn facing left or right
         for hero in self.heroes:
 
             if self.spawn_direction == 'right':
@@ -713,12 +800,16 @@ class BattleMenu(Menu):
 
     def check_obstructed(self):
 
+        # makes every tile with a character on it obstructed
+
         for character in self.characters:
             for tile in self.tiles:
                 if tile.grid_pos == character.grid_pos:
                     tile.obstructed = True
 
     def check_hero(self):
+
+        # makes every tile with a hero know it has a hero on it
 
         for hero in self.heroes:
             for tile in self.tiles:
@@ -727,6 +818,8 @@ class BattleMenu(Menu):
 
     def check_enemy(self):
 
+        # makes every tile with an enemy know it has an enemy on it
+
         for enemy in self.enemies:
             for tile in self.tiles:
                 if tile.grid_pos == enemy.grid_pos:
@@ -734,16 +827,24 @@ class BattleMenu(Menu):
 
     def update(self):
 
+        # first, the maps background is drawn
+
         self.image.blit(self.background, [0, 0])
+
+        # then, every tile is updated so it knows whether it can be moved to or attacked
 
         self.check_obstructed()
         self.check_hero()
         self.check_enemy()
 
+        # for every tile, if it is being targeted, draw the confirmation marker on top of it
+
         for tile in self.tiles:
             self.image.blit(tile.image, (tile.grid_pos[0] * TILE_SIZE * MAP_SCALE, tile.grid_pos[1] * TILE_SIZE * MAP_SCALE))
             if tile.being_targeted:
                 tile.image.blit(CONFIRMATION, (0, 0))
+
+        # then, draw every object and character in the right place
 
         for object in self.objects:
             self.image.blit(object.image, (object.grid_pos[0] * TILE_SIZE * MAP_SCALE, object.grid_pos[1] * TILE_SIZE * MAP_SCALE))
@@ -754,6 +855,8 @@ class BattleMenu(Menu):
         self.draw_indicator()
 
     def draw_indicator(self):
+
+        # if the tile cannot be targeted (it has an obstacle, or the player is using a skill on an invalid target), it will have a cross drawn on top of it
 
         if self.cross:
             tile = self.game.selected_tile
