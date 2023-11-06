@@ -70,8 +70,6 @@ class PlayerTurnTimer(Timer):
         self.character = character
         self.change_in_health = change_in_health
 
-        self.game.close_menu()
-
     def update(self):
 
         self.game.textbox_text = 'IT IS {}\'S TURN'.format(self.character.name)
@@ -107,9 +105,9 @@ class EnemyIsMovingTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu()
-
     def update(self):
+
+        self.game.close_menu()
 
         self.game.textbox_text = '{} IS MOVING'.format(self.character.name)
         self.game.menus['TOP'].update_images()
@@ -129,14 +127,14 @@ class HeroIsMovingTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu()
-
     def update(self):
 
         self.game.textbox_text = '{} IS HAVING A MOMENT...'.format(self.character.name)
         self.game.menus['TOP'].update_images()
         self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
         self.game.menus['TOP'].images['PORTRAIT'].update()
+
+        self.game.close_menu()
         
         now = p.time.get_ticks()
 
@@ -151,8 +149,6 @@ class EnemyIsAttackingTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu()
-
     def update(self):
 
         # display the skill the enemy is going to use
@@ -161,6 +157,8 @@ class EnemyIsAttackingTimer(Timer):
         self.game.menus['TOP'].update_images()
         self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
         self.game.menus['TOP'].images['PORTRAIT'].update()
+
+        self.game.close_menu()
         
         now = p.time.get_ticks()
 
@@ -178,9 +176,9 @@ class HeroIsAttackingTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu()
-
     def update(self):
+
+        self.game.close_menu()
 
         self.game.textbox_text = '{} IS LASHING OUT!'.format(self.character.name, self.character.selected_skill.name)
         self.game.menus['TOP'].update_images()
@@ -200,9 +198,9 @@ class NextTurnTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu()
-
     def update(self):
+
+        self.game.close_menu()
         
         now = p.time.get_ticks()
 
@@ -218,14 +216,14 @@ class ShowSkillEffectivenessTimer(Timer):
         self.text = text
         self.character = character
 
-        self.game.close_menu()
-
     def update(self):
 
         self.game.textbox_text = self.text
         self.game.menus['TOP'].update_images()
         self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
         self.game.menus['TOP'].images['PORTRAIT'].update()
+
+        self.game.close_menu()
 
 
         now = p.time.get_ticks()
@@ -255,14 +253,14 @@ class StunnedTimer(Timer):
 
         self.character = character
 
-        self.game.close_menu()
-
     def update(self):
 
         self.game.textbox_text = '{} IS STUNNED'.format(self.character.name)
         self.game.menus['TOP'].update_images()
         self.game.textbox_portrait = Sprite(PORTRAITS, scale = 8).get_sprite(0, 0, 20, 20)
         self.game.menus['TOP'].images['PORTRAIT'].update()
+
+        self.game.close_menu()
 
         now = p.time.get_ticks()
 

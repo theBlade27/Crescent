@@ -854,6 +854,10 @@ class Game:
 
                     self.clear_view = not self.clear_view
 
+                if event.key == p.K_q:
+
+                    self.open_menu('INVENTORY')
+
                 """
 
                 if event.key == p.K_UP:
@@ -890,10 +894,6 @@ class Game:
                 if event.key == p.K_u:
 
                     self.debug = not self.debug
-
-                if event.key == p.K_q:
-
-                    self.open_menu('INVENTORY')
 
                 if event.key == p.K_n:
 
