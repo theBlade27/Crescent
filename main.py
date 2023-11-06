@@ -66,20 +66,22 @@ class Game:
 
     def play_music(self, track):
 
+        pass
+
         # this function switches music tracks
 
         # set the volume of the last track to zero
 
-        if self.background_music != None:
+        #if self.background_music != None:
 
-            self.background_music.set_volume(0)
-            self.background_music.stop()
+            #self.background_music.set_volume(0)
+            #self.background_music.stop()
 
         # then play the next track
 
-        self.background_music = p.mixer.Sound(track)
-        self.background_music.set_volume(0.1)
-        self.background_music.play(-1)
+        #self.background_music = p.mixer.Sound(track)
+        #self.background_music.set_volume(0.1)
+        #self.background_music.play(-1)
 
     def play_sound_effect(self, sound):
 

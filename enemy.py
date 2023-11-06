@@ -630,10 +630,6 @@ class Enemy(Character):
 
         change_in_health = current_health - self.current_health
 
-        # a sound plays indicating a new turn has started
-
-        self.game.play_sound_effect(NEXT_SOUND)
-
         for menu in self.game.menus.values():
 
             menu.update_images()

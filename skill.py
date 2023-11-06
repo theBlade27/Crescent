@@ -134,6 +134,7 @@ class Skill(p.sprite.Sprite):
                         # give bonus chance for stunning and debuffs upon crit
                         self.bonus_stun += 30
                         self.bonus_debuff += 30
+                        
                         if self.character.barking == False:
 
                             if self.game.actingout == False:
@@ -1126,6 +1127,14 @@ class Skill(p.sprite.Sprite):
             if crit:
                 self.bonus_stun -= 30
                 self.bonus_debuff -= 30
+
+                if self.heals == False:
+
+                    self.game.play_sound_effect(HEAVY_SOUND)
+
+            else:
+
+                self.game.play_sound_effect(self.sound)
 
         else:
 
@@ -2153,7 +2162,17 @@ class EnemySkill(Skill):
                 self.bonus_stun -= 30
                 self.bonus_debuff -= 30
 
-            self.game.play_sound_effect(self.sound)
+                if self.heals == False:
+
+                    self.game.play_sound_effect(HEAVY_SOUND)
+
+                else:
+
+                    self.game.play_sound_effect(self.sound)
+
+            else:
+
+                self.game.play_sound_effect(self.sound)
 
         else:
 

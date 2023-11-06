@@ -386,8 +386,6 @@ class Hero(Character):
 
         change_in_health = current_health - self.current_health
 
-        self.game.play_sound_effect(NEXT_SOUND)
-
         for menu in self.game.menus.values():
 
             menu.update_images()

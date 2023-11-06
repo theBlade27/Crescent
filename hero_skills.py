@@ -141,7 +141,7 @@ class FalseHopes(HeroSkill):
             'HAVE FAITH, FRIENDS!'
         ]
 
-        self.sound = SANITY_SOUND
+        self.sound = BUFF_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 160, 120, 80)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -282,7 +282,7 @@ class Rekindle(HeroSkill):
 
         self.heals = True
 
-        self.sound = HEAL_SOUND
+        self.sound = BUFF_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 160, 120, 80)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
