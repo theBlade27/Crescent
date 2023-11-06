@@ -78,7 +78,7 @@ class Game:
         # then play the next track
 
         self.background_music = p.mixer.Sound(track)
-        self.background_music.set_volume(0.05)
+        self.background_music.set_volume(0.1)
         self.background_music.play(-1)
 
     def play_sound_effect(self, sound):
@@ -95,7 +95,7 @@ class Game:
         # then play the next sound
 
         self.sound_effect = p.mixer.Sound(sound)
-        self.sound_effect.set_volume(0.05)
+        self.sound_effect.set_volume(0.5)
         self.sound_effect.play()
         
 
