@@ -365,8 +365,7 @@ class HeroPreviewSlot(Image):
                         self.game.selected_character = self.menu.hero
                         if 'INVENTORY' in self.game.menus:
                             self.game.menus['INVENTORY'].hero = self.menu.hero
-                        sound = p.mixer.Sound(BUTTON_SOUND)
-                        sound.play()
+                        self.game.play_sound_effect(BUTTON_SOUND)
                 
                     for menu in self.game.menus.values():
                         if menu != self.menu:
@@ -407,8 +406,7 @@ class HeroUpgradePortraitSlot(Image):
                     self.game.menus['BOTTOM'].update_images()
                     self.game.menus['UPGRADE'].images['WEAPON'].update()
                     self.game.menus['UPGRADE'].images['ARMOUR'].update()
-                    sound = p.mixer.Sound(BUTTON_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BUTTON_SOUND)
 
         if self.menu.hero == self.game.hero_party[self.index]:
             self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
@@ -445,8 +443,7 @@ class HeroInventoryPortraitSlot(Image):
                 if self.game.hero_party[self.index] != None:
                     self.game.menus['INVENTORY'].hero = self.game.hero_party[self.index]
                     self.game.menus['BOTTOM'].update_images()
-                    sound = p.mixer.Sound(BUTTON_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BUTTON_SOUND)
 
         if self.menu.hero == self.game.hero_party[self.index]:
             self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
@@ -489,8 +486,7 @@ class HeroInventorySkillSlot(Image):
                 # when M1 is pressed, bring up a menu showing this characters skills
                 if self.game.mouse.pressed['M1']:
                     skill = self.game.selected_character.skills[self.index]
-                    sound = p.mixer.Sound(BUTTON_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BUTTON_SOUND)
                     self.game.open_menu('SELECT_SKILLS', self.hero, skill = skill)
 
             if self.game.selected_character == None:
@@ -1344,8 +1340,7 @@ class StorageSlot(Image):
                     if self.game.inventory[self.index] != None:
                         self.game.money += self.game.inventory[self.index].cost
                         self.game.inventory[self.index] = None
-                        sound = p.mixer.Sound(BUTTON_SOUND)
-                        sound.play()
+                        self.game.play_sound_effect(BUTTON_SOUND)
                         self.game.menus['TOP'].update_images()
 
                 # if the player is not currently selecting equipment
@@ -1355,14 +1350,12 @@ class StorageSlot(Image):
                     # if the player has not already selected an item, select the item in this item slot
                     if self.game.selected_item == None:
                         self.game.selected_item = self.game.inventory[self.index]
-                        sound = p.mixer.Sound(BUTTON_SOUND)
-                        sound.play()
+                        self.game.play_sound_effect(BUTTON_SOUND)
 
                     # otherwise, if the player clicks on the item and it is already selected, unselect it
                     elif self.game.selected_item == self.game.inventory[self.index]:
                         self.game.selected_item = None
-                        sound = p.mixer.Sound(BUTTON_SOUND)
-                        sound.play()
+                        self.game.play_sound_effect(BUTTON_SOUND)
 
                     # otherwise, if the player clicks on another item whilst they have an item selected, swap the two items
                 
@@ -1374,8 +1367,7 @@ class StorageSlot(Image):
                             self.game.inventory[pos_of_item] = self.game.inventory[self.index]
                             self.game.inventory[self.index] = temp
                             self.game.selected_item = None
-                            sound = p.mixer.Sound(BUTTON_SOUND)
-                            sound.play()
+                            self.game.play_sound_effect(BUTTON_SOUND)
 
                 else:
 
@@ -1401,8 +1393,7 @@ class StorageSlot(Image):
                                                 self.game.inventory[self.index] = temp
                                                 self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
                                                 self.game.selecting_equipment = False
-                                                sound = p.mixer.Sound(BUTTON_SOUND)
-                                                sound.play()
+                                                self.game.play_sound_effect(BUTTON_SOUND)
 
                                 # otherwise, remove the item from the equipment slot
                                 elif self.game.inventory[self.index] == None:
@@ -1413,8 +1404,7 @@ class StorageSlot(Image):
                                     self.game.inventory[self.index] = temp
                                     self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
                                     self.game.selecting_equipment = False
-                                    sound = p.mixer.Sound(BUTTON_SOUND)
-                                    sound.play()
+                                    self.game.play_sound_effect(BUTTON_SOUND)
                             
             # if the player presses M2, use the item on the selected character
             if self.game.mouse.pressed['M2']:
@@ -1422,8 +1412,7 @@ class StorageSlot(Image):
                 self.game.selected_item = self.game.inventory[self.index]
                 if self.game.selected_item != None:
                     self.game.selected_item.use(self.index)
-                sound = p.mixer.Sound(BUTTON_SOUND)
-                sound.play()
+                self.game.play_sound_effect(BUTTON_SOUND)
 
 
         if self.game.deleting:
@@ -1584,8 +1573,7 @@ class TraderSlot(Image):
                             self.game.money -= self.game.selected_item.cost
                             self.game.selected_item = None
                             self.game.menus['TOP'].update_images()
-                        sound = p.mixer.Sound(BUTTON_SOUND)
-                        sound.play()
+                        self.game.play_sound_effect(BUTTON_SOUND)
 
 class LootSlot(Image):
 
@@ -1626,8 +1614,7 @@ class LootSlot(Image):
                         self.game.inventory[slot] = self.game.selected_item
                         self.loot_list[self.index] = None
                         self.game.selected_item = None
-                    sound = p.mixer.Sound(BUTTON_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BUTTON_SOUND)
 
 class LootImage(Image):
 
@@ -1859,8 +1846,7 @@ class SkillInfoSlot(Image):
                 self.image = colour_swap(self.image, FAKEBLACK, WHITE)
                 if self.game.mouse.pressed['M1']:
                     self.menu.skill = self.hero.skills[self.index]
-                    sound = p.mixer.Sound(BUTTON_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BUTTON_SOUND)
                     self.game.menus['BOTTOM'].update_images()
 
             if self.menu.skill == self.hero.skills[self.index]:

@@ -1117,6 +1117,8 @@ class Skill(p.sprite.Sprite):
 
         # play this skills sound if it went through
 
+        self.game.play_sound_effect(self.sound)
+
         if not dodged and not missed:
 
             # reverts values that were changed from a crit
@@ -1125,14 +1127,11 @@ class Skill(p.sprite.Sprite):
                 self.bonus_stun -= 30
                 self.bonus_debuff -= 30
 
-            self.sound.play()
-
         else:
 
             # or play the MISS_SOUND if it missed
 
-            sound = p.mixer.Sound(MISS_SOUND)
-            sound.play()
+            self.game.play_sound_effect(MISS_SOUND)
 
         # play combat animations, displaying how effective the skill was using the numbers calculated earlier
 
@@ -2150,18 +2149,15 @@ class EnemySkill(Skill):
 
         if not dodged and not missed:
 
-            # reverts values that were changed from a crit
-
             if crit:
                 self.bonus_stun -= 30
                 self.bonus_debuff -= 30
 
-            self.sound.play()
+            self.game.play_sound_effect(self.sound)
 
         else:
 
-            sound = p.mixer.Sound(MISS_SOUND)
-            sound.play()
+            self.game.play_sound_effect(MISS_SOUND)
 
         self.game.play_combat_animations(self.character, characters, damage_numbers, heal_numbers, sanity_damage_numbers, sanity_heal_numbers)
 
@@ -2173,7 +2169,7 @@ class EnemyMove(EnemySkill):
     def __init__(self, game, character):
         super().__init__(game, character)
 
-        self.sound = p.mixer.Sound(MOVE_SOUND)
+        self.sound = MOVE_SOUND
 
     def use_skill(self, target_tile):
 
@@ -2203,7 +2199,7 @@ class EnemyMove(EnemySkill):
 
         character.grid_pos = target_tile
 
-        self.sound.play()
+        self.game.play_sound_effect(self.sound)
 
 class EnemySkip(EnemySkill):
 
@@ -2248,7 +2244,7 @@ class HeroMove(Skill):
 
         self.image = Sprite(MENU_SPRITESHEETS['ICON_SPRITESHEET'], scale = 8).get_sprite(100, 0, 20, 20)
 
-        self.sound = p.mixer.Sound(MOVE_SOUND)
+        self.sound = MOVE_SOUND
 
     def update(self):
 
@@ -2295,7 +2291,7 @@ class HeroMove(Skill):
         menu = self.game.menus['BOTTOM']
         menu.update_images()
 
-        self.sound.play()
+        self.game.play_sound_effect(self.sound)
         
 
 class HeroSkip(Skill):

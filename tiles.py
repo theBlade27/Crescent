@@ -121,9 +121,6 @@ class Tile(p.sprite.Sprite):
                 if self.hitbox.collidepoint(self.game.mouse.pos):
                     self.game.selected_tile = self
 
-                if self.being_targeted and self.targetable == False:
-                    self.image.blit(CONFIRMATION, (0, 0))
-
                     self.being_targeted = False
 
                 # if this tile is targetable (whether or not this tile is targetable is changed by the selected character when the player has a skill selected)
@@ -153,6 +150,8 @@ class Tile(p.sprite.Sprite):
 
                                         # if this tile has an enemy
                                         if self.has_enemy:
+
+                                            self.image.blit(CONFIRMATION, (0, 0))
 
                                             menu = self.game.menus['BATTLE']
                                             skill = self.game.selected_character.selected_skill

@@ -18,7 +18,7 @@ class BladeActOut(HeroSkill):
 
         self.range = [0, 4]
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = MEDIUM_SOUND
 
         self.sanity_reducing = True
 
@@ -38,7 +38,7 @@ class Vanquish(HeroSkill):
 
         self.range = [0, 4]
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = MEDIUM_SOUND
 
         self.barks = [
             'YOU SHALL BE VANQUISHED!'
@@ -76,7 +76,7 @@ class Command(HeroSkill):
             'SHOW NO MERCY.'
             ]
 
-        self.sound = p.mixer.Sound(MARK_SOUND)
+        self.sound = MARK_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 240, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -108,7 +108,7 @@ class SteelTempest(HeroSkill):
             'YOUR BLOOD SHALL\nCLEANSE THE LAND'
             ]
 
-        self.sound = p.mixer.Sound(MEDIUM_SOUND)
+        self.sound = MEDIUM_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 120, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -141,7 +141,7 @@ class FalseHopes(HeroSkill):
             'HAVE FAITH, FRIENDS!'
         ]
 
-        self.sound = p.mixer.Sound(SANITY_SOUND)
+        self.sound = SANITY_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 160, 120, 80)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -162,7 +162,7 @@ class ArcaneActOut(HeroSkill):
 
         self.sanity_reducing = True
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = MEDIUM_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 240, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -194,7 +194,7 @@ class AzureEruption(HeroSkill):
 
         self.debuffing = True
 
-        self.sound = p.mixer.Sound(MEDIUM_SOUND)
+        self.sound = HEAVY_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 80, 120, 80)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -228,7 +228,7 @@ class Illuminate(HeroSkill):
 
         self.debuffing = True
 
-        self.sound = p.mixer.Sound(LIGHT_SOUND)
+        self.sound = LIGHT_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 280, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -256,7 +256,7 @@ class ArcaneAssault(HeroSkill):
             'SKIDOOSH!'
             ]
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = HEAVY_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 240, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -282,7 +282,7 @@ class Rekindle(HeroSkill):
 
         self.heals = True
 
-        self.sound = p.mixer.Sound(HEAL_SOUND)
+        self.sound = HEAL_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 160, 120, 80)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -300,7 +300,7 @@ class BreachActOut(HeroSkill):
 
         self.range = [0, 6]
 
-        self.sound = p.mixer.Sound(MEDIUM_SOUND)
+        self.sound = HEAVY_SOUND
 
         self.sanity_reducing = True
 
@@ -336,7 +336,7 @@ class DoubleTap(HeroSkill):
             'PEW PEW!'
             ]
 
-        self.sound = p.mixer.Sound(MEDIUM_SOUND)
+        self.sound = HEAVY_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 80, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -362,7 +362,7 @@ class KissOfFire(HeroSkill):
 
         self.multiplier = 1.7
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = HEAVY_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 120, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -390,7 +390,7 @@ class BleedingBlade(HeroSkill):
 
         self.debuffing = True
 
-        self.sound = p.mixer.Sound(MEDIUM_SOUND)
+        self.sound = MEDIUM_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 160, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -422,7 +422,7 @@ class Firestarter(HeroSkill):
 
         self.effects_on_hit = ['MARKING', 'BURNING']
 
-        self.sound = p.mixer.Sound(MEDIUM_SOUND)
+        self.sound = DEBUFF_SOUND
 
         self.combat_animation = self.spritesheet.get_sprite(0, 200, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))

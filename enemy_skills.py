@@ -14,7 +14,7 @@ class GhostVanquish(EnemySkill):
 
         self.range = [0, 3]
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = MEDIUM_SOUND
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -29,7 +29,7 @@ class ScimitarSlash(EnemySkill):
 
         self.effects_on_hit = ['BLEEDING']
 
-        self.sound = p.mixer.Sound(MEDIUM_SOUND)
+        self.sound = MEDIUM_SOUND
 
         self.mark_damage_multiplier = 1.2
 
@@ -46,7 +46,7 @@ class CrushingBlow(EnemySkill):
 
         self.effects_on_hit = ['STUNNING', 'BROKEN']
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = HEAVY_SOUND
 
         self.mark_damage_multiplier = 1.2
 
@@ -63,7 +63,7 @@ class FlintShot(EnemySkill):
 
         self.effects_on_hit = ['BLINDING']
 
-        self.sound = p.mixer.Sound(LIGHT_SOUND)
+        self.sound = LIGHT_SOUND
 
         self.mark_damage_multiplier = 1.2
 
@@ -82,7 +82,7 @@ class AridStab(EnemySkill):
 
         self.effects_on_hit = ['BLEEDING']
 
-        self.sound = p.mixer.Sound(LIGHT_SOUND)
+        self.sound = LIGHT_SOUND
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -100,7 +100,7 @@ class IntimidatingRoar(EnemySkill):
 
         self.effects_on_hit = ['WEAKNESS', 'MARKING']
 
-        self.sound = p.mixer.Sound(LIGHT_SOUND)
+        self.sound = DEBUFF_SOUND
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -119,7 +119,7 @@ class Boom(EnemySkill):
 
         self.splash = 2
 
-        self.sound = p.mixer.Sound(LIGHT_SOUND)
+        self.sound = HEAVY_SOUND
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -141,7 +141,7 @@ class RallyingWinds(EnemySkill):
         self.targets_all_in_range = True
         self.targets_heroes = False
 
-        self.sound = p.mixer.Sound(LIGHT_SOUND)
+        self.sound = BUFF_SOUND
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 80)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -158,7 +158,7 @@ class Obliterate(EnemySkill):
 
         self.mark_damage_multiplier = 1.2
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = HEAVY_SOUND
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 100, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))
@@ -177,7 +177,7 @@ class GetThem(EnemySkill):
         self.effects_on_hit = ['MARKING', 'ANTIDODGE2', 'BROKEN2']
         self.effects_on_user = ['CRIT']
 
-        self.sound = p.mixer.Sound(HEAVY_SOUND)
+        self.sound = MARK_SOUND
 
         self.combat_animation = self.character.spritesheet.get_sprite(0, 60, 120, 40)
         self.combat_animation = p.transform.scale(self.combat_animation, (self.combat_animation.get_width() * 2, self.combat_animation.get_height() * 2))

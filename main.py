@@ -35,6 +35,7 @@ class Game:
         self.set_up_groups()
         self.menus = {}
         self.background_music = None
+        self.sound_effect = None
 
         self.reset_game()
 
@@ -67,7 +68,7 @@ class Game:
 
         # this function switches music tracks
 
-        # set the volume of the last tract to zero
+        # set the volume of the last track to zero
 
         if self.background_music != None:
 
@@ -77,8 +78,27 @@ class Game:
         # then play the next track
 
         self.background_music = p.mixer.Sound(track)
-        self.background_music.set_volume(1)
+        self.background_music.set_volume(0.05)
         self.background_music.play(-1)
+
+    def play_sound_effect(self, sound):
+
+        # this function switches music tracks
+
+        # set the volume of the last sound effect to zero
+
+        if self.sound_effect != None:
+
+            self.sound_effect.set_volume(0)
+            self.sound_effect.stop()
+
+        # then play the next sound
+
+        self.sound_effect = p.mixer.Sound(sound)
+        self.sound_effect.set_volume(0.05)
+        self.sound_effect.play()
+        
+
 
     def end_game(self, reset):
 

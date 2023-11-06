@@ -22,8 +22,6 @@ class Button(Image):
 
         self.image = self.unpressed_image.copy()
 
-        self.sound = p.mixer.Sound(BUTTON_SOUND)
-
     def update(self):
 
         self.image.blit(self.unpressed_image, [0, 0])
@@ -38,7 +36,7 @@ class Button(Image):
             if self.game.mouse.pressed['M1']:
                 self.image = self.pressed_image.copy()
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
-                self.sound.play()
+                self.game.play_sound_effect(BUTTON_SOUND)
 
 class UpgradeButton(Image):
 
@@ -57,8 +55,6 @@ class UpgradeButton(Image):
         self.image = self.unpressed_image.copy()
 
         self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
-
-        self.sound = p.mixer.Sound(BUTTON_SOUND)
 
     def update(self):
 
@@ -175,8 +171,6 @@ class PlayButton(Image):
 
         self.hitbox = p.rect.Rect(self.pos[0] + self.menu.pos[0], self.pos[1] + self.menu.pos[1], self.image.get_width(), self.image.get_height())
 
-        self.sound = p.mixer.Sound(BUTTON_SOUND)
-
     def update(self):
 
         self.image.blit(self.unpressed_image, [0, 0])
@@ -188,7 +182,7 @@ class PlayButton(Image):
                 self.game.menus['PLAY'].kill()
                 self.game.reset_game()
                 self.kill()
-                self.sound.play()
+                self.game.play_sound_effect(BUTTON_SOUND)
 
                 self.game.play_music(BACKGROUND_MUSIC)
 
@@ -375,6 +369,7 @@ class WeaponUpgradeButton(Button):
                 # then update the cost of upgrading the weapon to the next level
 
                 if self.game.mouse.pressed['M1']:
+                    self.game.play_sound_effect(BUTTON_SOUND)
                     if self.menu.upgrading_weapon:
                         self.menu.upgrading_weapon = False
                         self.menu.cost = 0
@@ -444,6 +439,7 @@ class ArmourUpgradeButton(Button):
                 self.image = colour_swap(self.image, FAKEBLACK, WHITE)
 
                 if self.game.mouse.pressed['M1']:
+                    self.game.play_sound_effect(BUTTON_SOUND)
                     if self.menu.upgrading_armour:
                         self.menu.upgrading_armour = False
                         self.menu.cost = 0
@@ -534,7 +530,7 @@ class SkillButton(Button):
                         self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
                         # if the character is not stunned or acting out, select this skill
                         if (not(self.index == 4 and self.game.selected_character.has_moved)) and (not(self.index == 5 and self.game.selected_character.has_used_skill)) and not self.game.selected_character.stunned and not self.game.actingout:
-                            self.sound.play()
+                            self.game.play_sound_effect(BUTTON_SOUND)
                             self.hero.selected_skill = self.skill
                         # reset the tiles to reflect the targetting of the new skill
                         for tile in self.game.menus['BATTLE'].tiles:
@@ -548,8 +544,7 @@ class SkillButton(Button):
                         self.image = self.pressed_image.copy()
                         self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
                         if (self.index >= 0 and self.index <= 3) and not self.game.selected_character.stunned and not self.game.actingout:
-                            sound = p.mixer.Sound(BUTTON_SOUND)
-                            sound.play()
+                            self.game.play_sound_effect(BUTTON_SOUND)
                             self.game.open_menu('SELECT_SKILLS', self.hero, skill = self.skill)
 
 

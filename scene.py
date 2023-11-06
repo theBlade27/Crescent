@@ -91,27 +91,27 @@ class Scene(p.sprite.Sprite):
 
         if type == 'gameover':
 
-            self.lengths = [4000, 4000, 4000]
+            self.lengths = [6000, 6000, 6000]
 
         if type == 'victory':
 
-            self.lengths = [4000, 4000, 4000]
+            self.lengths = [6000, 6000, 6000]
 
         if type == 'thanks':
 
-            self.lengths = [4000, 4000, 4000]
+            self.lengths = [6000, 6000, 6000]
 
         if type == 'credits':
 
-            self.lengths = [4000, 4000, 4000]
+            self.lengths = [6000, 6000, 6000]
 
         if type == 'playtesters':
 
-            self.lengths = [4000, 4000, 4000]
+            self.lengths = [6000, 6000, 6000]
 
         if type == 'specialthanks':
 
-            self.lengths = [4000, 4000, 4000]
+            self.lengths = [6000, 6000, 6000]
 
         self.animation_complete = False
         self.movement_complete = False

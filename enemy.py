@@ -632,8 +632,7 @@ class Enemy(Character):
 
         # a sound plays indicating a new turn has started
 
-        sound = p.mixer.Sound(NEXT_SOUND)
-        sound.play()
+        self.game.play_sound_effect(NEXT_SOUND)
 
         for menu in self.game.menus.values():
 
@@ -668,8 +667,7 @@ class Enemy(Character):
 
         if self in self.game.battle.all_characters:
 
-            sound = p.mixer.Sound(DEATH_SOUND)
-            sound.play()
+            self.game.play_sound_effect(DEATH_SOUND)
 
             menu = self.game.menus['BATTLE']
             for tile in menu.tiles:

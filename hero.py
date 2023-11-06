@@ -386,8 +386,7 @@ class Hero(Character):
 
         change_in_health = current_health - self.current_health
 
-        sound = p.mixer.Sound(NEXT_SOUND)
-        sound.play()
+        self.game.play_sound_effect(NEXT_SOUND)
 
         for menu in self.game.menus.values():
 
@@ -830,8 +829,7 @@ class Hero(Character):
 
             self.game.hero_party.append(None)
 
-            sound = p.mixer.Sound(DEATH_SOUND)
-            sound.play()
+            self.game.play_sound_effect(DEATH_SOUND)
 
             if self.game.battle_mode:
                 menu = self.game.menus['BATTLE']

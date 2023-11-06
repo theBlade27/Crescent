@@ -110,8 +110,7 @@ class BattleInteraction(Interaction):
                     # start a battle
                     self.game.start_battle(self.type)
                     self.game.last_interacted = self
-                    sound = p.mixer.Sound(BLIP_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BLIP_SOUND)
 
                 
             if self.hitbox.collidepoint(self.game.camera.apply_mouse()):
@@ -129,8 +128,7 @@ class BattleInteraction(Interaction):
                     if pressed_keys[p.K_e]:
                         self.game.start_battle(self.type)
                         self.game.last_interacted = self
-                        sound = p.mixer.Sound(BLIP_SOUND)
-                        sound.play()
+                        self.game.play_sound_effect(BLIP_SOUND)
 
         elif self.beaten == True:
 
@@ -326,8 +324,7 @@ class Loot(Interaction):
                         # increase the players money
                         self.game.money += self.money
                         self.looted = True
-                        sound = p.mixer.Sound(BLIP_SOUND)
-                        sound.play()
+                        self.game.play_sound_effect(BLIP_SOUND)
 
                         for menu in self.game.menus.values():
                             menu.update_images()
@@ -366,8 +363,7 @@ class Blacksmith(Interaction):
 
                     # bring up the upgrade menu
                     self.game.open_menu('UPGRADE')
-                    sound = p.mixer.Sound(BLIP_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BLIP_SOUND)
 
                     for menu in self.game.menus.values():
                         menu.update_images()
@@ -405,8 +401,7 @@ class Trader(Interaction):
 
                     # bring up the trader menu with the generated loot as an argument
                     self.game.open_menu('TRADER', items = self.inventory, object = self)
-                    sound = p.mixer.Sound(BLIP_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BLIP_SOUND)
 
                     for menu in self.game.menus.values():
                         menu.update_images()
@@ -515,8 +510,7 @@ class DoorTile(TileObject):
 
                 if accessible == True:
                     self.closed = not self.closed
-                    sound = p.mixer.Sound(BLIP_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BLIP_SOUND)
 
         # changes the image of the tile based on whether the door is closed or not
 

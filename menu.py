@@ -920,8 +920,7 @@ class EnemyPreview(Menu):
             if self.game.mouse.pressed['M2']:
                 self.game.open_menu('INVENTORY', self.enemy)
 
-                sound = p.mixer.Sound(BUTTON_SOUND)
-                sound.play()
+                self.game.play_sound_effect(BUTTON_SOUND)
 
 class Bark(Menu):
 
@@ -1012,8 +1011,7 @@ class HeroPreview(Menu):
                     self.game.menus['INVENTORY'].hero = self.hero
                     self.game.menus['INVENTORY'].update_images()
 
-                    sound = p.mixer.Sound(BUTTON_SOUND)
-                    sound.play()
+                    self.game.play_sound_effect(BUTTON_SOUND)
 
 
 
