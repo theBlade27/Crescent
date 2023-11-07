@@ -942,6 +942,9 @@ class Bark(Menu):
                 'TEXT': BarkText(self.game, text)
             }
         else:
+            self.images = {
+
+            }
             self.visible = False
             self.game.menus_group.remove(self)
             self.game.all.remove(self)

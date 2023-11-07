@@ -87,6 +87,7 @@ class Skill(p.sprite.Sprite):
             for character in self.game.characters:
                 if character.grid_pos == tile.grid_pos:
                     self.targets.append(character)
+                    tile.being_targeted = False
 
         # if this skill does damage
 
@@ -406,10 +407,6 @@ class Skill(p.sprite.Sprite):
 
                         if self.successful:
 
-                            for effect in target.effects:
-                                if type(effect) == Burning:
-                                    effect.remove_effect()
-
                             target.effects.append(Burning(self.game, target))
                             target.effect_applied_images.append(Burning(self.game, None).image)
 
@@ -432,10 +429,6 @@ class Skill(p.sprite.Sprite):
 
                         if self.successful:
 
-                            for effect in target.effects:
-                                if type(effect) == Burning2:
-                                    effect.remove_effect()
-
                             target.effects.append(Burning2(self.game, target))
                             target.effect_applied_images.append(Burning2(self.game, None).image)
 
@@ -455,10 +448,6 @@ class Skill(p.sprite.Sprite):
                             self.successful = False
 
                         if self.successful:
-
-                            for effect in target.effects:
-                                if type(effect) == Burning3:
-                                    effect.remove_effect()
 
                             target.effects.append(Burning3(self.game, target))
                             target.effect_applied_images.append(Burning3(self.game, None).image)
@@ -481,10 +470,6 @@ class Skill(p.sprite.Sprite):
 
                         if self.successful:
 
-                            for effect in target.effects:
-                                if type(effect) == Bleeding:
-                                    effect.remove_effect()
-
                             target.effects.append(Bleeding(self.game, target))
                             target.effect_applied_images.append(Bleeding(self.game, None).image)
 
@@ -506,10 +491,6 @@ class Skill(p.sprite.Sprite):
 
                         if self.successful:
 
-                            for effect in target.effects:
-                                if type(effect) == Bleeding2:
-                                    effect.remove_effect()
-
                             target.effects.append(Bleeding2(self.game, target))
                             target.effect_applied_images.append(Bleeding2(self.game, None).image)
 
@@ -530,10 +511,6 @@ class Skill(p.sprite.Sprite):
                             self.successful = False
 
                         if self.successful:
-
-                            for effect in target.effects:
-                                if type(effect) == Bleeding3:
-                                    effect.remove_effect()
 
                             target.effects.append(Bleeding3(self.game, target))
                             target.effect_applied_images.append(Bleeding3(self.game, None).image)
@@ -1111,7 +1088,7 @@ class Skill(p.sprite.Sprite):
             for tile in self.game.menus['BATTLE'].tiles:
                 tile.being_targeted = False
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
         self.character.has_used_skill = True
@@ -1457,10 +1434,6 @@ class EnemySkill(Skill):
 
                         if self.successful:
 
-                            for effect in character.effects:
-                                if type(effect) == Bleeding:
-                                    effect.remove_effect()
-
                             character.effects.append(Bleeding(self.game, character))
                             character.effect_applied_images.append(Bleeding(self.game, None).image)
 
@@ -1481,10 +1454,6 @@ class EnemySkill(Skill):
 
                         if self.successful:
 
-                            for effect in character.effects:
-                                if type(effect) == Bleeding2:
-                                    effect.remove_effect()
-
                             character.effects.append(Bleeding2(self.game, character))
                             character.effect_applied_images.append(Bleeding2(self.game, None).image)
 
@@ -1504,10 +1473,6 @@ class EnemySkill(Skill):
                             self.successful = False
 
                         if self.successful:
-
-                            for effect in character.effects:
-                                if type(effect) == Bleeding3:
-                                    effect.remove_effect()
 
                             character.effects.append(Bleeding3(self.game, character))
                             character.effect_applied_images.append(Bleeding3(self.game, None).image)
@@ -1710,10 +1675,6 @@ class EnemySkill(Skill):
 
                         if self.successful:
 
-                            for effect in character.effects:
-                                if type(effect) == Burning:
-                                    effect.remove_effect()
-
                             character.effects.append(Burning(self.game, character))
                             character.effect_applied_images.append(Burning(self.game, None).image)
 
@@ -1734,10 +1695,6 @@ class EnemySkill(Skill):
 
                         if self.successful:
 
-                            for effect in character.effects:
-                                if type(effect) == Burning2:
-                                    effect.remove_effect()
-
                             character.effects.append(Burning2(self.game, character))
                             character.effect_applied_images.append(Burning2(self.game, None).image)
 
@@ -1757,10 +1714,6 @@ class EnemySkill(Skill):
                             self.successful = False
 
                         if self.successful:
-
-                            for effect in character.effects:
-                                if type(effect) == Burning3:
-                                    effect.remove_effect()
 
                             character.effects.append(Burning3(self.game, character))
                             character.effect_applied_images.append(Burning3(self.game, None).image)

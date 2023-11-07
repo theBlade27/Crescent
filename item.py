@@ -610,14 +610,14 @@ class SeersStone(Item):
 
     def equip_item(self, character):
 
-        character.precision += 15
-        character.agility += 20
+        character.precision += 10
+        character.agility += 15
         character.sanity_damage_factor += 20
 
     def remove_item(self, character):
 
-        character.precision -= 15
-        character.agility -= 20
+        character.precision -= 10
+        character.agility -= 15
         character.sanity_damage_factor -= 20
 
 class RecoveryPendant(Item):

@@ -91,27 +91,27 @@ class Scene(p.sprite.Sprite):
 
         if type == 'gameover':
 
-            self.lengths = [6000, 6000, 6000]
+            self.lengths = [8000, 8000, 8000]
 
         if type == 'victory':
 
-            self.lengths = [6000, 6000, 6000]
+            self.lengths = [8000, 8000, 8000]
 
         if type == 'thanks':
 
-            self.lengths = [6000, 6000, 6000]
+            self.lengths = [8000, 8000, 8000]
 
         if type == 'credits':
 
-            self.lengths = [6000, 6000, 6000]
+            self.lengths = [8000, 8000, 8000]
 
         if type == 'playtesters':
 
-            self.lengths = [6000, 6000, 6000]
+            self.lengths = [8000, 8000, 8000]
 
         if type == 'specialthanks':
 
-            self.lengths = [6000, 6000, 6000]
+            self.lengths = [8000, 8000, 8000]
 
         self.animation_complete = False
         self.movement_complete = False
@@ -145,7 +145,7 @@ class Scene(p.sprite.Sprite):
 
                     if self.up == False:
 
-                        self.vel += 5
+                        self.vel += 3
 
                         # the scene goes up, creating the illusion of the cutscene shifting downwards
 
@@ -155,7 +155,7 @@ class Scene(p.sprite.Sprite):
 
                     else:
 
-                        self.vel += 5
+                        self.vel += 3
 
                         # the scene goes down, creating the illusion of the cutscene shifting upwards
 

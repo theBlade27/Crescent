@@ -122,11 +122,11 @@ class Character(p.sprite.Sprite):
 
                     crit = self.calculate_crit(damage_dealer)
 
-                    # if it has crit, increase the damage to the top of the range and then add 50%
+                    # if it has crit, increase the damage to the top of the range and then add 30%
 
                     if crit == True:
                         damage = damage_dealer.damage[1] * damage_dealer.selected_skill.multiplier
-                        damage *= 1.5
+                        damage *= 1.3
 
                     marked = False
 

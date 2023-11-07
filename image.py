@@ -485,11 +485,11 @@ class HeroInventorySkillSlot(Image):
 
                 # when M1 is pressed, bring up a menu showing this characters skills
                 if self.game.mouse.pressed['M1']:
-                    skill = self.game.selected_character.skills[self.index]
+                    skill = self.hero.skills[self.index]
                     self.game.play_sound_effect(BUTTON_SOUND)
                     self.game.open_menu('SELECT_SKILLS', self.hero, skill = skill)
 
-            if self.game.selected_character == None:
+            if self.hero == None:
                 self.image.fill(BLUE)
 
         else:
@@ -1397,14 +1397,15 @@ class StorageSlot(Image):
 
                                 # otherwise, remove the item from the equipment slot
                                 elif self.game.inventory[self.index] == None:
-                                    temp = self.menu.hero.equipment[i]
-                                    if self.menu.hero.equipment[i] != None:
-                                        self.menu.hero.equipment[i].remove_item(self.menu.hero)
-                                    self.menu.hero.equipment[i] = self.game.inventory[self.index]
-                                    self.game.inventory[self.index] = temp
-                                    self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
-                                    self.game.selecting_equipment = False
-                                    self.game.play_sound_effect(BUTTON_SOUND)
+                                    if self.menu.images['EQUIPMENT' + str(i + 1)].selecting == True:
+                                        temp = self.menu.hero.equipment[i]
+                                        if self.menu.hero.equipment[i] != None:
+                                            self.menu.hero.equipment[i].remove_item(self.menu.hero)
+                                        self.menu.hero.equipment[i] = None
+                                        self.game.inventory[self.index] = temp
+                                        self.menu.images['EQUIPMENT' + str(i + 1)].selecting = False
+                                        self.game.selecting_equipment = False
+                                        self.game.play_sound_effect(BUTTON_SOUND)
                             
             # if the player presses M2, use the item on the selected character
             if self.game.mouse.pressed['M2']:
@@ -1666,7 +1667,7 @@ class SkillDamageIcon(Image):
 
         if self.menu.skill != None:
 
-            if self.menu.skill == False:
+            if self.menu.skill.heals == False:
 
                 self.image.blit(self.damage_icon, [0, 0])
 

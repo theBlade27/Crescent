@@ -215,6 +215,7 @@ class Illuminate(HeroSkill):
         self.multiplier = 0.1
 
         self.bonus_debuff = 30
+        self.bonus_stun = 30
 
         self.targets_enemies = True
 

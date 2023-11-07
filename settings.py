@@ -85,10 +85,12 @@ DEBUFF_SOUND = path.join(snd_folder, 'debuff.wav')
 MISS_SOUND = path.join(snd_folder, 'miss.wav')
 MOVE_SOUND = path.join(snd_folder, 'move.wav')
 
-BACKGROUND_MUSIC = path.join(snd_folder, 'BACKGROUND.mp3')
-BATTLE_MUSIC = path.join(snd_folder, 'BATTLE.mp3')
-INTRO_MUSIC = path.join(snd_folder, 'INTRO.mp3')
-OUTRO_MUSIC = path.join(snd_folder, 'OUTRO.mp3')
+BACKGROUND_MUSIC = path.join(snd_folder, 'DESERT.ogg')
+LOSS_MUSIC = path.join(snd_folder, 'LOSS.ogg')
+INTRO_MUSIC = path.join(snd_folder, 'INTRO.ogg')
+OUTRO_MUSIC = path.join(snd_folder, 'OUTRO.ogg')
+BATTLE_MUSIC = path.join(snd_folder, 'BATTLE.ogg')
+
 
 
 # the following dictionaries contain the various different values for each characters attributes
@@ -99,44 +101,44 @@ OUTRO_MUSIC = path.join(snd_folder, 'OUTRO.mp3')
 EXPERIENCE_VALUES = {
     'BLADE':
     [
-        [35, 0], # maxhealth, agility
-        [42, 5],
-        [50, 10]
+        [40, 0], # maxhealth, agility
+        [50, 5],
+        [60, 10]
     ],
 
     'ARCANE':
     [
-        [20, 15],
-        [24, 20],
-        [30, 25]
+        [25, 10],
+        [30, 15],
+        [35, 20]
     ],
 
     'BREACH':
     [
-        [26, 10],
-        [32, 15],
-        [40, 20]
+        [30, 5],
+        [38, 10],
+        [46, 15]
     ]
 }
 
 WEAPON_VALUES = {
     'BLADE':
     [
-        [7, 10, 95, 5], # damage[0], damage[1], precision, crit
-        [9, 13, 105, 10],
-        [12, 17, 115, 15]
+        [8, 12, 95, 5], # damage[0], damage[1], precision, crit
+        [11, 15, 105, 10],
+        [15, 18, 115, 15]
     ],
     'ARCANE':
     [
-        [6, 10, 95, 10],
-        [8, 12, 105, 15],
+        [6, 11, 95, 10],
+        [8, 13, 105, 15],
         [11, 16, 115, 20]
     ],
     'BREACH':
     [
-        [8, 11, 95, 10],
-        [10, 14, 105, 20],
-        [14, 18, 115, 30]
+        [7, 13, 95, 10],
+        [10, 17, 105, 20],
+        [13, 21, 115, 30]
     ]
 }
 
@@ -144,20 +146,20 @@ ARMOUR_VALUES = {
     'BLADE':
     [
         [15, 3, 4, 7], # protection, speed, healing[0], healing[1]
-        [25, 4, 6, 10],
-        [35, 5, 9, 14]
+        [25, 4, 5, 9],
+        [35, 5, 7, 12]
     ],
     'ARCANE':
     [
-        [0, 6, 8, 10],
-        [5, 7, 11, 14],
-        [10, 9, 15, 20]
+        [0, 6, 7, 9],
+        [5, 7, 9, 12],
+        [10, 8, 12, 16]
     ],
     'BREACH':
     [
-        [0, 5, 0, 0],
-        [5, 6, 0, 0],
-        [10, 7, 0, 0]
+        [0, 4, 0, 0],
+        [5, 5, 0, 0],
+        [10, 6, 0, 0]
     ]
 }
 

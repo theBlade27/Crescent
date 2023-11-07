@@ -98,7 +98,7 @@ class IntimidatingRoar(EnemySkill):
         self.sanity_reducing = True
         self.multiplier = 0.1
 
-        self.effects_on_hit = ['WEAKNESS', 'MARKING']
+        self.effects_on_hit = ['WEAKNESS']
 
         self.sound = DEBUFF_SOUND
 

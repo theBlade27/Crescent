@@ -49,12 +49,12 @@ class Enemy(Character):
             self.agility = 5
             self.precision = 90
             self.crit = 15
-            self.bleed = 30
-            self.venom = 30
-            self.fire = 30
+            self.bleed = 20
+            self.venom = 20
+            self.fire = 20
             self.death = 0
-            self.stun = 35
-            self.debuff = 30
+            self.stun = 20
+            self.debuff = 20
 
             self.skills = [
                 ScimitarSlash(self.game, self),
@@ -97,7 +97,7 @@ class Enemy(Character):
             self.mobility = 3
             self.protection = 10
             self.agility = 0
-            self.precision = 90
+            self.precision = 85
             self.crit = 20
             self.bleed = 30
             self.venom = 30
@@ -111,7 +111,7 @@ class Enemy(Character):
                 IntimidatingRoar(self.game, self)
             ]
 
-            self.damage = [7, 11]
+            self.damage = [8, 12]
 
             self.sanity_reduction_skills = [8, 16] # range of numbers that sanity reducing attacks reduce a heros sanity by
 
@@ -124,8 +124,8 @@ class Enemy(Character):
             self.mobility = 2
             self.protection = 0
             self.agility = 10
-            self.precision = 90
-            self.crit = 30
+            self.precision = 85
+            self.crit = 20
             self.bleed = 15
             self.venom = 15
             self.fire = 15
@@ -137,7 +137,7 @@ class Enemy(Character):
                 Boom(self.game, self)
             ]
 
-            self.damage = [8, 12]
+            self.damage = [9, 14]
 
             self.sanity_reduction_skills = [8, 16]
 
@@ -152,12 +152,12 @@ class Enemy(Character):
             self.agility = 0
             self.precision = 120
             self.crit = 30
-            self.bleed = 70
-            self.venom = 70
-            self.fire = 70
+            self.bleed = 40
+            self.venom = 40
+            self.fire = 40
             self.death = 66
-            self.stun = 70
-            self.debuff = 70
+            self.stun = 40
+            self.debuff = 40
 
             self.skills = [
                 Obliterate(self.game, self),

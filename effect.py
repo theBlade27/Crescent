@@ -210,7 +210,6 @@ class Insanity(Effect):
         self.character.damage[0] /= 1.1
         self.character.damage[1] /= 1.1
         self.character.protection -= 10
-        self.character.speed -= 1
         self.character.precision -= 5
         self.character.agility -= 5
         self.character.crit -= 5
@@ -225,7 +224,6 @@ class Insanity(Effect):
         self.character.damage[0] *= 1.1
         self.character.damage[1] *= 1.1
         self.character.protection += 10
-        self.character.speed += 1
         self.character.precision += 5
         self.character.agility += 5
         self.character.crit += 5
@@ -257,7 +255,6 @@ class DeathsDoor(Effect):
         self.character.damage[0] /= 1.2
         self.character.damage[1] /= 1.2
         self.character.protection -= 20
-        self.character.speed -= 2
         self.character.precision -= 10
         self.character.agility -= 10
         self.character.crit -= 10
@@ -277,7 +274,6 @@ class DeathsDoor(Effect):
         self.character.damage[0] *= 1.2
         self.character.damage[1] *= 1.2
         self.character.protection += 20
-        self.character.speed += 2
         self.character.precision += 10
         self.character.agility += 10
         self.character.crit += 10
@@ -366,7 +362,6 @@ class Starving(Effect):
         self.character.damage[0] /= 1.1
         self.character.damage[1] /= 1.1
         self.character.protection -= 10
-        self.character.speed -= 1
         self.character.precision -= 5
         self.character.agility -= 5
         self.character.crit -= 5
@@ -388,7 +383,6 @@ class Starving(Effect):
         self.character.damage[0] *= 1.1
         self.character.damage[1] *= 1.1
         self.character.protection += 10
-        self.character.speed += 1
         self.character.precision += 5
         self.character.agility += 5
         self.character.crit += 5
@@ -401,7 +395,7 @@ class Starving(Effect):
 
 class Satiated(Effect):
 
-    def __init__(self, game, character, duration = 24):
+    def __init__(self, game, character, duration = 36):
         super().__init__(game, character, duration)
 
         self.image = Sprite(MENU_SPRITESHEETS['BUFF_ICONS'].copy(), scale = 2).get_sprite(80, 280, 20, 20)
@@ -432,7 +426,6 @@ class Stuffed(Effect):
         self.character.damage[0] *= 1.1
         self.character.damage[1] *= 1.1
         self.character.protection += 10
-        self.character.speed += 1
         self.character.precision += 5
         self.character.agility += 5
         self.character.crit += 5
@@ -445,7 +438,6 @@ class Stuffed(Effect):
         self.character.damage[0] /= 1.1
         self.character.damage[1] /= 1.1
         self.character.protection -= 10
-        self.character.speed -= 1
         self.character.precision -= 5
         self.character.agility -= 5
         self.character.crit -= 5

@@ -116,12 +116,14 @@ class Tile(p.sprite.Sprite):
 
             if self.game.selected_character.selected_skill != None:
 
+                if self.being_targeted:
+                    self.image.blit(CONFIRMATION, (0, 0))
+                    self.being_targeted = False
+
                 # if the mouse is hovering over this tile, the games selected tile is this one
 
                 if self.hitbox.collidepoint(self.game.mouse.pos):
                     self.game.selected_tile = self
-
-                    self.being_targeted = False
 
                 # if this tile is targetable (whether or not this tile is targetable is changed by the selected character when the player has a skill selected)
 
@@ -178,6 +180,9 @@ class Tile(p.sprite.Sprite):
 
                                                 # use the skill on every tile that has been targeted
                                                 self.game.selected_character.selected_skill.use_skill(targeted_tiles)
+                                                
+                                                for tile in targeted_tiles:
+                                                    tile.being_targeted = False
 
                                         # otherwise if this tile doesnt have an enemy, draw a cross over this tile
                                         elif self.has_hero:
@@ -203,6 +208,8 @@ class Tile(p.sprite.Sprite):
                                                         targeted_tiles.append(tile)
                                                 self.game.selected_character.has_used_skill = True
                                                 self.game.selected_character.selected_skill.use_skill(targeted_tiles)
+                                                for tile in targeted_tiles:
+                                                    tile.being_targeted = False
 
                     if self.game.selected_character.selected_skill != None:
 
@@ -233,6 +240,8 @@ class Tile(p.sprite.Sprite):
                                                         targeted_tiles.append(tile)
                                                 self.game.selected_character.has_used_skill = True
                                                 self.game.selected_character.selected_skill.use_skill(targeted_tiles)
+                                                for tile in targeted_tiles:
+                                                    tile.being_targeted = False
                                         elif self.has_enemy:
                                             self.game.selected_tile = self
                                             self.game.menus['BATTLE'].cross = True
@@ -255,6 +264,8 @@ class Tile(p.sprite.Sprite):
                                                         targeted_tiles.append(tile)
                                                 self.game.selected_character.has_used_skill = True
                                                 self.game.selected_character.selected_skill.use_skill(targeted_tiles)
+                                                for tile in targeted_tiles:
+                                                    tile.being_targeted = False
 
 
             # everything is reset again

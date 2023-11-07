@@ -72,16 +72,16 @@ class Game:
 
         # set the volume of the last track to zero
 
-        #if self.background_music != None:
+        if self.background_music != None:
 
-            #self.background_music.set_volume(0)
-            #self.background_music.stop()
+            self.background_music.set_volume(0)
+            self.background_music.stop()
 
         # then play the next track
 
-        #self.background_music = p.mixer.Sound(track)
-        #self.background_music.set_volume(0.1)
-        #self.background_music.play(-1)
+        self.background_music = p.mixer.Sound(track)
+        self.background_music.set_volume(0.05)
+        self.background_music.play(-1)
 
     def play_sound_effect(self, sound):
 
@@ -97,7 +97,7 @@ class Game:
         # then play the next sound
 
         self.sound_effect = p.mixer.Sound(sound)
-        self.sound_effect.set_volume(0.5)
+        self.sound_effect.set_volume(1)
         self.sound_effect.play()
         
 
@@ -736,10 +736,11 @@ class Game:
         # things such as the exploration characters, tiles, and the camera dont need to be updated during battle and would waste resources, so they only update outside of battle
 
         if self.battle_mode == False:
+            self.exploration_characters.update()
+            self.textbox_text = ''
+            self.camera_group.update()
             self.tile_objects.update()
             self.interactable_objects.update()
-            self.exploration_characters.update()
-            self.camera_group.update()
         else:
 
             # on the other hand, some things only need to be updated whilst a battle is going on

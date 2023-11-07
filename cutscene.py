@@ -23,7 +23,7 @@ class CutScene(p.sprite.Sprite):
             self.lengths = [3, 30] # the amount of frames in each scene
             self.total_length = 2 # the amount of scenes in the cutscene
 
-            self.game.play_music(BATTLE_MUSIC)
+            self.game.play_music(LOSS_MUSIC)
 
         if category == 'intro':
             self.scenes = ['logo', 'eyescene', 'heroscene', 'crescentscene']

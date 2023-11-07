@@ -552,6 +552,8 @@ class SkillButton(Button):
             if self.hero.selected_skill == self.skill:
                 self.image = self.pressed_image.copy()
                 self.image = colour_swap(self.image, FAKEBLACK, YELLOW)
+                self.game.textbox_text = self.skill.name + '\n'
+                self.game.textbox_text += self.skill.desc
 
         else:
 

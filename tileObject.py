@@ -375,7 +375,7 @@ class Trader(Interaction):
 
         # generate some items for the trader to sell
         # the trader has more items than other loot pools, so the amount needed of each rarity of item is passed in as arguments
-        self.inventory, money = self.game.generate_loot('TRADER', [2, 4], [1, 3], [1, 2])
+        self.inventory, money = self.game.generate_loot('TRADER', [4, 8], [3, 5], [2, 3])
 
     def update(self):
     
