@@ -77,10 +77,6 @@ class Scene(p.sprite.Sprite):
 
             self.lengths = [2000, 2000, 2000]
 
-        if type == 'eyescene':
-
-            self.lengths = [2000, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 2000, 2000, 2000]
-
         if type == 'heroscene':
 
             self.lengths = [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
