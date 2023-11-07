@@ -861,9 +861,6 @@ class Game:
 
                     self.open_menu('INVENTORY')
 
-                if event.key == p.K_l:
-                    CutScene(self, 'victory')
-
                 """
 
                 if event.key == p.K_UP:
