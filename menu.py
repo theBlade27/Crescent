@@ -929,12 +929,13 @@ class Bark(Menu):
 
         self.game.barks.add(self)
 
+        self.background = MENU_SPRITESHEETS['BARK'].copy()
+        self.image = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
+        self.background = self.image
+
         if hero in self.game.hero_party:
             self.index = self.game.hero_party.index(hero)
             self.pos = [352, 200 + 160 * self.index]
-            self.background = MENU_SPRITESHEETS['BARK'].copy()
-            self.image = p.transform.scale(self.background, (self.background.get_width() * self.scale, self.background.get_height() * self.scale))
-            self.background = self.image
 
             self.hitbox = p.rect.Rect(self.pos[0], self.pos[1], self.image.get_width(), self.image.get_height())
 
@@ -946,6 +947,7 @@ class Bark(Menu):
 
             }
             self.visible = False
+            self.game.barks.remove(self)
             self.game.menus_group.remove(self)
             self.game.all.remove(self)
             self.kill()
