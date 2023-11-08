@@ -86,9 +86,7 @@ MISS_SOUND = path.join(snd_folder, 'miss.wav')
 MOVE_SOUND = path.join(snd_folder, 'move.wav')
 
 BACKGROUND_MUSIC = path.join(snd_folder, 'DESERT.ogg')
-LOSS_MUSIC = path.join(snd_folder, 'LOSS.ogg')
 INTRO_MUSIC = path.join(snd_folder, 'INTRO.ogg')
-OUTRO_MUSIC = path.join(snd_folder, 'OUTRO.ogg')
 BATTLE_MUSIC = path.join(snd_folder, 'BATTLE.ogg')
 
 
