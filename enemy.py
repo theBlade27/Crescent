@@ -156,7 +156,7 @@ class Enemy(Character):
             self.venom = 40
             self.fire = 40
             self.death = 66
-            self.stun = 40
+            self.stun = 80
             self.debuff = 40
 
             self.skills = [

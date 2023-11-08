@@ -154,7 +154,7 @@ class ArcaneActOut(HeroSkill):
         self.name = 'ACT OUT'
         self.desc = 'USED WHEN INSANE'
 
-        self.range = [5, 10]
+        self.range = [4, 10]
 
         self.multiplier = 0.5
 
@@ -245,7 +245,7 @@ class ArcaneAssault(HeroSkill):
         self.image = self.spritesheet.get_sprite(40, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [5, 10]
+        self.range = [4, 10]
 
         self.bonus_debuff = 30
 
@@ -299,7 +299,7 @@ class BreachActOut(HeroSkill):
 
         self.multiplier = 0.5
 
-        self.range = [0, 6]
+        self.range = [2, 7]
 
         self.sound = HEAVY_SOUND
 
@@ -321,7 +321,7 @@ class DoubleTap(HeroSkill):
         self.image = self.spritesheet.get_sprite(0, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [0, 6]
+        self.range = [2, 7]
 
         self.mark_damage_multiplier = 1.3
 
@@ -354,6 +354,8 @@ class KissOfFire(HeroSkill):
         self.image = p.transform.scale(self.image, (160, 160))
 
         self.range = [0, 2]
+
+        self.bonus_precision = 100
 
         self.barks = [
             'THAT LOOKED LIKE IT HURT'
@@ -407,7 +409,7 @@ class Firestarter(HeroSkill):
         self.image = self.spritesheet.get_sprite(60, 60, 20, 20)
         self.image = p.transform.scale(self.image, (160, 160))
 
-        self.range = [3, 8]
+        self.range = [5, 12]
 
         self.splash = 2
 

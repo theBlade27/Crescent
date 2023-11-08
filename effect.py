@@ -51,7 +51,7 @@ class Effect(p.sprite.Sprite):
             if self.duration == 0:
                 self.remove_effect()
 
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
     def remove_effect(self):
@@ -63,7 +63,7 @@ class Effect(p.sprite.Sprite):
             # remove this effect from the list of the characters effect
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Strength(Effect):
@@ -81,7 +81,7 @@ class Strength(Effect):
         self.character.damage[0] = self.character.damage[0] * self.damage_multiplier
         self.character.damage[1] = self.character.damage[1] * self.damage_multiplier
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -94,7 +94,7 @@ class Strength(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Strength2(Strength):
@@ -123,7 +123,7 @@ class Crit(Effect):
     def apply_effect(self):
 
         self.character.crit += self.crit_modifier
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -133,7 +133,7 @@ class Crit(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Crit2(Crit):
@@ -165,7 +165,7 @@ class Weakness(Effect):
         self.character.damage[0] = self.character.damage[0] / self.damage_multiplier
         self.character.damage[1] = self.character.damage[1] / self.damage_multiplier
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -176,7 +176,7 @@ class Weakness(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Weakness2(Weakness):
@@ -216,7 +216,7 @@ class Insanity(Effect):
 
         self.character.death -= 33
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -233,7 +233,7 @@ class Insanity(Effect):
         if self in self.character.effects:
             self.character.effects.remove(self)
 
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class DeathsDoor(Effect):
@@ -302,7 +302,7 @@ class Burning(Effect):
                 self.character.calculate_damage_dealt(self.damage, debuff = True)
             if self.duration == 0:
                 self.remove_effect()
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Burning2(Burning):
@@ -366,7 +366,7 @@ class Starving(Effect):
         self.character.agility -= 5
         self.character.crit -= 5
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def tick(self):
@@ -374,7 +374,7 @@ class Starving(Effect):
         if self.character in self.game.hero_party:
             self.character.calculate_damage_dealt(1, debuff = True)
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
 
@@ -390,7 +390,7 @@ class Starving(Effect):
         if self in self.character.effects:
             self.character.effects.remove(self)
 
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Satiated(Effect):
@@ -409,7 +409,7 @@ class Satiated(Effect):
         if self in self.character.effects:
             self.character.effects.remove(self)
 
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
         self.character.effects.append(Starving(self.game, self.character))
@@ -430,7 +430,7 @@ class Stuffed(Effect):
         self.character.agility += 5
         self.character.crit += 5
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -445,7 +445,7 @@ class Stuffed(Effect):
         if self in self.character.effects:
             self.character.effects.remove(self)
 
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
         self.character.effects.append(Satiated(self.game, self.character))
@@ -468,7 +468,7 @@ class Stun(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Mark(Effect):
@@ -489,7 +489,7 @@ class Mark(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class StunResist(Effect):
@@ -514,7 +514,7 @@ class Dodge(Effect):
 
         self.character.agility += self.dodge_modifier
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -524,7 +524,7 @@ class Dodge(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Dodge2(Dodge):
@@ -576,7 +576,7 @@ class Blindness(Effect):
 
         self.character.precision -= self.precision_modifier
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -586,7 +586,7 @@ class Blindness(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Blindness2(Blindness):
@@ -638,7 +638,7 @@ class Protection(Effect):
 
         self.character.protection += self.protection
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -648,7 +648,7 @@ class Protection(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Protection2(Protection):
@@ -699,7 +699,7 @@ class Speed(Effect):
 
         self.character.speed += self.speed
 
-        for menu in self.game.menus.values():
+        for menu in list(self.game.menus.values()):
             menu.update_images()
 
     def remove_effect(self):
@@ -709,7 +709,7 @@ class Speed(Effect):
         if self in self.character.effects:
 
             self.character.effects.remove(self)
-            for menu in self.game.menus.values():
+            for menu in list(self.game.menus.values()):
                 menu.update_images()
 
 class Speed2(Speed):
