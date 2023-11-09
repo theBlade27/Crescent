@@ -469,7 +469,9 @@ class Hero(Character):
 
         if self.barking == False:
 
-            BarkTimer(self.game, self, random.choice(self.giveupbarks))
+            if self in self.game.hero_party:
+
+                BarkTimer(self.game, self, random.choice(self.giveupbarks))
 
         # they will also have a 50% chance to apply a debuff on themselves
 
@@ -523,7 +525,9 @@ class Hero(Character):
 
         if self.barking == False:
 
-            BarkTimer(self.game, self, random.choice(self.meltdownbarks))
+            if self in self.game.hero_party:
+
+                BarkTimer(self.game, self, random.choice(self.meltdownbarks))
 
         for hero in self.game.hero_party:
             if hero != None:
